@@ -1,6 +1,6 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-if -f [ $HOME/.env ]; then
+if [ -f $HOME/.env ]; then
   source ~/.env
 fi
 
