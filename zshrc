@@ -124,16 +124,8 @@ then
   compinit
 fi
 
-
 # Add brew sbin to path
 export PATH="$PATH:/usr/local/sbin"
-
-# aliases for switching on and off local mystery redirects
-alias mson='sudo sed -i .bak "/mysteryscience/d" /etc/hosts; sudo killall -HUP mDNSResponder; echo ✅'
-alias msoff='sudo sed -i .bak "\$a\\
-0.0.0.0 mysteryscience.com
-; /mysteryscience/d" /etc/hosts; sudo killall -HUP mDNSResponder; echo ❌'
-
 
 alias rspc='bundle exec rspec --format documentation'
 
