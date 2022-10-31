@@ -18,3 +18,5 @@ then
   done
   export PATH="$PATH:$ruby_dirs"
 fi
+
+alias rspc='bundle exec rspec --format documentation'
