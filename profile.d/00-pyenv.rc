@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+pyenv activate development
