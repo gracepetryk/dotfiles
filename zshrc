@@ -16,6 +16,7 @@ if [ -d "$HOME/env_setup/profile.d" ]; then
   for RC_FILE in $HOME/env_setup/profile.d/*.rc; do source $RC_FILE; done
 fi
 
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -23,7 +24,11 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="gpetryk"
+if [ $(whoami) = "GPetryk" ]; then
+    ZSH_THEME="gpetryk"
+else
+    ZSH_THEME="gpetryk-docker"
+fi
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -129,3 +134,5 @@ export PATH="$PATH:/usr/local/sbin"
 export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
 
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+
+cd .
