@@ -1,0 +1,149 @@
+{
+    "editor.fontLigatures": true,
+    "files.autoSave": "afterDelay",
+    "explorer.confirmDelete": false,
+    "solargraph.bundlerPath": "/Users/GPetryk/.rbenv/versions/2.7.5/bin/bundle",
+    "files.autoSaveDelay": 500,
+    "editor.acceptSuggestionOnEnter": "off",
+    "solargraph.commandPath": "/Users/GPetryk/.rbenv/versions/2.7.5/bin/solargraph",
+    "explorer.confirmDragAndDrop": false,
+    "editor.linkedEditing": true,
+    "files.trimTrailingWhitespace": true,
+    "git-graph.repository.commits.order": "author-date",
+    "solargraph.references": false,
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "http.proxyStrictSSL": false,
+    "ruby.interpreter.commandPath": "/Users/GPetryk/.rbenv/versions/2.7.5/bin/ruby",
+    "ruby.pathToBundler": "/Users/GPetryk/.rbenv/versions/2.7.5/bin/bundle",
+    "debug.terminal.clearBeforeReusing": true,
+    "railsRoutes.railsCommand": "bin/rails",
+    "html.format.templating": true,
+    "ruby.format": false,
+    "githubPullRequests.pullBranch": "never",
+    "python.languageServer": "Pylance",
+    "[django-html]": {
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": true,
+            "strings": true
+        }
+    },
+    "mssql.connections": [
+        {
+            "server": "10.164.0.245",
+            "database": "",
+            "authenticationType": "SqlLogin",
+            "user": "gpetryk",
+            "password": "",
+            "emptyPasswordInput": false,
+            "savePassword": true,
+            "profileName": "de_dev"
+        }
+    ],
+    "mssql.shortcuts": {
+
+        "_comment": "Short cuts must follow the format (ctrl)+(shift)+(alt)+[key]",
+        "event.toggleResultPane": "ctrl+alt+R",
+        "event.focusResultsGrid": "ctrl+alt+G",
+        "event.toggleMessagePane": "ctrl+alt+Y",
+        "event.prevGrid": "ctrl+up",
+        "event.nextGrid": "ctrl+down",
+        "event.copySelection": "ctrl+C",
+        "event.copyWithHeaders": "",
+        "event.copyAllHeaders": "",
+        "event.maximizeGrid": "",
+        "event.selectAll": "ctrl+A",
+        "event.saveAsJSON": "",
+        "event.saveAsCSV": "",
+        "event.saveAsExcel": ""
+    },
+    "python.linting.flake8Enabled": true,
+    "editor.stickyScroll.enabled": true,
+    "python.analysis.completeFunctionParens": true,
+    "editor.renderWhitespace": "trailing",
+    "solargraph.externalServer": {
+
+        "host": "localhost",
+        "port": 7658
+    },
+    "solargraph.transport": "external",
+    "ruby.rubocop.suppressRubocopWarnings": true,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "editor.fontFamily": "'Fira Code', Menlo, Monaco, 'Courier New', monospace",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.lineNumbers": "relative",
+    "editor.cursorSurroundingLines": 10,
+    "vim.easymotion": true,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["s"],
+            "after": ["<Leader>", "<Leader>", "<Leader>", "b", "d", "w"]
+        },
+        {
+            "before": ["<S-j>"],
+            "after": ["<Leader>", "<Leader>", "j"]
+        },
+        {
+            "before": ["<S-k>"],
+            "after": ["<Leader>", "<Leader>", "k"]
+        },
+        {
+            "before": ["<S-w>"],
+            "after": ["<Leader>", "<Leader>", "w"]
+        },
+        {
+            "before": ["<S-b>"],
+            "after": ["<Leader>", "<Leader>", "b"]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["x"],
+            "after": ["\"", "_", "x"]
+        },
+        {
+            "before": ["i"],
+            "after": ["a"]
+        },
+        {
+            "before": ["a"],
+            "after": ["i"]
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": ["s"],
+            "after": ["<Leader>", "<Leader>", "<Leader>", "b", "d", "w"]
+        },
+        {
+            "before": ["<S-j>"],
+            "after": ["<Leader>", "<Leader>", "j"]
+        },
+        {
+            "before": ["<S-k>"],
+            "after": ["<Leader>", "<Leader>", "k"]
+        },
+        {
+            "before": ["<S-w>"],
+            "after": ["<Leader>", "<Leader>", "w"]
+        },
+        {
+            "before": ["<S-b>"],
+            "after": ["<Leader>", "<Leader>", "b"]
+        }
+    ],
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#005f5f",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#005f5f"
+    },
+    "vim.smartRelativeLine": true,
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {
+            "before": ["j", "j"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.hlsearch": true,
+}
