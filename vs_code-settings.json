@@ -62,7 +62,6 @@
     "python.analysis.completeFunctionParens": true,
     "editor.renderWhitespace": "trailing",
     "solargraph.externalServer": {
-
         "host": "localhost",
         "port": 7658
     },
@@ -97,20 +96,6 @@
             "after": ["<Leader>", "<Leader>", "b"]
         }
     ],
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": ["x"],
-            "after": ["\"", "_", "x"]
-        },
-        {
-            "before": ["i"],
-            "after": ["a"]
-        },
-        {
-            "before": ["a"],
-            "after": ["i"]
-        }
-    ],
     "vim.visualModeKeyBindings": [
         {
             "before": ["s"],
@@ -139,11 +124,6 @@
         "statusBar.debuggingBackground": "#005f5f"
     },
     "vim.smartRelativeLine": true,
-    "vim.insertModeKeyBindingsNonRecursive": [
-        {
-            "before": ["j", "j"],
-            "after": ["<Esc>"]
-        }
-    ],
     "vim.hlsearch": true,
+    "vim.vimrc.enable": true,
 }
