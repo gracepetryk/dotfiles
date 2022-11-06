@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -9,7 +9,7 @@ fi
 
 BACKUP=true
 
-while [[ $# -gt 0 ]]; do
+while [ $# -gt 0 ]; do
     case $1 in
         -n|--no-backup)
             BACKUP=false
@@ -22,7 +22,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-function link_to_dest() {
+function link_to_dest () {
     config_file=$1
     dest=$2
 
