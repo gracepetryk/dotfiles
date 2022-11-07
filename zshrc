@@ -1,6 +1,3 @@
-cd $HOME # WSL Compatability
-
-
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 if [ -f $HOME/.env ]; then
@@ -27,10 +24,10 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-if [ $(hostname) = "GPetryk" ]; then
-    ZSH_THEME="gpetryk"
-else
+if [ $(whoami) = "de_user" ]; then
     ZSH_THEME="gpetryk-docker"
+else
+    ZSH_THEME="gpetryk"
 fi
 
 # Set list of themes to pick from when loading at random
