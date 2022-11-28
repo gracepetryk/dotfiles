@@ -16,6 +16,10 @@ if [ -d "$HOME/env_setup/profile.d" ]; then
   for RC_FILE in $HOME/env_setup/profile.d/*.rc; do source $RC_FILE; done
 fi
 
+if [ $(which nvim) ]; then
+  alias vim=nvim
+fi
+
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
