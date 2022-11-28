@@ -24,10 +24,10 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-if [ $(whoami) = "de_user" ]; then
-    ZSH_THEME="gpetryk-docker"
-else
+if [ -z "$IS_DOCKER_SANDBOX" ]; then
     ZSH_THEME="gpetryk"
+else
+    ZSH_THEME="gpetryk-docker"
 fi
 
 # Set list of themes to pick from when loading at random

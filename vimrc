@@ -1,5 +1,5 @@
 call plug#begin()
-Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 call plug#end()
 
@@ -10,14 +10,14 @@ set number relativenumber
 
 set scrolloff=10
 
-map s <Plug>(easymotion-bd-w)
-map <S-w> <Plug>(easymotion-w)
-map <S-b> <Plug>(easymotion-b)
-map <S-j> <Plug>(easymotion-j)
-map <S-k> <Plug>(easymotion-k)
-
-nnoremap i a
-nnoremap a i
 nnoremap x "_x
 imap jj <Esc>
+imap ;; <Right>
+imap hh <Left>
+nnoremap d "_d
+nnoremap DD dd
+nnoremap D d
 
+" method args macro
+:let @s = "i\njjf,w@s"
+:let @a = "f(l@sf)i\n<BS>jjw"
