@@ -16,7 +16,7 @@ if [ -d "$HOME/env_setup/profile.d" ]; then
   for RC_FILE in $HOME/env_setup/profile.d/*.rc; do source $RC_FILE; done
 fi
 
-if [ $(which nvim) ]; then
+if [ $(which nvim &>/dev/null) ]; then
   alias vim=nvim
 fi
 
