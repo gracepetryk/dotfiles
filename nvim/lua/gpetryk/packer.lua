@@ -2,6 +2,10 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+    use 'tpope/vim-fugitive'
+    use 'jreybert/vimagit'
+    use 'airblade/vim-gitgutter'
+
     use 'folke/tokyonight.nvim'
 
     use {
@@ -32,4 +36,11 @@ return require('packer').startup(function(use)
     }
 
     use 'voldikss/vim-floaterm'
+
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        }
+    }
 end)
