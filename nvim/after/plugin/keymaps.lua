@@ -6,3 +6,5 @@ map('i', ';;', '<Right>')
 map('i', 'hh', '<Left>')
 map('n', 'd', '"_d')
 map('n', 'D', 'd')
+
+vim.g['floaterm_keymap_toggle'] = "<leader>ft"
