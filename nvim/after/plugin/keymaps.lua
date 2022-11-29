@@ -7,4 +7,5 @@ map('i', 'hh', '<Left>')
 map('n', 'd', '"_d')
 map('n', 'D', 'd')
 
-vim.g['floaterm_keymap_toggle'] = "<leader>ft"
+map('t', '<Esc>', '<C-\\><C-n>:FloatermToggle<CR>')
+map('n', '<leader>t', ':FloatermToggle<CR>')
