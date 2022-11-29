@@ -3,10 +3,13 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use 'tpope/vim-fugitive'
-    use 'jreybert/vimagit'
-    use 'airblade/vim-gitgutter'
+    use 'tpope/vim-rhubarb'
+    use 'lewis6991/gitsigns.nvim'
+    use 'f-person/git-blame.nvim'
 
     use 'folke/tokyonight.nvim'
+    use { "catppuccin/nvim", as = "catppuccin" }
+    use 'EdenEast/nightfox.nvim'
 
     use {
         'nvim-lualine/lualine.nvim',
@@ -22,11 +25,13 @@ return require('packer').startup(function(use)
     }
 
     use('neovim/nvim-lspconfig') -- Configurations for Nvim LSP
-    use("hrsh7th/cmp-nvim-lsp")
-    use("hrsh7th/cmp-buffer")
-    use("glepnir/lspsaga.nvim")
-    use("ray-x/lsp_signature.nvim")
-    use("hrsh7th/nvim-cmp")
+    use('hrsh7th/cmp-nvim-lsp')
+    use('hrsh7th/cmp-buffer')
+    use('glepnir/lspsaga.nvim')
+    use('ray-x/lsp_signature.nvim')
+    use('hrsh7th/nvim-cmp')
+
+    use('jose-elias-alvarez/null-ls.nvim')
 
     use 'Shatur/neovim-session-manager'
 
@@ -34,6 +39,7 @@ return require('packer').startup(function(use)
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
+    use 'nvim-treesitter/nvim-treesitter-context'
 
     use 'voldikss/vim-floaterm'
 
@@ -43,4 +49,6 @@ return require('packer').startup(function(use)
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         }
     }
+
+    use('Vimjas/vim-python-pep8-indent')
 end)
