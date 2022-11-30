@@ -18,16 +18,16 @@ require('lualine').setup({
             'branch',
             'diff',
             'diagnostics',
-            {
-                blame_text,
-                cond = git_blame.is_blame_text_available
-            }
         },
         lualine_c = {
             {
                 'filename',
                 file_status = true,
                 path = 1
+            },
+            {
+                blame_text,
+                cond = git_blame.is_blame_text_available
             }
         }
     }
