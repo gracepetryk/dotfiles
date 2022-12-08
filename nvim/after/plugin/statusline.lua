@@ -2,7 +2,7 @@ local git_blame = require('gitblame')
 
 function blame_text()
     blame = git_blame.get_current_blame_text()
-    cutoff = 100 
+    cutoff = 80 
 
     if (string.len(blame) > cutoff + 3) then  -- add 3 for elipsis
         blame = string.sub(blame, 1, cutoff) .. '...'

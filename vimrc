@@ -1,8 +1,3 @@
-call plug#begin()
-Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-call plug#end()
-
 syntax on
 
 set tabstop=2 expandtab shiftwidth=2 smarttab

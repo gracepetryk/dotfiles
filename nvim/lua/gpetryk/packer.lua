@@ -41,14 +41,5 @@ return require('packer').startup(function(use)
     }
     use 'nvim-treesitter/nvim-treesitter-context'
 
-    use 'voldikss/vim-floaterm'
-
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        }
-    }
-
     use('Vimjas/vim-python-pep8-indent')
 end)
