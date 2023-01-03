@@ -2,6 +2,8 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+    use 'dstein64/vim-startuptime'
+
     use 'tpope/vim-fugitive'
     use 'tpope/vim-rhubarb'
     use 'lewis6991/gitsigns.nvim'

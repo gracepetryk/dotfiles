@@ -12,7 +12,5 @@ imap hh <Left>
 nnoremap d "_d
 nnoremap DD dd
 nnoremap D d
+nnoremap y m'y
 
-" method args macro
-:let @s = "i\njjf,w@s"
-:let @a = "f(l@sf)i\n<BS>jjw"
