@@ -7,7 +7,7 @@
 -- ]], false)  
 --
 
+vim.cmd[[colorscheme vscode]]
+vim.cmd[[hi NormalFloat guibg=nil]]
 
-
-vim.cmd[[colorscheme duskfox]]
 

@@ -10,6 +10,7 @@ return require('packer').startup(function(use)
     use 'f-person/git-blame.nvim'
 
     use 'folke/tokyonight.nvim'
+    use 'Mofiqul/vscode.nvim'
     use { "catppuccin/nvim", as = "catppuccin" }
     use 'EdenEast/nightfox.nvim'
 
@@ -32,6 +33,7 @@ return require('packer').startup(function(use)
     use('glepnir/lspsaga.nvim')
     use('ray-x/lsp_signature.nvim')
     use('hrsh7th/nvim-cmp')
+    use('L3MON4D3/LuaSnip')
 
     use('jose-elias-alvarez/null-ls.nvim')
 
