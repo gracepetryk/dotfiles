@@ -1,29 +1,26 @@
 local dap = require("dap")
-require("dapui").setup(
-{
+require("dapui").setup({
   layouts = {
     {
       elements = {
         -- Elements can be strings or table with id and size keys.
-        { id = "scopes", size = 0.25 },
-        "breakpoints",
+        {id = "breakpoints", size = 0.1 },
         "stacks",
         "watches",
+        { id = "scopes", size = 0.4 },
       },
-      size = 40, -- 40 columns
+      size = 60, -- 60 columns
       position = "left",
     },
     {
       elements = {
         "repl",
-        "console",
       },
       size = 0.25, -- 25% of total lines
       position = "bottom",
     },
   },
-}
-)
+})
 
 dap.adapters.python = {
   type = 'server',
@@ -49,3 +46,18 @@ dap.configurations.python = {
     logToFile = true
   }
 }
+
+-- completions
+
+require("cmp").setup({
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        or require("cmp_dap").is_dap_buffer()
+  end
+})
+
+require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+  sources = {
+    { name = "dap" },
+  },
+})

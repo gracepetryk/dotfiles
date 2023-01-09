@@ -29,17 +29,24 @@ map('n', '<Leader>v', toggle_vtext)
 
 -- debugger mappings
 
+local dap = require('dap')
+local dapui = require('dapui')
+
 local function open_debugger()
-  require('dap').continue()
-  require('dapui').open({})
+  dap.continue()
+  dapui.open({})
 end
 
 local function close_debugger()
-  require('dapui').close({})
-  require('dap').repl.close()
+  dapui.close({})
+  dap.terminate()
+  dap.repl.close()
 end
 
-map('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
-map('n', '<Leader>d', open_debugger)
-map('n', '<Leader>c', close_debugger)
+map('n', '<Leader>b', dap.toggle_breakpoint)
+map('n', '<Leader>tc', dap.run_to_cursor)
+map('n', '<Leader><Leader>d', open_debugger)
+map('n', '<Leader><Leader>c', close_debugger)
 
+map('n', '<Leader>di', '"zyiw :lua require"dapui".eval("<C-R>z")<CR>h')
+map('v', '<Leader>di', '"zy :lua require"dapui".eval("<C-R>z")<CR>h')
