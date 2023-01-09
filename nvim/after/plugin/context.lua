@@ -1,3 +1,3 @@
 require('treesitter-context').setup({
-    mode = 'topline'
+  mode = 'topline'
 })
