@@ -35,6 +35,9 @@ return require('packer').startup(function(use)
     use('hrsh7th/nvim-cmp')
     use('L3MON4D3/LuaSnip')
 
+    use('mfussenegger/nvim-dap')
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+
     use('jose-elias-alvarez/null-ls.nvim')
 
     use 'Shatur/neovim-session-manager'

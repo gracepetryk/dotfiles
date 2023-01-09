@@ -8,6 +8,4 @@
 --
 
 vim.cmd[[colorscheme vscode]]
-vim.cmd[[hi NormalFloat guibg=nil]]
-
-
+vim.cmd[[hi TreesitterContextBottom gui=underline guisp=Grey]]

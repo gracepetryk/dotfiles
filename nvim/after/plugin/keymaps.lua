@@ -9,8 +9,8 @@ map('i', 'jj', '<Esc>')
 
 map('n', '<leader>w', '<C-w>w')
 
-map('n', '<A-S-Tab>', '<Cmd>BufferPrevious<CR>', opts)
-map('n', '<A-Tab>', '<Cmd>BufferNext<CR>', opts)
+map('n', '<A-S-Tab>', '<Cmd>BufferPrevious<CR>')
+map('n', '<A-Tab>', '<Cmd>BufferNext<CR>')
 
 
 -- Toggle virtual text
@@ -24,6 +24,22 @@ local function toggle_vtext()
         vim.g.vtext_enabled = true
     end
 end
-        
-map('n', '<Leader>v', ':lua toggle_vtext()<CR>')
+
+map('n', '<Leader>v', toggle_vtext)
+
+-- debugger mappings
+
+local function open_debugger()
+    require('dap').continue()
+    require('dapui').open({})
+end
+
+local function close_debugger()
+    require('dapui').close({})
+    require('dap').repl.close()
+end
+
+map('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
+map('n', '<Leader>d', open_debugger)
+map('n', '<Leader>c', close_debugger)
 

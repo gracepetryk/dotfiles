@@ -5,8 +5,6 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, mapopts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, mapopts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, mapopts)
 
-require "lsp_signature".setup(cfg)
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -88,6 +86,10 @@ cmp.setup({
     })
 })
 
+require('lsp_signature').setup({
+    hint_enable = false,
+    toggle_key = '<C-h>'
+})
 
 
 require('lspconfig')['pyright'].setup{
@@ -121,3 +123,7 @@ require('lspconfig')['sumneko_lua'].setup{
     },
 }
 
+require'lspconfig'.solargraph.setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
