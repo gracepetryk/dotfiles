@@ -12,6 +12,10 @@ return require('packer').startup(function(use)
   use 'f-person/git-blame.nvim'
 
   use 'Mofiqul/vscode.nvim'
+  use 'folke/tokyonight.nvim'
+  use 'catppuccin/nvim'
+  use 'jacoborus/tender.vim'
+  use 'patstockwell/vim-monokai-tasty'
 
   use({
     "folke/noice.nvim",
@@ -41,9 +45,11 @@ return require('packer').startup(function(use)
   use('neovim/nvim-lspconfig') -- Configurations for Nvim LSP
   use('hrsh7th/cmp-nvim-lsp')
   use('hrsh7th/cmp-buffer')
-  use('glepnir/lspsaga.nvim')
   use('hrsh7th/nvim-cmp')
+  use('hrsh7th/cmp-nvim-lsp-signature-help')
   use('L3MON4D3/LuaSnip')
+  use('onsails/lspkind.nvim')
+
 
   use {
     "smjonas/inc-rename.nvim",

@@ -21,7 +21,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<leader>rn', ':IncRename ', bufopts)
   vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
@@ -54,6 +53,33 @@ local lsp_flags = {
 }
 
 local cmp = require('cmp')
+local cmp_kinds = {
+  Text = ' ',
+  Method = ' ',
+  Function = ' ',
+  Constructor = ' ',
+  Field = ' ',
+  Variable = ' ',
+  Class = ' ',
+  Interface = ' ',
+  Module = ' ',
+  Property = ' ',
+  Unit = ' ',
+  Value = ' ',
+  Enum = ' ',
+  Keyword = ' ',
+  Snippet = ' ',
+  Color = ' ',
+  File = ' ',
+  Reference = ' ',
+  Folder = ' ',
+  EnumMember = ' ',
+  Constant = ' ',
+  Struct = ' ',
+  Event = ' ',
+  Operator = ' ',
+  TypeParameter = ' ',
+}
 
 ---@diagnostic disable-next-line: redundant-parameter
 cmp.setup{
@@ -83,7 +109,17 @@ cmp.setup{
     { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
-  })
+    { name = 'nvim_lsp_signature_help' },
+  },
+    {name = 'buffer'}
+  ),
+  formatting = {
+    fields = {"abbr", "kind"},
+    format = function(_, vim_item)
+      vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
+      return vim_item
+    end
+  }
 }
 
 
