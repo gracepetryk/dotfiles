@@ -71,3 +71,6 @@ map('n', '<A-9>', function () require("bufferline").go_to_buffer(9, true) end)
 map('n', '<A-Tab>', ':BufferLineCycleNext<CR>')
 map('n', '<A-S-Tab>', ':BufferLineCycleNext<CR>')
 
+-- leap
+
+require('leap').add_default_mappings()

@@ -3,7 +3,7 @@
 local mapopts = { noremap=true, silent=true }
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, mapopts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, mapopts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, mapopts)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, mapopts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -21,12 +21,11 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<leader>rn', ':IncRename ', bufopts)
+  vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
   vim.g.diagnostic_float_opts = {
     focusable = false,
@@ -54,8 +53,36 @@ local lsp_flags = {
 }
 
 local cmp = require('cmp')
+local cmp_kinds = {
+  Text = ' ',
+  Method = ' ',
+  Function = ' ',
+  Constructor = ' ',
+  Field = ' ',
+  Variable = ' ',
+  Class = ' ',
+  Interface = ' ',
+  Module = ' ',
+  Property = ' ',
+  Unit = ' ',
+  Value = ' ',
+  Enum = ' ',
+  Keyword = ' ',
+  Snippet = ' ',
+  Color = ' ',
+  File = ' ',
+  Reference = ' ',
+  Folder = ' ',
+  EnumMember = ' ',
+  Constant = ' ',
+  Struct = ' ',
+  Event = ' ',
+  Operator = ' ',
+  TypeParameter = ' ',
+}
 
-cmp.setup({
+---@diagnostic disable-next-line: redundant-parameter
+cmp.setup{
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -88,9 +115,18 @@ cmp.setup({
     { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
-    { name = 'nvim_lsp_signature_help' }
-  }),
-})
+    { name = 'nvim_lsp_signature_help' },
+  },
+    {name = 'buffer'}
+  ),
+  formatting = {
+    fields = {"abbr", "kind"},
+    format = function(_, vim_item)
+      vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
+      return vim_item
+    end
+  }
+}
 
 
 require('lspconfig')['pyright'].setup{
