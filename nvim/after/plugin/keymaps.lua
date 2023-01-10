@@ -55,3 +55,7 @@ map('v', '<Leader>di', '"zy :lua require"dapui".eval("<C-R>z")<CR>h')
 
 map({'n','i','v','x'}, '<ScrollWheelUp>', '<C-y>')
 map({'n','i','v','x'},'<ScrollWheelDown>','<C-e>')
+
+-- leap
+
+require('leap').add_default_mappings()
