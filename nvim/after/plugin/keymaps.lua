@@ -50,3 +50,8 @@ map('n', '<Leader><Leader>c', close_debugger)
 
 map('n', '<Leader>di', '"zyiw :lua require"dapui".eval("<C-R>z")<CR>h')
 map('v', '<Leader>di', '"zy :lua require"dapui".eval("<C-R>z")<CR>h')
+
+--one line scrolling
+
+map({'n','i','v','x'}, '<ScrollWheelUp>', '<C-y>')
+map({'n','i','v','x'},'<ScrollWheelDown>','<C-e>')
