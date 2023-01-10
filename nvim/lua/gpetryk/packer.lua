@@ -13,6 +13,7 @@ return require('packer').startup(function(use)
   use 'Mofiqul/vscode.nvim'
   use { "catppuccin/nvim", as = "catppuccin" }
   use 'EdenEast/nightfox.nvim'
+  use('navarasu/onedark.nvim')
 
   use {
     'nvim-lualine/lualine.nvim',
