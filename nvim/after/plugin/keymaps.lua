@@ -55,3 +55,19 @@ map('v', '<Leader>di', '"zy :lua require"dapui".eval("<C-R>z")<CR>h')
 
 map({'n','i','v','x'}, '<ScrollWheelUp>', '<C-y>')
 map({'n','i','v','x'},'<ScrollWheelDown>','<C-e>')
+
+-- bufferline controls
+
+map('n', '<A-1>', function () require("bufferline").go_to_buffer(1, true) end)
+map('n', '<A-2>', function () require("bufferline").go_to_buffer(2, true) end)
+map('n', '<A-3>', function () require("bufferline").go_to_buffer(3, true) end)
+map('n', '<A-4>', function () require("bufferline").go_to_buffer(4, true) end)
+map('n', '<A-5>', function () require("bufferline").go_to_buffer(5, true) end)
+map('n', '<A-6>', function () require("bufferline").go_to_buffer(6, true) end)
+map('n', '<A-7>', function () require("bufferline").go_to_buffer(7, true) end)
+map('n', '<A-8>', function () require("bufferline").go_to_buffer(8, true) end)
+map('n', '<A-9>', function () require("bufferline").go_to_buffer(9, true) end)
+
+map('n', '<A-Tab>', ':BufferLineCycleNext<CR>')
+map('n', '<A-S-Tab>', ':BufferLineCycleNext<CR>')
+

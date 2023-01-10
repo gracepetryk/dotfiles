@@ -21,8 +21,7 @@ return require('packer').startup(function(use)
   }
 
   use 'nvim-tree/nvim-web-devicons'
-  use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
-
+  use 'akinsho/bufferline.nvim'
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = { {'nvim-lua/plenary.nvim'} }
@@ -30,10 +29,9 @@ return require('packer').startup(function(use)
 
   use('neovim/nvim-lspconfig') -- Configurations for Nvim LSP
   use('hrsh7th/cmp-nvim-lsp')
-  use('hrsh7th/cmp-buffer')
-  use('glepnir/lspsaga.nvim')
-  use('ray-x/lsp_signature.nvim')
   use('hrsh7th/nvim-cmp')
+  use('hrsh7th/cmp-nvim-lsp-signature-help')
+  use('glepnir/lspsaga.nvim')
   use('L3MON4D3/LuaSnip')
 
   use('mfussenegger/nvim-dap')
