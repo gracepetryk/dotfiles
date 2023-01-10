@@ -22,3 +22,5 @@ vim.opt.incsearch = true
 vim.opt.signcolumn = "yes"
 
 vim.g.mapleader = " "
+
+vim.opt.laststatus = 3

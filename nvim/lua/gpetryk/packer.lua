@@ -11,11 +11,19 @@ return require('packer').startup(function(use)
   use 'lewis6991/gitsigns.nvim'
   use 'f-person/git-blame.nvim'
 
-  use 'folke/tokyonight.nvim'
   use 'Mofiqul/vscode.nvim'
-  use { "catppuccin/nvim", as = "catppuccin" }
-  use 'EdenEast/nightfox.nvim'
-  use('navarasu/onedark.nvim')
+
+  use({
+    "folke/noice.nvim",
+    requires = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      -- "rcarriga/nvim-notify"
+    }
+  })
 
   use {
     'nvim-lualine/lualine.nvim',
@@ -34,7 +42,6 @@ return require('packer').startup(function(use)
   use('hrsh7th/cmp-nvim-lsp')
   use('hrsh7th/cmp-buffer')
   use('glepnir/lspsaga.nvim')
-  use('ray-x/lsp_signature.nvim')
   use('hrsh7th/nvim-cmp')
   use('L3MON4D3/LuaSnip')
 

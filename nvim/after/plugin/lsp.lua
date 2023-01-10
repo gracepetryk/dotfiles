@@ -54,7 +54,9 @@ local lsp_flags = {
 }
 
 local cmp = require('cmp')
-cmp.setup({
+
+---@diagnostic disable-next-line: redundant-parameter
+cmp.setup{
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -81,15 +83,8 @@ cmp.setup({
     { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
-  }, {
-    { name = 'buffer' },
   })
-})
-
-require('lsp_signature').setup({
-  hint_enable = false,
-  toggle_key = '<C-h>'
-})
+}
 
 
 require('lspconfig')['pyright'].setup{
