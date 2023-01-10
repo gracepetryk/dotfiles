@@ -38,6 +38,13 @@ return require('packer').startup(function(use)
   use('hrsh7th/nvim-cmp')
   use('L3MON4D3/LuaSnip')
 
+  use {
+    "smjonas/inc-rename.nvim",
+    config = function()
+      require("inc_rename").setup()
+    end,
+  }
+
   use('mfussenegger/nvim-dap')
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   use('rcarriga/cmp-dap')
