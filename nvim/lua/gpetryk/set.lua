@@ -24,3 +24,6 @@ vim.opt.signcolumn = "yes"
 vim.g.mapleader = " "
 
 vim.opt.laststatus = 3
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
