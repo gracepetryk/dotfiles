@@ -2,32 +2,20 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use('wbthomason/packer.nvim')
 
-  use('dstein64/vim-startuptime')
+  use('ggandor/leap.nvim') -- s jumping
 
-  use('ggandor/leap.nvim')
+  use('tpope/vim-sleuth') -- detect indentation
 
-  use('tpope/vim-fugitive')
-  use('tpope/vim-rhubarb')
+  use('tpope/vim-fugitive') -- git integration
+  use('tpope/vim-rhubarb') -- github integration
   use('lewis6991/gitsigns.nvim')
-  use('f-person/git-blame.nvim')
 
+  --themes
   use('Mofiqul/vscode.nvim')
   use('folke/tokyonight.nvim')
   use('catppuccin/nvim')
   use('jacoborus/tender.vim')
   use('patstockwell/vim-monokai-tasty')
-
-  use({
-    "folke/noice.nvim",
-    requires = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      -- "rcarriga/nvim-notify"
-    }
-  })
 
   use {
     'nvim-lualine/lualine.nvim',
@@ -43,12 +31,10 @@ return require('packer').startup(function(use)
 
   use('neovim/nvim-lspconfig') -- Configurations for Nvim LSP
   use('hrsh7th/cmp-nvim-lsp')
-  use('hrsh7th/cmp-buffer')
   use('hrsh7th/nvim-cmp')
   use('hrsh7th/cmp-nvim-lsp-signature-help')
-  use('L3MON4D3/LuaSnip')
-  use('onsails/lspkind.nvim')
-
+  use('j-hui/fidget.nvim') -- lsp status notifications
+  use('jose-elias-alvarez/null-ls.nvim') -- allow non-lsp providers to hook into neovims lsp client (like flake8)
 
   use {
     "smjonas/inc-rename.nvim",
@@ -61,7 +47,10 @@ return require('packer').startup(function(use)
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   use('rcarriga/cmp-dap')
 
-  use('jose-elias-alvarez/null-ls.nvim')
+  -- snippets
+  use('hrsh7th/vim-vsnip')
+  use('hrsh7th/vim-vsnip-integ')
+  use('hrsh7th/cmp-vsnip')
 
   use('Shatur/neovim-session-manager')
 
@@ -71,5 +60,8 @@ return require('packer').startup(function(use)
   }
   use('nvim-treesitter/nvim-treesitter-context')
 
+  -- language-specific plugins
   use('Vimjas/vim-python-pep8-indent')
+  use('mitsuhiko/vim-jinja')
+  use('iloginow/vim-stylus')
 end)
