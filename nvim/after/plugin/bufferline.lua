@@ -6,6 +6,7 @@ require("bufferline").setup{
       else
         return ""
       end
-    end
+    end,
+    separator_style = 'slant'
   }
 }

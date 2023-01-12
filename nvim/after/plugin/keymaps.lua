@@ -68,8 +68,13 @@ map('n', '<A-7>', function () require("bufferline").go_to_buffer(7, true) end)
 map('n', '<A-8>', function () require("bufferline").go_to_buffer(8, true) end)
 map('n', '<A-9>', function () require("bufferline").go_to_buffer(9, true) end)
 
-map('n', '<A-Tab>', ':BufferLineCycleNext<CR>')
-map('n', '<A-S-Tab>', ':BufferLineCyclePrev<CR>')
+map('n', '<A-Tab>', function () require('bufferline').cycle(1) end)
+map('n', '<A-S-Tab>', function () require('bufferline').cycle(-1) end)
+
+map('n', '<A-,>', function () require('bufferline').move(-1) end)
+map('n', '<A-.>', function () require('bufferline').move(1) end)
+
+map('n', '<A-w>', ':bw<CR>')
 
 -- leap
 
