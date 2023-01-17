@@ -1,4 +1,4 @@
-return require('packer').startup(function(use)
+return require('packer').startup({function(use)
   -- Packer can manage itself
   use('wbthomason/packer.nvim')
 
@@ -64,4 +64,10 @@ return require('packer').startup(function(use)
   use('Vimjas/vim-python-pep8-indent')
   use('mitsuhiko/vim-jinja')
   use('iloginow/vim-stylus')
-end)
+end,
+config = {
+  profile = {
+    enable = true,
+    threshold = 1 -- the amount in ms that a plugin's load time must be over for it to be included in the profile
+  }
+}})
