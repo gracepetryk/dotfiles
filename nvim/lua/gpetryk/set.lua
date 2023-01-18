@@ -13,7 +13,6 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
-vim.opt.signcolumn = "yes"
 
 vim.g.mapleader = " "
 
