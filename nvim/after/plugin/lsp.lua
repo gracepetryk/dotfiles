@@ -4,8 +4,8 @@ require('fidget').setup{}
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local mapopts = { noremap=true, silent=true }
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, mapopts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, mapopts)
+vim.keymap.set('n', '<A-[>', vim.diagnostic.goto_prev, mapopts)
+vim.keymap.set('n', '<A-]>', vim.diagnostic.goto_next, mapopts)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, mapopts)
 
 -- Use an on_attach function to only map the following keys
@@ -13,9 +13,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, mapopts)
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- diable virtual text
-  vim.diagnostic.config({virtual_text = false})
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions

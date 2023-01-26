@@ -20,3 +20,5 @@ vim.opt.laststatus = 3
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+vim.opt.signcolumn = 'yes:2'

@@ -79,3 +79,9 @@ map('n', '<A-w>', ':bw<CR>')
 -- leap
 
 require('leap').add_default_mappings()
+
+--qflist/loclist
+
+map('n', '}', ':cn<CR>')
+map('n', '{', ':cp<CR>')
+

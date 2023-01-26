@@ -23,9 +23,9 @@ return require('packer').startup({function(use)
   }
 
   use('nvim-tree/nvim-web-devicons')
-  use('akinsho/bufferline.nvim')
+  use('akinsho/bufferline.nvim') -- tabs
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    'nvim-telescope/telescope.nvim', branch = '0.1.x',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
 
