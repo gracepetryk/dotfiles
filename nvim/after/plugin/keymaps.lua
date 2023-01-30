@@ -43,7 +43,7 @@ local function close_debugger()
   dap.repl.close()
 end
 
-map('n', '<Leader>b', dap.toggle_breakpoint)
+map('n', '<C-b>', dap.toggle_breakpoint)
 map('n', '<Leader>tc', dap.run_to_cursor)
 map('n', '<Leader><Leader>d', open_debugger)
 map('n', '<Leader><Leader>c', close_debugger)
@@ -73,12 +73,6 @@ map('n', '<A-S-Tab>', function () require('bufferline').cycle(-1) end)
 
 map('n', '<A-,>', function () require('bufferline').move(-1) end)
 map('n', '<A-.>', function () require('bufferline').move(1) end)
-
-map('n', '<A-w>', ':bw<CR>')
-
--- leap
-
-require('leap').add_default_mappings()
 
 --qflist/loclist
 

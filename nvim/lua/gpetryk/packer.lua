@@ -2,8 +2,6 @@ return require('packer').startup({function(use)
   -- Packer can manage itself
   use('wbthomason/packer.nvim')
 
-  use('ggandor/leap.nvim') -- s jumping
-
   use('tpope/vim-sleuth') -- detect indentation
 
   use('tpope/vim-fugitive') -- git integration
@@ -12,18 +10,13 @@ return require('packer').startup({function(use)
 
   --themes
   use('Mofiqul/vscode.nvim')
-  use('folke/tokyonight.nvim')
-  use('catppuccin/nvim')
-  use('jacoborus/tender.vim')
-  use('patstockwell/vim-monokai-tasty')
 
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
-  use('nvim-tree/nvim-web-devicons')
-  use('akinsho/bufferline.nvim') -- tabs
+  -- use('akinsho/bufferline.nvim') -- tabs
   use {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
     requires = { {'nvim-lua/plenary.nvim'} }
@@ -33,15 +26,7 @@ return require('packer').startup({function(use)
   use('hrsh7th/cmp-nvim-lsp')
   use('hrsh7th/nvim-cmp')
   use('hrsh7th/cmp-nvim-lsp-signature-help')
-  use('j-hui/fidget.nvim') -- lsp status notifications
   use('jose-elias-alvarez/null-ls.nvim') -- allow non-lsp providers to hook into neovims lsp client (like flake8)
-
-  use {
-    "smjonas/inc-rename.nvim",
-    config = function()
-      require("inc_rename").setup()
-    end,
-  }
 
   use('mfussenegger/nvim-dap')
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
