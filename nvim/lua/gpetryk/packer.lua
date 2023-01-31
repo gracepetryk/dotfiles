@@ -10,13 +10,13 @@ return require('packer').startup({function(use)
 
   --themes
   use('Mofiqul/vscode.nvim')
+  use('EdenEast/nightfox.nvim')
 
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
-  -- use('akinsho/bufferline.nvim') -- tabs
   use {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
     requires = { {'nvim-lua/plenary.nvim'} }
@@ -44,11 +44,14 @@ return require('packer').startup({function(use)
     run = ':TSUpdate'
   }
   use('nvim-treesitter/nvim-treesitter-context')
+  use('nvim-treesitter/playground')
 
   -- language-specific plugins
   use('Vimjas/vim-python-pep8-indent')
   use('mitsuhiko/vim-jinja')
   use('iloginow/vim-stylus')
+
+  use('ThePrimeagen/harpoon')
 end,
 config = {
   profile = {

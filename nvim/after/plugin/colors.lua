@@ -6,22 +6,40 @@
 -- augroup END
 -- ]], false)  
 --
+--
 
-vim.cmd[[colorscheme vscode]]
-vim.cmd[[hi TreesitterContextBottom gui=underline guisp=Grey]]
+local Shade = require("nightfox.lib.shade")
+require('nightfox').setup({
+  palettes = {
+    all = {
+      bg1 = "#1e1e1e", -- Grey background
+      bg0 = "#191919",
+      bg3 = "#282828",
+      sel0 = "#282828",
+    },
+    terafox = {
+      blue = Shade.new("#569fba", "#65b1cd", "#4a869c", "#9cc3d9"),
+      pink    = Shade.new("#bf88bc", "#d092ce", "#a96ca5"),
+    }
+  },
+  groups = {
+    all = {
+      VertSplit = { link = "Comment" },
+      ["@keyword.operator"] = {fg = "#65b1cd"}
+    }
+  },
+  specs = {
+    all = {
+      syntax = {
+        func = "pink.bright",
+        type = "orange.bright",
+        variable = "blue.light",
+        field = "blue.light",
+        const = "orange.bright",
+        string = "green.base",
+      }
+    }
+  }
+})
 
-vim.cmd[[highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080]]
--- blue
-vim.cmd[[highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6]]
-vim.cmd[[highlight! link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch]]
--- light blue
-vim.cmd[[highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE]]
-vim.cmd[[highlight! link CmpItemKindInterface CmpItemKindVariable]]
-vim.cmd[[highlight! link CmpItemKindText CmpItemKindVariable]]
--- pink
-vim.cmd[[highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0]]
-vim.cmd[[highlight! link CmpItemKindMethod CmpItemKindFunction]]
--- front
-vim.cmd[[highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4]]
-vim.cmd[[highlight! link CmpItemKindProperty CmpItemKindKeyword]]
-vim.cmd[[highlight! link CmpItemKindUnit CmpItemKindKeyword]]
+vim.cmd[[colorscheme terafox]]

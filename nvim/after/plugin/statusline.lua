@@ -1,7 +1,7 @@
 local function pending_buffers()
   for _, buf in pairs(vim.fn.getbufinfo()) do
     if buf['changed'] == 1 then
-      return '%#lualine_b_diff_modified_normal#+'
+      return 'Modified Buffers'
     end
   end
 
