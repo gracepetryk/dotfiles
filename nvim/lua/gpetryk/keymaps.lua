@@ -29,22 +29,21 @@ map('n', '<Leader>v', toggle_vtext)
 
 -- debugger mappings
 
-local dap = require('dap')
-local dapui = require('dapui')
+local dap = function() return require('dap') end
+local dapui = function() return require('dapui') end
 
 local function open_debugger()
-  dap.continue()
-  dapui.open({})
+  dapui().open({})
 end
 
 local function close_debugger()
-  dapui.close({})
-  dap.terminate()
-  dap.repl.close()
+  dapui().close({})
+  dap().terminate()
+  dap().repl.close()
 end
 
-map('n', '<C-b>', dap.toggle_breakpoint)
-map('n', '<Leader>tc', dap.run_to_cursor)
+map('n', '<C-b>', function() dap().toggle_breakpoint() end)
+map('n', '<Leader>tc', function() dap().run_to_cursor() end)
 map('n', '<Leader><Leader>d', open_debugger)
 map('n', '<Leader><Leader>c', close_debugger)
 
@@ -60,6 +59,8 @@ map({'n','i','v','x'},'<ScrollWheelDown>','<C-e>')
 
 map('n', '}', ':cn<CR>')
 map('n', '{', ':cp<CR>')
+map('n', '<C-]>', ':lnext<CR>')
+map('n', '<C-[>', ':lprev<CR>')
 
 -- harpoon
 map('n', '<leader>b', require('harpoon.ui').toggle_quick_menu)
