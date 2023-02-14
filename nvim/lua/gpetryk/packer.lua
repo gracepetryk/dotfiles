@@ -21,7 +21,7 @@ return require('packer').startup({ function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function() require 'plugins.statusline' end,
-    event = "VimEnter"
+    event = 'VimEnter'
   }
 
   use {
@@ -41,27 +41,27 @@ return require('packer').startup({ function(use)
   use {
     'neovim/nvim-lspconfig',
     config = function() require 'plugins.lsp' end,
-    event = "VimEnter"
+    event = 'VimEnter'
   } -- Configurations for Nvim LSP
 
   use {
     'hrsh7th/nvim-cmp',
     config = function() require 'plugins.completions' end,
-    event = "InsertEnter"
+    event = 'InsertEnter'
   }
   use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' }
   use {
     'jose-elias-alvarez/null-ls.nvim', -- allow non-lsp providers to hook into neovims lsp client (like flake8)
     config = function() require 'plugins.null-ls' end,
-    ft = "python",
+    event = 'BufWinEnter',
   }
 
   use {
     'mfussenegger/nvim-dap',
     keys = {
-      "<leader><leader>d",
-      "<C-b>"
+      '<leader><leader>d',
+      '<C-b>'
     },
     config = function() require 'plugins.dap' end
   }
@@ -84,12 +84,12 @@ return require('packer').startup({ function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     config = function() require 'plugins.treesitter' end,
-    event = "VimEnter"
+    event = 'VimEnter'
   }
   use {
     'nvim-treesitter/nvim-treesitter-context',
     config = function() require 'plugins.context' end,
-    after = "nvim-treesitter"
+    after = 'nvim-treesitter'
   }
   use { 'nvim-treesitter/playground', after = 'nvim-treesitter' }
 
