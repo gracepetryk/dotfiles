@@ -8,7 +8,7 @@ return require('lazy').setup({
   {
     'lewis6991/gitsigns.nvim',
     config = function() require 'plugins.gitsigns' end,
-    event = "CursorMoved"
+    event = "VeryLazy"
   },
 
   --themes
@@ -19,6 +19,7 @@ return require('lazy').setup({
     'nvim-lualine/lualine.nvim',
     dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function() require 'plugins.statusline' end,
+    event='VeryLazy'
   },
 
   {
@@ -38,18 +39,30 @@ return require('lazy').setup({
   {
     'neovim/nvim-lspconfig',
     config = function() require 'plugins.lsp' end,
+    event = 'VeryLazy',
+    dependencies = {
+      {
+        'jose-elias-alvarez/null-ls.nvim', -- allow non-lsp providers to hook into neovims lsp client (like flake8)
+        config = function() require 'plugins.null-ls' end,
+      }
+    }
   }, -- Configurations for Nvim LSP
 
   {
     'hrsh7th/nvim-cmp',
     config = function() require 'plugins.completions' end,
-    event = 'InsertEnter'
-  },
-  { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' },
-  { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' },
-  {
-    'jose-elias-alvarez/null-ls.nvim', -- allow non-lsp providers to hook into neovims lsp client (like flake8)
-    config = function() require 'plugins.null-ls' end,
+    event = 'InsertEnter',
+    dependencies = {
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+      {
+        'hrsh7th/cmp-vsnip',
+        dependencies = {
+          { 'hrsh7th/vim-vsnip' },
+          { 'hrsh7th/vim-vsnip-integ' },
+        },
+      }
+    }
   },
 
   {
@@ -59,34 +72,30 @@ return require('lazy').setup({
       '<C-b>',
       '<leader><leader>d'
     },
+    dependencies = {
+      {
+        'rcarriga/nvim-dap-ui',
+        config = function() require 'plugins.dapui' end
+      },
+      {
+        'rcarriga/cmp-dap',
+        dependencies = {'nvim-cmp'}
+      },
+    }
   },
-  {
-    'rcarriga/nvim-dap-ui',
-    dependencies = { 'mfussenegger/nvim-dap' },
-    after = { 'nvim-dap' },
-    config = function() require 'plugins.dapui' end
-  },
-
-  {
-    'rcarriga/cmp-dap',
-    after = { 'nvim-cmp', 'nvim-dap', 'nvim-dap-ui' },
-  },
-
-  -- snippets
-  { 'hrsh7th/vim-vsnip' },
-  { 'hrsh7th/vim-vsnip-integ' },
-  { 'hrsh7th/cmp-vsnip', after = 'nvim-cmp' },
 
   {
     'nvim-treesitter/nvim-treesitter',
     config = function() require 'plugins.treesitter' end,
+    event = 'VeryLazy',
+    dependencies = {
+      {
+        'nvim-treesitter/nvim-treesitter-context',
+        config = function() require 'plugins.context' end,
+      },
+      { 'nvim-treesitter/playground' },
+    }
   },
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    config = function() require 'plugins.context' end,
-    after = 'nvim-treesitter'
-  },
-  { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
 
   -- language-specific plugins
   { 'Vimjas/vim-python-pep8-indent', ft='python' },

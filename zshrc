@@ -8,14 +8,6 @@ if [ -f /etc/zshrc ]; then
   source /etc/zshrc
 fi
 
-if [ -d "$HOME/profile.d" ]; then
-  for RC_FILE in $HOME/profile.d/*.rc; do source $RC_FILE; done
-fi
-
-if [ -d "$HOME/env_setup/profile.d" ]; then
-  for RC_FILE in $HOME/env_setup/profile.d/*.rc; do source $RC_FILE; done
-fi
-
 if [ $(which nvim) ]; then
   alias vim=nvim
 fi
@@ -94,8 +86,12 @@ fi
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git-prompt)
+plugins=(evalcache git-prompt)
 source $ZSH/oh-my-zsh.sh
+
+if [ -d "$HOME/profile.d" ]; then
+  for RC_FILE in $HOME/profile.d/*.rc; do source $RC_FILE; done
+fi
 
 # User configuration
 
@@ -140,4 +136,3 @@ export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46"
 
 cd .
-
