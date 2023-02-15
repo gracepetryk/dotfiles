@@ -1,13 +1,15 @@
 local map = require("gpetryk.map").map
 
 map('n', 'x', '"_x')
-map('n', 'd', '"_d')
-map('n', 'D', 'd')
-map('n', 'DD', 'dd')
+map('n', 'DD', '"_dd')
 
 map('i', 'jj', '<Esc>')
 
 map('n', '<leader>w', '<C-w>w')
+map('n', '<C-h>', '<C-w>h')
+map('n', '<C-j>', '<C-w>j')
+map('n', '<C-k>', '<C-w>k')
+map('n', '<C-l>', '<C-w>l')
 
 map('n', '<A-S-Tab>', '<Cmd>BufferPrevious<CR>')
 map('n', '<A-Tab>', '<Cmd>BufferNext<CR>')

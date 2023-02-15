@@ -18,12 +18,11 @@ return require('packer').startup({ function(use)
   use { 'Mofiqul/vscode.nvim', opt = false }
   -- use{'EdenEast/nightfox.nvim', opt=false}
 
-  -- use {
-  --   'nvim-lualine/lualine.nvim',
-  --   requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-  --   config = function() require 'plugins.statusline' end,
-  --   event = 'VimEnter'
-  -- }
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function() require 'plugins.statusline' end,
+  }
 
   use {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
@@ -42,7 +41,6 @@ return require('packer').startup({ function(use)
   use {
     'neovim/nvim-lspconfig',
     config = function() require 'plugins.lsp' end,
-    event = 'VimEnter'
   } -- Configurations for Nvim LSP
 
   use {
@@ -55,7 +53,6 @@ return require('packer').startup({ function(use)
   use {
     'jose-elias-alvarez/null-ls.nvim', -- allow non-lsp providers to hook into neovims lsp client (like flake8)
     config = function() require 'plugins.null-ls' end,
-    event = 'BufWinEnter',
   }
 
   use {
@@ -86,7 +83,6 @@ return require('packer').startup({ function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     config = function() require 'plugins.treesitter' end,
-    event = 'VimEnter'
   }
   use {
     'nvim-treesitter/nvim-treesitter-context',
@@ -112,6 +108,5 @@ end,
   config = {
     profile = {
       enable = true,
-      threshold = 1 -- the amount in ms that a plugin's load time must be over for it to be included in the profile
     }
   } })
