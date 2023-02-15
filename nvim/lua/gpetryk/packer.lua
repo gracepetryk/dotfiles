@@ -11,18 +11,19 @@ return require('packer').startup({ function(use)
   use {
     'lewis6991/gitsigns.nvim',
     config = function() require 'plugins.gitsigns' end,
+    event = "CursorMoved"
   }
 
   --themes
   use { 'Mofiqul/vscode.nvim', opt = false }
   -- use{'EdenEast/nightfox.nvim', opt=false}
 
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    config = function() require 'plugins.statusline' end,
-    event = 'VimEnter'
-  }
+  -- use {
+  --   'nvim-lualine/lualine.nvim',
+  --   requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+  --   config = function() require 'plugins.statusline' end,
+  --   event = 'VimEnter'
+  -- }
 
   use {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
@@ -59,21 +60,22 @@ return require('packer').startup({ function(use)
 
   use {
     'mfussenegger/nvim-dap',
+    config = function() require 'plugins.dap' end,
     keys = {
-      '<leader><leader>d',
-      '<C-b>'
-    },
-    config = function() require 'plugins.dap' end
+      '<C-b>',
+      '<leader><leader>d'
+    }
   }
   use {
     'rcarriga/nvim-dap-ui',
     requires = { 'mfussenegger/nvim-dap' },
-    after = { 'nvim-dap' }
+    after = { 'nvim-dap' },
+    config = function() require 'plugins.dapui' end
   }
 
   use {
     'rcarriga/cmp-dap',
-    after = { 'nvim-dap', 'nvim-cmp' }
+    after = { 'nvim-cmp', 'nvim-dap', 'nvim-dap-ui' }
   }
 
   -- snippets

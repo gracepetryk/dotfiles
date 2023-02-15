@@ -64,6 +64,7 @@ cmp.setup{
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
     { name = 'nvim_lsp_signature_help' },
+    { name = 'dap' }
   },
     {name = 'buffer'}
   ),
@@ -73,5 +74,5 @@ cmp.setup{
       vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
       return vim_item
     end
-  }
+  },
 }

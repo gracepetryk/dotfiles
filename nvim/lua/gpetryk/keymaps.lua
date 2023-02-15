@@ -27,29 +27,6 @@ end
 
 map('n', '<Leader>v', toggle_vtext)
 
--- debugger mappings
-
-local dap = function() return require('dap') end
-local dapui = function() return require('dapui') end
-
-local function open_debugger()
-  dapui().open({})
-end
-
-local function close_debugger()
-  dapui().close({})
-  dap().terminate()
-  dap().repl.close()
-end
-
-map('n', '<C-b>', function() dap().toggle_breakpoint() end)
-map('n', '<Leader>tc', function() dap().run_to_cursor() end)
-map('n', '<Leader><Leader>d', open_debugger)
-map('n', '<Leader><Leader>c', close_debugger)
-
-map('n', '<Leader>di', '"zyiw :lua require"dapui".eval("<C-R>z")<CR>h')
-map('v', '<Leader>di', '"zy :lua require"dapui".eval("<C-R>z")<CR>h')
-
 --one line scrolling
 
 map({'n','i','v','x'}, '<ScrollWheelUp>', '<C-y>')

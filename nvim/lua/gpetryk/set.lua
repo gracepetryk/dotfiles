@@ -18,6 +18,18 @@ vim.g.mapleader = " "
 
 vim.opt.laststatus = 3
 
+function hlwinbar()
+  if (vim.api.nvim_get_current_win() == vim.g.statusline_winid) then
+    hl = "%#StatusLine#"
+  else
+    hl = "%#StatusLineNC#"
+  end
+
+  return hl .. "%f"
+end
+
+vim.opt.winbar = '%!luaeval("hlwinbar()")'
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 

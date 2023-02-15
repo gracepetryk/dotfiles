@@ -1,27 +1,28 @@
 local dap = require("dap")
-require("dapui").setup({
-  layouts = {
-    {
-      elements = {
-        -- Elements can be strings or table with id and size keys.
-        { id = "stacks", size = 0.2 },
-        { id = "breakpoints", size = 0.2 },
-        { id = "scopes", size = 0.6 },
-      },
-      size = 65, -- 60 columns
-      position = "left",
-    },
-    {
-      elements = {
-        "repl",
-      },
-      size = 0.25, -- 25% of total lines
-      position = "bottom",
-    },
-  },
-})
+local map = require("gpetryk.map").map
+
+-- debugger mappings
+
+local function open_debugger()
+  require('dapui').open({})
+end
+
+local function close_debugger()
+  require('dapui').close({})
+  require('dap').terminate()
+  require('dap').repl.close()
+end
+
+map('n', '<C-b>', function() require('dap').toggle_breakpoint() end)
+map('n', '<Leader>tc', function() require('dap').run_to_cursor() end)
+map('n', '<Leader><Leader>d', open_debugger)
+map('n', '<Leader><Leader>c', close_debugger)
+
+map('n', '<Leader>di', '"zyiw :lua require"dapui".eval("<C-R>z")<CR>h')
+map('v', '<Leader>di', '"zy :lua require"dapui".eval("<C-R>z")<CR>h')
 
 dap.adapters.python = {
+
   type = 'server',
   port = 5678
 }
@@ -45,18 +46,3 @@ dap.configurations.python = {
     logToFile = true
   }
 }
-
--- completions
-
-require("cmp").setup({
-  enabled = function()
-    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-        or require("cmp_dap").is_dap_buffer()
-  end
-})
-
-require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-  sources = {
-    { name = "dap" },
-  },
-})
