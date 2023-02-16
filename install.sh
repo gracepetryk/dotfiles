@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 dotfiles_dir=$(pwd)
 
 cd $HOME
@@ -18,23 +20,37 @@ ln -s "${dotfiles_dir}/ideavimrc" .ideavimrc
 mkdir -p .config/kitty
 ln -s "${dotfiles_dir}/kitty.conf" .config/kitty/kitty.conf
 
-ln -s "${dotfiles_dir}/nvim" .config/nvim
+if [ ! -e .config/nvim ]; then
+    ln -s "${dotfiles_dir}/nvim" .config/nvim
+fi
 
 ln -s "${dotfiles_dir}/gpetryk.zsh-theme" .oh-my-zsh/custom/themes/gpetryk.zsh-theme
+
 
 # install neovim
 mkdir -p programs
 cd programs
-if ! which nvim &>/dev/null; then
-    if ! which ninja; then
+if ! type -p nvim &>/dev/null; then
+    if ! type -p ninja &>/dev/null; then
         echo "Missing build prerequisites. See https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
         exit 1
     fi
+
+    echo
+    echo "INSTALLING NEOVIM"
+    echo
+
     git clone -b release-0.8 https://github.com/neovim/neovim
     cd neovim
+
     make CMAKE_BUILD_TYPE=Release
     sudo make install
+
+    cd ..
+    
 fi
+
+cd $HOME
 
 mkdir -p profile.d
 for RC_FILE in $dotfiles_dir/profile.d/*.rc; do

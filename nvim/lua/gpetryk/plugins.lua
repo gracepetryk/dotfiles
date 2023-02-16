@@ -36,6 +36,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function() require 'plugins.lsp' end,
+    priority=-1 -- ensure mason gets loaded first
   }, -- Configurations for Nvim LSP
 
   {
@@ -56,6 +57,7 @@ return {
     dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+      { 'hrsh7th/cmp-buffer' },
       {
         'hrsh7th/cmp-vsnip',
         dependencies = {
@@ -113,5 +115,14 @@ return {
   {
     'Shatur/neovim-session-manager',
     config = function() require 'plugins.sessions' end
-  }
+  },
+
+  {
+    'williamboman/mason.nvim', -- install LSPs/DAP/etc
+    lazy=true
+  },
+  {
+    'williamboman/mason-lspconfig.nvim', -- install LSPs/DAP/etc
+    lazy=true
+  },
 }

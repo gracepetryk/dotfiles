@@ -1,6 +1,11 @@
+require('mason').setup()
+require('mason-lspconfig').setup({
+  automatic_installation=true
+})
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local mapopts = { noremap=true, silent=true }
+local mapopts = { noremap = true, silent = true }
 vim.keymap.set('n', '<A-[>', vim.diagnostic.goto_prev, mapopts)
 vim.keymap.set('n', '<A-]>', vim.diagnostic.goto_next, mapopts)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, mapopts)
@@ -13,7 +18,7 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -50,7 +55,7 @@ local lsp_flags = {
 }
 
 
-require('lspconfig')['pyright'].setup{
+require('lspconfig')['pyright'].setup {
   on_attach = on_attach,
   flags = lsp_flags,
   settings = {
@@ -65,7 +70,7 @@ require('lspconfig')['pyright'].setup{
 }
 
 
-require('lspconfig')['lua_ls'].setup{
+require('lspconfig')['lua_ls'].setup {
   on_attach = on_attach,
   flags = lsp_flags,
   settings = {
@@ -76,7 +81,7 @@ require('lspconfig')['lua_ls'].setup{
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = { 'vim' },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
@@ -91,7 +96,12 @@ require('lspconfig')['lua_ls'].setup{
   },
 }
 
-require'lspconfig'.solargraph.setup{
+require('lspconfig')['solargraph'].setup {
   on_attach = on_attach,
   flags = lsp_flags,
 }
+
+require('lspconfig')['bashls'].setup({
+  on_atach=on_attach,
+  flags=lsp_flags
+})
