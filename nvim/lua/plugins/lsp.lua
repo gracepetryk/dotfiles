@@ -1,7 +1,4 @@
 require('mason').setup()
-require('mason-lspconfig').setup({
-  automatic_installation = { exclude = { 'solargraph' } }
-})
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -15,7 +12,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, mapopts)
 
 -- Mappings.
 -- See `:help vim.lsp.*` for documentation on any of the below functions
-local bufopts = { noremap = true, silent = true, buffer = bufnr }
+local bufopts = { noremap = true, silent = true}
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -83,6 +80,6 @@ require('lspconfig')['lua_ls'].setup({
   },
 })
 
-require('lspconfig')['solargraph'].setup()
+require('lspconfig')['solargraph'].setup({})
 
-require('lspconfig')['bashls'].setup()
+require('lspconfig')['bashls'].setup({})

@@ -124,8 +124,4 @@ return {
     'williamboman/mason.nvim', -- install LSPs/DAP/etc
     lazy = true
   },
-  {
-    'williamboman/mason-lspconfig.nvim', -- install LSPs/DAP/etc
-    lazy = true
-  },
 }

@@ -17,21 +17,6 @@ map('n', '<A-Down>', '<C-w>j')
 map('n', '<A-Up>', '<C-w>k')
 map('n', '<A-Right>', '<C-w>l')
 
-
--- Toggle virtual text
-vim.g.vtext_enabled = false
-local function toggle_vtext()
-  if vim.g.vtext_enabled then
-    vim.diagnostic.config({ virtual_text = false })
-    vim.g.vtext_enabled = false
-  else
-    vim.diagnostic.config({ virtual_text = true })
-    vim.g.vtext_enabled = true
-  end
-end
-
-map('n', '<Leader>v', toggle_vtext)
-
 --one line scrolling
 
 map({ 'n', 'i', 'v', 'x' }, '<ScrollWheelUp>', '<C-y>')
