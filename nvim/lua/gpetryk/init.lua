@@ -1,5 +1,5 @@
 require("gpetryk.set")
-require("gpetryk.lazy")
+require("lazy").setup("gpetryk.plugins")
 require("gpetryk.keymaps")
 
 local augroup = vim.api.nvim_create_augroup

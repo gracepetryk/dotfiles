@@ -1,6 +1,4 @@
-vim.g.mapleader = ' '
-
-return require('lazy').setup({
+return {
   { 'tpope/vim-sleuth' }, -- detect indentation
 
   { 'tpope/vim-fugitive' }, -- git integration
@@ -12,7 +10,7 @@ return require('lazy').setup({
   },
 
   --themes
-  { 'Mofiqul/vscode.nvim'},
+  { 'Mofiqul/vscode.nvim', priority=100},
 
   {
     'nvim-lualine/lualine.nvim',
@@ -116,4 +114,4 @@ return require('lazy').setup({
     'Shatur/neovim-session-manager',
     config = function() require 'plugins.sessions' end
   }
-})
+}
