@@ -6,14 +6,12 @@ map('n', 'DD', '"_dd')
 map('i', 'jj', '<Esc>')
 
 map('n', '<leader>w', '<C-w>w')
+map('n', '<A-o>', '<C-w>w')
 map('n', '<A-w>', '<C-w>w')
 map('n', '<A-h>', '<C-w>h')
 map('n', '<A-j>', '<C-w>j')
 map('n', '<A-k>', '<C-w>k')
 map('n', '<A-l>', '<C-w>l')
-
-map('n', '<A-S-Tab>', '<Cmd>BufferPrevious<CR>')
-map('n', '<A-Tab>', '<Cmd>BufferNext<CR>')
 
 
 -- Toggle virtual text

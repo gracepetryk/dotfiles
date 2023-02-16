@@ -100,8 +100,8 @@ return {
 
   -- language-specific plugins
   { 'Vimjas/vim-python-pep8-indent', ft='python' },
-  { 'mitsuhiko/vim-jinja' },
-  { 'iloginow/vim-stylus' },
+  { 'mitsuhiko/vim-jinja', ft='htmljinja'},
+  { 'iloginow/vim-stylus', ft='stylus' },
 
   { 'ThePrimeagen/harpoon' },
 
