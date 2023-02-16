@@ -13,6 +13,11 @@ map('n', '<A-j>', '<C-w>j')
 map('n', '<A-k>', '<C-w>k')
 map('n', '<A-l>', '<C-w>l')
 
+map('n', '<A-Left>', '<C-w>h')
+map('n', '<A-Down>', '<C-w>j')
+map('n', '<A-Up>', '<C-w>k')
+map('n', '<A-Right>', '<C-w>l')
+
 
 -- Toggle virtual text
 vim.g.vtext_enabled = false
