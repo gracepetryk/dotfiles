@@ -13,7 +13,6 @@ return require('lazy').setup({
 
   --themes
   { 'Mofiqul/vscode.nvim'},
-  -- use{'EdenEast/nightfox.nvim', opt=false},
 
   {
     'nvim-lualine/lualine.nvim',
@@ -39,14 +38,18 @@ return require('lazy').setup({
   {
     'neovim/nvim-lspconfig',
     config = function() require 'plugins.lsp' end,
-    event = 'VeryLazy',
-    dependencies = {
-      {
-        'jose-elias-alvarez/null-ls.nvim', -- allow non-lsp providers to hook into neovims lsp client (like flake8)
-        config = function() require 'plugins.null-ls' end,
-      }
-    }
   }, -- Configurations for Nvim LSP
+
+  {
+    'jose-elias-alvarez/null-ls.nvim', -- allow non-lsp providers to hook into neovims lsp client (like flake8)
+    config = function() require 'plugins.null-ls' end,
+    event='VeryLazy'
+  },
+  {
+    'j-hui/fidget.nvim',
+    config=true,
+    event='VeryLazy'
+  },
 
   {
     'hrsh7th/nvim-cmp',
