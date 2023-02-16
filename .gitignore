@@ -1,4 +1,3 @@
-profile.d/
 nvim/lua/.luarc.json
 nvim/plugin/*
 *.swp
