@@ -13,9 +13,9 @@ if which nvim &>/dev/null; then
 fi
 
 if [ "$IS_DOCKER_SANDBOX" = "" ]; then
-    export ZSH_THEME="gpetryk"
+    ZSH_THEME="gpetryk"
 else
-    export ZSH_THEME="gpetryk-docker"
+    ZSH_THEME="gpetryk-docker"
 fi
 
 # Path to your oh-my-zsh installation.
