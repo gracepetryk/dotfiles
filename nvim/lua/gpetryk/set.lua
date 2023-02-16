@@ -29,8 +29,8 @@ function hlwinbar()
   return hl .. "%f"
 end
 
-vim.api.nvim_create_autocmd({'VimEnter', 'WinEnter', 'WinClosed'}, {
-  callback = function (opts)
+vim.api.nvim_create_autocmd({ 'VimEnter', 'WinEnter', 'WinClosed' }, {
+  callback = function(opts)
     local win_count = 0
 
     if (opts.event == 'WinClosed') then

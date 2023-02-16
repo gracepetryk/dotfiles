@@ -4,7 +4,7 @@
 -- 	autocmd!
 -- 	autocmd ColorScheme * highlight LineNr guifg=#5081c0   | highlight CursorLineNR guifg=#FFba00
 -- augroup END
--- ]], false)  
+-- ]], false)
 --
 --
 
@@ -41,4 +41,4 @@
 --   }
 -- })
 
-vim.cmd[[colorscheme vscode]]
+vim.cmd [[colorscheme vscode]]

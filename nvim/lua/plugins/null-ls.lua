@@ -5,6 +5,5 @@ null_ls.setup({
     null_ls.builtins.diagnostics.flake8,
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.formatting.shellharden,
-    null_ls.builtins.formatting.lua_format,
   }
 })

@@ -9,7 +9,6 @@ local function pending_buffers()
 end
 
 require('lualine').setup({
-
   sections = {
     lualine_b = {
       'branch',

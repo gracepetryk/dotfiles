@@ -22,7 +22,6 @@ map('n', '<Leader>di', '"zyiw :lua require"dapui".eval("<C-R>z")<CR>h')
 map('v', '<Leader>di', '"zy :lua require"dapui".eval("<C-R>z")<CR>h')
 
 dap.adapters.python = {
-
   type = 'server',
   port = 5678
 }

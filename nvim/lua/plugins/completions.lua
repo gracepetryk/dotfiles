@@ -30,7 +30,7 @@ local cmp_kinds = {
 vim.g.vsnip_snippet_dir = os.getenv('HOME') .. '/dotfiles/snippets/'
 
 ---@diagnostic disable-next-line: redundant-parameter
-cmp.setup{
+cmp.setup {
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -45,9 +45,9 @@ cmp.setup{
     documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-b>'] = cmp.mapping.scroll_docs( -4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = function ()
+    ['<C-Space>'] = function()
       if cmp.visible() then
         cmp.abort()
       else
@@ -69,7 +69,7 @@ cmp.setup{
   }
   ),
   formatting = {
-    fields = {"abbr", "kind"},
+    fields = { "abbr", "kind" },
     format = function(_, vim_item)
       vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
       return vim_item

@@ -10,13 +10,16 @@ return {
   },
 
   --themes
-  { 'Mofiqul/vscode.nvim', priority=100},
+  {
+    'Mofiqul/vscode.nvim',
+    priority = 100
+  },
 
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function() require 'plugins.statusline' end,
-    event='VeryLazy'
+    event = 'VeryLazy'
   },
 
   {
@@ -36,18 +39,18 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function() require 'plugins.lsp' end,
-    priority=-1 -- ensure mason gets loaded first
+    priority = -1 -- ensure mason gets loaded first
   }, -- Configurations for Nvim LSP
 
   {
     'jose-elias-alvarez/null-ls.nvim', -- allow non-lsp providers to hook into neovims lsp client (like flake8)
     config = function() require 'plugins.null-ls' end,
-    event='VeryLazy'
+    event = 'VeryLazy'
   },
   {
     'j-hui/fidget.nvim',
-    config=true,
-    event='VeryLazy'
+    config = true,
+    event = 'VeryLazy'
   },
 
   {
@@ -82,7 +85,7 @@ return {
       },
       {
         'rcarriga/cmp-dap',
-        dependencies = {'nvim-cmp'}
+        dependencies = { 'nvim-cmp' }
       },
     }
   },
@@ -101,15 +104,15 @@ return {
   },
 
   -- language-specific plugins
-  { 'Vimjas/vim-python-pep8-indent', ft='python' },
-  { 'mitsuhiko/vim-jinja', ft='htmljinja'},
-  { 'iloginow/vim-stylus', ft='stylus' },
+  { 'Vimjas/vim-python-pep8-indent', ft = 'python' },
+  { 'mitsuhiko/vim-jinja',           ft = 'htmljinja' },
+  { 'iloginow/vim-stylus',           ft = 'stylus' },
 
   { 'ThePrimeagen/harpoon' },
 
   {
     'dstein64/vim-startuptime',
-    cmd='StartupTime'
+    cmd = 'StartupTime'
   },
 
   {
@@ -119,10 +122,10 @@ return {
 
   {
     'williamboman/mason.nvim', -- install LSPs/DAP/etc
-    lazy=true
+    lazy = true
   },
   {
     'williamboman/mason-lspconfig.nvim', -- install LSPs/DAP/etc
-    lazy=true
+    lazy = true
   },
 }

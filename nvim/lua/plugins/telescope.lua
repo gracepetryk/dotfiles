@@ -6,7 +6,7 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fr', builtin.pickers, {})
 
-vim.keymap.set('n', 'gf', function () builtin.find_files({default_text = vim.fn.expand('<cfile>')}) end)
+vim.keymap.set('n', 'gf', function() builtin.find_files({ default_text = vim.fn.expand('<cfile>') }) end)
 
 require('telescope').setup({
   defaults = {

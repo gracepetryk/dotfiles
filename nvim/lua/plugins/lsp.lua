@@ -1,6 +1,6 @@
 require('mason').setup()
 require('mason-lspconfig').setup({
-  automatic_installation={ exclude = 'solargraph' }
+  automatic_installation = { exclude = { 'solargraph' } }
 })
 
 -- Mappings.
@@ -45,14 +45,8 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
 
-
-require('lspconfig')['pyright'].setup {
-  flags = lsp_flags,
+require('lspconfig')['pyright'].setup({
   settings = {
     python = {
       analysis = {
@@ -62,11 +56,10 @@ require('lspconfig')['pyright'].setup {
       }
     }
   }
-}
+})
 
 
-require('lspconfig')['lua_ls'].setup {
-  flags = lsp_flags,
+require('lspconfig')['lua_ls'].setup({
   settings = {
     Lua = {
       runtime = {
@@ -88,12 +81,8 @@ require('lspconfig')['lua_ls'].setup {
       },
     },
   },
-}
-
-require('lspconfig')['solargraph'].setup {
-  flags = lsp_flags,
-}
-
-require('lspconfig')['bashls'].setup({
-  flags=lsp_flags
 })
+
+require('lspconfig')['solargraph'].setup()
+
+require('lspconfig')['bashls'].setup()
