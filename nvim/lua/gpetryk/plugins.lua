@@ -104,9 +104,7 @@ return {
   },
 
   -- language-specific plugins
-  { 'Vimjas/vim-python-pep8-indent', ft = 'python' },
-  { 'mitsuhiko/vim-jinja',           ft = 'htmljinja' },
-  { 'iloginow/vim-stylus',           ft = 'stylus' },
+  { 'Vimjas/vim-python-pep8-indent', ft = 'python', commit = '60ba5e11a61618c0344e2db190210145083c91f8' },
 
   { 'ThePrimeagen/harpoon' },
 
@@ -117,7 +115,8 @@ return {
 
   {
     'Shatur/neovim-session-manager',
-    config = function() require 'plugins.sessions' end
+    config = function() require 'plugins.sessions' end,
+    commit = 'e7a2cbf56b5fd3a223f2774b535499fc62eca6ef'
   },
 
   {

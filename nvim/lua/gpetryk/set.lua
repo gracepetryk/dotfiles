@@ -29,25 +29,25 @@ function hlwinbar()
   return hl .. "%f"
 end
 
-vim.api.nvim_create_autocmd({ 'VimEnter', 'WinEnter', 'WinClosed' }, {
+local function update_win_count(opts)
+  if opts.event == 'WinClosed' then
+    local win = vim.api.nvim_win_get_config(tonumber(opts.match))
+    if (win.relative == '') then
+      -- dont count floating windows
+      vim.g.win_count = vim.g.win_count - 1
+    end
+  elseif (opts.event == 'WinNew') then
+    -- WinNew is not called for floating windows???
+    vim.g.win_count = vim.g.win_count + 1
+  end
+end
+
+vim.g.win_count = 1
+vim.api.nvim_create_autocmd({'VimEnter', 'WinNew', 'WinClosed'}, {
   callback = function(opts)
-    local win_count = 0
+    update_win_count(opts)
 
-    if (opts.event == 'WinClosed') then
-      -- WinClosed is (sometimes???) called before window is removed from layout
-      win_count = -1
-    end
-
-    for _, win_id in pairs(vim.api.nvim_list_wins()) do
-      local win = vim.api.nvim_win_get_config(win_id)
-
-      if (win.relative == '') then
-        -- dont count floating windows
-        win_count = win_count + 1
-      end
-    end
-
-    if (win_count <= 1) then
+    if (vim.g.win_count == 1) then
       vim.opt.winbar = nil
     else
       vim.opt.winbar = '%!luaeval("hlwinbar()")'
