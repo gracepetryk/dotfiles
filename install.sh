@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
-dotfiles_dir=$(pwd)
+dotfiles_dir=$PWD
 
-cd $HOME
+cd "$HOME" || exit
 
 if [ ! -d .oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
@@ -10,7 +10,7 @@ if [ ! -d .oh-my-zsh ]; then
 fi
 
 if [ ! -d .oh-my-zsh/custom/plugins/evalcache ]; then
-    git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/evalcache
+    git clone https://github.com/mroth/evalcache "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/evalcache
 fi
 
 ln -s "${dotfiles_dir}/zshrc" .zshrc
@@ -29,7 +29,7 @@ ln -s "${dotfiles_dir}/gpetryk.zsh-theme" .oh-my-zsh/custom/themes/gpetryk.zsh-t
 
 # install neovim
 mkdir -p programs
-cd programs
+cd programs || exit
 if ! type -p nvim &>/dev/null; then
     if ! type -p ninja &>/dev/null; then
         echo "Missing build prerequisites. See https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
@@ -41,7 +41,7 @@ if ! type -p nvim &>/dev/null; then
     echo
 
     git clone -b release-0.8 https://github.com/neovim/neovim
-    cd neovim
+    cd neovim || exit
 
     make CMAKE_BUILD_TYPE=Release
     sudo make install
@@ -50,10 +50,10 @@ if ! type -p nvim &>/dev/null; then
     
 fi
 
-cd $HOME
+cd "$HOME" || exit
 
 mkdir -p profile.d
-for RC_FILE in $dotfiles_dir/profile.d/*.rc; do
-    name=$(basename $RC_FILE)
-    ln -s $RC_FILE profile.d/$name
+for RC_FILE in "$dotfiles_dir"/profile.d/*.rc; do
+    name=$(basename "$RC_FILE")
+    ln -s "$RC_FILE" profile.d/"$name"
 done

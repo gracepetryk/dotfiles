@@ -1,6 +1,6 @@
 require('mason').setup()
 require('mason-lspconfig').setup({
-  automatic_installation=true
+  automatic_installation={ exclude = 'solargraph' }
 })
 
 -- Mappings.
@@ -12,41 +12,37 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, mapopts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+-- Mappings.
+-- See `:help vim.lsp.*` for documentation on any of the below functions
+local bufopts = { noremap = true, silent = true, buffer = bufnr }
+vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
+vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
-  vim.g.diagnostic_float_opts = {
-    focusable = false,
-    close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-    border = 'rounded',
-    source = 'always',
-    prefix = ' ',
-    scope = 'cursor',
-  }
+vim.g.diagnostic_float_opts = {
+  focusable = false,
+  close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+  border = 'rounded',
+  source = 'always',
+  prefix = ' ',
+  scope = 'cursor',
+}
 
-  vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, vim.g.diagnostic_float_opts) end, bufopts)
+vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, vim.g.diagnostic_float_opts) end, bufopts)
 
-  -- To instead override globally
-  local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-  function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-    opts = opts or {}
-    opts.border = opts.border or 'rounded'
-    return orig_util_open_floating_preview(contents, syntax, opts, ...)
-  end
+-- To instead override globally
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or 'rounded'
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
 local lsp_flags = {
@@ -56,7 +52,6 @@ local lsp_flags = {
 
 
 require('lspconfig')['pyright'].setup {
-  on_attach = on_attach,
   flags = lsp_flags,
   settings = {
     python = {
@@ -71,7 +66,6 @@ require('lspconfig')['pyright'].setup {
 
 
 require('lspconfig')['lua_ls'].setup {
-  on_attach = on_attach,
   flags = lsp_flags,
   settings = {
     Lua = {
@@ -97,11 +91,9 @@ require('lspconfig')['lua_ls'].setup {
 }
 
 require('lspconfig')['solargraph'].setup {
-  on_attach = on_attach,
   flags = lsp_flags,
 }
 
 require('lspconfig')['bashls'].setup({
-  on_atach=on_attach,
   flags=lsp_flags
 })
