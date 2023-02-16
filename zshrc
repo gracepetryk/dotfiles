@@ -8,7 +8,7 @@ if [ -f /etc/zshrc ]; then
   source /etc/zshrc
 fi
 
-if [ $(which nvim) ]; then
+if which nvim &>/dev/null; then
   alias vim=nvim
 fi
 
