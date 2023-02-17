@@ -41,3 +41,22 @@ map('n', '<A-6>', function() require('harpoon.ui').nav_file(6) end)
 map('n', '<A-7>', function() require('harpoon.ui').nav_file(7) end)
 map('n', '<A-8>', function() require('harpoon.ui').nav_file(8) end)
 map('n', '<A-9>', function() require('harpoon.ui').nav_file(9) end)
+map('n', '<A-0>', function() require('harpoon.ui').nav_file(10) end)
+
+-- autoclose parens/quotes/etc
+local b = require('gpetryk.brackets')
+
+map('i', '(', function() b.insert_pair('(') end)
+map('i', ')', function() b.insert_closing(')') end)
+
+map('i', '{', function() b.insert_pair('{') end)
+map('i', '}', function() b.insert_closing('}') end)
+
+map('i', '[', function() b.insert_pair('[') end)
+map('i', ']', function() b.insert_closing(']') end)
+
+map('i', '<', function() b.insert_pair('<') end)
+map('i', '>', function() b.insert_closing('>') end)
+
+map('i', '"', function() b.insert_quote('"') end)
+map('i', "'", function() b.insert_quote("'") end)
