@@ -39,9 +39,13 @@ dap.configurations.python = {
       {
         localRoot = "${workspaceFolder}",
         remoteRoot = "."
+      },
+      {
+        localRoot = "${env:HOME}/.pyenv",
+        remoteRoot = "/var/pyenv"
       }
     },
-    justMyCode = true,
+    justMyCode = false,
     logToFile = true
   }
 }
