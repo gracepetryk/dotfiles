@@ -7,14 +7,26 @@ local pairs = {
   ['{'] = '}',
   ['['] = ']',
   ['<'] = '>',
-  [')'] = '(',
-  ['}'] = '{',
-  [']'] = '[',
-  ['>'] = '<',
 }
 
+local opening_chars = {
+  ['('] = true,
+  ['{'] = true,
+  ['['] = true,
+  ['<'] = true,
+}
+
+
+local closing_chars = {
+  [')'] = true,
+  ['}'] = true,
+  [']'] = true,
+  ['>'] = true,
+}
+
+
 -- should probably be using regex for this...
-local non_word_chars = {
+local separators = {
   [' '] = true,
   ['\n'] = true,
   ['\t'] = true,
@@ -22,8 +34,16 @@ local non_word_chars = {
   [','] = true,
 }
 
-local function can_insert_closing(char)
-  return char == nil or pairs[char] ~= nil or non_word_chars[char] ~= nil
+local function is_word_like(check_char)
+  return not (check_char == nil
+      or pairs[check_char] ~= nil
+      or closing_chars[check_char] ~= nil
+      or separators[check_char] ~= nil
+      )
+end
+
+local function is_mismatched_pair(prev_char, next_char)
+  return not (pairs[prev_char] == next_char)
 end
 
 local function get_cursor_pos()
@@ -68,19 +88,14 @@ end
 
 function M.insert_pair(opening_char)
   local line, col = get_cursor_pos()
-  local prev_char, next_char = get_cursor_chars()
+  local _, next_char = get_cursor_chars()
 
   -- insert opening char
   vim.api.nvim_paste(opening_char, false, -1)
   vim.api.nvim_win_set_cursor(0, { line, col + 1 })
 
-  if not can_insert_closing(next_char) then
-    -- don't insert closing char when there's a non-paired char next
-    return false
-  end
-
-  if pairs[opening_char] == opening_char and not can_insert_closing(prev_char) then
-    -- don't insert closing quote if the preceding char is not a pair char
+  if opening_chars[next_char] ~= nil or is_word_like(next_char) then
+    -- don't match in the middle of words or before an opening character
     return
   end
 
@@ -88,18 +103,23 @@ function M.insert_pair(opening_char)
   vim.api.nvim_win_set_cursor(0, { line, col + 1 })
 end
 
-function M.insert_quote(char)
+function M.insert_quote(quote_char)
   local line, col = get_cursor_pos()
-  local _, next_char = get_cursor_chars()
+  local prev_char, next_char = get_cursor_chars()
 
-  if next_char == char then
-    -- skip over closing if already present
-    vim.api.nvim_win_set_cursor(0, { line, col + 1 })
+  if not is_word_like(prev_char) and not is_mismatched_pair(prev_char, next_char) then
+    -- quotes also check the previous char to allow for apostrophes
+    M.insert_pair(quote_char)
     return
   end
 
-  M.insert_pair(char)
+  if next_char ~= quote_char then
+    vim.api.nvim_paste(quote_char, false, -1)
+  end
+
+  vim.api.nvim_win_set_cursor(0, {line, col+1})
 end
+
 
 local function insert_pair_newline()
   local prev_char, next_char = get_cursor_chars()
