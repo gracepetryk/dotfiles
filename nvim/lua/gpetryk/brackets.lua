@@ -43,7 +43,10 @@ local function is_word_like(check_char)
 end
 
 local function is_mismatched_pair(prev_char, next_char)
-  return not (pairs[prev_char] == next_char)
+  return (separators[prev_char] == nil
+      and not is_word_like(prev_char)
+      and not is_word_like(next_char)
+      and not (pairs[prev_char] == next_char))
 end
 
 local function get_cursor_pos()
@@ -107,28 +110,35 @@ function M.insert_quote(quote_char)
   local line, col = get_cursor_pos()
   local prev_char, next_char = get_cursor_chars()
 
-  if not is_word_like(prev_char) and not is_mismatched_pair(prev_char, next_char) then
-    -- quotes also check the previous char to allow for apostrophes
-    M.insert_pair(quote_char)
+
+  if next_char == quote_char then
+    -- next character is a quote, step over and return
+    vim.api.nvim_win_set_cursor(0, { line, col + 1 })
     return
   end
 
-  if next_char ~= quote_char then
+  vim.api.nvim_paste(quote_char, false, -1)
+
+  if not is_word_like(prev_char) and not opening_chars[next_char] then
     vim.api.nvim_paste(quote_char, false, -1)
+
+    if prev_char == quote_char and next_char == nil then
+      -- python docstrings
+      vim.api.nvim_paste(quote_char .. quote_char, false, -1)
+    end
   end
 
-  vim.api.nvim_win_set_cursor(0, {line, col+1})
+  vim.api.nvim_win_set_cursor(0, { line, col + 1 })
 end
-
 
 local function insert_pair_newline()
   local prev_char, next_char = get_cursor_chars()
 
-  if pairs[prev_char] ~= next_char then
-    return '<CR>'
+  if prev_char ~= nil and next_char ~= nil and pairs[prev_char] == next_char then
+    return '<CR><ESC>O'
   end
 
-  return '<CR><ESC>O'
+  return '<CR>'
 end
 
 local function delete_pair()

@@ -1,6 +1,6 @@
 local map = require("gpetryk.map").map
 
-map('n', 'x', '"_x')
+map('n', 'X', '"_x')
 map('n', 'DD', '"_dd')
 
 map('i', 'jj', '<Esc>')
@@ -16,6 +16,8 @@ map('n', '<A-Left>', '<C-w>h')
 map('n', '<A-Down>', '<C-w>j')
 map('n', '<A-Up>', '<C-w>k')
 map('n', '<A-Right>', '<C-w>l')
+
+map('n', 'L', 'K') -- preserve vims default find docs under symbol
 
 --one line scrolling
 
