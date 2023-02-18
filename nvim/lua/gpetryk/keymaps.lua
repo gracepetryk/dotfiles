@@ -24,6 +24,10 @@ map('n', 'L', 'K') -- preserve vims default find docs under symbol
 map({ 'n', 'i', 'v', 'x' }, '<ScrollWheelUp>', '<C-y>')
 map({ 'n', 'i', 'v', 'x' }, '<ScrollWheelDown>', '<C-e>')
 
+-- center half page scrolls
+map({ 'n', 'v' }, '<C-u>', '<C-u>M')
+map({ 'n', 'v' }, '<C-d>', '<C-d>M')
+
 --qflist/loclist
 
 map('n', '}', ':cn<CR>')
