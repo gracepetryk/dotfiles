@@ -17,6 +17,8 @@ map('n', '<A-Down>', '<C-w>j')
 map('n', '<A-Up>', '<C-w>k')
 map('n', '<A-Right>', '<C-w>l')
 
+map('n', 'shrug', 'a ¯\\_(ツ)_/¯<ESC>')
+
 map('n', 'L', 'K') -- preserve vims default find docs under symbol
 
 --one line scrolling
