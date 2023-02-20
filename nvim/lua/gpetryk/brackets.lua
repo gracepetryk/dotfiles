@@ -42,13 +42,6 @@ local function is_word_like(check_char)
       )
 end
 
-local function is_mismatched_pair(prev_char, next_char)
-  return (separators[prev_char] == nil
-      and not is_word_like(prev_char)
-      and not is_word_like(next_char)
-      and not (pairs[prev_char] == next_char))
-end
-
 local function get_cursor_pos()
   -- returns 1-indexed lines, 0-indexed columns
   local cursor_pos = vim.api.nvim_win_get_cursor(0)

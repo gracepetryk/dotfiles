@@ -19,7 +19,8 @@ map('n', '<A-Right>', '<C-w>l')
 
 map('n', 'shrug', 'a ¯\\_(ツ)_/¯<ESC>')
 
-map('n', 'L', 'K') -- preserve vims default find docs under symbol
+map({'n', 'v'}, 'J', '10j')
+map({'n', 'v'}, 'K', '10k')
 
 --one line scrolling
 
