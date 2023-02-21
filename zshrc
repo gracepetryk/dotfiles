@@ -12,8 +12,13 @@ if which nvim &>/dev/null; then
   alias vim=nvim
 fi
 
+plugins=()
 if [ "$IS_DOCKER_SANDBOX" = "" ]; then
     ZSH_THEME="gpetryk"
+    export NVM_LAZY_LOAD=true
+    export NVM_AUTO_USE=true
+    export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim', 'nvim')
+    plugins+=(zsh-nvm)
 else
     ZSH_THEME="gpetryk-docker"
 fi
@@ -21,12 +26,14 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-plugins=(evalcache git-prompt)
+plugins+=(evalcache git-prompt)
 source "$ZSH"/oh-my-zsh.sh
 
 if [ -d "$HOME/profile.d" ]; then
   for RC_FILE in "$HOME"/profile.d/*.rc; do source "$RC_FILE"; done
 fi
+
+source "$ZSH_CUSTOM/themes/$ZSH_THEME".zsh-theme # ensure prompt is not overwritten by profile
 
 # homebrew completions
 if type brew &>/dev/null
