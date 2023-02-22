@@ -1,5 +1,10 @@
 vim.diagnostic.config({
   virtual_text = false,
+  float = {
+    format = function (diagnostic)
+      return string.format('%s [%s]', diagnostic.message, diagnostic.code)
+    end
+  }
 })
 
 -- Create a custom namespace. This will aggregate signs from all other

@@ -1,0 +1,1418 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.021  000.021: --- NVIM STARTING ---
+000.210  000.189: event init
+000.551  000.341: early init
+003.371  002.821: locale set
+003.486  000.114: init first window
+004.386  000.900: inits 1
+004.408  000.023: window checked
+005.155  000.746: parsing arguments
+005.847  000.085  000.085: require('vim.shared')
+005.989  000.053  000.053: require('vim._meta')
+005.992  000.140  000.087: require('vim._editor')
+005.994  000.282  000.058: require('vim._init_packages')
+005.996  000.559: init lua interpreter
+009.145  003.149: expanding arguments
+009.288  000.144: inits 2
+009.858  000.569: init highlight
+009.862  000.004: waiting for UI
+014.487  004.625: done waiting for UI
+014.526  000.038: init screen for UI
+014.923  000.397: init default mappings
+015.041  000.118: init default autocommands
+017.860  000.192  000.192: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin.vim
+018.417  000.066  000.066: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent.vim
+020.796  000.284  000.284: require('gpetryk.set')
+021.041  000.240  000.240: require('lazy')
+021.096  000.030  000.030: require('ffi')
+021.603  000.503  000.503: require('lazy.core.cache')
+022.698  001.047  001.047: require('lazy.stats')
+023.062  000.306  000.306: require('lazy.core.util')
+023.346  000.279  000.279: require('lazy.core.config')
+024.009  000.321  000.321: require('lazy.core.handler')
+024.431  000.416  000.416: require('lazy.core.plugin')
+024.447  001.097  000.359: require('lazy.core.loader')
+025.388  000.261  000.261: require('gpetryk.plugins')
+027.462  000.259  000.259: require('lazy.core.handler.keys')
+027.856  000.380  000.380: require('lazy.core.handler.cmd')
+028.150  000.286  000.286: require('lazy.core.handler.event')
+028.375  000.219  000.219: require('lazy.core.handler.ft')
+028.472  000.010  000.010: require('vim.keymap')
+030.284  001.100  001.100: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+032.064  000.581  000.581: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-sleuth/plugin/sleuth.vim
+033.639  000.202  000.202: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-rhubarb/plugin/rhubarb.vim
+039.414  000.047  000.047: sourcing /Users/GPetryk/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim
+041.563  001.516  001.516: require('plenary.bit')
+041.821  000.249  000.249: require('plenary.functional')
+041.845  003.763  001.951: require('plenary.path')
+042.075  000.228  000.228: require('plenary.enum')
+042.275  000.190  000.190: require('plenary.tbl')
+042.296  004.398  000.217: require('session_manager.config')
+044.832  002.152  002.152: require('plenary.scandir')
+044.850  002.551  000.399: require('session_manager.utils')
+044.858  007.215  000.266: require('session_manager')
+044.863  008.940  001.725: require('session_manager.subcommands')
+044.922  009.148  000.207: sourcing /Users/GPetryk/.local/share/nvim/lazy/neovim-session-manager/plugin/session_manager.lua
+045.439  000.398  000.398: require('plugins.sessions')
+047.177  001.282  001.282: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/plugin/fugitive.vim
+047.587  000.027  000.027: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/ftdetect/fugitive.vim
+050.272  000.271  000.271: require('vim.lsp.log')
+051.319  000.014  000.014: require('vim.F')
+051.325  001.045  001.031: require('vim.lsp.protocol')
+052.630  000.511  000.511: require('vim.lsp._snippet')
+052.880  000.243  000.243: require('vim.highlight')
+052.908  001.581  000.827: require('vim.lsp.util')
+052.928  003.259  000.362: require('vim.lsp.handlers')
+053.619  000.688  000.688: require('vim.lsp.rpc')
+053.853  000.229  000.229: require('vim.lsp.sync')
+054.379  000.521  000.521: require('vim.lsp.buf')
+054.589  000.206  000.206: require('vim.lsp.diagnostic')
+054.768  000.174  000.174: require('vim.lsp.codelens')
+054.991  006.045  000.968: require('vim.lsp')
+055.063  006.236  000.191: sourcing /Users/GPetryk/.local/share/nvim/lazy/nvim-lspconfig/plugin/lspconfig.lua
+058.310  000.180  000.180: require('mason-core.path')
+058.377  001.210  001.030: require('mason.settings')
+058.726  000.173  000.173: require('mason-core.functional')
+059.038  000.138  000.138: require('mason-core.functional.data')
+059.045  000.290  000.152: require('mason-core.functional.function')
+059.197  000.134  000.134: require('mason-core.functional.relation')
+059.338  000.134  000.134: require('mason-core.functional.logic')
+059.414  001.034  000.304: require('mason-core.platform')
+059.419  004.086  001.841: require('mason')
+059.850  000.193  000.193: require('mason-core.functional.list')
+060.013  000.157  000.157: require('mason-core.functional.string')
+060.048  000.608  000.258: require('mason.api.command')
+060.743  000.686  000.686: require('vim.diagnostic')
+062.170  000.503  000.503: require('lspconfig.util')
+062.176  000.772  000.269: require('lspconfig.configs')
+062.179  001.009  000.237: require('lspconfig')
+062.599  000.414  000.414: require('lspconfig.server_configurations.pyright')
+063.427  000.334  000.334: require('lspconfig.server_configurations.lua_ls')
+063.971  000.271  000.271: require('lspconfig.server_configurations.solargraph')
+064.617  000.284  000.284: require('lspconfig.server_configurations.bashls')
+064.794  009.662  001.971: require('plugins.lsp')
+065.616  000.220  000.220: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/gzip.vim
+065.803  000.022  000.022: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/health.vim
+066.187  000.252  000.252: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/man.lua
+069.506  000.245  000.245: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+070.113  003.744  003.499: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchit.vim
+070.587  000.242  000.242: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchparen.vim
+071.182  000.424  000.424: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/netrwPlugin.vim
+071.790  000.017  000.017: sourcing /Users/GPetryk/.local/share/nvim/rplugin.vim
+071.816  000.383  000.365: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/rplugin.vim
+072.039  000.086  000.086: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/shada.vim
+072.222  000.036  000.036: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/spellfile.vim
+072.543  000.169  000.169: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tarPlugin.vim
+072.842  000.131  000.131: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tohtml.vim
+073.019  000.032  000.032: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tutor.vim
+073.346  000.183  000.183: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/zipPlugin.vim
+079.199  000.784  000.784: require('vscode.theme')
+079.211  001.090  000.306: require('vscode')
+080.102  000.313  000.313: require('vscode.colors')
+081.589  003.509  002.106: sourcing /Users/GPetryk/.local/share/nvim/lazy/vscode.nvim/colors/vscode.vim
+081.628  007.715  004.205: sourcing /Users/GPetryk/.config/nvim/after/plugin/colors.lua
+082.036  000.194  000.194: sourcing /Users/GPetryk/.config/nvim/after/plugin/diagnostics.lua
+082.757  000.286  000.286: require('gpetryk.map')
+084.645  000.199  000.199: require('plenary.job')
+084.653  000.362  000.163: require('harpoon.utils')
+085.105  000.300  000.300: require('plenary.log')
+085.174  000.519  000.219: require('harpoon.dev')
+085.253  000.042  000.042: require('vim.inspect')
+085.748  001.663  000.740: require('harpoon')
+086.327  000.187  000.187: require('plenary.strings')
+086.333  000.354  000.167: require('plenary.window.border')
+086.562  000.227  000.227: require('plenary.window')
+086.713  000.147  000.147: require('plenary.popup.utils')
+086.719  000.966  000.238: require('plenary.popup')
+086.990  000.269  000.269: require('harpoon.mark')
+087.000  003.231  000.333: require('harpoon.ui')
+087.426  000.216  000.216: require('gpetryk.brackets')
+087.517  005.397  001.665: require('gpetryk.keymaps')
+087.766  000.204  000.204: require('gpetryk.winbar')
+087.793  068.677  015.405: require('gpetryk')
+087.795  068.937  000.260: sourcing /Users/GPetryk/.config/nvim/init.lua
+087.829  003.593: sourcing vimrc file(s)
+088.313  000.172  000.172: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+088.552  000.043  000.043: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.vim
+089.104  000.138  000.138: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/synload.vim
+089.242  000.487  000.349: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/syntax.vim
+089.269  000.737: inits 3
+096.243  006.974: reading ShaDa
+101.305  001.145  001.145: require('vim.filetype')
+103.563  000.099  000.099: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/pythonx.vim
+2695.075  000.231  000.231: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/remote/host.vim
+2695.202  2591.950  2591.620: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/python3.vim
+2695.770  2592.838  000.888: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+2698.215  000.070  000.070: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+2700.160  000.478  000.478: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+2702.639  000.332  000.332: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-python-pep8-indent/indent/python.vim
+2702.846  000.016  000.016: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+2703.852  000.315  000.315: require('vim.uri')
+2707.148  001.234  001.234: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/python.vim
+2718.368  025.697: opening buffers
+2718.416  000.047: BufEnter autocommands
+2718.424  000.009: editing files in windows
+2718.715  000.291: VimEnter autocommands
+2718.764  000.048: UIEnter autocommands
+2718.766  000.002: before starting main loop
+2726.423  007.658: first screen update
+2726.428  000.005: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.024  000.024: --- NVIM STARTING ---
+000.223  000.199: event init
+000.503  000.280: early init
+003.429  002.926: locale set
+003.513  000.084: init first window
+004.425  000.912: inits 1
+004.449  000.024: window checked
+005.057  000.608: parsing arguments
+005.742  000.109  000.109: require('vim.shared')
+005.921  000.068  000.068: require('vim._meta')
+005.925  000.176  000.108: require('vim._editor')
+005.927  000.363  000.078: require('vim._init_packages')
+005.929  000.510: init lua interpreter
+009.471  003.542: expanding arguments
+009.618  000.147: inits 2
+010.135  000.517: init highlight
+010.140  000.005: waiting for UI
+014.723  004.583: done waiting for UI
+014.742  000.019: init screen for UI
+015.098  000.356: init default mappings
+015.127  000.028: init default autocommands
+017.782  000.449  000.449: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin.vim
+018.503  000.382  000.382: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent.vim
+022.998  000.668  000.668: require('gpetryk.set')
+023.686  000.681  000.681: require('lazy')
+023.764  000.035  000.035: require('ffi')
+025.096  001.327  001.327: require('lazy.core.cache')
+026.127  000.951  000.951: require('lazy.stats')
+026.944  000.751  000.751: require('lazy.core.util')
+027.659  000.708  000.708: require('lazy.core.config')
+028.947  000.509  000.509: require('lazy.core.handler')
+029.531  000.578  000.578: require('lazy.core.plugin')
+029.544  001.879  000.792: require('lazy.core.loader')
+030.733  000.583  000.583: require('gpetryk.plugins')
+033.462  000.627  000.627: require('lazy.core.handler.keys')
+034.450  000.370  000.370: require('lazy.core.handler.event')
+034.457  000.987  000.617: require('lazy.core.handler.ft')
+034.857  000.395  000.395: require('lazy.core.handler.cmd')
+035.096  000.009  000.009: require('vim.keymap')
+037.336  001.481  001.481: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+041.517  002.426  002.426: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/plugin/fugitive.vim
+042.478  000.347  000.347: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/ftdetect/fugitive.vim
+048.474  000.372  000.372: sourcing /Users/GPetryk/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim
+050.981  001.803  001.803: require('plenary.bit')
+051.436  000.446  000.446: require('plenary.functional')
+051.469  004.831  002.209: require('plenary.path')
+051.865  000.393  000.393: require('plenary.enum')
+052.238  000.360  000.360: require('plenary.tbl')
+052.265  006.017  000.433: require('session_manager.config')
+055.389  002.479  002.479: require('plenary.scandir')
+055.403  003.135  000.656: require('session_manager.utils')
+055.409  009.585  000.433: require('session_manager')
+055.413  011.246  001.661: require('session_manager.subcommands')
+055.472  011.791  000.545: sourcing /Users/GPetryk/.local/share/nvim/lazy/neovim-session-manager/plugin/session_manager.lua
+056.473  000.878  000.878: require('plugins.sessions')
+058.509  000.471  000.471: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-rhubarb/plugin/rhubarb.vim
+061.487  001.484  001.484: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-sleuth/plugin/sleuth.vim
+065.565  000.702  000.702: require('vim.lsp.log')
+067.064  000.015  000.015: require('vim.F')
+067.070  001.498  001.483: require('vim.lsp.protocol')
+068.562  000.867  000.867: require('vim.lsp._snippet')
+069.066  000.496  000.496: require('vim.highlight')
+069.130  002.057  000.695: require('vim.lsp.util')
+069.213  005.045  000.788: require('vim.lsp.handlers')
+069.927  000.710  000.710: require('vim.lsp.rpc')
+070.467  000.535  000.535: require('vim.lsp.sync')
+071.161  000.686  000.686: require('vim.lsp.buf')
+071.781  000.612  000.612: require('vim.lsp.diagnostic')
+072.312  000.526  000.526: require('vim.lsp.codelens')
+072.442  009.128  001.013: require('vim.lsp')
+072.528  009.693  000.565: sourcing /Users/GPetryk/.local/share/nvim/lazy/nvim-lspconfig/plugin/lspconfig.lua
+077.394  000.467  000.467: require('mason-core.path')
+077.722  002.064  001.596: require('mason.settings')
+078.674  000.406  000.406: require('mason-core.functional')
+079.416  000.350  000.350: require('mason-core.functional.data')
+079.431  000.720  000.370: require('mason-core.functional.function')
+079.846  000.388  000.388: require('mason-core.functional.relation')
+080.183  000.323  000.323: require('mason-core.functional.logic')
+080.243  002.517  000.679: require('mason-core.platform')
+080.248  006.976  002.396: require('mason')
+081.412  000.634  000.634: require('mason-core.functional.list')
+081.792  000.373  000.373: require('mason-core.functional.string')
+081.835  001.562  000.555: require('mason.api.command')
+082.462  000.617  000.617: require('vim.diagnostic')
+084.769  000.946  000.946: require('lspconfig.util')
+084.777  001.506  000.560: require('lspconfig.configs')
+084.780  001.923  000.417: require('lspconfig')
+085.180  000.395  000.395: require('lspconfig.server_configurations.pyright')
+085.908  000.381  000.381: require('lspconfig.server_configurations.lua_ls')
+086.771  000.374  000.374: require('lspconfig.server_configurations.solargraph')
+087.505  000.484  000.484: require('lspconfig.server_configurations.bashls')
+087.609  014.980  002.268: require('plugins.lsp')
+088.568  000.472  000.472: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/gzip.vim
+089.060  000.327  000.327: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/health.vim
+089.883  000.610  000.610: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/man.lua
+093.257  000.784  000.784: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+093.776  003.712  002.928: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchit.vim
+094.450  000.464  000.464: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchparen.vim
+095.356  000.752  000.752: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/netrwPlugin.vim
+096.400  000.319  000.319: sourcing /Users/GPetryk/.local/share/nvim/rplugin.vim
+096.430  000.826  000.507: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/rplugin.vim
+096.856  000.213  000.213: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/shada.vim
+097.186  000.163  000.163: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/spellfile.vim
+097.600  000.255  000.255: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tarPlugin.vim
+098.251  000.484  000.484: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tohtml.vim
+098.565  000.152  000.152: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tutor.vim
+099.097  000.376  000.376: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/zipPlugin.vim
+105.727  000.797  000.797: require('vscode.theme')
+105.735  001.280  000.483: require('vscode')
+106.732  000.479  000.479: require('vscode.colors')
+109.082  004.969  003.210: sourcing /Users/GPetryk/.local/share/nvim/lazy/vscode.nvim/colors/vscode.vim
+109.130  009.250  004.282: sourcing /Users/GPetryk/.config/nvim/after/plugin/colors.lua
+109.840  000.483  000.483: sourcing /Users/GPetryk/.config/nvim/after/plugin/diagnostics.lua
+110.908  000.452  000.452: require('gpetryk.map')
+113.315  000.687  000.687: require('plenary.job')
+113.324  001.101  000.414: require('harpoon.utils')
+114.226  000.513  000.513: require('plenary.log')
+114.372  001.045  000.532: require('harpoon.dev')
+114.607  000.164  000.164: require('vim.inspect')
+115.564  003.778  001.468: require('harpoon')
+117.381  000.396  000.396: require('plenary.strings')
+117.391  001.091  000.695: require('plenary.window.border')
+117.795  000.401  000.401: require('plenary.window')
+118.140  000.340  000.340: require('plenary.popup.utils')
+118.151  002.580  000.747: require('plenary.popup')
+118.640  000.484  000.484: require('harpoon.mark')
+118.649  007.315  000.473: require('harpoon.ui')
+119.421  000.545  000.545: require('gpetryk.brackets')
+119.460  009.543  001.231: require('gpetryk.keymaps')
+120.096  000.590  000.590: require('gpetryk.winbar')
+120.122  100.424  018.596: require('gpetryk')
+120.125  101.016  000.592: sourcing /Users/GPetryk/.config/nvim/init.lua
+120.190  003.217: sourcing vimrc file(s)
+120.737  000.144  000.144: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+121.238  000.327  000.327: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.vim
+122.845  000.550  000.550: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/synload.vim
+123.056  001.450  000.900: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/syntax.vim
+123.107  000.995: inits 3
+130.644  007.537: reading ShaDa
+136.036  001.190  001.190: require('vim.filetype')
+139.925  000.419  000.419: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/pythonx.vim
+3140.545  000.764  000.764: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/remote/host.vim
+3140.663  3001.743  3000.559: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/python3.vim
+3141.352  3003.251  001.508: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+3144.118  000.354  000.354: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+3146.114  000.427  000.427: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+3149.323  000.963  000.963: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-python-pep8-indent/indent/python.vim
+3149.550  000.017  000.017: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+3151.140  000.556  000.556: require('vim.uri')
+3154.983  001.590  001.590: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/python.vim
+3167.007  028.015: opening buffers
+3167.083  000.076: BufEnter autocommands
+3167.095  000.012: editing files in windows
+3167.543  000.448: VimEnter autocommands
+3167.605  000.063: UIEnter autocommands
+3167.610  000.004: before starting main loop
+3176.750  009.140: first screen update
+3176.754  000.004: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.028  000.028: --- NVIM STARTING ---
+000.239  000.211: event init
+000.506  000.267: early init
+004.166  003.660: locale set
+004.323  000.158: init first window
+005.217  000.894: inits 1
+005.243  000.025: window checked
+006.017  000.775: parsing arguments
+007.014  000.135  000.135: require('vim.shared')
+007.240  000.089  000.089: require('vim._meta')
+007.245  000.224  000.134: require('vim._editor')
+007.249  000.459  000.101: require('vim._init_packages')
+007.254  000.777: init lua interpreter
+026.576  019.322: expanding arguments
+026.806  000.231: inits 2
+027.736  000.929: init highlight
+027.742  000.006: waiting for UI
+034.468  006.727: done waiting for UI
+034.488  000.019: init screen for UI
+034.997  000.509: init default mappings
+035.028  000.031: init default autocommands
+039.298  000.454  000.454: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin.vim
+040.087  000.472  000.472: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent.vim
+045.841  000.817  000.817: require('gpetryk.set')
+046.521  000.673  000.673: require('lazy')
+046.605  000.041  000.041: require('ffi')
+048.165  001.554  001.554: require('lazy.core.cache')
+049.494  001.225  001.225: require('lazy.stats')
+050.416  000.828  000.828: require('lazy.core.util')
+051.433  001.008  001.008: require('lazy.core.config')
+053.042  000.567  000.567: require('lazy.core.handler')
+053.765  000.716  000.716: require('lazy.core.plugin')
+053.779  002.338  001.056: require('lazy.core.loader')
+055.190  000.731  000.731: require('gpetryk.plugins')
+058.497  000.788  000.788: require('lazy.core.handler.event')
+059.170  000.657  000.657: require('lazy.core.handler.cmd')
+059.721  000.543  000.543: require('lazy.core.handler.keys')
+060.316  000.585  000.585: require('lazy.core.handler.ft')
+060.701  000.012  000.012: require('vim.keymap')
+063.744  001.656  001.656: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+067.932  002.697  002.697: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/plugin/fugitive.vim
+069.095  000.373  000.373: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/ftdetect/fugitive.vim
+071.164  000.535  000.535: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-rhubarb/plugin/rhubarb.vim
+074.313  001.553  001.553: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-sleuth/plugin/sleuth.vim
+081.044  000.404  000.404: sourcing /Users/GPetryk/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim
+084.068  002.097  002.097: require('plenary.bit')
+084.545  000.467  000.467: require('plenary.functional')
+084.578  005.347  002.378: require('plenary.path')
+084.950  000.370  000.370: require('plenary.enum')
+085.399  000.436  000.436: require('plenary.tbl')
+085.429  006.617  000.465: require('session_manager.config')
+087.940  001.824  001.824: require('plenary.scandir')
+087.952  002.519  000.694: require('session_manager.utils')
+087.959  009.711  000.575: require('session_manager')
+087.963  011.685  001.974: require('session_manager.subcommands')
+088.014  012.210  000.525: sourcing /Users/GPetryk/.local/share/nvim/lazy/neovim-session-manager/plugin/session_manager.lua
+089.150  001.011  001.011: require('plugins.sessions')
+093.571  000.865  000.865: require('vim.lsp.log')
+095.261  000.016  000.016: require('vim.F')
+095.272  001.692  001.676: require('vim.lsp.protocol')
+097.637  001.334  001.334: require('vim.lsp._snippet')
+098.042  000.396  000.396: require('vim.highlight')
+098.070  002.795  001.065: require('vim.lsp.util')
+098.089  006.050  000.697: require('vim.lsp.handlers')
+098.773  000.681  000.681: require('vim.lsp.rpc')
+099.324  000.544  000.544: require('vim.lsp.sync')
+099.948  000.616  000.616: require('vim.lsp.buf')
+100.457  000.503  000.503: require('vim.lsp.diagnostic')
+100.932  000.464  000.464: require('vim.lsp.codelens')
+101.106  009.852  000.993: require('vim.lsp')
+101.186  010.469  000.617: sourcing /Users/GPetryk/.local/share/nvim/lazy/nvim-lspconfig/plugin/lspconfig.lua
+106.645  000.504  000.504: require('mason-core.path')
+106.881  002.290  001.786: require('mason.settings')
+107.857  000.399  000.399: require('mason-core.functional')
+108.531  000.345  000.345: require('mason-core.functional.data')
+108.543  000.650  000.305: require('mason-core.functional.function')
+108.837  000.257  000.257: require('mason-core.functional.relation')
+109.108  000.258  000.258: require('mason-core.functional.logic')
+109.139  002.254  000.691: require('mason-core.platform')
+109.142  007.231  002.688: require('mason')
+110.006  000.463  000.463: require('mason-core.functional.list')
+110.404  000.388  000.388: require('mason-core.functional.string')
+110.452  001.292  000.441: require('mason.api.command')
+111.077  000.612  000.612: require('vim.diagnostic')
+113.511  000.890  000.890: require('lspconfig.util')
+113.519  001.474  000.583: require('lspconfig.configs')
+113.524  001.904  000.431: require('lspconfig')
+113.902  000.374  000.374: require('lspconfig.server_configurations.pyright')
+114.592  000.328  000.328: require('lspconfig.server_configurations.lua_ls')
+115.305  000.366  000.366: require('lspconfig.server_configurations.solargraph')
+115.840  000.327  000.327: require('lspconfig.server_configurations.bashls')
+115.931  014.622  002.187: require('plugins.lsp')
+116.975  000.464  000.464: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/gzip.vim
+117.496  000.294  000.294: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/health.vim
+118.162  000.443  000.443: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/man.lua
+121.615  000.768  000.768: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+122.105  003.788  003.020: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchit.vim
+122.733  000.449  000.449: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchparen.vim
+123.603  000.689  000.689: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/netrwPlugin.vim
+124.597  000.296  000.296: sourcing /Users/GPetryk/.local/share/nvim/rplugin.vim
+124.625  000.832  000.537: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/rplugin.vim
+125.005  000.211  000.211: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/shada.vim
+125.342  000.170  000.170: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/spellfile.vim
+126.004  000.393  000.393: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tarPlugin.vim
+126.819  000.536  000.536: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tohtml.vim
+127.360  000.232  000.232: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tutor.vim
+128.192  000.461  000.461: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/zipPlugin.vim
+135.950  001.006  001.006: require('vscode.theme')
+135.959  001.622  000.616: require('vscode')
+137.287  000.616  000.616: require('vscode.colors')
+139.807  005.810  003.572: sourcing /Users/GPetryk/.local/share/nvim/lazy/vscode.nvim/colors/vscode.vim
+139.863  010.965  005.155: sourcing /Users/GPetryk/.config/nvim/after/plugin/colors.lua
+140.679  000.535  000.535: sourcing /Users/GPetryk/.config/nvim/after/plugin/diagnostics.lua
+142.231  000.631  000.631: require('gpetryk.map')
+144.902  000.710  000.710: require('plenary.job')
+144.918  001.076  000.366: require('harpoon.utils')
+145.823  000.518  000.518: require('plenary.log')
+145.946  001.023  000.505: require('harpoon.dev')
+146.098  000.106  000.106: require('vim.inspect')
+147.462  004.043  001.839: require('harpoon')
+148.760  000.308  000.308: require('plenary.strings')
+148.767  000.697  000.388: require('plenary.window.border')
+149.244  000.475  000.475: require('plenary.window')
+149.596  000.347  000.347: require('plenary.popup.utils')
+149.604  002.136  000.617: require('plenary.popup')
+150.024  000.417  000.417: require('harpoon.mark')
+150.034  007.211  000.615: require('harpoon.ui')
+151.242  000.693  000.693: require('gpetryk.brackets')
+151.451  010.655  002.120: require('gpetryk.keymaps')
+152.152  000.641  000.641: require('gpetryk.winbar')
+152.196  110.499  021.813: require('gpetryk')
+152.202  111.138  000.638: sourcing /Users/GPetryk/.config/nvim/init.lua
+152.259  005.168: sourcing vimrc file(s)
+152.972  000.206  000.206: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+153.756  000.305  000.305: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.vim
+155.291  000.416  000.416: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/synload.vim
+155.468  001.326  000.910: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/syntax.vim
+155.511  001.415: inits 3
+163.762  008.252: reading ShaDa
+182.297  001.869  001.869: require('vim.filetype')
+187.994  000.410  000.410: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/pythonx.vim
+3836.888  001.364  001.364: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/remote/host.vim
+3837.400  3650.587  3648.813: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/python3.vim
+3838.839  3653.207  002.620: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+3844.231  000.493  000.493: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+3849.206  001.278  001.278: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+3855.279  001.469  001.469: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-python-pep8-indent/indent/python.vim
+3855.671  000.051  000.051: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+3857.727  000.691  000.691: require('vim.uri')
+3862.843  001.650  001.650: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/python.vim
+3881.017  056.547: opening buffers
+3881.107  000.089: BufEnter autocommands
+3881.118  000.011: editing files in windows
+3881.732  000.614: VimEnter autocommands
+3881.977  000.245: UIEnter autocommands
+3881.982  000.005: before starting main loop
+3891.072  009.090: first screen update
+3891.077  000.005: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.008  000.008: --- NVIM STARTING ---
+000.145  000.137: event init
+000.584  000.439: early init
+001.673  001.089: locale set
+001.734  000.061: init first window
+002.758  001.025: inits 1
+002.780  000.021: window checked
+003.661  000.882: parsing arguments
+004.232  000.086  000.086: require('vim.shared')
+004.394  000.059  000.059: require('vim._meta')
+004.398  000.162  000.104: require('vim._editor')
+004.400  000.300  000.052: require('vim._init_packages')
+004.402  000.440: init lua interpreter
+007.096  002.694: expanding arguments
+007.192  000.096: inits 2
+007.530  000.338: init highlight
+007.532  000.002: waiting for UI
+027.753  020.221: done waiting for UI
+027.785  000.032: init screen for UI
+028.027  000.241: init default mappings
+028.042  000.015: init default autocommands
+031.725  000.468  000.468: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin.vim
+032.369  000.270  000.270: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent.vim
+036.806  000.667  000.667: require('gpetryk.set')
+037.693  000.883  000.883: require('lazy')
+037.743  000.025  000.025: require('ffi')
+038.969  001.223  001.223: require('lazy.core.cache')
+040.115  001.096  001.096: require('lazy.stats')
+040.827  000.672  000.672: require('lazy.core.util')
+041.594  000.762  000.762: require('lazy.core.config')
+042.977  000.648  000.648: require('lazy.core.handler')
+043.531  000.550  000.550: require('lazy.core.plugin')
+043.539  001.941  000.742: require('lazy.core.loader')
+044.750  000.708  000.708: require('gpetryk.plugins')
+047.401  000.640  000.640: require('lazy.core.handler.keys')
+048.051  000.645  000.645: require('lazy.core.handler.cmd')
+048.588  000.532  000.532: require('lazy.core.handler.event')
+049.070  000.477  000.477: require('lazy.core.handler.ft')
+049.291  000.013  000.013: require('vim.keymap')
+051.426  001.507  001.507: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+055.207  001.685  001.685: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/plugin/fugitive.vim
+056.504  000.275  000.275: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/ftdetect/fugitive.vim
+075.431  000.555  000.555: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-rhubarb/plugin/rhubarb.vim
+079.612  001.276  001.276: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-sleuth/plugin/sleuth.vim
+089.374  000.313  000.313: sourcing /Users/GPetryk/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim
+092.803  001.301  001.301: require('plenary.bit')
+093.361  000.553  000.553: require('plenary.functional')
+093.384  006.872  004.705: require('plenary.path')
+093.980  000.593  000.593: require('plenary.enum')
+094.512  000.520  000.520: require('plenary.tbl')
+094.560  008.825  000.839: require('session_manager.config')
+097.258  001.988  001.988: require('plenary.scandir')
+097.266  002.703  000.716: require('session_manager.utils')
+097.271  012.370  000.842: require('session_manager')
+097.273  014.831  002.461: require('session_manager.subcommands')
+097.309  015.609  000.779: sourcing /Users/GPetryk/.local/share/nvim/lazy/neovim-session-manager/plugin/session_manager.lua
+098.239  000.821  000.821: require('plugins.sessions')
+104.146  001.072  001.072: require('vim.lsp.log')
+105.855  000.013  000.013: require('vim.F')
+105.861  001.709  001.696: require('vim.lsp.protocol')
+107.839  001.158  001.158: require('vim.lsp._snippet')
+124.873  017.030  017.030: require('vim.highlight')
+124.933  019.070  000.882: require('vim.lsp.util')
+124.966  022.703  000.852: require('vim.lsp.handlers')
+126.709  001.737  001.737: require('vim.lsp.rpc')
+127.822  001.105  001.105: require('vim.lsp.sync')
+129.293  001.463  001.463: require('vim.lsp.buf')
+130.420  001.119  001.119: require('vim.lsp.diagnostic')
+131.376  000.949  000.949: require('vim.lsp.codelens')
+131.467  030.194  001.118: require('vim.lsp')
+131.563  031.232  001.038: sourcing /Users/GPetryk/.local/share/nvim/lazy/nvim-lspconfig/plugin/lspconfig.lua
+139.920  000.605  000.605: require('mason-core.path')
+140.217  002.289  001.684: require('mason.settings')
+143.131  002.198  002.198: require('mason-core.functional')
+144.276  000.544  000.544: require('mason-core.functional.data')
+144.298  001.134  000.590: require('mason-core.functional.function')
+145.023  000.706  000.706: require('mason-core.functional.relation')
+145.625  000.591  000.591: require('mason-core.functional.logic')
+145.674  005.454  000.824: require('mason-core.platform')
+145.679  012.757  005.014: require('mason')
+147.207  000.713  000.713: require('mason-core.functional.list')
+147.647  000.434  000.434: require('mason-core.functional.string')
+147.686  001.986  000.839: require('mason.api.command')
+148.323  000.629  000.629: require('vim.diagnostic')
+151.398  001.077  001.077: require('lspconfig.util')
+151.403  001.760  000.683: require('lspconfig.configs')
+151.407  002.542  000.782: require('lspconfig')
+151.886  000.476  000.476: require('lspconfig.server_configurations.pyright')
+152.636  000.487  000.487: require('lspconfig.server_configurations.lua_ls')
+153.543  000.566  000.566: require('lspconfig.server_configurations.solargraph')
+154.297  000.519  000.519: require('lspconfig.server_configurations.bashls')
+154.441  022.770  002.807: require('plugins.lsp')
+155.901  000.453  000.453: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/gzip.vim
+156.492  000.285  000.285: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/health.vim
+157.393  000.617  000.617: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/man.lua
+180.653  000.749  000.749: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+181.063  006.816  006.067: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchit.vim
+181.923  000.437  000.437: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchparen.vim
+182.843  000.597  000.597: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/netrwPlugin.vim
+184.374  000.435  000.435: sourcing /Users/GPetryk/.local/share/nvim/rplugin.vim
+184.399  001.222  000.787: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/rplugin.vim
+184.954  000.180  000.180: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/shada.vim
+185.488  000.139  000.139: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/spellfile.vim
+186.023  000.231  000.231: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tarPlugin.vim
+186.758  000.369  000.369: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tohtml.vim
+187.269  000.126  000.126: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tutor.vim
+187.821  000.277  000.277: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/zipPlugin.vim
+195.898  000.899  000.899: require('vscode.theme')
+195.905  001.681  000.781: require('vscode')
+196.987  000.514  000.514: require('vscode.colors')
+198.560  004.616  002.421: sourcing /Users/GPetryk/.local/share/nvim/lazy/vscode.nvim/colors/vscode.vim
+198.584  009.592  004.976: sourcing /Users/GPetryk/.config/nvim/after/plugin/colors.lua
+199.654  000.643  000.643: sourcing /Users/GPetryk/.config/nvim/after/plugin/diagnostics.lua
+201.076  000.484  000.484: require('gpetryk.map')
+203.274  000.610  000.610: require('plenary.job')
+203.279  001.025  000.416: require('harpoon.utils')
+204.254  000.576  000.576: require('plenary.log')
+204.301  001.021  000.445: require('harpoon.dev')
+204.361  000.034  000.034: require('vim.inspect')
+205.448  003.667  001.587: require('harpoon')
+207.392  000.389  000.389: require('plenary.strings')
+207.398  000.986  000.598: require('plenary.window.border')
+224.562  017.163  017.163: require('plenary.window')
+225.486  000.914  000.914: require('plenary.popup.utils')
+225.498  020.046  000.983: require('plenary.popup')
+226.605  001.104  001.104: require('harpoon.mark')
+226.618  025.246  000.429: require('harpoon.ui')
+228.499  001.578  001.578: require('gpetryk.brackets')
+228.538  028.800  001.493: require('gpetryk.keymaps')
+229.947  001.357  001.357: require('gpetryk.winbar')
+229.975  196.283  058.129: require('gpetryk')
+229.978  196.864  000.581: sourcing /Users/GPetryk/.config/nvim/init.lua
+230.039  004.396: sourcing vimrc file(s)
+230.865  000.152  000.152: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+231.926  000.589  000.589: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.vim
+234.487  000.659  000.659: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/synload.vim
+234.635  002.008  001.350: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/syntax.vim
+234.668  001.879: inits 3
+241.422  006.754: reading ShaDa
+246.520  001.180  001.180: require('vim.filetype')
+251.066  000.295  000.295: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/pythonx.vim
+543.136  000.694  000.694: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/remote/host.vim
+543.258  293.287  292.298: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/python3.vim
+543.942  295.414  002.127: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+547.015  000.473  000.473: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+548.693  000.393  000.393: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+551.954  001.076  001.076: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-python-pep8-indent/indent/python.vim
+552.146  000.016  000.016: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+554.039  000.852  000.852: require('vim.uri')
+557.098  001.190  001.190: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/python.vim
+565.719  023.703: opening buffers
+565.752  000.034: BufEnter autocommands
+565.759  000.006: editing files in windows
+565.982  000.223: VimEnter autocommands
+566.019  000.037: UIEnter autocommands
+566.021  000.002: before starting main loop
+571.304  005.282: first screen update
+571.306  000.002: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.028  000.028: --- NVIM STARTING ---
+000.186  000.158: event init
+000.476  000.290: early init
+018.287  017.811: locale set
+018.362  000.075: init first window
+018.857  000.495: inits 1
+018.874  000.018: window checked
+019.201  000.326: parsing arguments
+019.699  000.064  000.064: require('vim.shared')
+019.810  000.040  000.040: require('vim._meta')
+019.812  000.109  000.069: require('vim._editor')
+019.813  000.216  000.043: require('vim._init_packages')
+019.815  000.398: init lua interpreter
+023.793  003.978: expanding arguments
+023.889  000.096: inits 2
+024.274  000.385: init highlight
+024.277  000.004: waiting for UI
+028.275  003.997: done waiting for UI
+028.312  000.038: init screen for UI
+028.680  000.367: init default mappings
+028.706  000.026: init default autocommands
+030.939  000.437  000.437: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin.vim
+031.501  000.360  000.360: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent.vim
+035.104  000.610  000.610: require('gpetryk.set')
+035.574  000.467  000.467: require('lazy')
+035.613  000.019  000.019: require('ffi')
+036.634  001.018  001.018: require('lazy.core.cache')
+037.168  000.484  000.484: require('lazy.stats')
+037.692  000.491  000.491: require('lazy.core.util')
+038.067  000.371  000.371: require('lazy.core.config')
+038.635  000.195  000.195: require('lazy.core.handler')
+038.958  000.320  000.320: require('lazy.core.plugin')
+038.965  000.895  000.381: require('lazy.core.loader')
+039.567  000.341  000.341: require('gpetryk.plugins')
+040.504  000.333  000.333: require('lazy.core.handler.cmd')
+040.798  000.243  000.243: require('lazy.core.handler.event')
+041.033  000.230  000.230: require('lazy.core.handler.ft')
+041.242  000.204  000.204: require('lazy.core.handler.keys')
+041.340  000.008  000.008: require('vim.keymap')
+042.317  000.454  000.454: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+044.051  000.657  000.657: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-sleuth/plugin/sleuth.vim
+044.950  000.288  000.288: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-rhubarb/plugin/rhubarb.vim
+046.571  001.065  001.065: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/plugin/fugitive.vim
+047.000  000.215  000.215: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/ftdetect/fugitive.vim
+051.512  000.287  000.287: sourcing /Users/GPetryk/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim
+052.999  000.988  000.988: require('plenary.bit')
+053.253  000.251  000.251: require('plenary.functional')
+053.271  003.250  001.724: require('plenary.path')
+053.677  000.404  000.404: require('plenary.enum')
+053.897  000.213  000.213: require('plenary.tbl')
+053.913  004.162  000.295: require('session_manager.config')
+068.171  013.814  013.814: require('plenary.scandir')
+068.180  014.265  000.451: require('session_manager.utils')
+068.185  018.742  000.315: require('session_manager')
+068.187  020.251  001.509: require('session_manager.subcommands')
+068.233  020.684  000.433: sourcing /Users/GPetryk/.local/share/nvim/lazy/neovim-session-manager/plugin/session_manager.lua
+068.687  000.392  000.392: require('plugins.sessions')
+070.515  000.414  000.414: require('vim.lsp.log')
+071.681  000.006  000.006: require('vim.F')
+071.685  001.166  001.160: require('vim.lsp.protocol')
+072.573  000.562  000.562: require('vim.lsp._snippet')
+072.742  000.166  000.166: require('vim.highlight')
+072.754  001.068  000.340: require('vim.lsp.util')
+072.762  003.066  000.417: require('vim.lsp.handlers')
+073.055  000.292  000.292: require('vim.lsp.rpc')
+073.387  000.330  000.330: require('vim.lsp.sync')
+073.733  000.341  000.341: require('vim.lsp.buf')
+074.008  000.271  000.271: require('vim.lsp.diagnostic')
+074.250  000.239  000.239: require('vim.lsp.codelens')
+074.394  005.193  000.654: require('vim.lsp')
+074.446  005.472  000.279: sourcing /Users/GPetryk/.local/share/nvim/lazy/nvim-lspconfig/plugin/lspconfig.lua
+076.939  000.284  000.284: require('mason-core.path')
+076.993  000.976  000.692: require('mason.settings')
+077.547  000.215  000.215: require('mason-core.functional')
+077.860  000.144  000.144: require('mason-core.functional.data')
+077.866  000.298  000.154: require('mason-core.functional.function')
+078.029  000.150  000.150: require('mason-core.functional.relation')
+078.179  000.144  000.144: require('mason-core.functional.logic')
+078.216  001.220  000.414: require('mason-core.platform')
+078.218  003.387  001.191: require('mason')
+078.662  000.201  000.201: require('mason-core.functional.list')
+078.838  000.171  000.171: require('mason-core.functional.string')
+078.865  000.635  000.262: require('mason.api.command')
+079.180  000.309  000.309: require('vim.diagnostic')
+080.796  000.680  000.680: require('lspconfig.util')
+080.801  000.988  000.308: require('lspconfig.configs')
+080.803  001.297  000.309: require('lspconfig')
+081.043  000.237  000.237: require('lspconfig.server_configurations.pyright')
+081.698  000.206  000.206: require('lspconfig.server_configurations.lua_ls')
+082.060  000.186  000.186: require('lspconfig.server_configurations.solargraph')
+082.472  000.192  000.192: require('lspconfig.server_configurations.bashls')
+082.649  008.159  001.710: require('plugins.lsp')
+083.341  000.338  000.338: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/gzip.vim
+083.684  000.209  000.209: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/health.vim
+084.065  000.249  000.249: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/man.lua
+085.945  000.475  000.475: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+086.203  002.031  001.557: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchit.vim
+086.580  000.271  000.271: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchparen.vim
+087.056  000.369  000.369: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/netrwPlugin.vim
+087.663  000.206  000.206: sourcing /Users/GPetryk/.local/share/nvim/rplugin.vim
+087.686  000.507  000.301: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/rplugin.vim
+087.925  000.109  000.109: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/shada.vim
+088.135  000.084  000.084: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/spellfile.vim
+088.383  000.139  000.139: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tarPlugin.vim
+088.741  000.196  000.196: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tohtml.vim
+088.957  000.063  000.063: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tutor.vim
+089.252  000.181  000.181: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/zipPlugin.vim
+092.831  000.557  000.557: require('vscode.theme')
+092.836  000.772  000.215: require('vscode')
+093.591  000.308  000.308: require('vscode.colors')
+094.713  002.870  001.789: sourcing /Users/GPetryk/.local/share/nvim/lazy/vscode.nvim/colors/vscode.vim
+094.732  005.146  002.277: sourcing /Users/GPetryk/.config/nvim/after/plugin/colors.lua
+095.160  000.289  000.289: sourcing /Users/GPetryk/.config/nvim/after/plugin/diagnostics.lua
+095.850  000.291  000.291: require('gpetryk.map')
+097.652  000.334  000.334: require('plenary.job')
+097.656  000.504  000.170: require('harpoon.utils')
+098.002  000.184  000.184: require('plenary.log')
+098.051  000.394  000.210: require('harpoon.dev')
+098.100  000.028  000.028: require('vim.inspect')
+098.811  002.012  001.086: require('harpoon')
+099.896  000.256  000.256: require('plenary.strings')
+099.903  000.519  000.263: require('plenary.window.border')
+100.206  000.301  000.301: require('plenary.window')
+100.432  000.221  000.221: require('plenary.popup.utils')
+100.440  001.620  000.579: require('plenary.popup')
+100.808  000.365  000.365: require('harpoon.mark')
+100.814  004.398  000.401: require('harpoon.ui')
+101.383  000.354  000.354: require('gpetryk.brackets')
+101.426  006.215  001.172: require('gpetryk.keymaps')
+101.811  000.352  000.352: require('gpetryk.winbar')
+101.830  069.206  009.356: require('gpetryk')
+101.832  069.757  000.551: sourcing /Users/GPetryk/.config/nvim/init.lua
+101.854  002.595: sourcing vimrc file(s)
+102.170  000.115  000.115: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+102.512  000.235  000.235: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.vim
+103.351  000.270  000.270: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/synload.vim
+103.449  000.779  000.509: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/syntax.vim
+103.470  000.487: inits 3
+121.210  017.741: reading ShaDa
+124.756  000.828  000.828: require('vim.filetype')
+126.780  000.189  000.189: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/pythonx.vim
+333.101  000.470  000.470: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/remote/host.vim
+333.202  206.937  206.278: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/python3.vim
+333.510  207.582  000.645: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+335.080  000.048  000.048: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+336.434  000.335  000.335: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+338.725  000.744  000.744: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-python-pep8-indent/indent/python.vim
+338.886  000.013  000.013: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+339.765  000.396  000.396: require('vim.uri')
+341.598  000.785  000.785: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/python.vim
+347.122  015.182: opening buffers
+347.151  000.029: BufEnter autocommands
+347.157  000.006: editing files in windows
+347.368  000.211: VimEnter autocommands
+347.403  000.035: UIEnter autocommands
+347.405  000.002: before starting main loop
+352.359  004.954: first screen update
+352.362  000.003: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.010  000.010: --- NVIM STARTING ---
+000.137  000.127: event init
+000.633  000.496: early init
+003.434  002.802: locale set
+003.498  000.064: init first window
+004.111  000.613: inits 1
+004.129  000.018: window checked
+004.574  000.445: parsing arguments
+005.212  000.083  000.083: require('vim.shared')
+005.353  000.051  000.051: require('vim._meta')
+005.356  000.139  000.087: require('vim._editor')
+005.357  000.276  000.054: require('vim._init_packages')
+005.359  000.508: init lua interpreter
+008.432  003.073: expanding arguments
+008.534  000.102: inits 2
+008.874  000.340: init highlight
+008.877  000.002: waiting for UI
+012.710  003.834: done waiting for UI
+012.742  000.031: init screen for UI
+012.978  000.237: init default mappings
+012.998  000.019: init default autocommands
+015.332  000.374  000.374: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin.vim
+016.012  000.492  000.492: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent.vim
+018.954  000.496  000.496: require('gpetryk.set')
+019.443  000.484  000.484: require('lazy')
+019.497  000.024  000.024: require('ffi')
+020.528  001.029  001.029: require('lazy.core.cache')
+021.842  001.263  001.263: require('lazy.stats')
+022.420  000.536  000.536: require('lazy.core.util')
+022.950  000.526  000.526: require('lazy.core.config')
+023.906  000.386  000.386: require('lazy.core.handler')
+024.489  000.580  000.580: require('lazy.core.plugin')
+024.501  001.548  000.582: require('lazy.core.loader')
+025.825  000.497  000.497: require('gpetryk.plugins')
+028.455  000.507  000.507: require('lazy.core.handler.event')
+028.820  000.358  000.358: require('lazy.core.handler.cmd')
+029.078  000.254  000.254: require('lazy.core.handler.keys')
+029.330  000.247  000.247: require('lazy.core.handler.ft')
+029.404  000.008  000.008: require('vim.keymap')
+030.750  000.845  000.845: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+033.852  001.771  001.771: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/plugin/fugitive.vim
+034.429  000.293  000.293: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/ftdetect/fugitive.vim
+038.814  000.303  000.303: sourcing /Users/GPetryk/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim
+040.529  001.226  001.226: require('plenary.bit')
+040.862  000.328  000.328: require('plenary.functional')
+040.881  003.740  001.883: require('plenary.path')
+041.172  000.288  000.288: require('plenary.enum')
+041.458  000.278  000.278: require('plenary.tbl')
+041.474  004.640  000.335: require('session_manager.config')
+043.697  001.776  001.776: require('plenary.scandir')
+043.704  002.228  000.452: require('session_manager.utils')
+043.708  007.166  000.298: require('session_manager')
+043.710  008.204  001.038: require('session_manager.subcommands')
+043.743  008.609  000.405: sourcing /Users/GPetryk/.local/share/nvim/lazy/neovim-session-manager/plugin/session_manager.lua
+044.232  000.444  000.444: require('plugins.sessions')
+046.107  001.066  001.066: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-sleuth/plugin/sleuth.vim
+047.874  000.350  000.350: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-rhubarb/plugin/rhubarb.vim
+050.950  000.451  000.451: require('vim.lsp.log')
+052.217  000.010  000.010: require('vim.F')
+052.221  001.267  001.257: require('vim.lsp.protocol')
+053.350  000.684  000.684: require('vim.lsp._snippet')
+053.733  000.379  000.379: require('vim.highlight')
+053.790  001.567  000.504: require('vim.lsp.util')
+053.814  003.814  000.529: require('vim.lsp.handlers')
+054.325  000.509  000.509: require('vim.lsp.rpc')
+054.810  000.482  000.482: require('vim.lsp.sync')
+055.366  000.551  000.551: require('vim.lsp.buf')
+055.845  000.475  000.475: require('vim.lsp.diagnostic')
+056.239  000.389  000.389: require('vim.lsp.codelens')
+056.366  007.038  000.817: require('vim.lsp')
+056.422  007.468  000.431: sourcing /Users/GPetryk/.local/share/nvim/lazy/nvim-lspconfig/plugin/lspconfig.lua
+060.050  000.301  000.301: require('mason-core.path')
+060.107  001.138  000.837: require('mason.settings')
+060.842  000.281  000.281: require('mason-core.functional')
+061.369  000.255  000.255: require('mason-core.functional.data')
+061.375  000.504  000.249: require('mason-core.functional.function')
+061.618  000.230  000.230: require('mason-core.functional.relation')
+061.848  000.220  000.220: require('mason-core.functional.logic')
+061.904  001.795  000.560: require('mason-core.platform')
+061.907  005.021  002.088: require('mason')
+062.723  000.420  000.420: require('mason-core.functional.list')
+063.011  000.282  000.282: require('mason-core.functional.string')
+063.045  001.113  000.410: require('mason.api.command')
+063.554  000.501  000.501: require('vim.diagnostic')
+065.161  000.667  000.667: require('lspconfig.util')
+065.166  001.133  000.466: require('lspconfig.configs')
+065.168  001.420  000.287: require('lspconfig')
+065.454  000.282  000.282: require('lspconfig.server_configurations.pyright')
+066.264  000.288  000.288: require('lspconfig.server_configurations.lua_ls')
+066.841  000.212  000.212: require('lspconfig.server_configurations.solargraph')
+067.145  000.202  000.202: require('lspconfig.server_configurations.bashls')
+067.245  010.773  001.733: require('plugins.lsp')
+068.114  000.344  000.344: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/gzip.vim
+068.436  000.212  000.212: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/health.vim
+068.794  000.260  000.260: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/man.lua
+070.820  000.442  000.442: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+071.046  002.131  001.689: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchit.vim
+071.384  000.230  000.230: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchparen.vim
+071.916  000.412  000.412: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/netrwPlugin.vim
+072.547  000.220  000.220: sourcing /Users/GPetryk/.local/share/nvim/rplugin.vim
+072.566  000.521  000.301: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/rplugin.vim
+072.785  000.108  000.108: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/shada.vim
+072.964  000.065  000.065: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/spellfile.vim
+073.229  000.156  000.156: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tarPlugin.vim
+073.568  000.204  000.204: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tohtml.vim
+073.790  000.067  000.067: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tutor.vim
+074.087  000.177  000.177: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/zipPlugin.vim
+078.492  000.604  000.604: require('vscode.theme')
+078.497  000.849  000.245: require('vscode')
+079.151  000.285  000.285: require('vscode.colors')
+080.294  002.916  001.782: sourcing /Users/GPetryk/.local/share/nvim/lazy/vscode.nvim/colors/vscode.vim
+080.313  005.080  002.163: sourcing /Users/GPetryk/.config/nvim/after/plugin/colors.lua
+080.786  000.344  000.344: sourcing /Users/GPetryk/.config/nvim/after/plugin/diagnostics.lua
+081.474  000.278  000.278: require('gpetryk.map')
+082.899  000.416  000.416: require('plenary.job')
+082.903  000.624  000.208: require('harpoon.utils')
+083.417  000.287  000.287: require('plenary.log')
+083.457  000.554  000.267: require('harpoon.dev')
+083.504  000.027  000.027: require('vim.inspect')
+084.072  001.991  000.787: require('harpoon')
+084.883  000.209  000.209: require('plenary.strings')
+084.887  000.410  000.201: require('plenary.window.border')
+085.107  000.218  000.218: require('plenary.window')
+085.306  000.196  000.196: require('plenary.popup.utils')
+085.310  001.235  000.410: require('plenary.popup')
+085.602  000.290  000.290: require('harpoon.mark')
+085.607  003.767  000.251: require('harpoon.ui')
+086.252  000.447  000.447: require('gpetryk.brackets')
+086.290  005.456  000.964: require('gpetryk.keymaps')
+086.741  000.419  000.419: require('gpetryk.winbar')
+086.755  069.779  014.200: require('gpetryk')
+086.757  070.287  000.507: sourcing /Users/GPetryk/.config/nvim/init.lua
+086.779  002.629: sourcing vimrc file(s)
+087.022  000.064  000.064: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+087.387  000.263  000.263: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.vim
+088.248  000.294  000.294: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/synload.vim
+088.342  000.806  000.513: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/syntax.vim
+088.361  000.448: inits 3
+093.264  004.903: reading ShaDa
+096.854  000.811  000.811: require('vim.filetype')
+099.488  000.285  000.285: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/pythonx.vim
+353.019  000.785  000.785: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/remote/host.vim
+353.125  254.527  253.457: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/provider/python3.vim
+353.803  255.781  001.255: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+357.926  000.272  000.272: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+359.870  000.388  000.388: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin/python.vim
+362.712  001.009  001.009: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-python-pep8-indent/indent/python.vim
+362.906  000.015  000.015: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent/python.vim
+363.915  000.490  000.490: require('vim.uri')
+366.895  001.048  001.048: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/python.vim
+372.535  019.458: opening buffers
+372.564  000.029: BufEnter autocommands
+372.569  000.005: editing files in windows
+372.759  000.190: VimEnter autocommands
+372.804  000.045: UIEnter autocommands
+372.806  000.002: before starting main loop
+377.675  004.869: first screen update
+377.678  000.003: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.010  000.010: --- NVIM STARTING ---
+000.136  000.126: event init
+000.382  000.245: early init
+001.707  001.326: locale set
+001.778  000.070: init first window
+002.415  000.637: inits 1
+002.437  000.022: window checked
+002.449  000.012: parsing arguments
+003.026  000.084  000.084: require('vim.shared')
+003.167  000.053  000.053: require('vim._meta')
+003.170  000.139  000.086: require('vim._editor')
+003.171  000.277  000.054: require('vim._init_packages')
+003.173  000.447: init lua interpreter
+005.477  002.304: expanding arguments
+005.575  000.097: inits 2
+005.935  000.360: init highlight
+005.937  000.002: waiting for UI
+009.249  003.312: done waiting for UI
+009.272  000.023: init screen for UI
+009.534  000.262: init default mappings
+009.557  000.023: init default autocommands
+010.418  000.100  000.100: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin.vim
+010.603  000.045  000.045: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent.vim
+010.625  000.923: sourcing vimrc file(s)
+010.933  000.196  000.196: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+011.087  000.023  000.023: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.vim
+011.518  000.132  000.132: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/synload.vim
+011.688  000.450  000.319: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/syntax.vim
+013.248  000.195  000.195: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/gzip.vim
+013.389  000.022  000.022: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/health.vim
+014.905  000.218  000.218: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+015.242  001.735  001.517: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchit.vim
+015.545  000.183  000.183: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchparen.vim
+016.053  000.387  000.387: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/netrwPlugin.vim
+016.273  000.075  000.075: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/rplugin.vim
+016.488  000.083  000.083: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/shada.vim
+016.656  000.038  000.038: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/spellfile.vim
+016.922  000.129  000.129: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tarPlugin.vim
+017.186  000.128  000.128: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tohtml.vim
+017.355  000.032  000.032: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tutor.vim
+017.664  000.188  000.188: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/zipPlugin.vim
+018.669  000.128  000.128: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/man.lua
+018.719  004.100: loading rtp plugins
+018.942  000.223: loading packages
+019.435  000.494: loading after plugins
+019.447  000.012: inits 3
+019.453  000.006: reading ShaDa
+019.526  000.073: opening buffers
+019.560  000.034: BufEnter autocommands
+019.564  000.004: editing files in windows
+019.754  000.190: VimEnter autocommands
+019.757  000.003: UIEnter autocommands
+019.758  000.001: before starting main loop
+020.501  000.743: first screen update
+020.503  000.002: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.017  000.017: --- NVIM STARTING ---
+000.164  000.147: event init
+000.327  000.163: early init
+001.585  001.259: locale set
+001.646  000.060: init first window
+002.244  000.598: inits 1
+002.265  000.021: window checked
+002.774  000.509: parsing arguments
+003.341  000.083  000.083: require('vim.shared')
+003.506  000.051  000.051: require('vim._meta')
+003.509  000.163  000.112: require('vim._editor')
+003.511  000.302  000.056: require('vim._init_packages')
+003.512  000.436: init lua interpreter
+005.751  002.238: expanding arguments
+005.839  000.089: inits 2
+006.189  000.349: init highlight
+006.191  000.002: waiting for UI
+009.590  003.399: done waiting for UI
+009.613  000.023: init screen for UI
+009.842  000.229: init default mappings
+009.870  000.028: init default autocommands
+010.785  000.106  000.106: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin.vim
+011.021  000.052  000.052: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent.vim
+011.049  001.022: sourcing vimrc file(s)
+011.379  000.213  000.213: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+011.551  000.024  000.024: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.vim
+011.971  000.120  000.120: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/synload.vim
+012.134  000.431  000.311: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/syntax.vim
+013.738  000.200  000.200: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/gzip.vim
+013.888  000.019  000.019: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/health.vim
+015.296  000.210  000.210: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+015.626  001.620  001.410: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchit.vim
+015.934  000.191  000.191: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchparen.vim
+016.427  000.373  000.373: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/netrwPlugin.vim
+016.641  000.075  000.075: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/rplugin.vim
+016.851  000.083  000.083: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/shada.vim
+017.015  000.034  000.034: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/spellfile.vim
+017.279  000.128  000.128: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tarPlugin.vim
+017.532  000.126  000.126: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tohtml.vim
+017.689  000.031  000.031: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tutor.vim
+017.997  000.186  000.186: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/zipPlugin.vim
+019.104  000.137  000.137: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/man.lua
+019.165  004.246: loading rtp plugins
+019.413  000.248: loading packages
+020.016  000.603: loading after plugins
+020.030  000.013: inits 3
+020.037  000.008: reading ShaDa
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.019  000.019: --- NVIM STARTING ---
+000.175  000.157: event init
+000.347  000.171: early init
+001.612  001.266: locale set
+001.677  000.064: init first window
+002.339  000.662: inits 1
+002.358  000.020: window checked
+002.638  000.280: parsing arguments
+003.236  000.086  000.086: require('vim.shared')
+003.410  000.084  000.084: require('vim._meta')
+003.413  000.173  000.088: require('vim._editor')
+003.415  000.314  000.056: require('vim._init_packages')
+003.417  000.464: init lua interpreter
+005.775  002.358: expanding arguments
+005.871  000.096: inits 2
+006.223  000.352: init highlight
+006.225  000.002: waiting for UI
+009.682  003.457: done waiting for UI
+009.712  000.030: init screen for UI
+009.955  000.243: init default mappings
+009.977  000.022: init default autocommands
+011.270  000.096  000.096: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin.vim
+011.473  000.047  000.047: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent.vim
+013.382  000.275  000.275: require('gpetryk.set')
+013.629  000.243  000.243: require('lazy')
+013.677  000.024  000.024: require('ffi')
+014.181  000.501  000.501: require('lazy.core.cache')
+014.590  000.363  000.363: require('lazy.stats')
+014.874  000.243  000.243: require('lazy.core.util')
+015.126  000.247  000.247: require('lazy.core.config')
+015.544  000.159  000.159: require('lazy.core.handler')
+015.711  000.163  000.163: require('lazy.core.plugin')
+015.719  000.590  000.267: require('lazy.core.loader')
+016.272  000.179  000.179: require('gpetryk.plugins')
+017.626  000.280  000.280: require('lazy.core.handler.event')
+017.780  000.146  000.146: require('lazy.core.handler.cmd')
+017.934  000.150  000.150: require('lazy.core.handler.keys')
+018.100  000.159  000.159: require('lazy.core.handler.ft')
+018.189  000.006  000.006: require('vim.keymap')
+019.389  000.713  000.713: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+021.438  001.172  001.172: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/plugin/fugitive.vim
+021.733  000.021  000.021: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/ftdetect/fugitive.vim
+022.586  000.172  000.172: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-rhubarb/plugin/rhubarb.vim
+023.771  000.480  000.480: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-sleuth/plugin/sleuth.vim
+027.934  000.047  000.047: sourcing /Users/GPetryk/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim
+029.110  000.908  000.908: require('plenary.bit')
+029.343  000.229  000.229: require('plenary.functional')
+029.366  002.673  001.489: require('plenary.path')
+029.525  000.157  000.157: require('plenary.enum')
+029.674  000.140  000.140: require('plenary.tbl')
+029.691  003.169  000.198: require('session_manager.config')
+030.725  000.837  000.837: require('plenary.scandir')
+030.732  001.038  000.201: require('session_manager.utils')
+030.735  004.396  000.189: require('session_manager')
+030.737  005.287  000.890: require('session_manager.subcommands')
+030.769  005.452  000.166: sourcing /Users/GPetryk/.local/share/nvim/lazy/neovim-session-manager/plugin/session_manager.lua
+031.117  000.288  000.288: require('plugins.sessions')
+032.388  000.299  000.299: require('vim.lsp.log')
+033.325  000.008  000.008: require('vim.F')
+033.330  000.938  000.930: require('vim.lsp.protocol')
+034.243  000.575  000.575: require('vim.lsp._snippet')
+034.444  000.196  000.196: require('vim.highlight')
+034.460  001.128  000.358: require('vim.lsp.util')
+034.470  002.595  000.230: require('vim.lsp.handlers')
+034.711  000.238  000.238: require('vim.lsp.rpc')
+034.878  000.163  000.163: require('vim.lsp.sync')
+035.076  000.194  000.194: require('vim.lsp.buf')
+035.230  000.150  000.150: require('vim.lsp.diagnostic')
+035.378  000.145  000.145: require('vim.lsp.codelens')
+035.463  003.912  000.426: require('vim.lsp')
+035.520  004.107  000.195: sourcing /Users/GPetryk/.local/share/nvim/lazy/nvim-lspconfig/plugin/lspconfig.lua
+037.910  000.136  000.136: require('mason-core.path')
+040.650  003.581  003.445: require('mason.settings')
+041.014  000.184  000.184: require('mason-core.functional')
+041.296  000.124  000.124: require('mason-core.functional.data')
+041.307  000.270  000.145: require('mason-core.functional.function')
+041.459  000.138  000.138: require('mason-core.functional.relation')
+041.633  000.164  000.164: require('mason-core.functional.logic')
+041.675  001.022  000.267: require('mason-core.platform')
+041.681  005.951  001.347: require('mason')
+042.189  000.246  000.246: require('mason-core.functional.list')
+042.410  000.213  000.213: require('mason-core.functional.string')
+042.451  000.736  000.278: require('mason.api.command')
+042.904  000.445  000.445: require('vim.diagnostic')
+044.357  000.516  000.516: require('lspconfig.util')
+044.362  000.711  000.195: require('lspconfig.configs')
+044.365  000.940  000.229: require('lspconfig')
+044.620  000.250  000.250: require('lspconfig.server_configurations.pyright')
+045.256  000.214  000.214: require('lspconfig.server_configurations.lua_ls')
+045.808  000.221  000.221: require('lspconfig.server_configurations.solargraph')
+046.159  000.187  000.187: require('lspconfig.server_configurations.bashls')
+046.308  010.740  001.797: require('plugins.lsp')
+046.979  000.228  000.228: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/gzip.vim
+047.140  000.025  000.025: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/health.vim
+047.412  000.151  000.151: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/man.lua
+049.638  000.267  000.267: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+049.981  002.433  002.166: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchit.vim
+050.315  000.196  000.196: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchparen.vim
+050.821  000.373  000.373: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/netrwPlugin.vim
+051.307  000.018  000.018: sourcing /Users/GPetryk/.local/share/nvim/rplugin.vim
+051.326  000.341  000.324: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/rplugin.vim
+051.538  000.084  000.084: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/shada.vim
+051.711  000.035  000.035: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/spellfile.vim
+051.983  000.126  000.126: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tarPlugin.vim
+052.338  000.180  000.180: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tohtml.vim
+052.518  000.032  000.032: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tutor.vim
+052.832  000.173  000.173: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/zipPlugin.vim
+056.217  000.361  000.361: require('vscode.theme')
+056.224  000.547  000.186: require('vscode')
+056.922  000.243  000.243: require('vscode.colors')
+058.245  002.595  001.805: sourcing /Users/GPetryk/.local/share/nvim/lazy/vscode.nvim/colors/vscode.vim
+058.268  005.022  002.427: sourcing /Users/GPetryk/.config/nvim/after/plugin/colors.lua
+058.529  000.107  000.107: sourcing /Users/GPetryk/.config/nvim/after/plugin/diagnostics.lua
+058.906  000.127  000.127: require('gpetryk.map')
+060.078  000.147  000.147: require('plenary.job')
+060.082  000.277  000.130: require('harpoon.utils')
+060.408  000.202  000.202: require('plenary.log')
+060.461  000.377  000.175: require('harpoon.dev')
+060.516  000.032  000.032: require('vim.inspect')
+060.903  001.233  000.547: require('harpoon')
+061.343  000.141  000.141: require('plenary.strings')
+061.348  000.276  000.136: require('plenary.window.border')
+061.489  000.139  000.139: require('plenary.window')
+061.622  000.130  000.130: require('plenary.popup.utils')
+061.626  000.719  000.174: require('plenary.popup')
+061.773  000.145  000.145: require('harpoon.mark')
+061.778  002.267  000.170: require('harpoon.ui')
+062.153  000.209  000.209: require('gpetryk.brackets')
+062.193  003.607  001.004: require('gpetryk.keymaps')
+062.367  000.148  000.148: require('gpetryk.winbar')
+062.383  050.407  010.594: require('gpetryk')
+062.385  050.579  000.172: sourcing /Users/GPetryk/.config/nvim/init.lua
+062.408  001.709: sourcing vimrc file(s)
+062.697  000.075  000.075: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+062.851  000.027  000.027: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.vim
+063.318  000.100  000.100: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/synload.vim
+063.420  000.399  000.299: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/syntax.vim
+063.444  000.534: inits 3
+082.167  018.723: reading ShaDa
+082.314  000.147: opening buffers
+082.372  000.058: BufEnter autocommands
+082.377  000.005: editing files in windows
+091.605  008.815  008.815: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/netrw.vim
+092.673  000.075  000.075: sourcing /Users/GPetryk/.local/share/nvim/.netrwhist
+096.147  001.366  001.366: require('vim.filetype')
+097.815  000.531  000.531: require('vim.filetype.detect')
+098.341  000.054  000.054: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/scripts.vim
+103.641  000.435  000.435: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/netrw.vim
+107.562  000.327  000.327: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/netrw.vim
+116.326  022.347: VimEnter autocommands
+116.367  000.040: UIEnter autocommands
+116.369  000.002: before starting main loop
+118.761  002.392: first screen update
+118.764  000.003: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.013  000.013: --- NVIM STARTING ---
+000.149  000.136: event init
+000.371  000.222: early init
+001.527  001.155: locale set
+001.587  000.060: init first window
+002.300  000.713: inits 1
+002.330  000.031: window checked
+002.683  000.353: parsing arguments
+003.256  000.085  000.085: require('vim.shared')
+003.387  000.051  000.051: require('vim._meta')
+003.390  000.129  000.078: require('vim._editor')
+003.392  000.267  000.054: require('vim._init_packages')
+003.393  000.443: init lua interpreter
+005.652  002.258: expanding arguments
+005.744  000.092: inits 2
+006.087  000.343: init highlight
+006.089  000.002: waiting for UI
+009.500  003.411: done waiting for UI
+009.525  000.024: init screen for UI
+009.786  000.262: init default mappings
+009.809  000.023: init default autocommands
+011.283  000.138  000.138: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/ftplugin.vim
+011.495  000.047  000.047: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/indent.vim
+013.456  000.276  000.276: require('gpetryk.set')
+013.695  000.235  000.235: require('lazy')
+013.743  000.024  000.024: require('ffi')
+014.247  000.501  000.501: require('lazy.core.cache')
+014.645  000.352  000.352: require('lazy.stats')
+014.927  000.237  000.237: require('lazy.core.util')
+015.169  000.238  000.238: require('lazy.core.config')
+015.645  000.219  000.219: require('lazy.core.handler')
+015.819  000.170  000.170: require('lazy.core.plugin')
+015.827  000.655  000.266: require('lazy.core.loader')
+016.353  000.170  000.170: require('gpetryk.plugins')
+017.516  000.168  000.168: require('lazy.core.handler.cmd')
+017.727  000.161  000.161: require('lazy.core.handler.keys')
+018.025  000.148  000.148: require('lazy.core.handler.event')
+018.030  000.298  000.150: require('lazy.core.handler.ft')
+018.055  000.005  000.005: require('vim.keymap')
+019.362  000.600  000.600: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+021.168  000.494  000.494: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-sleuth/plugin/sleuth.vim
+023.141  001.237  001.237: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/plugin/fugitive.vim
+023.463  000.020  000.020: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-fugitive/ftdetect/fugitive.vim
+024.309  000.114  000.114: sourcing /Users/GPetryk/.local/share/nvim/lazy/vim-rhubarb/plugin/rhubarb.vim
+027.444  000.043  000.043: sourcing /Users/GPetryk/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim
+028.595  000.870  000.870: require('plenary.bit')
+028.752  000.153  000.153: require('plenary.functional')
+028.773  002.273  001.208: require('plenary.path')
+028.933  000.158  000.158: require('plenary.enum')
+029.075  000.133  000.133: require('plenary.tbl')
+029.090  002.752  000.188: require('session_manager.config')
+030.143  000.846  000.846: require('plenary.scandir')
+030.149  001.057  000.210: require('session_manager.utils')
+030.152  004.024  000.215: require('session_manager')
+030.155  005.043  001.020: require('session_manager.subcommands')
+030.182  005.193  000.149: sourcing /Users/GPetryk/.local/share/nvim/lazy/neovim-session-manager/plugin/session_manager.lua
+030.421  000.180  000.180: require('plugins.sessions')
+031.890  000.384  000.384: require('vim.lsp.log')
+032.907  000.010  000.010: require('vim.F')
+032.911  001.017  001.007: require('vim.lsp.protocol')
+033.739  000.492  000.492: require('vim.lsp._snippet')
+033.898  000.155  000.155: require('vim.highlight')
+033.915  001.002  000.356: require('vim.lsp.util')
+033.926  002.697  000.294: require('vim.lsp.handlers')
+034.178  000.250  000.250: require('vim.lsp.rpc')
+034.342  000.160  000.160: require('vim.lsp.sync')
+034.565  000.219  000.219: require('vim.lsp.buf')
+034.768  000.200  000.200: require('vim.lsp.diagnostic')
+034.964  000.193  000.193: require('vim.lsp.codelens')
+035.122  004.224  000.506: require('vim.lsp')
+035.175  004.377  000.153: sourcing /Users/GPetryk/.local/share/nvim/lazy/nvim-lspconfig/plugin/lspconfig.lua
+037.802  000.197  000.197: require('mason-core.path')
+037.852  001.014  000.817: require('mason.settings')
+038.199  000.165  000.165: require('mason-core.functional')
+038.494  000.130  000.130: require('mason-core.functional.data')
+038.500  000.277  000.148: require('mason-core.functional.function')
+038.699  000.183  000.183: require('mason-core.functional.relation')
+038.844  000.137  000.137: require('mason-core.functional.logic')
+038.881  001.027  000.264: require('mason-core.platform')
+038.883  003.459  001.419: require('mason')
+039.238  000.161  000.161: require('mason-core.functional.list')
+039.383  000.138  000.138: require('mason-core.functional.string')
+039.416  000.509  000.210: require('mason.api.command')
+039.726  000.303  000.303: require('vim.diagnostic')
+041.072  000.551  000.551: require('lspconfig.util')
+041.077  000.727  000.176: require('lspconfig.configs')
+041.080  000.915  000.188: require('lspconfig')
+041.272  000.189  000.189: require('lspconfig.server_configurations.pyright')
+041.794  000.193  000.193: require('lspconfig.server_configurations.lua_ls')
+042.169  000.180  000.180: require('lspconfig.server_configurations.solargraph')
+042.577  000.180  000.180: require('lspconfig.server_configurations.bashls')
+042.713  007.491  001.563: require('plugins.lsp')
+043.251  000.181  000.181: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/gzip.vim
+043.411  000.021  000.021: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/health.vim
+043.658  000.129  000.129: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/man.lua
+045.559  000.189  000.189: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+045.921  002.128  001.939: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchit.vim
+046.225  000.172  000.172: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/matchparen.vim
+046.704  000.353  000.353: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/netrwPlugin.vim
+047.168  000.016  000.016: sourcing /Users/GPetryk/.local/share/nvim/rplugin.vim
+047.186  000.325  000.309: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/rplugin.vim
+047.397  000.078  000.078: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/shada.vim
+047.611  000.034  000.034: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/spellfile.vim
+047.898  000.122  000.122: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tarPlugin.vim
+048.203  000.173  000.173: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tohtml.vim
+048.366  000.029  000.029: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/tutor.vim
+048.673  000.187  000.187: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/plugin/zipPlugin.vim
+052.020  000.305  000.305: require('vscode.theme')
+052.026  000.470  000.165: require('vscode')
+052.771  000.311  000.311: require('vscode.colors')
+053.881  002.350  001.569: sourcing /Users/GPetryk/.local/share/nvim/lazy/vscode.nvim/colors/vscode.vim
+053.906  004.849  002.498: sourcing /Users/GPetryk/.config/nvim/after/plugin/colors.lua
+054.166  000.109  000.109: sourcing /Users/GPetryk/.config/nvim/after/plugin/diagnostics.lua
+054.516  000.119  000.119: require('gpetryk.map')
+055.376  000.138  000.138: require('plenary.job')
+055.381  000.263  000.125: require('harpoon.utils')
+055.797  000.261  000.261: require('plenary.log')
+055.853  000.470  000.209: require('harpoon.dev')
+055.906  000.031  000.031: require('vim.inspect')
+056.160  001.170  000.405: require('harpoon')
+056.566  000.121  000.121: require('plenary.strings')
+056.570  000.249  000.128: require('plenary.window.border')
+056.699  000.127  000.127: require('plenary.window')
+056.810  000.109  000.109: require('plenary.popup.utils')
+056.814  000.651  000.167: require('plenary.popup')
+056.942  000.126  000.126: require('harpoon.mark')
+056.947  002.121  000.174: require('harpoon.ui')
+057.283  000.211  000.211: require('gpetryk.brackets')
+057.333  003.093  000.641: require('gpetryk.keymaps')
+057.521  000.162  000.162: require('gpetryk.winbar')
+057.537  045.529  010.359: require('gpetryk')
+057.538  045.704  000.175: sourcing /Users/GPetryk/.config/nvim/init.lua
+057.562  001.863: sourcing vimrc file(s)
+057.848  000.069  000.069: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.lua
+057.991  000.024  000.024: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/filetype.vim
+058.431  000.095  000.095: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/synload.vim
+058.532  000.380  000.285: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/syntax.vim
+058.559  000.524: inits 3
+063.588  005.029: reading ShaDa
+063.724  000.136: opening buffers
+063.773  000.049: BufEnter autocommands
+063.777  000.005: editing files in windows
+071.770  007.618  007.618: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/autoload/netrw.vim
+072.573  000.039  000.039: sourcing /Users/GPetryk/.local/share/nvim/.netrwhist
+075.332  000.971  000.971: require('vim.filetype')
+076.490  000.388  000.388: require('vim.filetype.detect')
+076.898  000.029  000.029: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/scripts.vim
+081.429  000.369  000.369: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/netrw.vim
+085.206  000.322  000.322: sourcing /usr/local/Cellar/neovim/0.8.3/share/nvim/runtime/syntax/netrw.vim
+093.375  019.862: VimEnter autocommands
+093.411  000.035: UIEnter autocommands
+093.413  000.002: before starting main loop
+095.683  002.270: first screen update
+095.685  000.002: --- NVIM STARTED ---

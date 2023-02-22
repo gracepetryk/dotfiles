@@ -9,8 +9,14 @@ ZSH_THEME_GIT_PROMPT_CACHE=true
 ZSH_THEME_RUBY_PROMPT_PREFIX="%{$fg_bold[red]%}‹"
 ZSH_THEME_RUBY_PROMPT_SUFFIX="›%{$reset_color%}"
 
+function pyenv_prefix() {
+  if [[ -v VIRTUAL_ENV ]]; then
+    echo "($(basename $VIRTUAL_ENV)) "
+  fi
+}
+
 PROMPT='
 %{$fg_bold[green]%}%~%{$reset_color%}$(git_super_status)
-%{$fg_bold[blue]%}%n%{$reset_color%}@%F{166%}%m%f %(?::%{$fg[red]%}[%?] )%{$reset_color%}$ '
+$(pyenv_prefix)%{$fg_bold[blue]%}%n%{$reset_color%}@%F{166%}%m%f %(?::%{$fg[red]%}[%?] )%{$reset_color%}$ '
 
 RPROMPT=""

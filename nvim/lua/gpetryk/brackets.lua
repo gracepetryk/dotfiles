@@ -32,6 +32,7 @@ local separators = {
   ['\t'] = true,
   ['.'] = true,
   [','] = true,
+  ['='] = true,
 }
 
 local function is_word_like(check_char)

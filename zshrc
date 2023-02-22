@@ -15,9 +15,7 @@ fi
 plugins=()
 if [ "$IS_DOCKER_SANDBOX" = "" ]; then
     ZSH_THEME="gpetryk"
-    export NVM_LAZY_LOAD=true
     export NVM_AUTO_USE=true
-    export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim', 'nvim')
     plugins+=(zsh-nvm)
 else
     ZSH_THEME="gpetryk-docker"
