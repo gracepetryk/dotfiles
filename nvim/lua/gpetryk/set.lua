@@ -22,5 +22,3 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.signcolumn = 'yes:2'
-
-vim.g.python3_host_prog = '/var/pyenv/versions/development/bin/python3'
