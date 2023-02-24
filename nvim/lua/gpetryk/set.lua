@@ -22,3 +22,5 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.signcolumn = 'yes:2'
+
+vim.opt.shiftwidth = 4

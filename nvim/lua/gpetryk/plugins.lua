@@ -2,7 +2,6 @@ return {
   { 'tpope/vim-sleuth' }, -- detect indentation
 
   { 'tpope/vim-fugitive' }, -- git integration
-  { 'tpope/vim-rhubarb' }, -- github integration
   {
     'lewis6991/gitsigns.nvim',
     config = function() require 'plugins.gitsigns' end,
@@ -45,11 +44,6 @@ return {
   {
     'jose-elias-alvarez/null-ls.nvim', -- allow non-lsp providers to hook into neovims lsp client (like flake8)
     config = function() require 'plugins.null-ls' end,
-    event = 'VeryLazy'
-  },
-  {
-    'j-hui/fidget.nvim',
-    config = true,
     event = 'VeryLazy'
   },
 
@@ -99,7 +93,6 @@ return {
         'nvim-treesitter/nvim-treesitter-context',
         config = function() require 'plugins.context' end,
       },
-      { 'nvim-treesitter/playground' },
     }
   },
 
@@ -121,6 +114,10 @@ return {
 
   {
     'williamboman/mason.nvim', -- install LSPs/DAP/etc
-    lazy = true
+    cmd = 'Mason'
   },
+  {
+    'ggandor/leap.nvim', -- 2 char nav
+    config = function() require('plugins.leap') end
+  }
 }

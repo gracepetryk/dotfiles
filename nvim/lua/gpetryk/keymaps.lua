@@ -17,8 +17,6 @@ map('n', '<A-Down>', '<C-w>j')
 map('n', '<A-Up>', '<C-w>k')
 map('n', '<A-Right>', '<C-w>l')
 
-map('n', 'shrug', 'a ¯\\_(ツ)_/¯<ESC>')
-
 map({'n', 'v'}, 'J', '10j')
 map({'n', 'v'}, 'K', '10k')
 

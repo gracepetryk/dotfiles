@@ -49,7 +49,8 @@ require('lspconfig')['pyright'].setup({
       analysis = {
         autoSearchPaths = true,
         diagnosticMode = "onlyOpenFiles",
-        useLibraryCodeForTypes = true
+        useLibraryCodeForTypes = true,
+        stubPath = "/Users/GPetryk/typings"
       }
     }
   }

@@ -1,5 +1,10 @@
 require("gpetryk.set")
-require("lazy").setup("gpetryk.plugins")
+require("lazy").setup("gpetryk.plugins", {
+  change_detection = {
+    enabled=true,
+    notify=false
+  }
+})
 require("gpetryk.keymaps")
 require('gpetryk.winbar')
 
