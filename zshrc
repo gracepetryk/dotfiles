@@ -16,6 +16,8 @@ plugins=()
 if [ "$IS_DOCKER_SANDBOX" = "" ]; then
     ZSH_THEME="gpetryk"
     export NVM_AUTO_USE=true
+    export NVM_LAZY_LOAD=true
+    export NVM_COMPLETION=true
     plugins+=(zsh-nvm)
 else
     ZSH_THEME="gpetryk-docker"
@@ -50,6 +52,8 @@ export PATH="$PATH:/usr/local/sbin"
 
 # add firefox to path
 export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
+
+export PATH="$HOME/bin:$PATH"
 
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46"
 

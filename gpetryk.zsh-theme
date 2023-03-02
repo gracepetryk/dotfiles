@@ -10,7 +10,7 @@ ZSH_THEME_RUBY_PROMPT_PREFIX="%{$fg_bold[red]%}‹"
 ZSH_THEME_RUBY_PROMPT_SUFFIX="›%{$reset_color%}"
 
 function pyenv_prefix() {
-  if [[ -v VIRTUAL_ENV ]]; then
+  if [[ -n $VIRTUAL_ENV ]]; then
     echo "($(basename $VIRTUAL_ENV)) "
   fi
 }

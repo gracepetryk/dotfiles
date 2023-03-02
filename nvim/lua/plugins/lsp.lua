@@ -82,5 +82,5 @@ require('lspconfig')['lua_ls'].setup({
 })
 
 require('lspconfig')['solargraph'].setup({})
-
 require('lspconfig')['bashls'].setup({})
+require('lspconfig')['tsserver'].setup({})
