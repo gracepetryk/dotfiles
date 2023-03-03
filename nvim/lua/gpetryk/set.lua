@@ -24,3 +24,5 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes:2'
 
 vim.opt.shiftwidth = 4
+
+vim.opt.colorcolumn = '81'
