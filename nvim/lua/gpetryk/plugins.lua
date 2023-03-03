@@ -11,7 +11,11 @@ return {
   --themes
   {
     'Mofiqul/vscode.nvim',
-    priority = 100
+    priority = 1000
+  },
+  {
+    'folke/tokyonight.nvim',
+    priority = 1000
   },
 
   {
