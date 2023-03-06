@@ -63,7 +63,6 @@ cmp.setup {
     -- { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
-    { name = 'nvim_lsp_signature_help' },
     { name = 'dap' },
     { name = 'buffer' },
   }

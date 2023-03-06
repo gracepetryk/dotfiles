@@ -67,3 +67,6 @@ map('i', '>', function() b.insert_closing('>') end)
 
 map('i', '"', function() b.insert_quote('"') end)
 map('i', "'", function() b.insert_quote("'") end)
+
+-- signature help
+map('i', '<C-k>', function () vim.lsp.buf.signature_help() end)

@@ -21,7 +21,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.signcolumn = 'yes:2'
-vim.opt.colorcolumn = '81'
+vim.opt.colorcolumn = '91'
 
 vim.opt.shiftwidth = 4
 
