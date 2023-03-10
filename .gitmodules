@@ -1,0 +1,3 @@
+[submodule "grace-rose-pine"]
+	path = grace-rose-pine
+	url = git@github.com:gracepetryk/rose-pine.git
