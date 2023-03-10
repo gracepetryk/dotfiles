@@ -1,7 +1,19 @@
-vim.cmd [[colorscheme vscode]]
+require('rose-pine').setup({
+  dark_variant = 'moon',
+  disable_float_background = true,
+  groups = {
+    background = '#191724',
 
-vim.api.nvim_set_hl(0, 'ColorColumn', {bg='#292929'})
-vim.api.nvim_set_hl(0, 'Pmenu', {link='Normal'})
-vim.api.nvim_set_hl(0, 'LspSignatureActiveParameter', {fg='#2aaaff'})
-vim.api.nvim_set_hl(0, 'TreesitterContext', {bg='#292929'})
+  },
+
+  highlight_groups = {
+    LspSignatureActiveParameter = { fg = 'gold' },
+    CursorLine = { bg = '#242331' },
+    ColorColumn = { link = 'CursorLine' },
+
+    StatusLine = { fg = 'foam', bg = 'foam', blend = 15 },
+  }
+})
+
+vim.cmd.colorscheme('rose-pine')
 

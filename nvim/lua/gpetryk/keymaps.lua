@@ -17,6 +17,8 @@ map('n', '<A-Down>', '<C-w>j')
 map('n', '<A-Up>', '<C-w>k')
 map('n', '<A-Right>', '<C-w>l')
 
+map('n', '<leader>vs', vim.cmd.vsplit)
+
 map({'n', 'v'}, 'J', '10j')
 map({'n', 'v'}, 'K', '10k')
 
@@ -26,8 +28,12 @@ map({ 'n', 'i', 'v', 'x' }, '<ScrollWheelUp>', '<C-y>')
 map({ 'n', 'i', 'v', 'x' }, '<ScrollWheelDown>', '<C-e>')
 
 -- center half page scrolls
-map({ 'n', 'v' }, '<C-u>', '<C-u>M')
-map({ 'n', 'v' }, '<C-d>', '<C-d>M')
+map({ 'n', 'v' }, '<C-u>', '<C-u>zz')
+map({ 'n', 'v' }, '<C-d>', '<C-d>zz')
+
+-- center search
+map('n', 'n', 'nzz')
+map('n', 'N', 'Nzz')
 
 --qflist/loclist
 
@@ -69,4 +75,4 @@ map('i', '"', function() b.insert_quote('"') end)
 map('i', "'", function() b.insert_quote("'") end)
 
 -- signature help
-map('i', '<C-k>', function () vim.lsp.buf.signature_help() end)
+map({'i', 'n'}, '<C-k>', function () vim.lsp.buf.signature_help() end)

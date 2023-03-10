@@ -4,13 +4,16 @@ local map = require("gpetryk.map").map
 -- debugger mappings
 
 local function open_debugger()
+  vim.cmd.tabnew('%')
   require('dapui').open({})
+  vim.api.nvim_input('<C-o>')
 end
 
 local function close_debugger()
   require('dapui').close({})
   require('dap').terminate()
   require('dap').repl.close()
+  vim.cmd.tabclose()
 end
 
 map('n', '<C-b>', function() require('dap').toggle_breakpoint() end)
