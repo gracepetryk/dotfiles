@@ -16,7 +16,7 @@ function pyenv_prefix() {
 }
 
 PROMPT='
-%{$fg_bold[cyan]%}%~%{$reset_color%}$(git_super_status)
+%{$fg_bold[green]%}%~%{$reset_color%}$(git_super_status)
 $(pyenv_prefix)%{$fg_bold[blue]%}%n%{$reset_color%}@%F{166%}%m%f %(?::%{$fg[red]%}[%?] )%{$reset_color%}$ '
 
 RPROMPT=""
