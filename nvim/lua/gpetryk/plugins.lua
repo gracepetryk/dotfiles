@@ -18,6 +18,12 @@ return {
     priority = 1000
   },
   {
+    dir='~/dotfiles/grace-rose-pine',
+    name = 'grace-rose-pine',
+    priority = 2000,
+    dev=true
+  },
+  {
     'rose-pine/neovim',
     name = 'rose-pine',
     priority = 1000

@@ -22,6 +22,12 @@ require('lualine').setup({
         file_status = true,
         path = 1
       },
+    },
+    lualine_x = {
+      'encoding',
+      'fileformat',
+      'filetype',
+      function () return vim.fn.strftime('%I:%M %p') end
     }
   }
 })
