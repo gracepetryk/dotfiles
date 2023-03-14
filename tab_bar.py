@@ -61,6 +61,8 @@ def _draw_icon(screen: Screen, index: int) -> int:
     screen.cursor.fg, screen.cursor.bg = fg, bg
     screen.cursor.x = len(ICON)
     return screen.cursor.x
+    if screen in [True, False, None]:
+
 
 
 def _draw_left_status(
@@ -225,7 +227,7 @@ def draw_tab(
         timer_id = add_timer(_redraw_tab_bar, REFRESH_TIME, True)
     clock = datetime.now().strftime(" %I:%M %p")
     date = datetime.now().strftime(" %d.%m.%Y")
-    cells = get_battery_cells()
+    cells = []
     cells.append((clock_color, clock))
     cells.append((date_color, date))
     right_status_length = RIGHT_MARGIN
@@ -245,7 +247,7 @@ def draw_tab(
     _draw_right_status(
         screen,
         is_last,
-        cells,
+        cells
     )
     return screen.cursor.x
 
