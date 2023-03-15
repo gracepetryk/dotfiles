@@ -19,8 +19,8 @@ map('n', '<A-Right>', '<C-w>l')
 
 map('n', '<leader>vs', vim.cmd.vsplit)
 
-map({'n', 'v'}, 'J', '10j')
-map({'n', 'v'}, 'K', '10k')
+map('v', 'J', ":m '>+1<CR>gv=gv")
+map('v', 'K', ":m '<-2<CR>gv=gv")
 
 --one line scrolling
 
