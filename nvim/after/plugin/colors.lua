@@ -20,7 +20,7 @@ require('grace-rose-pine').setup({
     ['@keyword.return'] = { fg = 'love', bold=true },
     ['@parameter'] = { fg = 'foam', italic=true },
     ['Boolean'] = { fg = 'gold' },
-    ['String'] = { fg = 'gold' },
+    ['String'] = { fg = 'fall' },
     ['@variable'] = { fg = 'text' },
     ['@variable.builtin'] = { fg = 'foam', bold=true, nocombine=true },
     ['@field'] = { fg = 'rose', nocombine=true },
