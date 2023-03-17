@@ -61,8 +61,6 @@ def _draw_icon(screen: Screen, index: int) -> int:
     screen.cursor.fg, screen.cursor.bg = fg, bg
     screen.cursor.x = len(ICON)
     return screen.cursor.x
-    if screen in [True, False, None]:
-
 
 
 def _draw_left_status(

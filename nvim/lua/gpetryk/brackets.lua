@@ -1,8 +1,6 @@
 local M = {}
 
 local pairs = {
-  ["'"] = "'",
-  ['"'] = '"',
   ['('] = ')',
   ['{'] = '}',
   ['['] = ']',
@@ -33,6 +31,11 @@ local separators = {
   ['.'] = true,
   [','] = true,
   ['='] = true,
+}
+
+local quotes = {
+  ['"'] = true,
+  ["'"] = true,
 }
 
 local function is_word_like(check_char)
@@ -137,6 +140,10 @@ end
 
 local function delete_pair()
   local prev_char, next_char = get_cursor_chars()
+
+  if prev_char == next_char and quotes[prev_char] == true then
+    return '<Right><BS><BS>'
+  end
 
   if next_char ~= nil and prev_char ~= nil and pairs[prev_char] == next_char then
     return '<Right><BS><BS>'
