@@ -4,14 +4,12 @@ local pairs = {
   ['('] = ')',
   ['{'] = '}',
   ['['] = ']',
-  ['<'] = '>',
 }
 
 local opening_chars = {
   ['('] = true,
   ['{'] = true,
   ['['] = true,
-  ['<'] = true,
 }
 
 
@@ -19,7 +17,6 @@ local closing_chars = {
   [')'] = true,
   ['}'] = true,
   [']'] = true,
-  ['>'] = true,
 }
 
 

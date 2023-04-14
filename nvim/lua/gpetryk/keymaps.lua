@@ -68,9 +68,6 @@ map('i', '}', function() b.insert_closing('}') end)
 map('i', '[', function() b.insert_pair('[') end)
 map('i', ']', function() b.insert_closing(']') end)
 
-map('i', '<', function() b.insert_pair('<') end)
-map('i', '>', function() b.insert_closing('>') end)
-
 map('i', '"', function() b.insert_quote('"') end)
 map('i', "'", function() b.insert_quote("'") end)
 

@@ -1,4 +1,8 @@
 require('mason').setup()
+require('mason-lspconfig').setup({
+  ensure_installed = { 'lua_ls' },
+  automatic_installation = true
+})
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -86,6 +90,12 @@ require('lspconfig')['lua_ls'].setup({
   },
 })
 
-require('lspconfig')['solargraph'].setup({})
+-- require('lspconfig')['solargraph'].setup({})
 require('lspconfig')['bashls'].setup({})
 require('lspconfig')['tsserver'].setup({})
+require('lspconfig')['emmet_ls'].setup({
+  filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
+})
+require('lspconfig')['html'].setup({
+  filetypes = {'html', 'htmldjango'}
+})

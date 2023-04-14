@@ -51,9 +51,18 @@ return {
   },
 
   {
+    'williamboman/mason.nvim', -- install LSPs/DAP/etc
+    lazy=true
+  },
+
+  {
+    'williamboman/mason-lspconfig.nvim',
+    lazy=true
+  },
+
+  {
     'neovim/nvim-lspconfig',
-    config = function() require 'plugins.lsp' end,
-    priority = -1 -- ensure mason gets loaded first
+    config= function() require 'plugins.lsp' end
   }, -- Configurations for Nvim LSP
 
   {
@@ -130,11 +139,9 @@ return {
   },
 
   {
-    'williamboman/mason.nvim', -- install LSPs/DAP/etc
-    cmd = 'Mason'
-  },
-  {
     'ggandor/leap.nvim', -- 2 char nav
     config = function() require('plugins.leap') end
-  }
+  },
+
+  { 'vim-ruby/vim-ruby' }
 }
