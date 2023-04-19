@@ -14,7 +14,7 @@ require('grace-rose-pine').setup({
     ['@type.qualifier'] = { fg = 'pine' },
     ['@constructor'] = { fg = 'moss' },
     ['Function'] = { fg = 'iris', nocombine=true },
-    ['@function.builtin'] = { fg = 'moss', italic = true },
+    ['@function.builtin'] = { fg = 'iris', italic = true },
     ['@method'] = { link = '@function' },
     ['@attribute'] = { link = '@function' },
     ['@keyword.return'] = { fg = 'love', bold=true },
