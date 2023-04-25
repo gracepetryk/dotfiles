@@ -73,3 +73,7 @@ map('i', "'", function() b.insert_quote("'") end)
 
 -- signature help
 map({'i', 'n'}, '<C-k>', function () vim.lsp.buf.signature_help() end)
+
+-- illuminate
+map({'n'}, '<A-;>', function() require('illuminate').goto_next_reference() end)
+map({'n'}, '<A-,>', function() require('illuminate').goto_prev_reference() end)
