@@ -1,4 +1,6 @@
 local cmp = require('cmp')
+local cmp_types = require('cmp.types')
+local cmp_comparators = require('cmp.config.compare')
 local cmp_kinds = {
   Text = ' ',
   Method = ' ',
@@ -45,7 +47,7 @@ cmp.setup {
     documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-u>'] = cmp.mapping.scroll_docs( -4),
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = function()
       if cmp.visible() then
@@ -54,24 +56,100 @@ cmp.setup {
         cmp.complete()
       end
     end,
+    ['<Esc>'] = function (fallback)
+      if cmp.visible() then
+        cmp.abort()
+      else
+        fallback()
+      end
+    end,
     ['<C-e>'] = cmp.mapping.abort(),
     ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<Down>'] = function(fallback)
+      if cmp.visible() then
+        if cmp.core.view.custom_entries_view:is_direction_top_down() then
+          cmp.select_next_item()
+        else
+          cmp.select_prev_item()
+        end
+      else
+        fallback()
+      end
+    end,
+    ['<Up>'] = function(fallback)
+      if cmp.visible() then
+        if cmp.core.view.custom_entries_view:is_direction_top_down() then
+          cmp.select_prev_item()
+        else
+          cmp.select_next_item()
+        end
+      else
+        fallback()
+      end
+    end,
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
+    { name = 'nvim_lsp'},
     { name = 'vsnip' }, -- For vsnip users.
     -- { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
     { name = 'dap' },
-    { name = 'buffer' },
-  }
-  ),
+  }, {
+    {
+      name = 'buffer',
+      option = {
+        get_bufnrs = function ()
+          return vim.api.nvim_list_bufs()
+        end
+      }
+    }
+  }),
   formatting = {
-    fields = { "abbr", "kind" },
-    format = function(_, vim_item)
+    fields = { "abbr", "kind", "menu"},
+    format = function(entry, vim_item)
+      local name_mapping = {
+        ['nvim_lsp'] = 'LSP'
+      }
+      local source_name = name_mapping[entry.source.name] or entry.source.name
       vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
+      vim_item.menu = ' [' .. source_name .. ']'
       return vim_item
     end
   },
+  view = {
+    entries = {
+      name = 'custom', selection_order = 'near_cursor'
+    }
+  },
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      cmp_comparators.exact,
+      cmp_comparators.offset,
+      function (entry1, entry2)
+        entry1 = string.find(entry1.completion_item.label, "=") ~= nil
+        entry2 = string.find(entry2.completion_item.label, "=") ~= nil
+
+        if not (entry1 or entry2) then
+          return nil
+        end
+
+        if entry1 and entry2 then
+          return nil
+        end
+
+        return entry1
+
+      end,
+      cmp_comparators.score,
+      cmp_comparators.order,
+      -- cmp_comparators.scopes,
+      cmp_comparators.recently_used,
+      cmp_comparators.locality,
+      cmp_comparators.kind,
+      -- cmp_comparators.sort_text,
+      -- cmp_comparators.length,
+    },
+  }
 }

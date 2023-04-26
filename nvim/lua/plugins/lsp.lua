@@ -1,8 +1,13 @@
 require('mason').setup()
-require('mason-lspconfig').setup({
-  ensure_installed = { 'lua_ls' },
-  automatic_installation = true
+
+require('neodev').setup({
+  override = function(root_dir, library)
+    library.enabled = true
+    library.plugins = true
+  end,
 })
+local lspconfig = require('lspconfig')
+lspconfig.lua_ls.setup({})
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -47,12 +52,11 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 end
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-  vim.lsp.handlers.signature_help, {
-  }
+  vim.lsp.handlers.signature_help, {}
 )
 
 
-require('lspconfig')['pyright'].setup({
+lspconfig['pyright'].setup({
   settings = {
     python = {
       analysis = {
@@ -65,37 +69,12 @@ require('lspconfig')['pyright'].setup({
   }
 })
 
-
-require('lspconfig')['lua_ls'].setup({
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = { 'vim' },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-})
-
--- require('lspconfig')['solargraph'].setup({})
-require('lspconfig')['bashls'].setup({})
-require('lspconfig')['tsserver'].setup({})
-require('lspconfig')['emmet_ls'].setup({
+-- lspconfig['solargraph'].setup({})
+lspconfig['bashls'].setup({})
+lspconfig['tsserver'].setup({})
+lspconfig['emmet_ls'].setup({
   filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
 })
-require('lspconfig')['html'].setup({
+lspconfig['html'].setup({
   filetypes = {'html', 'htmldjango'}
 })

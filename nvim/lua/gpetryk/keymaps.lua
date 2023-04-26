@@ -39,8 +39,6 @@ map('n', 'N', 'Nzz')
 
 map('n', '}', ':cn<CR>')
 map('n', '{', ':cp<CR>')
-map('n', '<C-]>', ':lnext<CR>')
-map('n', '<C-[>', ':lprev<CR>')
 
 -- harpoon
 map('n', '<leader>b', require('harpoon.ui').toggle_quick_menu)

@@ -26,3 +26,5 @@ vim.opt.colorcolumn = '91'
 vim.opt.shiftwidth = 4
 
 vim.opt.wrap = false
+
+vim.opt.swapfile = false

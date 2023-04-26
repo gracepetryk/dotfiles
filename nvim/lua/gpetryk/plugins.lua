@@ -77,7 +77,6 @@ return {
     event = 'InsertEnter',
     dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
       { 'hrsh7th/cmp-buffer' },
       {
         'hrsh7th/cmp-vsnip',
@@ -147,5 +146,6 @@ return {
     config = function() require('plugins.leap') end
   },
 
-  { 'vim-ruby/vim-ruby' }
+  { 'vim-ruby/vim-ruby' },
+  { 'folke/neodev.nvim' }
 }
