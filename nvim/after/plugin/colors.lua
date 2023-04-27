@@ -13,6 +13,7 @@ require('grace-rose-pine').setup({
     IlluminatedWordText = { bg = 'highlight_med', blend=50 },
     IlluminatedWordRead = { link = 'IlluminatedWordText' },
     IlluminatedWordWrite = { link = 'IlluminatedWordText' },
+    NoiceVirtualText = { fg = 'muted' },
     ['@type'] = { fg = 'moss' },
     ['@type.qualifier'] = { fg = 'pine' },
     ['@constructor'] = { fg = 'moss' },

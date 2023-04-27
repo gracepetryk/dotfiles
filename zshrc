@@ -52,13 +52,22 @@ export PATH="$PATH:/usr/local/sbin"
 
 # add firefox to path
 export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
-
 export PATH="$HOME/bin:$PATH"
-
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46"
 
 # render git prompt if starting in a git directory
 cd .
+
+if which bat > /dev/null; then
+  alias cat=bat
+fi
+
+export BAT_THEME="TwoDark"
+export MANPAGER="sh -c 'col -bx | bat -plman'"
+
+help() {
+  "$@" --help 2>&1 | bat -plhelp
+}
 
 timezsh() {
   shell=${1-$SHELL}

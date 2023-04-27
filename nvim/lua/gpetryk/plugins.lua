@@ -147,5 +147,13 @@ return {
   },
 
   { 'vim-ruby/vim-ruby' },
-  { 'folke/neodev.nvim' }
+  { 'folke/neodev.nvim' },
+  {
+    'folke/noice.nvim',
+    config = function() require("plugins.noice") end,
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify'
+    }
+  }
 }
