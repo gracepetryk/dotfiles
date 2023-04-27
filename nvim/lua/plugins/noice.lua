@@ -37,42 +37,42 @@ require('noice').setup({
     cmdline_output_to_split = true
   },
   cmdline = {
-    enabled = true,
+    enabled = false,
     view = 'cmdline'
   },
   messages = {
-    enabled = true
+    enabled = false
   },
   views = {
     mini = {
       position = {
-        row = -1,
+        row = -2,
         col = "100%"
       }
     }
   },
-  -- routes = {
-  --   {
-  --     filter = {
-  --       any = {
-  --         {
-  --           event = "msg_show",
-  --           kind = "",
-  --           find = "written",
-  --         },
-  --         {
-  --           event = "msg_show",
-  --           kind = "",
-  --           find = "fewer lines",
-  --         },
-  --         {
-  --           event = "msg_show",
-  --           kind = "",
-  --           find = "more lines",
-  --         },
-  --       }
-  --     },
-  --     view = "mini"
-  --   }
-  -- }
+  routes = {
+    {
+      filter = {
+        any = {
+          {
+            event = "msg_show",
+            kind = "",
+            find = "written",
+          },
+          {
+            event = "msg_show",
+            kind = "",
+            find = "fewer lines",
+          },
+          {
+            event = "msg_show",
+            kind = "",
+            find = "more lines",
+          },
+        }
+      },
+      view = "mini"
+    }
+  }
 })
