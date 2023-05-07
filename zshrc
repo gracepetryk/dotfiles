@@ -58,16 +58,22 @@ export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=
 # render git prompt if starting in a git directory
 cd .
 
-if which bat > /dev/null; then
-  alias cat=bat
+bat="bat"
+if which batcat > /dev/null; then
+  alias bat=batcat
+  bat="batcat"
 fi
 
-export BAT_THEME="TwoDark"
-export MANPAGER="sh -c 'col -bx | bat -plman'"
+if which bat > /dev/null; then
+  alias cat=bat
+  export BAT_THEME="TwoDark"
+  export MANPAGER="sh -c 'col -bx | $bat -plman'"
 
-help() {
-  "$@" --help 2>&1 | bat -plhelp
-}
+  help() {
+    "$@" --help 2>&1 | bat -plhelp
+  }
+fi
+
 
 timezsh() {
   shell=${1-$SHELL}
