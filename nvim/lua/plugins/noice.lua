@@ -34,11 +34,14 @@ require('noice').setup({
     bottom_search = true, -- use a classic bottom cmdline for search
     lsp_doc_border = true, -- add a border to hover docs and signature help
     command_palette = false,
-    cmdline_output_to_split = true
+    cmdline_output_to_split = false
   },
   cmdline = {
     enabled = false,
-    view = 'cmdline'
+    view = 'cmdline',
+  },
+  popupmenu = {
+    enabled = false,
   },
   messages = {
     enabled = false

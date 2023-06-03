@@ -4,7 +4,7 @@ require 'nvim-treesitter.configs'.setup {
 
   highlight = {
     enable = true,
-    disable = { "embedded_template" },
+    disable = { "embedded_template", "sql" },
     additional_vim_regex_highlighting = false,
   },
   playground = {

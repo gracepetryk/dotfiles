@@ -52,17 +52,18 @@ return {
 
   {
     'williamboman/mason.nvim', -- install LSPs/DAP/etc
-    lazy=true
+    event = 'VeryLazy'
   },
 
   {
     'williamboman/mason-lspconfig.nvim',
-    lazy=true
+    event = 'VeryLazy'
   },
 
   {
     'neovim/nvim-lspconfig',
-    config= function() require 'plugins.lsp' end
+    config= function() require 'plugins.lsp' end,
+    event = 'VeryLazy',
   }, -- Configurations for Nvim LSP
 
   {
@@ -119,10 +120,14 @@ return {
     }
   },
 
-  { 'nvim-treesitter/playground' },
+  {
+    'nvim-treesitter/playground',
+    event = 'VeryLazy'
+  },
 
   {
     'RRethy/vim-illuminate',
+    event = 'VeryLazy'
   }, -- highlight symbol under cursor
 
   -- language-specific plugins
@@ -154,6 +159,13 @@ return {
     dependencies = {
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify'
-    }
+    },
+    event='VeryLazy'
+  },
+
+  { 'rodjek/vim-puppet' },
+  { 
+    'windwp/nvim-autopairs',
+    config = function() require('nvim-autopairs').setup({}) end,
   }
 }

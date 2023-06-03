@@ -3,7 +3,13 @@ local map = require("gpetryk.map").map
 map('n', 'X', '"_x')
 map('n', 'DD', '"_dd')
 
+map('i', '<C-c>', '<Esc>')
 map('i', 'jj', '<Esc>')
+
+-- system clipboard
+map({'n', 'v'}, '<leader>y', '"*y')
+map({'n', 'v'}, '<leader>p', '"*p')
+map({'n', 'v'}, '<leader>P', '"*P')
 
 map('n', '<leader>w', '<C-w>w')
 map('n', '<A-o>', '<C-w>w')
@@ -55,19 +61,19 @@ map('n', '<A-9>', function() require('harpoon.ui').nav_file(9) end)
 map('n', '<A-0>', function() require('harpoon.ui').nav_file(10) end)
 
 -- autoclose parens/quotes/etc
-local b = require('gpetryk.brackets')
-
-map('i', '(', function() b.insert_pair('(') end)
-map('i', ')', function() b.insert_closing(')') end)
-
-map('i', '{', function() b.insert_pair('{') end)
-map('i', '}', function() b.insert_closing('}') end)
-
-map('i', '[', function() b.insert_pair('[') end)
-map('i', ']', function() b.insert_closing(']') end)
-
-map('i', '"', function() b.insert_quote('"') end)
-map('i', "'", function() b.insert_quote("'") end)
+-- local b = require('gpetryk.brackets')
+-- 
+-- map('i', '(', function() b.insert_pair('(') end)
+-- map('i', ')', function() b.insert_closing(')') end)
+-- 
+-- map('i', '{', function() b.insert_pair('{') end)
+-- map('i', '}', function() b.insert_closing('}') end)
+-- 
+-- map('i', '[', function() b.insert_pair('[') end)
+-- map('i', ']', function() b.insert_closing(']') end)
+-- 
+-- map('i', '"', function() b.insert_quote('"') end)
+-- map('i', "'", function() b.insert_quote("'") end)
 
 -- signature help
 map({'i', 'n'}, '<C-k>', function () vim.lsp.buf.signature_help() end)
