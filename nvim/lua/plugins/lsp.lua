@@ -7,7 +7,6 @@ require('neodev').setup({
   end,
 })
 local lspconfig = require('lspconfig')
-lspconfig.lua_ls.setup({})
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -55,26 +54,37 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
   vim.lsp.handlers.signature_help, {}
 )
 
+require('mason-lspconfig').setup()
+require('mason-lspconfig').setup_handlers({
+  function(server_name)
+    lspconfig[server_name].setup({})
+  end,
 
-lspconfig['pyright'].setup({
-  settings = {
-    python = {
-      analysis = {
-        autoSearchPaths = true,
-        diagnosticMode = "onlyOpenFiles",
-        useLibraryCodeForTypes = true,
-        stubPath = "/Users/GPetryk/typings"
+  ['pyright'] = function()
+    lspconfig['pyright'].setup({
+      settings = {
+        python = {
+          analysis = {
+            autoSearchPaths = true,
+            diagnosticMode = "onlyOpenFiles",
+            useLibraryCodeForTypes = true,
+            stubPath = "/Users/GPetryk/typings"
+          }
+        }
       }
-    }
-  }
-})
+    })
+  end,
 
--- lspconfig['solargraph'].setup({})
-lspconfig['bashls'].setup({})
-lspconfig['tsserver'].setup({})
-lspconfig['emmet_ls'].setup({
-  filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
-})
-lspconfig['html'].setup({
-  filetypes = {'html', 'htmldjango'}
+  -- lspconfig['solargraph'].setup({})
+  ['emmet_ls'] = function()
+    lspconfig['emmet_ls'].setup({
+      filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
+    })
+  end,
+
+  ['html'] = function()
+    lspconfig['html'].setup({
+      filetypes = {'html', 'htmldjango'}
+    })
+  end,
 })

@@ -52,18 +52,15 @@ return {
 
   {
     'williamboman/mason.nvim', -- install LSPs/DAP/etc
-    event = 'VeryLazy'
   },
 
   {
     'williamboman/mason-lspconfig.nvim',
-    event = 'VeryLazy'
   },
 
   {
     'neovim/nvim-lspconfig',
     config= function() require 'plugins.lsp' end,
-    event = 'VeryLazy',
   }, -- Configurations for Nvim LSP
 
   {
