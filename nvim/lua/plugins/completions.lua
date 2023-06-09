@@ -129,6 +129,7 @@ cmp.setup {
       cmp_comparators.exact,
       cmp_comparators.offset,
       function (entry1, entry2)
+        -- boost parameters
         entry1 = string.find(entry1.completion_item.label, "=") ~= nil
         entry2 = string.find(entry2.completion_item.label, "=") ~= nil
 
@@ -143,14 +144,31 @@ cmp.setup {
         return entry1
 
       end,
+      function (entry1, entry2)
+        -- deboost items prefixed with _
+
+        entry1 = string.sub(entry1.completion_item.label, 0, 1) ~= '_'
+        entry2 = string.sub(entry2.completion_item.label, 0, 1) ~= '_'
+
+        if not (entry1 or entry2) then
+          return nil
+        end
+
+        if entry1 and entry2 then
+          return nil
+        end
+
+        return entry1
+
+      end,
       cmp_comparators.score,
       cmp_comparators.order,
-      -- cmp_comparators.scopes,
+      cmp_comparators.scopes,
       cmp_comparators.recently_used,
       cmp_comparators.locality,
       cmp_comparators.kind,
-      -- cmp_comparators.sort_text,
-      -- cmp_comparators.length,
+      cmp_comparators.sort_text,
+      cmp_comparators.length,
     },
   }
 }

@@ -28,3 +28,6 @@ vim.opt.shiftwidth = 4
 vim.opt.wrap = false
 
 vim.opt.swapfile = false
+
+vim.opt.textwidth = 90
+vim.opt.formatoptions = 'cqj'
