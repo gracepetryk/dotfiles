@@ -16,8 +16,6 @@ plugins=()
 if [ "$IS_DOCKER_SANDBOX" = "" ]; then
     ZSH_THEME="gpetryk"
     export NVM_AUTO_USE=true
-    export NVM_LAZY_LOAD=true
-    export NVM_COMPLETION=true
     plugins+=(zsh-nvm)
 else
     ZSH_THEME="gpetryk-docker"
@@ -79,3 +77,5 @@ timezsh() {
   shell=${1-$SHELL}
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
+
+alias flake_branch='flake8 $(git diff develop.. --name-only)'

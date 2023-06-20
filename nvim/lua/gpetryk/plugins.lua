@@ -2,6 +2,7 @@ return {
   { 'tpope/vim-sleuth' }, -- detect indentation
 
   { 'tpope/vim-fugitive' }, -- git integration
+  { 'tpope/vim-rhubarb' }, -- github integration
   {
     'lewis6991/gitsigns.nvim',
     config = function() require 'plugins.gitsigns' end,
@@ -161,8 +162,45 @@ return {
   },
 
   { 'rodjek/vim-puppet' },
-  { 
+  {
     'windwp/nvim-autopairs',
-    config = function() require('nvim-autopairs').setup({}) end,
+    config = function()
+      local Rule = require('nvim-autopairs.rule')
+      local cond = require('nvim-autopairs.conds')
+      local npairs = require('nvim-autopairs')
+
+      local quote = function(...)
+        local move_func = npairs.config.enable_moveright and cond.move_right or cond.none
+        local rule = Rule(...):with_move(move_func()):with_pair(cond.not_add_quote_inside_quote())
+
+        if #npairs.config.ignored_next_char > 1 then
+          rule:with_pair(cond.not_after_regex(npairs.config.ignored_next_char))
+        end
+        rule:use_undo(npairs.config.break_undo)
+        return rule
+      end
+
+      local bracket = function(...)
+        local rule = quote(...)
+        if npairs.config.enable_check_bracket_line == true then
+          rule:with_pair(cond.is_bracket_line()):with_move(cond.is_bracket_line_move())
+        end
+        if npairs.config.enable_bracket_in_quote then
+          -- still add bracket if text is quote "|" and next_char have "
+          rule:with_pair(cond.is_bracket_in_quote(), 1)
+        end
+        return rule
+      end
+
+      npairs.setup({ fast_wrap = {} })
+
+      npairs.add_rule(quote("'", "'", "python"):with_pair(cond.before_regex('[^%w][fbr]', 2)):with_pair(cond.not_inside_quote()))
+      npairs.add_rule(quote("'", "'", "python"):with_pair(cond.before_regex('[^%w]', 1)):with_pair(cond.not_inside_quote()))
+      npairs.add_rule(quote('"', '"', 'python'):with_pair(cond.before_regex("[^%w]", 1)):with_pair(cond.not_inside_quote()))
+      npairs.add_rule(bracket("{", "}", "python"):with_pair(cond.is_inside_quote()))
+      npairs.add_rule(bracket("<", ">", "python"):with_pair(cond.is_inside_quote()))
+      npairs.add_rule(bracket("(", ")", "python"):with_pair(cond.is_inside_quote()))
+      npairs.add_rule(bracket("[", "]", "python"):with_pair(cond.is_inside_quote()))
+    end,
   }
 }

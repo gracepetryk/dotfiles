@@ -68,7 +68,9 @@ require('mason-lspconfig').setup_handlers({
             autoSearchPaths = true,
             diagnosticMode = "onlyOpenFiles",
             useLibraryCodeForTypes = true,
-            stubPath = "/Users/GPetryk/typings"
+            stubPath = "/Users/GPetryk/typings",
+            venvPath = "/Users/GPetryk/.pyenv/versions",
+            venv = "development"
           }
         }
       }
