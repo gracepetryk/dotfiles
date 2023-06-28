@@ -1,1 +1,1 @@
-vim.opt.formatoptions = 'cqjlr'
+vim.opt.formatoptions = 'cqjlr2'

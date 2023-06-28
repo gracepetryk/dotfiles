@@ -46,6 +46,9 @@ map('n', 'N', 'Nzz')
 map('n', '}', ':cn<CR>')
 map('n', '{', ':cp<CR>')
 
+-- end of previous word
+map('n', 'E', 'ge')
+
 -- harpoon
 map('n', '<leader>b', require('harpoon.ui').toggle_quick_menu)
 map('n', '<leader>m', require('harpoon.mark').add_file)

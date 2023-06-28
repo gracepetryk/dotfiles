@@ -180,27 +180,14 @@ return {
         return rule
       end
 
-      local bracket = function(...)
-        local rule = quote(...)
-        if npairs.config.enable_check_bracket_line == true then
-          rule:with_pair(cond.is_bracket_line()):with_move(cond.is_bracket_line_move())
-        end
-        if npairs.config.enable_bracket_in_quote then
-          -- still add bracket if text is quote "|" and next_char have "
-          rule:with_pair(cond.is_bracket_in_quote(), 1)
-        end
-        return rule
-      end
+      npairs.setup({ fast_wrap = {}, enable_bracket_in_quote = true })
 
-      npairs.setup({ fast_wrap = {} })
-
-      npairs.add_rule(quote("'", "'", "python"):with_pair(cond.before_regex('[^%w][fbr]', 2)):with_pair(cond.not_inside_quote()))
+      npairs.add_rule(quote("'", "'", "python"):with_pair(cond.before_regex('[fbr]', 1)):with_pair(cond.not_inside_quote()))
       npairs.add_rule(quote("'", "'", "python"):with_pair(cond.before_regex('[^%w]', 1)):with_pair(cond.not_inside_quote()))
-      npairs.add_rule(quote('"', '"', 'python'):with_pair(cond.before_regex("[^%w]", 1)):with_pair(cond.not_inside_quote()))
-      npairs.add_rule(bracket("{", "}", "python"):with_pair(cond.is_inside_quote()))
-      npairs.add_rule(bracket("<", ">", "python"):with_pair(cond.is_inside_quote()))
-      npairs.add_rule(bracket("(", ")", "python"):with_pair(cond.is_inside_quote()))
-      npairs.add_rule(bracket("[", "]", "python"):with_pair(cond.is_inside_quote()))
+      npairs.add_rule(Rule("{", "}", "python"):with_pair(cond.after_text("'")))
+      npairs.add_rule(Rule("<", ">", "python"):with_pair(cond.before_regex('["\']')))
+      npairs.add_rule(Rule("(", ")", "python"):with_pair(cond.before_regex('["\']')))
+      npairs.add_rule(Rule("[", "]", "python"):with_pair(cond.before_regex('["\']')))
     end,
   }
 }
