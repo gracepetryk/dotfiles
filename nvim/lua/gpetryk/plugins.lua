@@ -143,6 +143,7 @@ return {
     'Shatur/neovim-session-manager',
     config = function() require 'plugins.sessions' end,
     commit = 'e7a2cbf56b5fd3a223f2774b535499fc62eca6ef',
+    event = 'BufWritePost',
     cmd = 'SessionManager'
   },
 

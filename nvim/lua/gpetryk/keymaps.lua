@@ -4,7 +4,6 @@ map('n', 'X', '"_x')
 map('n', 'DD', '"_dd')
 
 map('i', '<C-c>', '<Esc>')
-map('i', 'jj', '<Esc>')
 
 -- system clipboard
 map({'n', 'v'}, '<leader>y', '"*y')
@@ -13,17 +12,11 @@ map({'n', 'v'}, '<leader>P', '"*P')
 
 map('x', 'op', '"_dP') -- delete without overwriting yank register
 
-map('n', '<leader>w', '<C-w>w')
 map('n', '<A-o>', '<C-w>w')
 map('n', '<A-h>', '<C-w>h')
 map('n', '<A-j>', '<C-w>j')
 map('n', '<A-k>', '<C-w>k')
 map('n', '<A-l>', '<C-w>l')
-
-map('n', '<A-Left>', '<C-w>h')
-map('n', '<A-Down>', '<C-w>j')
-map('n', '<A-Up>', '<C-w>k')
-map('n', '<A-Right>', '<C-w>l')
 
 map('n', '<leader>vs', vim.cmd.vsplit)
 
