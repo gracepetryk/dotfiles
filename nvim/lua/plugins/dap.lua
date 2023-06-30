@@ -41,14 +41,10 @@ dap.configurations.python = {
     pathMappings = {
       {
         localRoot = "${workspaceFolder}",
-        remoteRoot = "."
+        remoteRoot = "/var/de-sandbox/apps/edde"
       },
-      {
-        localRoot = "${env:HOME}/.pyenv",
-        remoteRoot = "/var/pyenv"
-      }
     },
-    justMyCode = false,
+    justMyCode = true,
     logToFile = true
   }
 }

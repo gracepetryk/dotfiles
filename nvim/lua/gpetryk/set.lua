@@ -2,11 +2,8 @@ vim.g.mapleader = " "
 
 vim.opt.errorbells = false
 
-vim.opt.termguicolors = true
-
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.cursorline = true
 
 vim.opt.updatetime = 100
 
@@ -23,7 +20,10 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes:2'
 vim.opt.colorcolumn = '91'
 
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
 vim.opt.wrap = false
 
@@ -31,3 +31,5 @@ vim.opt.swapfile = false
 
 vim.opt.textwidth = 90
 vim.opt.formatoptions = 'cqj'
+
+vim.opt.guicursor = ''

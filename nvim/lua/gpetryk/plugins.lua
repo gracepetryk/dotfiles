@@ -34,7 +34,7 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function() require 'plugins.statusline' end,
-    event = 'VeryLazy'
+    -- event = 'VeryLazy'
   },
 
   {
@@ -62,6 +62,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     config= function() require 'plugins.lsp' end,
+    event='VeryLazy'
   }, -- Configurations for Nvim LSP
 
   {
@@ -141,7 +142,8 @@ return {
   {
     'Shatur/neovim-session-manager',
     config = function() require 'plugins.sessions' end,
-    commit = 'e7a2cbf56b5fd3a223f2774b535499fc62eca6ef'
+    commit = 'e7a2cbf56b5fd3a223f2774b535499fc62eca6ef',
+    cmd = 'SessionManager'
   },
 
   {
@@ -151,16 +153,6 @@ return {
 
   { 'vim-ruby/vim-ruby' },
   { 'folke/neodev.nvim' },
-  {
-    'folke/noice.nvim',
-    config = function() require("plugins.noice") end,
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'rcarriga/nvim-notify'
-    },
-    event='VeryLazy'
-  },
-
   { 'rodjek/vim-puppet' },
   {
     'windwp/nvim-autopairs',

@@ -11,6 +11,8 @@ map({'n', 'v'}, '<leader>y', '"*y')
 map({'n', 'v'}, '<leader>p', '"*p')
 map({'n', 'v'}, '<leader>P', '"*P')
 
+map('x', 'op', '"_dP') -- delete without overwriting yank register
+
 map('n', '<leader>w', '<C-w>w')
 map('n', '<A-o>', '<C-w>w')
 map('n', '<A-h>', '<C-w>h')
@@ -84,3 +86,6 @@ map({'i', 'n'}, '<C-k>', function () vim.lsp.buf.signature_help() end)
 -- illuminate
 map({'n'}, '<A-n>', function() require('illuminate').goto_next_reference() end)
 map({'n'}, '<A-N>', function() require('illuminate').goto_prev_reference() end)
+
+-- load current dir session
+map({'n'}, '<leader>ls', ':SessionManager load_current_dir_session<CR>')

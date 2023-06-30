@@ -34,7 +34,6 @@ vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } 
 vim.g.diagnostic_float_opts = {
   focusable = false,
   close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-  border = 'rounded',
   source = 'always',
   prefix = ' ',
   scope = 'cursor',
@@ -43,12 +42,12 @@ vim.g.diagnostic_float_opts = {
 vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, vim.g.diagnostic_float_opts) end, bufopts)
 
 -- To instead override globally
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or 'rounded'
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
+-- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+-- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+--   opts = opts or {}
+--   opts.border = opts.border or 'rounded'
+--   return orig_util_open_floating_preview(contents, syntax, opts, ...)
+-- end
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
   vim.lsp.handlers.signature_help, {}
@@ -67,8 +66,7 @@ require('mason-lspconfig').setup_handlers({
           analysis = {
             autoSearchPaths = true,
             diagnosticMode = "onlyOpenFiles",
-            useLibraryCodeForTypes = true,
-            stubPath = "/Users/GPetryk/typings",
+            useLibraryCodeForTypes = false,
             venvPath = "/Users/GPetryk/.pyenv/versions",
             venv = "development"
           }
