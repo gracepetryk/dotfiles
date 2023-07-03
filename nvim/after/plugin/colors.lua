@@ -4,7 +4,6 @@ require('grace-rose-pine').setup({
   groups = {
     git_add = 'moss',
     git_stage = 'moss',
-    panel = 'float'
   },
   highlight_groups = {
     TabLineFill = { bg = 'surface' },
@@ -17,6 +16,7 @@ require('grace-rose-pine').setup({
     IlluminatedWordWrite = { link = 'IlluminatedWordText' },
     NoiceVirtualText = { fg = 'muted' },
     Folded = { bg = 'surface' },
+    PMenu = { bg = 'float' },
     ['@type'] = { fg = 'moss' },
     ['@type.qualifier'] = { fg = 'pine' },
     ['@constructor'] = { fg = 'moss' },
