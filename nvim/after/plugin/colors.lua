@@ -4,9 +4,10 @@ require('grace-rose-pine').setup({
   groups = {
     git_add = 'moss',
     git_stage = 'moss',
-    panel = 'float',
+    panel = 'float'
   },
   highlight_groups = {
+    TabLineFill = { bg = 'surface' },
     LspSignatureActiveParameter = { fg = 'love' },
     TreeSitterContext = { bg = 'overlay', blend = 40 },
     ColorColumn = { bg = 'overlay', blend = 40 },

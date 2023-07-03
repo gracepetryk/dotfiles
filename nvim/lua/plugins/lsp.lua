@@ -1,5 +1,6 @@
 require('mason').setup()
 
+-- lua lsp
 require('neodev').setup({
   override = function(root_dir, library)
     library.enabled = true
@@ -41,6 +42,8 @@ vim.g.diagnostic_float_opts = {
 
 vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, vim.g.diagnostic_float_opts) end, bufopts)
 
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {border = 'none'})
+
 -- To instead override globally
 -- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 -- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
@@ -49,9 +52,6 @@ vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, vim.g
 --   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 -- end
 
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-  vim.lsp.handlers.signature_help, {}
-)
 
 require('mason-lspconfig').setup()
 require('mason-lspconfig').setup_handlers({

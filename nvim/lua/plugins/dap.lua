@@ -24,15 +24,21 @@ map('n', '<Leader><Leader>c', close_debugger)
 map('n', '<Leader>di', '"zyiw :lua require"dapui".eval("<C-R>z")<CR>h')
 map('v', '<Leader>di', '"zy :lua require"dapui".eval("<C-R>z")<CR>h')
 
-dap.adapters.python = {
-  type = 'server',
-  port = 5678
+dap.adapters = {
+  python_remote = {
+    type = 'server',
+    port = 5678
+  },
+  python_local = {
+    type = 'server',
+    port = 7890
+  }
 }
 
 dap.configurations.python = {
   {
-    name = "Python: Remote Attach",
-    type = "python",
+    name = "Python: Remote Attach (sandbox)",
+    type = "python_remote",
     request = "attach",
     connect = {
       host = "0.0.0.0",
@@ -43,6 +49,17 @@ dap.configurations.python = {
         localRoot = "${workspaceFolder}",
         remoteRoot = "/var/de-sandbox/apps/edde"
       },
+    },
+    justMyCode = true,
+    logToFile = true
+  },
+  {
+    name = "Python: Remote Attach (local)",
+    type = "python_local",
+    request = "attach",
+    connect = {
+      host = "0.0.0.0",
+      port = 7890,
     },
     justMyCode = true,
     logToFile = true

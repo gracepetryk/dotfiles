@@ -1,16 +1,75 @@
 local map = require("gpetryk.map").map
 
-map('n', 'X', '"_x')
-map('n', 'DD', '"_dd')
+map('i', '<C-c>', '<Esc>') -- if InsertLeave fails in an autocmd im fucked but I love my insertleave cmd
 
-map('i', '<C-c>', '<Esc>')
+-- don't fat finger macros
+map('n', 'q', '')
+map('n', 'Q', '')
+map('n', '`', 'q')
+
+-- restore the yank register after change/delete
+map('n', 'd', ':set opfunc=v:lua.gpetryk.delete_restore_yank<CR>g@')
+map('n', 'c', ':set opfunc=v:lua.gpetryk.change_restore_yank<CR>g@')
+
+-- x means cut d means delete
+map('n', 'x', 'd')
+map('n', 'xx', 'dd')
+
+-- old cut go away
+map('n', 'X', '"_x')
+
+if _G.gpetryk == nil then
+  _G.gpetryk = {}
+end
+
+_G.gpetryk.motion_select = function (command, flags)
+  local start_mark = vim.api.nvim_buf_get_mark(0, "[")
+  local end_mark = vim.api.nvim_buf_get_mark(0, "]")
+
+  vim.api.nvim_win_set_cursor(0, start_mark)
+  vim.api.nvim_feedkeys('v', 'nx', false)
+  vim.api.nvim_win_set_cursor(0, end_mark)
+
+  vim.api.nvim_feedkeys(command, flags, false)
+end
+
+_G.gpetryk.delete_restore_yank = function ()
+  _G.gpetryk.motion_select('d', 'nx')
+  vim.fn.setreg('', vim.fn.getreg('0'))
+end
+
+_G.gpetryk.change_restore_yank =  function ()
+  _G.gpetryk.motion_select('c', 'n')
+
+  vim.api.nvim_create_autocmd('InsertLeavePre', {
+    once = true,
+    callback =  function()
+      vim.fn.setreg('', vim.fn.getreg('0'))
+    end
+  })
+end
+
+-- restore yank register after dd/cc
+map('n', 'dd', 'dd:let @@=@0<CR>')
+map('n', 'cc', 'cc:let @@=@0<CR>')
 
 -- system clipboard
-map({'n', 'v'}, '<leader>y', '"*y')
-map({'n', 'v'}, '<leader>p', '"*p')
-map({'n', 'v'}, '<leader>P', '"*P')
+map({'n', 'x'}, '<leader>y', '"*y')
+map({'n', 'x'}, '<leader>p', '"*p')
+map({'n', 'x'}, '<leader>P', '"*P')
 
-map('x', 'op', '"_dP') -- delete without overwriting yank register
+-- paste UUID
+map('n', 'U',function ()
+  local cur = vim.api.nvim_win_get_cursor(0)
+  local row = cur[1]
+  local col = cur[2]
+
+  vim.cmd.py3('import uuid')
+  local uuid = vim.fn.py3eval('str(uuid.uuid4())')
+
+  vim.api.nvim_buf_set_text(0, row - 1, col + 1, row - 1, col + 1, {uuid})
+  vim.api.nvim_win_set_cursor(0, {row, col + string.len(uuid)})
+end)
 
 map('n', '<A-o>', '<C-w>w')
 map('n', '<A-h>', '<C-w>h')
@@ -20,17 +79,17 @@ map('n', '<A-l>', '<C-w>l')
 
 map('n', '<leader>vs', vim.cmd.vsplit)
 
-map('v', 'J', ":m '>+1<CR>gv=gv")
-map('v', 'K', ":m '<-2<CR>gv=gv")
+map('x', 'J', ":m '>+1<CR>gv=gv")
+map('x', 'K', ":m '<-2<CR>gv=gv")
 
 --one line scrolling
 
-map({ 'n', 'i', 'v', 'x' }, '<ScrollWheelUp>', '<C-y>')
-map({ 'n', 'i', 'v', 'x' }, '<ScrollWheelDown>', '<C-e>')
+map({ 'n', 'i', 'x'}, '<ScrollWheelUp>', '<C-y>')
+map({ 'n', 'i', 'x'}, '<ScrollWheelDown>', '<C-e>')
 
 -- center half page scrolls
-map({ 'n', 'v' }, '<C-u>', '<C-u>zz')
-map({ 'n', 'v' }, '<C-d>', '<C-d>zz')
+map({ 'n', 'x' }, '<C-u>', '<C-u>zz')
+map({ 'n', 'x' }, '<C-d>', '<C-d>zz')
 
 -- center search
 map('n', 'n', 'nzz')
