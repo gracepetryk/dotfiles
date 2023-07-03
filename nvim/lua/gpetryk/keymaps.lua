@@ -1,57 +1,30 @@
 local map = require("gpetryk.map").map
+local unnamed_register = require('gpetryk.unnamed_register')
 
-map('i', '<C-c>', '<Esc>') -- if InsertLeave fails in an autocmd im fucked but I love my insertleave cmd
+map('i', '<C-c>', '<Esc>')
+map('i', '<Esc>', '<C-c>') -- in case something goes wrong
 
 -- don't fat finger macros
 map('n', 'q', '')
 map('n', 'Q', '')
 map('n', '`', 'q')
 
--- restore the yank register after change/delete
-map('n', 'd', ':set opfunc=v:lua.gpetryk.delete_restore_yank<CR>g@')
-map('n', 'c', ':set opfunc=v:lua.gpetryk.change_restore_yank<CR>g@')
-
--- x means cut d means delete
-map('n', 'x', 'd')
-map('n', 'xx', 'dd')
-
--- old cut go away
-map('n', 'X', '"_x')
-
-if _G.gpetryk == nil then
-  _G.gpetryk = {}
-end
-
-_G.gpetryk.motion_select = function (command, flags)
-  local start_mark = vim.api.nvim_buf_get_mark(0, "[")
-  local end_mark = vim.api.nvim_buf_get_mark(0, "]")
-
-  vim.api.nvim_win_set_cursor(0, start_mark)
-  vim.api.nvim_feedkeys('v', 'nx', false)
-  vim.api.nvim_win_set_cursor(0, end_mark)
-
-  vim.api.nvim_feedkeys(command, flags, false)
-end
-
-_G.gpetryk.delete_restore_yank = function ()
-  _G.gpetryk.motion_select('d', 'nx')
-  vim.fn.setreg('', vim.fn.getreg('0'))
-end
-
-_G.gpetryk.change_restore_yank =  function ()
-  _G.gpetryk.motion_select('c', 'n')
-
-  vim.api.nvim_create_autocmd('InsertLeavePre', {
-    once = true,
-    callback =  function()
-      vim.fn.setreg('', vim.fn.getreg('0'))
-    end
-  })
-end
+-- restore the unnamed register after change/delete
+_G.gpetryk.delete_restore_unnamed = unnamed_register.delete_restore_unnamed
+_G.gpetryk.change_restore_unnamed = unnamed_register.change_restore_unnamed
+map('n', 'd', ':set opfunc=v:lua.gpetryk.delete_restore_unnamed<CR>g@')
+map('n', 'c', ':set opfunc=v:lua.gpetryk.change_restore_unnamed<CR>g@')
 
 -- restore yank register after dd/cc
 map('n', 'dd', 'dd:let @@=@0<CR>')
-map('n', 'cc', 'cc:let @@=@0<CR>')
+map('n', 'cc', 'cc<C-o>:let@@=@0<CR>')
+
+-- X means cut d means delete
+map('n', 'X', 'd')
+map('n', 'XX', 'dd')
+
+-- why would u ever want to yank a single character
+map('n', 'x', '"_x')
 
 -- system clipboard
 map({'n', 'x'}, '<leader>y', '"*y')
@@ -60,15 +33,11 @@ map({'n', 'x'}, '<leader>P', '"*P')
 
 -- paste UUID
 map('n', 'U',function ()
-  local cur = vim.api.nvim_win_get_cursor(0)
-  local row = cur[1]
-  local col = cur[2]
-
   vim.cmd.py3('import uuid')
   local uuid = vim.fn.py3eval('str(uuid.uuid4())')
 
-  vim.api.nvim_buf_set_text(0, row - 1, col + 1, row - 1, col + 1, {uuid})
-  vim.api.nvim_win_set_cursor(0, {row, col + string.len(uuid)})
+  vim.api.nvim_paste(uuid, false, -1)
+
 end)
 
 map('n', '<A-o>', '<C-w>w')
