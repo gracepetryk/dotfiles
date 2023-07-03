@@ -8,6 +8,7 @@ require('grace-rose-pine').setup({
   highlight_groups = {
     TabLineFill = { bg = 'surface' },
     LspSignatureActiveParameter = { fg = 'love' },
+    NormalFloat = { bg = 'float' },
     TreeSitterContext = { bg = 'overlay', blend = 40 },
     ColorColumn = { bg = 'overlay', blend = 40 },
     StatusLine = { bg = 'overlay' },
