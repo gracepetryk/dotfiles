@@ -47,6 +47,9 @@ if _G.gpetryk == nil then
   _G.gpetryk = {}
 end
 
-
+_G.gpetryk = vim.tbl_deep_extend('force', _G.gpetryk, {
+  delete_restore_unnamed = M.delete_restore_unnamed,
+  change_restore_unnamed = M.change_restore_unnamed
+})
 
 return M

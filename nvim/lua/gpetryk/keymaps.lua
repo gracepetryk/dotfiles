@@ -1,14 +1,13 @@
 local map = require("gpetryk.map").map
-local unnamed_register = require('gpetryk.unnamed_register')
+require('gpetryk.unnamed_register')
 
-map('i', '<C-c>', '<Esc>')
-map('i', '<Esc>', '<C-c>') -- in case something goes wrong
+--map('i', '<C-c>', '<Esc>')
+--map('i', '<Esc>', '<C-c>') -- in case something goes wrong
 
 -- don't fat finger macros
 map('n', 'q', '')
 map('n', 'Q', '')
 map('n', '`', 'q')
-
 
 -- restore yank register after dd/cc
 map('n', 'dd', 'dd:let @@=@0<CR>')

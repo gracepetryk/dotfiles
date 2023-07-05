@@ -33,3 +33,5 @@ vim.opt.textwidth = 90
 vim.opt.formatoptions = 'cqj'
 
 vim.opt.guicursor = ''
+
+vim.g.omni_sql_no_default_maps = 1
