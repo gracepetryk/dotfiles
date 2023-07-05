@@ -9,11 +9,6 @@ map('n', 'q', '')
 map('n', 'Q', '')
 map('n', '`', 'q')
 
--- restore the unnamed register after change/delete
-_G.gpetryk.delete_restore_unnamed = unnamed_register.delete_restore_unnamed
-_G.gpetryk.change_restore_unnamed = unnamed_register.change_restore_unnamed
-map('n', 'd', ':set opfunc=v:lua.gpetryk.delete_restore_unnamed<CR>g@')
-map('n', 'c', ':set opfunc=v:lua.gpetryk.change_restore_unnamed<CR>g@')
 
 -- restore yank register after dd/cc
 map('n', 'dd', 'dd:let @@=@0<CR>')
