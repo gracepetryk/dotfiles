@@ -1,8 +1,7 @@
 local map = require("gpetryk.map").map
-require('gpetryk.unnamed_register')
 
---map('i', '<C-c>', '<Esc>')
---map('i', '<Esc>', '<C-c>') -- in case something goes wrong
+map('i', '<C-c>', '<Esc>')
+map('i', '<Esc>', '<C-c>') -- in case something goes wrong
 
 -- don't fat finger macros
 map('n', 'q', '')
@@ -10,8 +9,10 @@ map('n', 'Q', '')
 map('n', '`', 'q')
 
 -- restore yank register after dd/cc
-map('n', 'dd', 'dd:let @@=@0<CR>')
+map('n', 'xx', 'dd:let @@=@0<CR>')
 map('n', 'cc', 'cc<C-o>:let@@=@0<CR>')
+
+map('x', 'p', 'p:let @@=@0<CR>')
 
 -- X means cut d means delete
 map('n', 'X', 'd')
@@ -20,10 +21,14 @@ map('n', 'XX', 'dd')
 -- why would u ever want to yank a single character
 map('n', 'x', '"_x')
 
+-- fast paste from yank register
+map('n', '[p', '"0p')
+map('n', '[P', '"0P')
+
 -- system clipboard
-map({'n', 'x'}, '<leader>y', '"*y')
-map({'n', 'x'}, '<leader>p', '"*p')
-map({'n', 'x'}, '<leader>P', '"*P')
+map({'n', 'x'}, '<leader>y', '"+y')
+map({'n', 'x'}, '<leader>p', '"+p')
+map({'n', 'x'}, '<leader>P', '"+P')
 
 -- paste UUID
 map('n', 'U',function ()
