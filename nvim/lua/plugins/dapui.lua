@@ -12,7 +12,8 @@ require("dapui").setup({
     },
     {
       elements = {
-        "repl",
+        "watches",
+        "repl"
       },
       size = 0.25, -- 25% of total lines
       position = "bottom",

@@ -1,38 +1,14 @@
 local cmp = require('cmp')
-local cmp_types = require('cmp.types')
 local cmp_comparators = require('cmp.config.compare')
-local cmp_kinds = {
-  Text = ' ',
-  Method = ' ',
-  Function = ' ',
-  Constructor = ' ',
-  Field = ' ',
-  Variable = ' ',
-  Class = ' ',
-  Interface = ' ',
-  Module = ' ',
-  Property = ' ',
-  Unit = ' ',
-  Value = ' ',
-  Enum = ' ',
-  Keyword = ' ',
-  Snippet = ' ',
-  Color = ' ',
-  File = ' ',
-  Reference = ' ',
-  Folder = ' ',
-  EnumMember = ' ',
-  Constant = ' ',
-  Struct = ' ',
-  Event = ' ',
-  Operator = ' ',
-  TypeParameter = ' ',
-}
 
 vim.g.vsnip_snippet_dir = os.getenv('HOME') .. '/dotfiles/snippets/'
 
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
+
 ---@diagnostic disable-next-line: redundant-parameter
-cmp.setup {
+cmp.setup({
   preselect = cmp.PreselectMode.None,
   snippet = {
     -- REQUIRED - you must specify a snippet engine
@@ -42,10 +18,6 @@ cmp.setup {
       -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
-  },
-  window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
@@ -57,37 +29,31 @@ cmp.setup {
         cmp.complete()
       end
     end,
-    ['<Esc>'] = function (fallback)
-      if cmp.visible() then
-        cmp.abort()
-      else
-        fallback()
-      end
-    end,
+    ['<Esc>'] = cmp.mapping.abort(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    ['<Down>'] = function(fallback)
-      if cmp.visible() then
-        if cmp.core.view.custom_entries_view:is_direction_top_down() then
-          cmp.select_next_item()
-        else
-          cmp.select_prev_item()
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      local in_snippet = vim.fn["vsnip#available"](1) == 1
+      if in_snippet then
+        if cmp.visible() and cmp.get_active_entry() then
+          return cmp.confirm()
         end
+
+        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif cmp.visible() then
+        cmp.confirm({select=true})
       else
-        fallback()
+        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
       end
-    end,
-    ['<Up>'] = function(fallback)
-      if cmp.visible() then
-        if cmp.core.view.custom_entries_view:is_direction_top_down() then
-          cmp.select_prev_item()
-        else
-          cmp.select_next_item()
-        end
-      else
-        fallback()
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function()
+      if vim.fn["vsnip#jumpable"](-1) == 1 then
+        feedkey("<Plug>(vsnip-jump-prev)", "")
       end
-    end,
+    end, { "i", "s" }),
+
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
   }),
   sources = cmp.config.sources(
   {
@@ -108,16 +74,15 @@ cmp.setup {
         ['nvim_lsp'] = 'LSP'
       }
       local source_name = name_mapping[entry.source.name] or entry.source.name
-      vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
       vim_item.menu = ' [' .. source_name .. ']'
       return vim_item
     end
   },
-  view = {
-    entries = {
-      name = 'custom', selection_order = 'near_cursor'
-    }
-  },
+  -- view = {
+  --   entries = {
+  --     name = 'custom', selection_order = 'near_cursor'
+  --   }
+  -- },
   sorting = {
     priority_weight = 2,
     comparators = {
@@ -166,4 +131,4 @@ cmp.setup {
       cmp_comparators.length,
     },
   }
-}
+})

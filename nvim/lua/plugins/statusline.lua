@@ -1,14 +1,23 @@
+local lualine = require('lualine')
+
 local function pending_buffers()
   for _, buf in pairs(vim.fn.getbufinfo()) do
     if buf['changed'] == 1 then
-      return 'Modified Buffers'
+      return '󰐕'
     end
   end
 
   return ''
 end
 
-require('lualine').setup({
+local function is_wide()
+  return vim.api.nvim_win_get_width(0) > 80
+end
+
+lualine.setup({
+  options = {
+    always_divide_middle = false,
+  },
   sections = {
     lualine_b = {
       'branch',
@@ -24,10 +33,19 @@ require('lualine').setup({
       },
     },
     lualine_x = {
-      'encoding',
-      'fileformat',
-      'filetype',
-      function () return vim.fn.strftime('%I:%M %p') end
+      {
+        'encoding',
+        cond = is_wide
+      },
+      {
+        'fileformat',
+        cond = is_wide
+      },
+      {
+        'filetype',
+        cond = is_wide
+      }
     }
   }
 })
+

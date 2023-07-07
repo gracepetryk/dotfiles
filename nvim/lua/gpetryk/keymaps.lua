@@ -66,3 +66,6 @@ map({'i', 'n'}, '<C-k>', function () vim.lsp.buf.signature_help() end)
 
 -- load current dir session
 map({'n'}, '<leader>ls', ':SessionManager load_current_dir_session<CR>')
+
+-- gd in help
+map('n', 'gd', '<C-]>')

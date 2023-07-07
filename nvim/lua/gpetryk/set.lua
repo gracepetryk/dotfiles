@@ -12,7 +12,7 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
-vim.opt.laststatus = 3
+vim.opt.laststatus = 2
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -33,5 +33,8 @@ vim.opt.textwidth = 90
 vim.opt.formatoptions = 'cqj'
 
 vim.opt.guicursor = ''
+
+-- pop up menu height
+vim.opt.pumheight = 15
 
 vim.g.omni_sql_no_default_maps = 1
