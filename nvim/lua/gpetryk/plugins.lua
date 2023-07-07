@@ -11,23 +11,10 @@ return {
 
   --themes
   {
-    'Mofiqul/vscode.nvim',
-    priority = 1000
-  },
-  {
-    'folke/tokyonight.nvim',
-    priority = 1000
-  },
-  {
     dir='~/dotfiles/grace-rose-pine',
     name = 'grace-rose-pine',
     priority = 2000,
     dev=true
-  },
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    priority = 1000
   },
 
   {
@@ -52,18 +39,21 @@ return {
   },
 
   {
-    'williamboman/mason.nvim', -- install LSPs/DAP/etc
+    'Shatur/neovim-session-manager',
+    config = function() require 'plugins.sessions' end,
+    event = 'BufWritePost',
+    cmd = 'SessionManager'
   },
 
-  {
-    'williamboman/mason-lspconfig.nvim',
-  },
 
+  { 'williamboman/mason.nvim' }, -- install LSPs/DAP/etc
+  { 'williamboman/mason-lspconfig.nvim', },
   {
     'neovim/nvim-lspconfig',
     config= function() require 'plugins.lsp' end,
     event='VeryLazy'
-  }, -- Configurations for Nvim LSP
+  },
+  { 'folke/neodev.nvim' },
 
   {
     'jose-elias-alvarez/null-ls.nvim', -- allow non-lsp providers to hook into neovims lsp client (like flake8)
@@ -78,6 +68,7 @@ return {
     dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' },
+      { 'rcarriga/cmp-dap' },
       {
         'hrsh7th/cmp-vsnip',
         dependencies = {
@@ -100,10 +91,6 @@ return {
         'rcarriga/nvim-dap-ui',
         config = function() require 'plugins.dapui' end
       },
-      {
-        'rcarriga/cmp-dap',
-        dependencies = { 'nvim-cmp' }
-      },
     }
   },
 
@@ -120,11 +107,6 @@ return {
   },
 
   {
-    'nvim-treesitter/playground',
-    event = 'VeryLazy'
-  },
-
-  {
     'RRethy/vim-illuminate',
     event = 'VeryLazy'
   }, -- highlight symbol under cursor
@@ -132,55 +114,12 @@ return {
   -- language-specific plugins
   { 'Vimjas/vim-python-pep8-indent', ft = 'python', commit = '60ba5e11a61618c0344e2db190210145083c91f8' },
 
-  { 'ThePrimeagen/harpoon' },
-
-  {
-    'dstein64/vim-startuptime',
-    cmd = 'StartupTime'
-  },
-
-  {
-    'Shatur/neovim-session-manager',
-    config = function() require 'plugins.sessions' end,
-    commit = 'e7a2cbf56b5fd3a223f2774b535499fc62eca6ef',
-    event = 'BufWritePost',
-    cmd = 'SessionManager'
-  },
-
-  {
-    'ggandor/leap.nvim', -- 2 char nav
-    config = function() require('plugins.leap') end
-  },
-
   { 'vim-ruby/vim-ruby' },
-  { 'folke/neodev.nvim' },
   { 'rodjek/vim-puppet' },
   {
     'windwp/nvim-autopairs',
     config = function()
-      local Rule = require('nvim-autopairs.rule')
-      local cond = require('nvim-autopairs.conds')
-      local npairs = require('nvim-autopairs')
-
-      local quote = function(...)
-        local move_func = npairs.config.enable_moveright and cond.move_right or cond.none
-        local rule = Rule(...):with_move(move_func()):with_pair(cond.not_add_quote_inside_quote())
-
-        if #npairs.config.ignored_next_char > 1 then
-          rule:with_pair(cond.not_after_regex(npairs.config.ignored_next_char))
-        end
-        rule:use_undo(npairs.config.break_undo)
-        return rule
-      end
-
-      npairs.setup({ fast_wrap = {}, enable_bracket_in_quote = true })
-
-      npairs.add_rule(quote("'", "'", "python"):with_pair(cond.before_regex('[fbr]', 1)):with_pair(cond.not_inside_quote()))
-      npairs.add_rule(quote("'", "'", "python"):with_pair(cond.before_regex('[^%w]', 1)):with_pair(cond.not_inside_quote()))
-      npairs.add_rule(Rule("{", "}", "python"):with_pair(cond.after_text("'")))
-      npairs.add_rule(Rule("<", ">", "python"):with_pair(cond.before_regex('["\']')))
-      npairs.add_rule(Rule("(", ")", "python"):with_pair(cond.before_regex('["\']')))
-      npairs.add_rule(Rule("[", "]", "python"):with_pair(cond.before_regex('["\']')))
+       require('nvim-autopairs').setup({ fast_wrap = {}, enable_bracket_in_quote = true })
     end,
   }
 }
