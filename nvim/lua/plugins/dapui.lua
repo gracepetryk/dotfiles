@@ -1,4 +1,5 @@
 require("dapui").setup({
+  expand_lines = false,
   layouts = {
     {
       elements = {

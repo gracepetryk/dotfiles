@@ -28,13 +28,68 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'L', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+    local function hover_state_machine(key)
+      local states = {
+        -- 0 indexed for sane wrapping with modulo
+        [0] = { action = vim.lsp.buf.hover, reset_events = nil },
+        [1] = { action = vim.lsp.buf.hover, reset_events = {"CursorMoved", "InsertEnter", "FocusLost"} }, -- enter hover
+        [2] = { action = vim.cmd.close, reset_hook = {"WinEnter"}, reset_events = {"BufLeave"} } -- leave hover
+      }
+
+      local states_len = vim.tbl_count(states)
+
+      local function prepare_state(iter)
+
+        local next_iter = (iter + 1) % states_len
+        local current_state = states[iter]
+
+        local lsp_hover = vim.api.nvim_create_augroup('lsp_hover', {clear = true})
+
+        local function register_reset_autocmd()
+          vim.api.nvim_create_autocmd(current_state.reset_events, {
+            group = lsp_hover,
+            once = true,
+            callback = function () vim.keymap.set('n', key, prepare_state(0)) end
+          })
+          vim.g.reset_events = current_state.reset_events
+        end
+
+
+        if current_state.reset_events ~= nil then
+          -- lsp requests are async so we want to avoid setting up reset autocmds until
+          -- we're ready
+          if current_state.reset_hook ~= nil then
+            vim.api.nvim_create_autocmd(current_state.reset_hook, {
+              group = lsp_hover,
+              once = true,
+              callback = register_reset_autocmd
+            })
+          else
+            register_reset_autocmd()
+          end
+        end
+
+        local function execute_state()
+          vim.api.nvim_clear_autocmds({group = 'lsp_hover'})
+          current_state.action()
+
+          local next_state_callback = prepare_state(next_iter)
+          vim.keymap.set('n', key, next_state_callback)
+        end
+
+        return execute_state
+      end
+
+      return prepare_state(0)
+    end
+    vim.keymap.set('n', 'L', hover_state_machine('L'), bufopts)
 
     local diagnostic_float_opts = {
       focusable = false,
@@ -51,15 +106,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {border = 'none'})
-
--- To instead override globally
--- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
--- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
---   opts = opts or {}
---   opts.border = opts.border or 'rounded'
---   return orig_util_open_floating_preview(contents, syntax, opts, ...)
--- end
-
 
 require('mason-lspconfig').setup()
 require('mason-lspconfig').setup_handlers({

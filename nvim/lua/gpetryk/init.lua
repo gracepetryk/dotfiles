@@ -1,11 +1,14 @@
-require("gpetryk.set")
 require("lazy").setup("gpetryk.plugins", {
   change_detection = {
     enabled=true,
     notify=false
   }
 })
+
+require('gpetryk.autosave')
 require("gpetryk.keymaps")
+require("gpetryk.set")
+require("gpetryk.tabline")
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd

@@ -68,7 +68,6 @@ return {
     dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' },
-      { 'rcarriga/cmp-dap' },
       {
         'hrsh7th/cmp-vsnip',
         dependencies = {
@@ -91,6 +90,7 @@ return {
         'rcarriga/nvim-dap-ui',
         config = function() require 'plugins.dapui' end
       },
+      { 'rcarriga/cmp-dap' },
     }
   },
 

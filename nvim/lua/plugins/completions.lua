@@ -9,6 +9,11 @@ end
 
 ---@diagnostic disable-next-line: redundant-parameter
 cmp.setup({
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        or require("cmp_dap").is_dap_buffer()
+  end,
+
   preselect = cmp.PreselectMode.None,
   snippet = {
     -- REQUIRED - you must specify a snippet engine
@@ -54,11 +59,12 @@ cmp.setup({
 
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<Up>'] = cmp.mapping(function (fallback) fallback() end),
+    ['<Down>'] = cmp.mapping(function (fallback) fallback() end)
   }),
   sources = cmp.config.sources(
   {
     { name = 'nvim_lsp'},
-    { name = 'dap' },
     { name = 'vsnip' }, -- For vsnip users.
     -- { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
@@ -131,4 +137,10 @@ cmp.setup({
       cmp_comparators.length,
     },
   }
+})
+
+cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+  sources = {
+    { name = "dap" },
+  },
 })
