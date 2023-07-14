@@ -7,7 +7,6 @@ require("lazy").setup("gpetryk.lazy", {
   }
 })
 
-require('gpetryk.autosave')
 require("gpetryk.keymaps")
 require("gpetryk.tabline")
 

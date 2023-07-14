@@ -40,3 +40,4 @@ vim.opt.pumheight = 15
 vim.g.omni_sql_no_default_maps = 1
 
 vim.g.AutoPairsMapBS = 1
+vim.g.AutoPairsBSAfter = 0
