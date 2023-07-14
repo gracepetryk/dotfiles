@@ -29,21 +29,36 @@ map('n', '<Leader><Leader>c', close_debugger)
 map('n', '<Leader>di', '"zyiw :lua require"dapui".eval("<C-R>z")<CR>h')
 map('v', '<Leader>di', '"zy :lua require"dapui".eval("<C-R>z")<CR>h')
 
-dap.adapters = {
-  python_remote = {
-    type = 'server',
-    port = 5678
-  },
-  python_local = {
-    type = 'server',
-    port = 7890
-  }
-}
+dap.adapters.python = function(cb, config)
+  if config.request == 'attach' then
+    ---@diagnostic disable-next-line: undefined-field
+    local port = (config.connect or config).port
+    ---@diagnostic disable-next-line: undefined-field
+    local host = (config.connect or config).host or '127.0.0.1'
+    cb({
+      type = 'server',
+      port = assert(port, '`connect.port` is required for a python `attach` configuration'),
+      host = host,
+      options = {
+        source_filetype = 'python',
+      },
+    })
+  else
+    cb({
+      type = 'executable',
+      command = os.getenv('VIRTUAL_ENV') .. '/bin/python',
+      args = { '-m', 'debugpy.adapter' },
+      options = {
+        source_filetype = 'python',
+      },
+    })
+  end
+end
 
 dap.configurations.python = {
   {
-    name = "Python: Remote Attach (sandbox)",
-    type = "python_remote",
+    name = "Python: Container Attach (port 5678)",
+    type = "python",
     request = "attach",
     connect = {
       host = "0.0.0.0",
@@ -59,7 +74,7 @@ dap.configurations.python = {
     logToFile = true
   },
   {
-    name = "Python: Remote Attach (local)",
+    name = "Python: Local Attach (port 7890)",
     type = "python_local",
     request = "attach",
     connect = {
@@ -68,5 +83,11 @@ dap.configurations.python = {
     },
     justMyCode = true,
     logToFile = true
+  },
+  {
+    name = "Python: Launch",
+    type = "python",
+    request = "launch",
+    program = "${file}"
   }
 }

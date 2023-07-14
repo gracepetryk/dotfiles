@@ -1,94 +1,65 @@
+local luasnip = require('luasnip')
 local cmp = require('cmp')
 local cmp_comparators = require('cmp.config.compare')
 
-vim.g.vsnip_snippet_dir = os.getenv('HOME') .. '/dotfiles/snippets/'
 
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
+require("luasnip.loaders.from_vscode").lazy_load({paths = "~/dotfiles/snippets"})
 
----@diagnostic disable-next-line: redundant-parameter
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    end,
+  },
+  completion = {
+    completeopt = 'menu,menuone,preview'
+  },
+
   enabled = function()
     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
         or require("cmp_dap").is_dap_buffer()
   end,
-
-  preselect = cmp.PreselectMode.None,
-  snippet = {
-    -- REQUIRED - you must specify a snippet engine
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-      -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-    end,
-  },
   mapping = cmp.mapping.preset.insert({
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = function()
-      if cmp.visible() then
-        cmp.abort()
-      else
-        cmp.complete()
-      end
-    end,
+    ['<C-Space>'] = cmp.mapping.complete(),
     ['<Esc>'] = cmp.mapping.abort(),
     ['<C-e>'] = cmp.mapping.abort(),
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      local in_snippet = vim.fn["vsnip#available"](1) == 1
-      if in_snippet then
-        if cmp.visible() and cmp.get_active_entry() then
-          return cmp.confirm()
-        end
+      if cmp.visible() then
+        cmp.confirm({select = true})
 
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
-      elseif cmp.visible() then
-        cmp.confirm({select=true})
+        -- vim schedule to paste snippet before selecting choice
+        vim.schedule(function()
+          if luasnip.choice_active() then
+            require('luasnip.extras.select_choice')()
+          end
+        end)
+
+      elseif luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
       else
-        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+        fallback()
       end
     end, { "i", "s" }),
 
-    ["<S-Tab>"] = cmp.mapping(function()
-      if vim.fn["vsnip#jumpable"](-1) == 1 then
-        feedkey("<Plug>(vsnip-jump-prev)", "")
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
       end
     end, { "i", "s" }),
-
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<Up>'] = cmp.mapping(function (fallback) fallback() end),
-    ['<Down>'] = cmp.mapping(function (fallback) fallback() end)
+    ['<Up>'] = nil,
+    ['<Down>'] = nil,
   }),
-  sources = cmp.config.sources(
-  {
-    { name = 'nvim_lsp'},
-    { name = 'vsnip' }, -- For vsnip users.
-    -- { name = 'luasnip' }, -- For luasnip users.
-    -- { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
-  }, {
-    { name = 'buffer'}
-  }
-  ),
-  formatting = {
-    fields = { "abbr", "kind", "menu"},
-    format = function(entry, vim_item)
-      local name_mapping = {
-        ['nvim_lsp'] = 'LSP'
-      }
-      local source_name = name_mapping[entry.source.name] or entry.source.name
-      vim_item.menu = ' [' .. source_name .. ']'
-      return vim_item
-    end
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' }, -- For luasnip users.
+    { name = 'buffer' }
   },
-  -- view = {
-  --   entries = {
-  --     name = 'custom', selection_order = 'near_cursor'
-  --   }
-  -- },
   sorting = {
     priority_weight = 2,
     comparators = {

@@ -55,8 +55,8 @@ map('n', 'n', 'nzz')
 map('n', 'N', 'Nzz')
 
 --qflist/loclist
-map('n', '<C-.>', ':cn<CR>')
-map('n', '<C-,>', ':cp<CR>')
+map('n', '<C-n>', ':cn<CR>')
+map('n', '<C-p>', ':cp<CR>')
 
 -- end of previous word
 map('n', 'E', 'ge')

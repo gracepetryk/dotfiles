@@ -26,7 +26,9 @@ return {
 
   {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
-    dependencies = { { 'nvim-lua/plenary.nvim' }, },
+    dependencies = {
+      { 'nvim-lua/plenary.nvim' },
+    },
     config = function() require 'plugins.telescope' end,
     keys = {
       '<leader>ff',
@@ -64,19 +66,14 @@ return {
   {
     'hrsh7th/nvim-cmp',
     config = function() require 'plugins.completions' end,
-    event = 'InsertEnter',
     dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' },
-      {
-        'hrsh7th/cmp-vsnip',
-        dependencies = {
-          { 'hrsh7th/vim-vsnip' },
-          { 'hrsh7th/vim-vsnip-integ' },
-        },
-      }
-    }
+    },
   },
+
+  { 'L3MON4D3/LuaSnip', build = 'make install_jsregexp' },
+  { 'saadparwaiz1/cmp_luasnip' },
 
   {
     'mfussenegger/nvim-dap',
@@ -116,10 +113,13 @@ return {
 
   { 'vim-ruby/vim-ruby' },
   { 'rodjek/vim-puppet' },
-  {
-    'windwp/nvim-autopairs',
-    config = function()
-       require('nvim-autopairs').setup({ fast_wrap = {}, enable_bracket_in_quote = true })
-    end,
-  }
+--   {
+--     'windwp/nvim-autopairs',
+--     branch = 'fix-python-quotes',
+--     config = function()
+--        require('nvim-autopairs').setup({ fast_wrap = {}, enable_bracket_in_quote = true })
+--     end,
+--   }
+
+  { 'LunarWatcher/auto-pairs', branch='expr-maps' }
 }

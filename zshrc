@@ -15,21 +15,21 @@ fi
 plugins=()
 if [ "$IS_DOCKER_SANDBOX" = "" ]; then
     ZSH_THEME="gpetryk"
-    export NVM_AUTO_USE=true
-    plugins+=(zsh-nvm)
 else
     ZSH_THEME="gpetryk-docker"
 fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+zstyle ':omz:plugins:nvm' autoload true
 
-plugins+=(evalcache git-prompt)
+plugins=(evalcache git-prompt nvm)
 source "$ZSH"/oh-my-zsh.sh
 
 if [ -d "$HOME/profile.d" ]; then
   for RC_FILE in "$HOME"/profile.d/*.rc; do source "$RC_FILE"; done
 fi
+
 
 source "$ZSH_CUSTOM/themes/$ZSH_THEME".zsh-theme # ensure prompt is not overwritten by profile
 
