@@ -1,3 +1,7 @@
+if ! which gdate; then
+  alias gdate=date
+fi
+
 local total=0
 local start=$(gdate +%s.%N)
 

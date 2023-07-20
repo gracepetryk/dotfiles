@@ -1,4 +1,6 @@
 return {
+  -- { 'thinca/vim-themis' },
+
   { 'tpope/vim-sleuth' }, -- detect indentation
 
   { 'tpope/vim-fugitive' }, -- git integration
@@ -20,7 +22,7 @@ return {
   {
     'gracepetryk/auto-pairs',
     branch='expr-maps',
-    dev=false
+    dev=true
   },
 
   {
