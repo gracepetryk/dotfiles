@@ -11,7 +11,7 @@ return {
 
   --themes
   {
-    dir='~/dotfiles/grace-rose-pine',
+    dir='~/dotfiles/nvim_plugins/grace-rose-pine',
     name = 'grace-rose-pine',
     priority = 2000,
     dev=true
