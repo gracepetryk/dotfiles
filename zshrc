@@ -1,3 +1,22 @@
+local total=0
+local start=$(gdate +%s.%N)
+
+log_ts=1
+
+function print_ts() {
+  if [[ ! ($log_ts -eq 1) ]] ; then
+    return 0
+  fi
+
+  local t=$(gdate +%s.%N)
+  local t_diff=$(( $t - $start ))
+
+  start=$t
+  total=$(( $total + $t_diff ))
+
+  printf "%-16s\tdiff: %.3f\ttotal: %.3f\n" $1 $t_diff $total
+}
+
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 if [ -f "$HOME"/.env ]; then
@@ -12,7 +31,6 @@ if which nvim &>/dev/null; then
   alias vim=nvim
 fi
 
-plugins=()
 if [ "$IS_DOCKER_SANDBOX" = "" ]; then
     ZSH_THEME="gpetryk"
 else
@@ -21,26 +39,27 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-zstyle ':omz:plugins:nvm' autoload true
 
-plugins=(evalcache git-prompt nvm)
+export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim')
+
+plugins=(evalcache git-prompt zsh-nvm)
 source "$ZSH"/oh-my-zsh.sh
 
+print_ts oh-my-zsh
+
 if [ -d "$HOME/profile.d" ]; then
-  for RC_FILE in "$HOME"/profile.d/*.rc; do source "$RC_FILE"; done
+  for RC_FILE in "$HOME"/profile.d/*.rc; do
+    source "$RC_FILE"
+    print_ts $(basename $RC_FILE)
+  done
 fi
 
+print_ts profile
 
 source "$ZSH_CUSTOM/themes/$ZSH_THEME".zsh-theme # ensure prompt is not overwritten by profile
 
-# homebrew completions
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
-fi
+print_ts theme
 
 bindkey "\e[1;3D" backward-word # ⌥←
 bindkey "\e[1;3C" forward-word # ⌥→
@@ -50,11 +69,15 @@ export PATH="$PATH:/usr/local/sbin"
 
 # add firefox to path
 export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46"
 
 # render git prompt if starting in a git directory
-cd .
+if [[ -d ./.git ]]; then
+  cd .
+fi
+
+print_ts chpwd
 
 bat="bat"
 if which batcat > /dev/null; then
@@ -75,7 +98,9 @@ fi
 
 timezsh() {
   shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+  for i in $(seq 1 10); do time $shell -i -c exit; done
 }
 
 alias flake_branch='flake8 $(git diff develop.. --name-only)'
+
+print_ts 'done'

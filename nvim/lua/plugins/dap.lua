@@ -75,7 +75,7 @@ dap.configurations.python = {
   },
   {
     name = "Python: Local Attach (port 7890)",
-    type = "python_local",
+    type = "python",
     request = "attach",
     connect = {
       host = "0.0.0.0",

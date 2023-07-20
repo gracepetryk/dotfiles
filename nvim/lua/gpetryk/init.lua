@@ -9,6 +9,7 @@ require("lazy").setup("gpetryk.lazy", {
 
 require("gpetryk.keymaps")
 require("gpetryk.tabline")
+require("gpetryk.autosave")
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd

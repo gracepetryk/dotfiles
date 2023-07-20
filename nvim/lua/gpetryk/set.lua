@@ -41,3 +41,8 @@ vim.g.omni_sql_no_default_maps = 1
 
 vim.g.AutoPairsMapBS = 1
 vim.g.AutoPairsBSAfter = 0
+vim.g.AutopairsShortcutToggle = ''
+vim.g.AutopairsShortcutJump = ''
+vim.g.AutoPairsShortcutBackInsert = ''
+vim.g.AutoPairsMoveExpression = ''
+vim.g.AutoPairsPrefix = '<A-p>'
