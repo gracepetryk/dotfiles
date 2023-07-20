@@ -11,16 +11,16 @@ return {
 
   --themes
   {
-    dir='~/dotfiles/nvim_plugins/grace-rose-pine',
+    'gracepetryk/grace-rose-pine',
     name = 'grace-rose-pine',
     priority = 2000,
     dev=true
   },
 
   {
-    dir='~/dotfiles/nvim_plugins/auto-pairs',
-    name = 'auto-pairs',
-    dev=true
+    'gracepetryk/auto-pairs',
+    branch='expr-maps',
+    dev=false
   },
 
   {
