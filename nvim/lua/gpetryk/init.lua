@@ -7,7 +7,8 @@ require("lazy").setup("gpetryk.lazy", {
   change_detection = {
     enabled=true,
     notify=false
-  }
+  },
+  lockfile = vim.fn.stdpath('config') .. "/.lazy-lock.json"
 })
 
 require("gpetryk.keymaps")

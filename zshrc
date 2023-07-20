@@ -1,14 +1,16 @@
-if ! which gdate; then
+if ! which gdate >/dev/null; then
   alias gdate=date
 fi
 
 local total=0
 local start=$(gdate +%s.%N)
 
-log_ts=1
+if [ -f "$HOME"/.env ]; then
+  source "$HOME"/.env
+fi
 
 function print_ts() {
-  if [[ ! ($log_ts -eq 1) ]] ; then
+  if [[ ! ($log_zsh_start_perf -eq 1) ]] ; then
     return 0
   fi
 
@@ -22,10 +24,6 @@ function print_ts() {
 }
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-if [ -f "$HOME"/.env ]; then
-  source "$HOME"/.env
-fi
 
 if [ -f /etc/zshrc ]; then
   source /etc/zshrc
