@@ -18,6 +18,12 @@ return {
   },
 
   {
+    dir='~/dotfiles/nvim_plugins/auto-pairs',
+    name = 'auto-pairs',
+    dev=true
+  },
+
+  {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function() require 'plugins.statusline' end,
@@ -113,13 +119,5 @@ return {
 
   { 'vim-ruby/vim-ruby' },
   { 'rodjek/vim-puppet' },
---   {
---     'windwp/nvim-autopairs',
---     branch = 'fix-python-quotes',
---     config = function()
---        require('nvim-autopairs').setup({ fast_wrap = {}, enable_bracket_in_quote = true })
---     end,
---   }
 
-  { 'LunarWatcher/auto-pairs', branch='expr-maps' }
 }

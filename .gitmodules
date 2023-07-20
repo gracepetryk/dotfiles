@@ -1,3 +1,9 @@
 [submodule "grace-rose-pine"]
 	path = nvim_plugins/grace-rose-pine
 	url = git@github.com:gracepetryk/rose-pine.git
+[submodule "nvim_plugins/autopairs"]
+	path = nvim_plugins/autopairs
+	url = git@github.com:gracepetryk/auto-pairs.git
+[submodule "nvim_plugins/auto-pairs"]
+	path = nvim_plugins/auto-pairs
+	url = git@github.com:gracepetryk/auto-pairs.git
