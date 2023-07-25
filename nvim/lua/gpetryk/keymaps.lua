@@ -57,9 +57,6 @@ map('n', 'N', 'Nzz')
 map('n', '<C-n>', ':cn<CR>')
 map('n', '<C-p>', ':cp<CR>')
 
--- end of previous word
-map('n', 'E', 'ge')
-
 -- signature help
 map({'i', 'n'}, '<C-k>', function () vim.lsp.buf.signature_help() end)
 
