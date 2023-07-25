@@ -30,7 +30,7 @@ vim.opt.wrap = false
 vim.opt.swapfile = false
 
 vim.opt.textwidth = 90
-vim.opt.formatoptions = 'cqj'
+vim.opt.formatoptions = 'cqjl'
 
 vim.opt.guicursor = ''
 

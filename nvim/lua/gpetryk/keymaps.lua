@@ -5,8 +5,7 @@ map('i', '<Esc>', '<C-c>') -- in case something goes wrong
 
 -- don't fat finger macros
 map('n', 'q', '')
-map('n', 'Q', '')
-map('n', '`', 'q')
+map('n', 'Q', 'q')
 
 map('x', 'p', 'p:let @@=@0<CR>')
 

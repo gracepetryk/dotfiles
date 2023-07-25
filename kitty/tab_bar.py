@@ -248,4 +248,3 @@ def draw_tab(
         cells
     )
     return screen.cursor.x
-
