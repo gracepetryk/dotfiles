@@ -19,6 +19,9 @@ return {
     dev=true
   },
 
+  { 'folke/tokyonight.nvim' },
+  { 'Mofiqul/vscode.nvim' },
+
   {
     'gracepetryk/auto-pairs',
     branch='expr-maps',

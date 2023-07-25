@@ -10,12 +10,11 @@ require('grace-rose-pine').setup({
     TreeSitterContext = { bg = 'overlay', blend = 40 },
     ColorColumn = { bg = 'overlay', blend = 40 },
     StatusLine = { bg = 'overlay' },
-    IlluminatedWordText = { bg = 'highlight_med', blend=30 },
+    IlluminatedWordText = { bg = 'highlight_med', blend = 50 },
     IlluminatedWordRead = { link = 'IlluminatedWordText' },
     IlluminatedWordWrite = { link = 'IlluminatedWordText' },
     PMenu = { bg = 'float' },
     ['@type'] = { fg = 'moss' },
-    ['@type.qualifier'] = { fg = 'pine' },
     ['@constructor'] = { fg = 'moss' },
     ['Function'] = { fg = 'iris', nocombine=true },
     ['@function.builtin'] = { fg = 'iris', italic = true },
@@ -32,7 +31,7 @@ require('grace-rose-pine').setup({
     ['@variable.builtin'] = { fg = 'foam', bold=true, nocombine=true },
     ['@field'] = { fg = 'rose', nocombine=true },
     ['@property'] = { link='@field' },
-    ['@constant.builtin'] = { fg = 'gold' },
+    ['@lsp.type.keyword.rust'] = {}
   }
 })
 
