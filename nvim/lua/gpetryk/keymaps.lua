@@ -17,12 +17,12 @@ map('n', '[p', '"0p')
 map('n', '[P', '"0P')
 
 -- system clipboard
-map({'n', 'x'}, '<leader>y', '"+y')
-map({'n', 'x'}, '<leader>p', '"+p')
-map({'n', 'x'}, '<leader>P', '"+P')
+map({ 'n', 'x' }, '<leader>y', '"+y')
+map({ 'n', 'x' }, '<leader>p', '"+p')
+map({ 'n', 'x' }, '<leader>P', '"+P')
 
 -- paste UUID
-map('n', 'U',function ()
+map('n', 'U', function()
   vim.cmd.py3('import uuid')
   local uuid = vim.fn.py3eval('str(uuid.uuid4())')
 
@@ -42,8 +42,8 @@ map('x', 'K', ":m '<-2<CR>gv=gv")
 
 --one line scrolling
 
-map({ 'n', 'i', 'x'}, '<ScrollWheelUp>', '<C-y>')
-map({ 'n', 'i', 'x'}, '<ScrollWheelDown>', '<C-e>')
+map({ 'n', 'i', 'x' }, '<ScrollWheelUp>', '<C-y>')
+map({ 'n', 'i', 'x' }, '<ScrollWheelDown>', '<C-e>')
 
 -- center half page scrolls
 map({ 'n', 'x' }, '<C-u>', '<C-u>zz')
@@ -57,11 +57,28 @@ map('n', 'N', 'Nzz')
 map('n', '<C-n>', ':cn<CR>')
 map('n', '<C-p>', ':cp<CR>')
 
--- signature help
-map({'i', 'n'}, '<C-k>', function () vim.lsp.buf.signature_help() end)
-
 -- load current dir session
-map({'n'}, '<leader>ls', ':SessionManager load_current_dir_session<CR>')
+map({ 'n' }, '<leader>ls', ':SessionManager load_current_dir_session<CR>')
 
 -- gd in help
 map('n', 'gd', '<C-]>')
+
+-- LuaSnip
+local ls = require('luasnip')
+map({ 'i', 's' }, '<Tab>', function()
+  if ls.choice_active() then
+    require('luasnip.extras.select_choice')()
+  elseif ls.expand_or_locally_jumpable() then
+    ls.expand_or_jump()
+  else
+    vim.api.nvim_feedkeys(
+      vim.api.nvim_replace_termcodes('<Tab>', true, false, true),
+      'nt',
+      true
+    )
+  end
+end)
+
+map({ 'i', 's' }, '<S-Tab>', function()
+  ls.jump(-1)
+end)

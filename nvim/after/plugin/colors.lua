@@ -14,6 +14,7 @@ require('grace-rose-pine').setup({
     IlluminatedWordRead = { link = 'IlluminatedWordText' },
     IlluminatedWordWrite = { link = 'IlluminatedWordText' },
     PMenu = { bg = 'float' },
+    markdownBoldItalic = { fg = 'foam', bold=true, italic=true },
     ['@type'] = { fg = 'moss' },
     ['@constructor'] = { fg = 'moss' },
     ['Function'] = { fg = 'iris', nocombine=true },
