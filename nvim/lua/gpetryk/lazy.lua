@@ -10,6 +10,7 @@ return {
     config = function() require 'plugins.gitsigns' end,
     event = "VeryLazy"
   },
+  { 'rickhowe/diffchar.vim' },
 
   --themes
   {
@@ -18,6 +19,7 @@ return {
     priority = 2000,
     dev=true
   },
+  { 'rose-pine/neovim', name = 'rose-pine' },
 
   { 'folke/tokyonight.nvim' },
   { 'Mofiqul/vscode.nvim' },
@@ -124,5 +126,4 @@ return {
 
   { 'vim-ruby/vim-ruby' },
   { 'rodjek/vim-puppet' },
-
 }

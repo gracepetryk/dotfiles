@@ -1,3 +1,5 @@
+local cmp = require('cmp')
+
 require('mason').setup()
 
 -- lua lsp
@@ -48,6 +50,60 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
+
+local sig_help_winnr
+
+vim.keymap.set({ 'i', 'n' }, '<C-k>', function()
+  -- don't enter window in insert mode
+
+  if vim.api.nvim_get_mode().mode == 'n' then
+    vim.lsp.buf.signature_help()
+    return
+  end
+
+  local sig_help_was_open, _ = pcall(vim.api.nvim_win_close, sig_help_winnr, false)
+
+  if not sig_help_was_open then
+    vim.lsp.buf.signature_help()
+  end
+end)
+
+vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
+  if cmp.visible then
+    cmp.close()
+  end
+
+  local bufnr, winnr = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    max_height = math.max(vim.opt.scrolloff._value, vim.fn.winline() - 1),
+    anchor_bias = 'south'
+  })(...)
+
+  sig_help_winnr = winnr
+
+  local function callback(cmp_table)
+    local cmp_top = cmp_table.window.entries_win.style.row
+    local current_line = vim.fn.winline()
+
+    local status, sig_win_pos = pcall(vim.api.nvim_win_get_position, winnr)
+
+    if not status then
+      return
+    end
+
+    local sig_top = sig_win_pos[1]
+
+    if (sig_top > current_line and cmp_top > current_line) or (sig_top < current_line and cmp_top < current_line) then
+      pcall(function() vim.api.nvim_win_close(winnr, false) end)
+    end
+
+    cmp.event:off('menu_opened', callback)
+  end
+
+  cmp.event:on('menu_opened', callback)
+
+  return bufnr, winnr
+end
+
 require('mason-lspconfig').setup()
 require('mason-lspconfig').setup_handlers({
   function(server_name)
@@ -81,3 +137,4 @@ require('mason-lspconfig').setup_handlers({
     })
   end,
 })
+vim.print()
