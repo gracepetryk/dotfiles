@@ -2,7 +2,7 @@ require("gpetryk.set")
 
 require("lazy").setup("gpetryk.lazy", {
   dev = {
-    path = "~/dotfiles/nvim_plugins"
+    path = "~/dotfiles/nvim/plugins"
   },
   change_detection = {
     enabled=true,

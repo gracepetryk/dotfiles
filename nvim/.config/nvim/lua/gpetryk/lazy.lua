@@ -14,12 +14,11 @@ return {
 
   --themes
   {
-    'gracepetryk/grace-rose-pine',
-    name = 'grace-rose-pine',
+    'gracepetryk/rose-pine',
     priority = 2000,
     dev=true
   },
-  { 'rose-pine/neovim', name = 'rose-pine' },
+  { 'rose-pine/neovim', name = 'rose-pine-original' },
 
   { 'folke/tokyonight.nvim' },
   { 'Mofiqul/vscode.nvim' },
