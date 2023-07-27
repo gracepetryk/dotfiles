@@ -69,18 +69,17 @@ vim.keymap.set({ 'i', 'n' }, '<C-k>', function()
 end)
 
 vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
-  if cmp.visible then
-    cmp.close()
-  end
 
   local bufnr, winnr = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    max_height = math.max(vim.opt.scrolloff._value, vim.fn.winline() - 1),
-    anchor_bias = 'south'
+    max_height = math.min(15, math.max(vim.opt.scrolloff._value, vim.fn.winline() - 1)),
+    max_width = 90,
+    wrap_at = 89,
+    anchor_bias = 'above'
   })(...)
 
   sig_help_winnr = winnr
 
-  local function callback(cmp_table)
+  local function prevent_overlap(cmp_table, close_cmp)
     local cmp_top = cmp_table.window.entries_win.style.row
     local current_line = vim.fn.winline()
 
@@ -93,13 +92,23 @@ vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
     local sig_top = sig_win_pos[1]
 
     if (sig_top > current_line and cmp_top > current_line) or (sig_top < current_line and cmp_top < current_line) then
-      pcall(function() vim.api.nvim_win_close(winnr, false) end)
+      pcall(function ()
+        if close_cmp then
+          cmp.close()
+        else
+          vim.api.nvim_win_close(winnr, false)
+        end
+      end)
     end
 
-    cmp.event:off('menu_opened', callback)
+    cmp.event:off('menu_opened', prevent_overlap)
   end
 
-  cmp.event:on('menu_opened', callback)
+  if cmp.core.view:visible() then
+    prevent_overlap({window = cmp.core.view:_get_entries_view()}, true)
+  end
+
+  cmp.event:on('menu_opened', prevent_overlap)
 
   return bufnr, winnr
 end
@@ -137,4 +146,3 @@ require('mason-lspconfig').setup_handlers({
     })
   end,
 })
-vim.print()
