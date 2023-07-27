@@ -2,7 +2,7 @@ local cmp = require('cmp')
 local cmp_comparators = require('cmp.config.compare')
 
 
-require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/dotfiles/snippets" })
+require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/dotfiles/nvim/snippets" })
 
 cmp.setup({
   snippet = {
