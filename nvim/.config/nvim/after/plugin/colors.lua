@@ -36,4 +36,4 @@ require('grace-rose-pine').setup({
   }
 })
 
-vim.cmd.colorscheme('rose-pine')
+vim.cmd.colorscheme('grace-rose-pine')
