@@ -105,4 +105,25 @@ timezsh() {
 
 alias flake_branch='flake8 $(git diff develop.. --name-only)'
 
+# set up fzf
+
+export FZF_ALT_C_COMMAND="fd --hidden --no-ignore --type d \
+  -E Library \
+  -E node_modules \
+  -E .docker \
+  -E .cargo \
+  -E .cache \
+  -E .gem \
+  -E .npm \
+  -E .nvm \
+  -E .pyenv \
+  -E .rbenv \
+  -E .rustup \
+  -E .solargraph \
+  -E .git \
+  -E .deps \
+"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 print_ts 'done'
