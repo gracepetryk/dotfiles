@@ -1,0 +1,10 @@
+.solargraph.yml
+solargraph_comments.rb
+schema.rb
+pyrightconfig.json
+.vimspector.json
+neovim_build
+apps/.nvmrc
+.python-version
+
+.luarc.json
