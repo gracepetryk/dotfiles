@@ -1,4 +1,5 @@
 local map = require("gpetryk.map").map
+require('cmp')
 
 map('i', '<C-c>', '<Esc>')
 map('i', '<Esc>', '<C-c>') -- in case something goes wrong
@@ -82,3 +83,5 @@ end)
 map({ 'i', 's' }, '<S-Tab>', function()
   ls.jump(-1)
 end)
+
+map('n', '<C-s>', '<Cmd>set spell!<CR>')

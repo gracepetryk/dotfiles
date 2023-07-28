@@ -11,7 +11,7 @@ cmp.setup({
     end,
   },
   completion = {
-    completeopt = 'menu,menuone,preview'
+    completeopt = 'menu,menuone,preview,noselect'
   },
 
   enabled = function()
@@ -19,12 +19,45 @@ cmp.setup({
         or require("cmp_dap").is_dap_buffer()
   end,
   mapping = cmp.mapping.preset.insert({
+    ['<C-s>'] = function(fallback)
+      local save_spell = vim.opt.spell:get()
+      vim.opt_local.spell = true
+
+      cmp.complete({
+        config = {
+          mapping = {
+            ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+            ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+            ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+          },
+          sources = {
+            {
+              name = 'spell',
+              option = {
+                keep_all_entries = true,
+                enable_in_context = function()
+                  return true
+                end,
+              },
+            },
+          }
+        }
+      })
+
+      local function complete_callback(...)
+        vim.opt_local.spell = save_spell
+        cmp.event:off('complete_done', complete_callback)
+      end
+
+      cmp.event:on('complete_done', complete_callback)
+    end,
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
     ['<Esc>'] = cmp.mapping.abort(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
     ['<Up>'] = nil,
     ['<Down>'] = nil,
   }),

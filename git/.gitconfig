@@ -12,7 +12,7 @@
     defaultBranch = main
 [alias]
     adog = log --all --decorate --oneline --graph
-    diff = difftool --no-symlinks
+    d = difftool --no-symlinks --dir-diff
 
     stash-working = "!f() { \
 	git commit --quiet --no-verify -m \"temp for stash-working\" && \
@@ -21,8 +21,6 @@
 [push]
     autoSetupRemote = true
 
-[interactive]
-    diffFilter = delta --color-only
 [diff]
     tool = kitty
     guitool = kitty.gui

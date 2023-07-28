@@ -34,6 +34,8 @@ vim.opt.formatoptions = 'cqjl'
 
 vim.opt.guicursor = ''
 
+vim.opt.spelllang = 'en_us'
+
 -- pop up menu height
 vim.opt.pumheight = 15
 

@@ -107,22 +107,30 @@ alias flake_branch='flake8 $(git diff develop.. --name-only)'
 
 # set up fzf
 
-export FZF_ALT_C_COMMAND="fd --hidden --no-ignore --type d \
-  -E Library \
-  -E node_modules \
-  -E .docker \
-  -E .cargo \
-  -E .cache \
-  -E .gem \
-  -E .npm \
-  -E .nvm \
-  -E .pyenv \
-  -E .rbenv \
-  -E .rustup \
-  -E .solargraph \
-  -E .git \
-  -E .deps \
-"
+export FZF_DEFAULT_COMMAND="fd --hidden --no-ignore \
+  -E '**/Library/*' \
+  -E '**/node_modules/*' \
+  -E '**/.docker/*' \
+  -E '**/.cargo/*' \
+  -E '**/.cache/*' \
+  -E '**/.gem/*' \
+  -E '**/.npm/*' \
+  -E '**/.nvm/*' \
+  -E '**/.pyenv/*' \
+  -E '**/.rbenv/*' \
+  -E '**/.rustup/*' \
+  -E '**/.solargraph/*' \
+  -E '**/.git/*' \
+  -E '**/.deps/*' \
+  -E '**/.vscode/*' \
+  -E '.local/share/nvim/lazy' \
+  -E 'pyright/*' \
+  -E 'neovim/*' \
+  -E 'typeshed/*' \
+  -E 'mysterysci/*'"
+
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
