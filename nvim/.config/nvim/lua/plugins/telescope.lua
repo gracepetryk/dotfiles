@@ -1,8 +1,19 @@
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', function () builtin.find_files({ hidden = true }) end, {})
-vim.keymap.set('n', '<leader>FF', function () builtin.find_files({ hidden = true, no_ignore = true }) end, {})
-vim.keymap.set('n', '<leader>fg', function () builtin.live_grep({ additional_args = { "--hidden" } }) end, {})
-vim.keymap.set('n', '<leader>FG', function () builtin.live_grep({ additional_args = { "--hidden", "--no-ignore" } }) end, {})
+vim.keymap.set('n', '<leader>ff', function()
+  builtin.find_files({
+    find_command = {
+      'rg',
+      '--files',
+      '--hidden',
+      '-g', '!.git',
+      '-g', '!node_modules'
+    }
+  })
+end)
+vim.keymap.set('n', '<leader>FF', function() builtin.find_files({ hidden = true, no_ignore = true }) end, {})
+vim.keymap.set('n', '<leader>fg', function() builtin.live_grep({ additional_args = { "--hidden" } }) end, {})
+vim.keymap.set('n', '<leader>FG', function() builtin.live_grep({ additional_args = { "--hidden", "--no-ignore" } }) end,
+  {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fr', builtin.pickers, {})

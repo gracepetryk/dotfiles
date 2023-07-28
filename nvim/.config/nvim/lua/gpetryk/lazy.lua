@@ -10,7 +10,6 @@ return {
     config = function() require 'plugins.gitsigns' end,
     event = "VeryLazy"
   },
-  { 'rickhowe/diffchar.vim' },
 
   --themes
   {
@@ -81,6 +80,7 @@ return {
     dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' },
+      { 'f3fora/cmp-spell' },
     },
   },
 
