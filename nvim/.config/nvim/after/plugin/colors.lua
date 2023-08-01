@@ -10,7 +10,7 @@ require('grace-rose-pine').setup({
     TreeSitterContext = { bg = 'overlay', blend = 40 },
     ColorColumn = { bg = 'overlay', blend = 40 },
     StatusLine = { bg = 'overlay' },
-    IlluminatedWordText = { bg = 'highlight_med', blend = 50 },
+    IlluminatedWordText = { bg = 'highlight_med' },
     IlluminatedWordRead = { link = 'IlluminatedWordText' },
     IlluminatedWordWrite = { link = 'IlluminatedWordText' },
     PMenu = { bg = 'float' },
