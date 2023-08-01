@@ -24,6 +24,7 @@ function print_ts() {
 }
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 if [ -f /etc/zshrc ]; then
   source /etc/zshrc
@@ -127,7 +128,8 @@ export FZF_DEFAULT_COMMAND="fd --hidden --no-ignore \
   -E 'pyright/*' \
   -E 'neovim/*' \
   -E 'typeshed/*' \
-  -E 'mysterysci/*'"
+  -E 'mysterysci/*' \
+  -E 'de-sandbox/apps/*/*'"
 
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
@@ -135,3 +137,5 @@ export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 print_ts 'done'
+
+

@@ -11,7 +11,17 @@ vim.keymap.set('n', '<leader>ff', function()
   })
 end)
 vim.keymap.set('n', '<leader>FF', function() builtin.find_files({ hidden = true, no_ignore = true }) end, {})
-vim.keymap.set('n', '<leader>fg', function() builtin.live_grep({ additional_args = { "--hidden" } }) end, {})
+vim.keymap.set('n', '<leader>fg', function()
+  builtin.live_grep({
+    additional_args = {
+      "--hidden"
+    },
+    glob_pattern = {
+      '!.git',
+      '!node_modules'
+    }
+  })
+end)
 vim.keymap.set('n', '<leader>FG', function() builtin.live_grep({ additional_args = { "--hidden", "--no-ignore" } }) end,
   {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
