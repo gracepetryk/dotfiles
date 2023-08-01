@@ -108,6 +108,7 @@ alias flake_branch='flake8 $(git diff develop.. --name-only)'
 
 # set up fzf
 
+export FZF_COMPLETION_TRIGGER='!!'
 export FZF_DEFAULT_COMMAND="fd --hidden --no-ignore \
   -E '**/Library/*' \
   -E '**/node_modules/*' \
@@ -124,7 +125,7 @@ export FZF_DEFAULT_COMMAND="fd --hidden --no-ignore \
   -E '**/.git/*' \
   -E '**/.deps/*' \
   -E '**/.vscode/*' \
-  -E '.local/share/nvim/lazy' \
+  -E '**/.local/share/nvim/lazy/*' \
   -E 'pyright/*' \
   -E 'neovim/*' \
   -E 'typeshed/*' \
@@ -134,8 +135,14 @@ export FZF_DEFAULT_COMMAND="fd --hidden --no-ignore \
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
+_fzf_compgen_path() {
+  eval $FZF_DEFAULT_COMMAND . "$1"
+}
+
+_fzf_compgen_dir() {
+  eval $FZF_DEFAULT_COMMAND --type "d" . "$1"
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 print_ts 'done'
-
-
