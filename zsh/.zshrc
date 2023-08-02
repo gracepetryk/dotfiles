@@ -126,13 +126,16 @@ export FZF_DEFAULT_COMMAND="fd --hidden --no-ignore \
   -E '**/.deps/*' \
   -E '**/.vscode/*' \
   -E '**/.local/share/nvim/lazy/*' \
+"
+
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d \
   -E 'pyright/*' \
   -E 'neovim/*' \
   -E 'typeshed/*' \
   -E 'mysterysci/*' \
-  -E 'de-sandbox/apps/*/*'"
+  -E 'de-sandbox/apps/*/*'
+"
 
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
 _fzf_compgen_path() {
