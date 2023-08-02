@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+    vim.keymap.set('n', '<leader>fm', function() vim.lsp.buf.format { async = true } end, bufopts)
     vim.keymap.set('n', 'L', vim.lsp.buf.hover, bufopts)
 
     local diagnostic_float_opts = {
@@ -69,7 +69,6 @@ vim.keymap.set({ 'i', 'n' }, '<C-k>', function()
 end)
 
 vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
-
   local bufnr, winnr = vim.lsp.with(vim.lsp.handlers.signature_help, {
     max_height = math.min(15, math.max(vim.opt.scrolloff._value, vim.fn.winline() - 1)),
     max_width = 90,
@@ -92,7 +91,7 @@ vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
     local sig_top = sig_win_pos[1]
 
     if (sig_top > current_line and cmp_top > current_line) or (sig_top < current_line and cmp_top < current_line) then
-      pcall(function ()
+      pcall(function()
         if close_cmp then
           cmp.close()
         else
@@ -105,7 +104,7 @@ vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
   end
 
   if cmp.core.view:visible() then
-    prevent_overlap({window = cmp.core.view:_get_entries_view()}, true)
+    prevent_overlap({ window = cmp.core.view:_get_entries_view() }, true)
   end
 
   cmp.event:on('menu_opened', prevent_overlap)
