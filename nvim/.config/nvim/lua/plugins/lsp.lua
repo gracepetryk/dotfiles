@@ -126,6 +126,11 @@ require('mason-lspconfig').setup_handlers({
             autoSearchPaths = true,
             diagnosticMode = "onlyOpenFiles",
             useLibraryCodeForTypes = true,
+            diagnosticSeverityOverrides = {
+              reportGeneralTypeIssues = "warning",
+              reportOptionalMemberAccess =  "information",
+              reportOptionalSubscript = "information",
+            }
           },
           venvPath = "/Users/GPetryk/.pyenv/versions",
         }

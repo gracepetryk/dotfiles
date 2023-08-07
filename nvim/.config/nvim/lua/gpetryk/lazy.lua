@@ -117,7 +117,8 @@ return {
 
   {
     'RRethy/vim-illuminate',
-    event = 'VeryLazy'
+    event = 'VeryLazy',
+    config = function () require 'plugins.illuminate' end
   }, -- highlight symbol under cursor
 
   -- language-specific plugins
