@@ -1,0 +1,10 @@
+on:
+  push
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    environment: Test Env
+    steps:
+      - name: echo
+        run: echo "did an action!"
