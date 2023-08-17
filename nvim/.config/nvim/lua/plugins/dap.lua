@@ -3,7 +3,36 @@ local map = require("gpetryk.map").map
 
 -- debugger mappings
 
+local function find_tab(label)
+  for _, tab_no in pairs(vim.api.nvim_list_tabpages()) do
+    local _, tab_label = pcall(vim.api.nvim_tabpage_get_var, tab_no, 'label')
+    if tab_label == label then
+      return tab_no
+    end
+  end
+
+  return nil
+end
+
 local function open_debugger()
+  local debug_tab_no = find_tab('Debug')
+  local curs = vim.api.nvim_win_get_cursor(0)
+
+  if debug_tab_no ~= nil then
+    local current_buf_no = vim.api.nvim_get_current_buf()
+
+    vim.api.nvim_set_current_tabpage(debug_tab_no)
+
+    -- move to code window
+    vim.cmd.wincmd('l')
+    vim.cmd.wincmd('k')
+
+    vim.api.nvim_set_current_buf(current_buf_no)
+    vim.cmd("normal! m'")
+    vim.api.nvim_win_set_cursor(0, curs)
+    return
+  end
+
   vim.api.nvim_tabpage_set_var(0, 'label', 'Edit')
   vim.cmd.tabnew('%')
   vim.api.nvim_tabpage_set_var(0, 'label', 'Debug')
@@ -23,11 +52,8 @@ end
 
 map('n', '<C-b>', function() require('dap').toggle_breakpoint() end)
 map('n', '<Leader>tc', function() require('dap').run_to_cursor() end)
-map('n', '<Leader><Leader>d', open_debugger)
-map('n', '<Leader><Leader>c', close_debugger)
-
-map('n', '<Leader>di', '"zyiw :lua require"dapui".eval("<C-R>z")<CR>h')
-map('v', '<Leader>di', '"zy :lua require"dapui".eval("<C-R>z")<CR>h')
+map('n', '<Leader>d', open_debugger)
+map('n', '<Leader>c', close_debugger)
 
 dap.adapters.python = function(cb, config)
   if config.request == 'attach' then

@@ -46,6 +46,14 @@ lualine.setup({
         cond = is_wide
       }
     }
+  },
+  inactive_sections = {
+    lualine_c = {
+      {
+        'filename',
+        path=1
+      }
+    }
   }
 })
 

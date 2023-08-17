@@ -92,7 +92,7 @@ return {
     config = function() require 'plugins.dap' end,
     keys = {
       '<C-b>',
-      '<leader><leader>d'
+      '<leader>d'
     },
     dependencies = {
       {
@@ -124,6 +124,5 @@ return {
   -- language-specific plugins
   { 'Vimjas/vim-python-pep8-indent', ft = 'python', commit = '60ba5e11a61618c0344e2db190210145083c91f8' },
 
-  { 'vim-ruby/vim-ruby' },
   { 'rodjek/vim-puppet' },
 }

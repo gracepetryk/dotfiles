@@ -36,6 +36,9 @@ map('n', '<A-j>', '<C-w>j')
 map('n', '<A-k>', '<C-w>k')
 map('n', '<A-l>', '<C-w>l')
 
+map('n', '<C-l>', ':tabnext<CR>')
+map('n', '<C-h>', ':tabprev<CR>')
+
 map('n', '<leader>vs', vim.cmd.vsplit)
 
 map('x', 'J', ":m '>+1<CR>gv=gv")
@@ -46,9 +49,14 @@ map('x', 'K', ":m '<-2<CR>gv=gv")
 map({ 'n', 'i', 'x' }, '<ScrollWheelUp>', '<C-y>')
 map({ 'n', 'i', 'x' }, '<ScrollWheelDown>', '<C-e>')
 
--- center half page scrolls
-map({ 'n', 'x' }, '<C-u>', '<C-u>zz')
-map({ 'n', 'x' }, '<C-d>', '<C-d>zz')
+local function big_jump(key)
+  local jump_size = math.floor(vim.api.nvim_win_get_height(0) / 3)
+
+  vim.cmd('normal! ' .. jump_size .. key)
+end
+
+map({ 'n', 'x' }, '<C-u>', function () big_jump('k') end)
+map({ 'n', 'x' }, '<C-d>', function () big_jump('j') end)
 
 -- center search
 map('n', 'n', 'nzz')
