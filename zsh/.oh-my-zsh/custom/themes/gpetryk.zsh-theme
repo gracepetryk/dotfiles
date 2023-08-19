@@ -14,7 +14,7 @@ ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[magenta]%}\uE0A0 "
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{${reset_color}%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{󰩖 %G%}"
 ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}−"
-ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[green]%}+"
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[green]%}~"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[yellow]%}⏺"
 ZSH_THEME_GIT_PROMPT_CACHE=true
 
