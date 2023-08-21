@@ -17,15 +17,16 @@ return {
     priority = 2000,
     dev=true
   },
-  { 'rose-pine/neovim', name = 'rose-pine-original' },
-
-  { 'folke/tokyonight.nvim' },
-  { 'Mofiqul/vscode.nvim' },
 
   {
     'gracepetryk/auto-pairs',
     branch='expr-maps',
     dev=true
+  },
+
+  {
+    'norcalli/nvim-colorizer.lua',
+    config = function() require('colorizer').setup() end
   },
 
   {
