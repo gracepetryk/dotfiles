@@ -4,12 +4,15 @@ local cmp_comparators = require('cmp.config.compare')
 
 require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/dotfiles/nvim/snippets" })
 
+---@diagnostic disable-next-line: missing-fields
 cmp.setup({
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
+
+  ---@diagnostic disable-next-line: missing-fields
   completion = {
     completeopt = 'menu,menuone,preview,noselect'
   },
@@ -88,6 +91,7 @@ cmp.setup({
   }
 })
 
+---@diagnostic disable-next-line: missing-fields
 cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
   sources = {
     { name = "dap" },
