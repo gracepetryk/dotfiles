@@ -1,5 +1,3 @@
-local cmp = require('cmp')
-
 require('mason').setup()
 
 -- lua lsp
@@ -40,6 +38,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     local diagnostic_float_opts = {
       focusable = false,
+      border = 'single',
       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
       source = 'always',
       prefix = ' ',
@@ -51,63 +50,38 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 
-local sig_help_winnr
+vim.keymap.set({ 'i', 'n' }, '<C-k>', vim.lsp.buf.signature_help)
 
-vim.keymap.set({ 'i', 'n' }, '<C-k>', function()
-  -- don't enter window in insert mode
-
-  if vim.api.nvim_get_mode().mode == 'n' then
-    vim.lsp.buf.signature_help()
-    return
-  end
-
-  local sig_help_was_open, _ = pcall(vim.api.nvim_win_close, sig_help_winnr, false)
-
-  if not sig_help_was_open then
-    vim.lsp.buf.signature_help()
-  end
-end)
-
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    -- Use a sharp border with `FloatBorder` highlights
+    border = 'single',
+  }
+)
 vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
   local bufnr, winnr = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    max_height = math.min(15, math.max(vim.opt.scrolloff._value, vim.fn.winline() - 1)),
-    max_width = 90,
-    wrap_at = 89,
+    border='single',
+    max_height = 20,
+    max_width = 120,
+    wrap_at = 120,
     anchor_bias = 'above'
   })(...)
 
-  sig_help_winnr = winnr
+  if vim.fn.line('$', winnr) > 1 and string.sub(vim.api.nvim_buf_get_lines(bufnr, 1, 2, false)[1], 1, 3) ~= '─' then
+    vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
+    vim.fn.appendbufline(bufnr, 1, string.rep('─', vim.api.nvim_win_get_width(winnr)))
 
-  local function prevent_overlap(cmp_table, close_cmp)
-    local cmp_top = cmp_table.window.entries_win.style.row
-    local current_line = vim.fn.winline()
-
-    local status, sig_win_pos = pcall(vim.api.nvim_win_get_position, winnr)
-
-    if not status then
-      return
+    local win_height = vim.api.nvim_win_get_height(winnr)
+    vim.print(win_height)
+    if win_height < 20 then
+      vim.api.nvim_win_set_height(winnr, win_height + 1)
     end
-
-    local sig_top = sig_win_pos[1]
-
-    if (sig_top > current_line and cmp_top > current_line) or (sig_top < current_line and cmp_top < current_line) then
-      pcall(function()
-        if close_cmp then
-          cmp.close()
-        else
-          vim.api.nvim_win_close(winnr, false)
-        end
-      end)
-    end
-
-    cmp.event:off('menu_opened', prevent_overlap)
+    vim.api.nvim_buf_set_option(bufnr, 'modifiable', false)
   end
 
-  if cmp.core.view:visible() then
-    prevent_overlap({ window = cmp.core.view:_get_entries_view() }, true)
+  if require('cmp').visible() and require('cmp').core then
+    require('cmp').close()
   end
-
-  cmp.event:on('menu_opened', prevent_overlap)
 
   return bufnr, winnr
 end
@@ -118,6 +92,17 @@ require('mason-lspconfig').setup_handlers({
     lspconfig[server_name].setup({})
   end,
 
+  ['lua_ls'] = function ()
+    lspconfig['lua_ls'].setup({
+      settings = {
+        Lua = {
+          workspace = {
+            checkThirdParty = false,
+          }
+        }
+      }
+    })
+  end,
   ['pyright'] = function()
     lspconfig['pyright'].setup({
       settings = {
