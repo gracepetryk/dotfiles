@@ -1,12 +1,15 @@
+---@diagnostic disable-next-line: missing-fields
 require('grace-rose-pine').setup({
   dark_variant = 'main',
   disable_italics = false,
+  ---@diagnostic disable-next-line: missing-fields
   groups = {
     git_add = 'moss',
     git_stage = 'moss',
   },
   highlight_groups = {
-    NormalFloat = { bg = 'float' },
+    NormalFloat = { bg = 'surface' },
+    Folded = { bg = 'surface', fg = 'muted' },
     TreeSitterContext = { bg = 'overlay', blend = 40 },
     ColorColumn = { bg = 'overlay', blend = 40 },
     StatusLine = { bg = 'overlay' },
@@ -15,6 +18,7 @@ require('grace-rose-pine').setup({
     IlluminatedWordWrite = { link = 'IlluminatedWordText' },
     PMenu = { bg = 'float' },
     markdownBoldItalic = { fg = 'foam', bold=true, italic=true },
+    SignatureMarkText = { fg = 'muted' },
     ['@type'] = { fg = 'moss' },
     ['@constructor'] = { fg = 'moss' },
     ['Function'] = { fg = 'iris', nocombine=true },
@@ -37,3 +41,11 @@ require('grace-rose-pine').setup({
 })
 
 vim.cmd.colorscheme('grace-rose-pine')
+
+require('colorizer').setup({
+  filetypes = { '*', '!vim' },
+  user_default_options = {
+    mode = 'virtualtext',
+    names = false
+  }
+})
