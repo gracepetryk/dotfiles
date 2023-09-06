@@ -52,6 +52,17 @@ autocmd('BufWritePre', {
   end
 })
 
+-- save folds
+local fold_group = augroup('SaveFolds', {})
+autocmd('BufWinLeave', {
+  group=fold_group,
+  command='silent! mkview'
+})
+autocmd('BufWinEnter', {
+  group=fold_group,
+  command='silent! loadview'
+})
+
 vim.g.gitblame_display_virtual_text = 0
 vim.g.gitblame_message_template = '<author> • <date> • <summary>'
 vim.g.gitblame_message_when_not_committed = 'Not Committed Yet'
