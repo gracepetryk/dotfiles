@@ -11,6 +11,8 @@ return {
     event = "VeryLazy"
   },
 
+  { 'kshenoy/vim-signature' }, -- show marks in sign column
+
   --themes
   {
     'gracepetryk/rose-pine',
@@ -113,7 +115,8 @@ return {
         'nvim-treesitter/nvim-treesitter-context',
         config = function() require 'plugins.context' end,
       },
-    }
+    },
+    build = ':TSUpdate'
   },
 
   {
