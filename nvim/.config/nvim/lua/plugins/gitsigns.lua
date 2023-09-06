@@ -1,4 +1,5 @@
 require('gitsigns').setup {
+  sign_priority=100,
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
@@ -37,3 +38,77 @@ require('gitsigns').setup {
     map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
 }
+
+local sign_spacing_augroup = vim.api.nvim_create_augroup('sign_spacing', {})
+
+vim.fn.sign_define('spacing_sign', {text = ' '})
+local spacing_sign_group = 'spacing'
+
+vim.api.nvim_create_autocmd({'User', 'WinScrolled'}, {
+  pattern='GitSignsUpdate,*',
+  group=sign_spacing_augroup,
+  callback=function ()
+    local bufnr = vim.api.nvim_get_current_buf()
+
+    vim.fn.sign_unplace(spacing_sign_group, {buffer=bufnr})
+
+    local win_first_line = vim.fn.line('w0', vim.fn.win_getid())
+    local win_last_line = vim.fn.line('w$', vim.fn.win_getid())
+
+    local line = win_first_line
+    while line <= win_last_line do
+      local priority
+      if next(vim.fn.sign_getplaced(bufnr, {group='gitsigns_vimfn_signs_', lnum=line})[1].signs) ~= nil then
+        -- there is a git sign, align it to the right
+        priority = -100
+      else
+        -- no git sign, prevent multiple non-git signs
+        priority = 99
+      end
+
+      vim.fn.sign_place(0, spacing_sign_group, 'spacing_sign', bufnr, {lnum=line, priority=priority})
+
+      line = line + 1
+    end
+  end
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
