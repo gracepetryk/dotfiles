@@ -64,6 +64,16 @@ cmp.setup({
     ['<Up>'] = nil,
     ['<Down>'] = nil,
   }),
+  window = {
+    completion = cmp.config.window.bordered({
+      border = 'none',
+      winhighlight='Normal:PMenu,FloatBorder:FloatBorder'
+    }),
+    documentation = cmp.config.window.bordered({
+      border = 'single',
+      winhighlight='Normal:NormalFloat,FloatBorder:FloatBorder'
+    })
+  },
   -- formatting = {
   --   format = function (entry, vim_item)
   --     vim_item.menu = entry:get_completion_item().sortText

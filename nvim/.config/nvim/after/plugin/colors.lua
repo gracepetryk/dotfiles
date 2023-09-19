@@ -45,6 +45,7 @@ vim.cmd.colorscheme('grace-rose-pine')
 require('colorizer').setup({
   filetypes = { '*', '!vim' },
   user_default_options = {
+    RGB=false,
     mode = 'virtualtext',
     names = false
   }

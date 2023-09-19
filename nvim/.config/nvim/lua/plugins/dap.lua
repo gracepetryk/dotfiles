@@ -83,23 +83,6 @@ end
 
 dap.configurations.python = {
   {
-    name = "Python: Container Attach (port 5678)",
-    type = "python",
-    request = "attach",
-    connect = {
-      host = "0.0.0.0",
-      port = 5678,
-    },
-    pathMappings = {
-      {
-        localRoot = "${workspaceFolder}",
-        remoteRoot = "/var/de-sandbox/apps/edde"
-      },
-    },
-    justMyCode = true,
-    logToFile = true
-  },
-  {
     name = "Python: Local Attach (port 7890)",
     type = "python",
     request = "attach",

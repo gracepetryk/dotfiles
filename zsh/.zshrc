@@ -126,6 +126,7 @@ export FZF_DEFAULT_COMMAND="fd --hidden --no-ignore \
   -E '**/.deps/*' \
   -E '**/.vscode/*' \
   -E '**/.local/share/nvim/lazy/*' \
+  -E '**/httpd-venvs/*' \
 "
 
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d \
