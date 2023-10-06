@@ -76,7 +76,7 @@ dap.adapters.python = function(cb, config)
       args = { '-m', 'debugpy.adapter' },
       options = {
         source_filetype = 'python',
-      },
+      }
     })
   end
 end
@@ -97,6 +97,8 @@ dap.configurations.python = {
     name = "Python: Launch",
     type = "python",
     request = "launch",
-    program = "${file}"
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+    justMyCode = false
   }
 }
