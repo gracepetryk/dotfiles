@@ -53,31 +53,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.keymap.set({ 'i', 'n' }, '<C-k>', vim.lsp.buf.signature_help)
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover, {
+  vim.lsp.handlers.hover,
+  {
     -- Use a sharp border with `FloatBorder` highlights
     border = 'single',
   }
 )
 vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
   local bufnr, winnr = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border='single',
     max_height = 20,
     max_width = 120,
     wrap_at = 120,
     anchor_bias = 'above'
   })(...)
-
-  if vim.fn.line('$', winnr) > 1 and string.sub(vim.api.nvim_buf_get_lines(bufnr, 1, 2, false)[1], 1, 3) ~= '─' then
-    vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
-    vim.fn.appendbufline(bufnr, 1, string.rep('─', vim.api.nvim_win_get_width(winnr)))
-
-    local win_height = vim.api.nvim_win_get_height(winnr)
-    vim.print(win_height)
-    if win_height < 20 then
-      vim.api.nvim_win_set_height(winnr, win_height + 1)
-    end
-    vim.api.nvim_buf_set_option(bufnr, 'modifiable', false)
-  end
 
   if require('cmp').visible() and require('cmp').core then
     require('cmp').close()
