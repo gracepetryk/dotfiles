@@ -36,7 +36,8 @@ require('grace-rose-pine').setup({
     ['@variable.builtin'] = { fg = 'foam', bold=true, nocombine=true },
     ['@field'] = { fg = 'rose', nocombine=true },
     ['@property'] = { link='@field' },
-    ['@lsp.type.keyword.rust'] = {}
+    ['@lsp.type.keyword.rust'] = {},
+    ['@text.uri.comment'] = { link = 'Comment' }
   }
 })
 
