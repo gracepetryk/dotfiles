@@ -19,6 +19,8 @@ require('grace-rose-pine').setup({
     PMenu = { bg = 'float' },
     markdownBoldItalic = { fg = 'foam', bold=true, italic=true },
     SignatureMarkText = { fg = 'muted' },
+    MarkSignNumHl = { link = 'LineNr' },
+    MarkSignHl = { fg = 'muted' },
     ['@type'] = { fg = 'moss' },
     ['@constructor'] = { fg = 'moss' },
     ['Function'] = { fg = 'iris', nocombine=true },

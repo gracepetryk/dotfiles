@@ -11,7 +11,15 @@ return {
     event = "VeryLazy"
   },
 
-  { 'kshenoy/vim-signature' }, -- show marks in sign column
+  -- show marks in sign column
+  {
+    'chentoast/marks.nvim',
+    config = function() require('marks').setup({
+      default_mappings = true,
+      builtin_marks = { ">", "<" },
+      sign_priority = 12
+    }) end
+  },
 
   --themes
   {
