@@ -4,23 +4,44 @@ require('cmp')
 map('i', '<C-c>', '<Esc>')
 map('i', '<Esc>', '<C-c>') -- in case something goes wrong
 
+-- swap line/character mark navigation
+map('n', "'", "m")
+map('n', "m", "'")
+
+map('n', 'm,', "'<")
+map('n', 'm.', "'>")
+
+map('n', 'gp', '`[v`]') -- visual on the last changed text, useful for pasted text
+map('n', 'go', 'gvov')
+
+-- surround selection
+map('x', 's(', '<Esc>`>a)<Esc>`<i(<Esc>')
+map('x', 's{', '<Esc>`>a}<Esc>`<i{<Esc>')
+map('x', 's[', '<Esc>`>a]<Esc>`<i[<Esc>')
+map('x', 's<', '<Esc>`>a><Esc>`<i<<Esc>')
+map('x', 's"', '<Esc>`>a"<Esc>`<i"<Esc>')
+map('x', "s'", "<Esc>`>a'<Esc>`<i'<Esc>")
+map('x', 's`', '<Esc>`>a`<Esc>`<i`<Esc>')
+
 -- don't fat finger macros
 map('n', 'q', '')
 map('n', 'Q', 'q')
 
-map('x', 'p', 'p:let @@=@0<CR>')
+map({'n', 'x'}, 'p', "p`[mP`]mp")
+map({'n', 'x'}, 'P', "P`]mp`[mP")
 
+map('x', 'p', 'p:let @@=@0<CR>', { remap = true })
 -- why would u ever want to yank a single character
 map('n', 'x', '"_x')
 
 -- fast paste from yank register
-map('n', '[p', '"0p')
-map('n', '[P', '"0P')
+map('n', '[p', '"0p', { remap = true })
+map('n', '[P', '"0P', { remap = true })
 
 -- system clipboard
 map({ 'n', 'x' }, '<leader>y', '"+y')
-map({ 'n', 'x' }, '<leader>p', '"+p')
-map({ 'n', 'x' }, '<leader>P', '"+P')
+map({ 'n', 'x' }, '<leader>p', '"+p', { remap = true })
+map({ 'n', 'x' }, '<leader>P', '"+P', { remap = true })
 
 -- paste UUID
 map('n', 'U', function()

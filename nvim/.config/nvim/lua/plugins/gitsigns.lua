@@ -1,5 +1,6 @@
 require('gitsigns').setup {
   sign_priority=100,
+  _extmark_signs = false,
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
@@ -58,7 +59,7 @@ vim.api.nvim_create_autocmd({'User', 'WinScrolled'}, {
     local line = win_first_line
     while line <= win_last_line do
       local priority
-      if next(vim.fn.sign_getplaced(bufnr, {group='gitsigns_vimfn_signs_', lnum=line})[1].signs) ~= nil then
+      if  next(vim.fn.sign_getplaced(bufnr, {group='gitsigns_vimfn_signs_', lnum=line})[1].signs) ~= nil then
         -- there is a git sign, align it to the right
         priority = -100
       else
