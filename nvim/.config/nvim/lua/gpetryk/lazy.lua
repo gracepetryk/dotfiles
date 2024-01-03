@@ -1,6 +1,4 @@
 return {
-  -- { 'thinca/vim-themis' },
-
   { 'tpope/vim-sleuth' }, -- detect indentation
 
   { 'tpope/vim-fugitive' }, -- git integration
@@ -123,12 +121,6 @@ return {
     },
     build = ':TSUpdate'
   },
-
-  {
-    'RRethy/vim-illuminate',
-    event = 'VeryLazy',
-    config = function () require 'plugins.illuminate' end
-  }, -- highlight symbol under cursor
 
   -- language-specific plugins
   { 'Vimjas/vim-python-pep8-indent', ft = 'python', commit = '60ba5e11a61618c0344e2db190210145083c91f8' },
