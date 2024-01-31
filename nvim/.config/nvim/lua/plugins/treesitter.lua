@@ -1,4 +1,5 @@
-require 'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup({
+  ignore_install = {},
   ensure_installed = "all",
   sync_install = false,
 
@@ -6,6 +7,9 @@ require 'nvim-treesitter.configs'.setup {
     enable = true,
     disable = { "embedded_template" },
     additional_vim_regex_highlighting = false,
+  },
+  indent = {
+    enable = true
   },
   playground = {
     enable = true,
@@ -25,4 +29,4 @@ require 'nvim-treesitter.configs'.setup {
       show_help = '?',
     },
   }
-}
+})
