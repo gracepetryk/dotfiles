@@ -5,14 +5,16 @@ map('i', '<C-c>', '<Esc>')
 map('i', '<Esc>', '<C-c>') -- in case something goes wrong
 
 -- swap line/character mark navigation
-map('n', "'", "m")
-map('n', "m", "'")
+map({'n', 'x'}, "'", "m")
+map({'n', 'x'}, "m", "'")
 
 map('n', 'm,', "'<")
 map('n', 'm.', "'>")
 
-map('n', 'gp', '`[v`]') -- visual on the last changed text, useful for pasted text
-map('n', 'go', 'gvov')
+map('n', 'gp', '`Pv`p') -- visual on the last pasted area
+map('n', 'gP', '`PV`p') -- visual line on the last pasted area
+map('n', 'go', '`>')
+map('n', 'gO', '`<')
 
 -- surround selection
 map('x', 's(', '<Esc>`>a)<Esc>`<i(<Esc>')
