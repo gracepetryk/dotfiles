@@ -1,4 +1,5 @@
 return {
+  { 'tpope/vim-sleuth' },
   { 'tpope/vim-fugitive' }, -- git integration
   { 'tpope/vim-rhubarb' }, -- github integration
   {
@@ -24,12 +25,7 @@ return {
     dev=true
   },
 
-  {
-    'gracepetryk/auto-pairs',
-    branch='expr-maps',
-    dev=true
-  },
-
+  { 'm4xshen/autoclose.nvim', config = function() require('autoclose').setup() end },
   { 'NvChad/nvim-colorizer.lua' },
 
   {

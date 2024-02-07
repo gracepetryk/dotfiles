@@ -100,7 +100,7 @@ require('mason-lspconfig').setup_handlers({
             diagnosticMode = "onlyOpenFiles",
             useLibraryCodeForTypes = true,
             diagnosticSeverityOverrides = {
-              reportGeneralTypeIssues = "warning",
+              reportArgumentType = "warning",
               reportOptionalMemberAccess =  "information",
               reportOptionalSubscript = "information",
             }
