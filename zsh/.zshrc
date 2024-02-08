@@ -46,7 +46,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export NVM_LAZY_LOAD=true
 export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim')
 
-plugins=(evalcache git-prompt zsh-nvm)
+plugins=(evalcache git-prompt)
 source "$ZSH"/oh-my-zsh.sh
 
 print_ts oh-my-zsh
@@ -117,7 +117,6 @@ export FZF_DEFAULT_COMMAND="fd --hidden --no-ignore \
   -E '**/.cache/*' \
   -E '**/.gem/*' \
   -E '**/.npm/*' \
-  -E '**/.nvm/*' \
   -E '**/.pyenv/*' \
   -E '**/.rbenv/*' \
   -E '**/.rustup/*' \

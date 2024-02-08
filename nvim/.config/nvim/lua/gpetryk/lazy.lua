@@ -113,7 +113,8 @@ return {
         config = function() require 'plugins.context' end,
       },
     },
-    build = ':TSUpdate'
+    build = ':TSUpdate',
+    dev=true
   },
 
   { 'rodjek/vim-puppet' },
