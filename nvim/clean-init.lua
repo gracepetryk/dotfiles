@@ -15,14 +15,16 @@ vim.opt.runtimepath:prepend(lazypath)
 
 -- install plugins
 local plugins = {
-  "folke/tokyonight.nvim",
+  "gracepetryk/rose-pine",
   "folke/neodev.nvim",
   -- add any other plugins here
-  {"gracepetryk/auto-pairs", branch="expr-maps"}
+  { "nvim-treesitter/nvim-treesitter", config = function () require('nvim-treesitter.configs').setup(
+    {ensure_installed = "python", indent = { enable = true }}
+  ) end },
 }
 require("lazy").setup(plugins, {
   root = root .. "/plugins",
 })
 
-vim.cmd.colorscheme("tokyonight")
+vim.cmd.colorscheme("grace-rose-pine")
 -- add anything else here

@@ -1,6 +1,7 @@
 local cmp = require('cmp')
 local cmp_comparators = require('cmp.config.compare')
 
+require('luasnip').config.setup({ enable_autosnippets = true })
 
 require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/dotfiles/nvim/snippets" })
 
@@ -14,7 +15,7 @@ cmp.setup({
 
   ---@diagnostic disable-next-line: missing-fields
   completion = {
-    completeopt = 'menu,menuone,preview,noselect'
+    completeopt = 'menu,menuone,preview'
   },
 
   enabled = function()
@@ -81,9 +82,9 @@ cmp.setup({
   --   end
   -- },
   sources = {
-    { name = 'nvim_lsp' },
     { name = 'luasnip' }, -- For luasnip users.
-    { name = 'buffer' }
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
   },
   sorting = {
     priority_weight = 2,
