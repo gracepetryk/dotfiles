@@ -10,5 +10,17 @@
 		"body": [
 			"$0import debugpy; debugpy.listen(('0.0.0.0', 7890)) if not debugpy.is_client_connected() else None; print('waiting for client to attach'); debugpy.wait_for_client()"
 		]
+	},
+	"try/except": {
+		"prefix": "try",
+		"body": [
+			"try:",
+			"    $1",
+			"except:",
+			"    $2"
+		],
+		"luasnip": {
+			"autotrigger": false
+		}
 	}
 }

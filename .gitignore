@@ -1,4 +1,5 @@
 nvim/lua/.luarc.json
 nvim/plugin/*
+nvim/.repro
 *.swp
 minimal_kitty.conf
