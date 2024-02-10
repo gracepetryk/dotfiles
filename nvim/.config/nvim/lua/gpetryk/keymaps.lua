@@ -16,15 +16,6 @@ map('n', 'gP', '`PV`p') -- visual line on the last pasted area
 map('n', 'go', '`>')
 map('n', 'gO', '`<')
 
--- surround selection
-map('x', 's(', '<Esc>`>a)<Esc>`<i(<Esc>')
-map('x', 's{', '<Esc>`>a}<Esc>`<i{<Esc>')
-map('x', 's[', '<Esc>`>a]<Esc>`<i[<Esc>')
-map('x', 's<', '<Esc>`>a><Esc>`<i<<Esc>')
-map('x', 's"', '<Esc>`>a"<Esc>`<i"<Esc>')
-map('x', "s'", "<Esc>`>a'<Esc>`<i'<Esc>")
-map('x', 's`', '<Esc>`>a`<Esc>`<i`<Esc>')
-
 -- don't fat finger macros
 map('n', 'q', '')
 map('n', 'Q', 'q')
@@ -92,9 +83,6 @@ map('n', '<C-p>', ':cp<CR>')
 -- load current dir session
 map({ 'n' }, '<leader>ls', ':SessionManager load_current_dir_session<CR>')
 
--- gd in help
-map('n', 'gd', '<C-]>')
-
 -- LuaSnip
 local ls = require('luasnip')
 map({ 'i', 's' }, '<Tab>', function()
@@ -114,5 +102,3 @@ end)
 map({ 'i', 's' }, '<S-Tab>', function()
   ls.jump(-1)
 end)
-
-map('n', '<C-s>', '<Cmd>set spell!<CR>')

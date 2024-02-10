@@ -8,16 +8,6 @@ return {
     event = "VeryLazy"
   },
 
-  -- show marks in sign column
-  {
-    'chentoast/marks.nvim',
-    config = function() require('marks').setup({
-      default_mappings = true,
-      builtin_marks = { ">", "<" },
-      sign_priority = 12
-    }) end
-  },
-
   --themes
   {
     'gracepetryk/rose-pine',
@@ -26,14 +16,6 @@ return {
   },
 
   { 'm4xshen/autoclose.nvim', config = function() require('autoclose').setup() end },
-  { 'NvChad/nvim-colorizer.lua' },
-
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
-    config = function() require 'plugins.statusline' end,
-    -- event = 'VeryLazy'
-  },
 
   {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
@@ -60,18 +42,10 @@ return {
 
 
   { 'williamboman/mason.nvim' }, -- install LSPs/DAP/etc
-  { 'williamboman/mason-lspconfig.nvim', },
   {
     'neovim/nvim-lspconfig',
     config= function() require 'plugins.lsp' end,
     event='VeryLazy'
-  },
-  { 'folke/neodev.nvim' },
-
-  {
-    'jose-elias-alvarez/null-ls.nvim', -- allow non-lsp providers to hook into neovims lsp client (like flake8)
-    config = function() require 'plugins.null-ls' end,
-    event = 'VeryLazy'
   },
 
   {
@@ -80,7 +54,6 @@ return {
     dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' },
-      { 'f3fora/cmp-spell' },
     },
   },
 
@@ -119,5 +92,4 @@ return {
 
   { 'rodjek/vim-puppet' },
   { 'lepture/vim-jinja' },
-  { 'clauseggers/vim-fontsyntax' }
 }

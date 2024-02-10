@@ -1,55 +1,45 @@
----@diagnostic disable-next-line: missing-fields
-require('grace-rose-pine').setup({
+--@diagnostic disable-next-line: missing-fields
+require('rose-pine').setup({
   dark_variant = 'main',
-  disable_italics = false,
   ---@diagnostic disable-next-line: missing-fields
   groups = {
     git_add = 'moss',
     git_stage = 'moss',
   },
   highlight_groups = {
-    NormalFloat = { bg = 'surface' },
+    NormalFloat = { fg = 'text', bg = 'surface' },
+    TelescopeNormal = { fg = 'subtle', bg = 'surface' },
     Folded = { bg = 'surface', fg = 'muted' },
-    TreeSitterContext = { bg = 'overlay', blend = 40 },
-    ColorColumn = { bg = 'overlay', blend = 40 },
     StatusLine = { bg = 'overlay' },
-    IlluminatedWordText = { bg = 'highlight_med', blend = 60 },
-    IlluminatedWordRead = { link = 'IlluminatedWordText' },
-    IlluminatedWordWrite = { link = 'IlluminatedWordText' },
-    PMenu = { bg = 'float' },
-    markdownBoldItalic = { fg = 'foam', bold=true, italic=true },
-    SignatureMarkText = { fg = 'muted' },
-    MarkSignNumHl = { link = 'LineNr' },
-    MarkSignHl = { fg = 'muted' },
-    ['@type'] = { fg = 'moss' },
+    Pmenu = { bg = 'float' },
+    ['@boolean'] = { fg = 'gold' },
     ['@constructor'] = { fg = 'moss' },
-    ['Function'] = { fg = 'iris', nocombine=true },
-    ['@function.builtin'] = { fg = 'iris', italic = true },
-    ['@method'] = { link = '@function' },
-    ['@attribute'] = { link = '@function' },
-    ['@keyword.return'] = { fg = 'love', bold=true },
-    ['@lsp.type.keyword'] = { link = '@keyword' },
-    ['@parameter'] = { fg = 'foam', italic=true },
-    ['Boolean'] = { fg = 'gold' },
-    ['String'] = { fg = 'fall' },
-    ['@variable'] = { fg = 'text' },
-    ['@lsp.type.variable'] = { link = '@variable' },
+    ['@comment'] = { fg = 'muted' },
+    ['@function'] = { fg = 'iris', nocombine = true },
+    ['@function.builtin'] = { fg = 'iris', bold = true, nocombine = true },
+    ['@function.call'] = { fg = 'iris', italic = true, nocombine = true },
+    ['@function.method'] = { link = '@function' },
+    ['@function.method.call'] = { link = '@function.call' },
+    ['@keyword.return'] = { fg = 'love' },
+    ['@lsp.mod.declaration'] = { underline = true },
     ['@lsp.type.formatSpecifier'] = { link = '@punctuation' },
-    ['@variable.builtin'] = { fg = 'foam', bold=true, nocombine=true },
-    ['@field'] = { fg = 'rose', nocombine=true },
-    ['@property'] = { link='@field' },
+    ['@lsp.type.keyword'] = { link = '@keyword' },
     ['@lsp.type.keyword.rust'] = {},
-    ['@text.uri.comment'] = { link = 'Comment' }
+    ['@lsp.type.method.lua'] = { link = '@function.method', italic = true },
+    ['@lsp.type.variable'] = { link = '@variable' },
+    ['@parameter'] = { fg = 'rose', italic=true },
+    ['@string'] = { fg = 'fall' },
+    ['@string.special.url'] = { link = '@string' },
+    ['@string.special.url.comment'] = { link = '@comment' },
+    ['@type'] = { fg = 'moss' },
+    ['@type.builtin.python'] = { fg = 'moss' },
+    ['@variable'] = { fg = 'text', italic=false },
+    ['@variable.builtin'] = { fg='love', bold = false },
+    ['@variable.member'] = { fg = 'foam', italic=false },
+    ['@variable.parameter'] = { link = '@parameter' },
+    ['@spell'] = { link = '@text' },
+    ['@lsp.type.comment'] = { link = '@comment' }
   }
 })
 
-vim.cmd.colorscheme('grace-rose-pine')
-
-require('colorizer').setup({
-  filetypes = { '*', '!vim' },
-  user_default_options = {
-    RGB=false,
-    mode = 'virtualtext',
-    names = false
-  }
-})
+vim.cmd.colorscheme('rose-pine')

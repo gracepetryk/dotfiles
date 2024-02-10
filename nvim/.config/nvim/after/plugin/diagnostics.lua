@@ -1,7 +1,5 @@
 vim.diagnostic.config({
-  signs = {
-    priority = 0
-  },
+  signs = false,
   severity_sort = true,
   virtual_text = false,
   float = {

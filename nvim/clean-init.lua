@@ -1,30 +1,15 @@
--- DO NOT change the paths and don't remove the colorscheme
-local root = vim.fn.fnamemodify("./.repro", ":p")
-
--- set stdpaths to use .repro
-for _, name in ipairs({ "config", "data", "state", "cache" }) do
-  vim.env[("XDG_%s_HOME"):format(name:upper())] = root .. "/" .. name
+for name, url in pairs {
+   ts_context = "https://github.com/nvim-treesitter/nvim-treesitter-context"
+} do
+  local install_path = vim.fn.fnamemodify('nvim_issue/' .. name, ':p')
+  if vim.fn.isdirectory(install_path) == 0 then
+    vim.fn.system { 'git', 'clone', '--depth=1', url, install_path }
+  end
+  vim.opt.runtimepath:append(install_path)
 end
 
--- bootstrap lazy
-local lazypath = root .. "/plugins/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", lazypath, })
-end
-vim.opt.runtimepath:prepend(lazypath)
-
--- install plugins
-local plugins = {
-  "gracepetryk/rose-pine",
-  "folke/neodev.nvim",
-  -- add any other plugins here
-  { "nvim-treesitter/nvim-treesitter", config = function () require('nvim-treesitter.configs').setup(
-    {ensure_installed = "python", indent = { enable = true }}
-  ) end },
-}
-require("lazy").setup(plugins, {
-  root = root .. "/plugins",
+vim.opt.scrolloff = 10
+require('treesitter-context').setup({
+  enable=true,
+  mode='topline'
 })
-
-vim.cmd.colorscheme("grace-rose-pine")
--- add anything else here

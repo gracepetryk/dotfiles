@@ -2,7 +2,6 @@ local cmp = require('cmp')
 local cmp_comparators = require('cmp.config.compare')
 
 require('luasnip').config.setup({ enable_autosnippets = true })
-
 require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/dotfiles/nvim/snippets" })
 
 ---@diagnostic disable-next-line: missing-fields
@@ -12,49 +11,11 @@ cmp.setup({
       require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
-
-  ---@diagnostic disable-next-line: missing-fields
-  completion = {
-    completeopt = 'menu,menuone,preview'
-  },
-
   enabled = function()
     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
         or require("cmp_dap").is_dap_buffer()
   end,
   mapping = cmp.mapping.preset.insert({
-    ['<C-s>'] = function(fallback)
-      local save_spell = vim.opt.spell:get()
-      vim.opt_local.spell = true
-
-      cmp.complete({
-        config = {
-          mapping = {
-            ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-            ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-            ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-          },
-          sources = {
-            {
-              name = 'spell',
-              option = {
-                keep_all_entries = true,
-                enable_in_context = function()
-                  return true
-                end,
-              },
-            },
-          }
-        }
-      })
-
-      local function complete_callback(...)
-        vim.opt_local.spell = save_spell
-        cmp.event:off('complete_done', complete_callback)
-      end
-
-      cmp.event:on('complete_done', complete_callback)
-    end,
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
     ['<Esc>'] = cmp.mapping.abort(),
@@ -62,25 +23,7 @@ cmp.setup({
     ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
     ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    ['<Up>'] = nil,
-    ['<Down>'] = nil,
   }),
-  window = {
-    completion = cmp.config.window.bordered({
-      border = 'none',
-      winhighlight='Normal:PMenu,FloatBorder:FloatBorder'
-    }),
-    documentation = cmp.config.window.bordered({
-      border = 'single',
-      winhighlight='Normal:NormalFloat,FloatBorder:FloatBorder'
-    })
-  },
-  -- formatting = {
-  --   format = function (entry, vim_item)
-  --     vim_item.menu = entry:get_completion_item().sortText
-  --     return vim_item
-  --   end
-  -- },
   sources = {
     { name = 'luasnip' }, -- For luasnip users.
     { name = 'nvim_lsp' },

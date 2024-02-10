@@ -12,14 +12,11 @@ require("lazy").setup("gpetryk.lazy", {
 })
 
 require("gpetryk.keymaps")
-require("gpetryk.tabline")
 require("gpetryk.autosave")
 
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-local yank_group = augroup('HighlightYank', {})
+local yank_group = vim.api.nvim_create_augroup('HighlightYank', {})
 
-autocmd('TextYankPost', {
+vim.api.nvim_create_autocmd('TextYankPost', {
   group = yank_group,
   pattern = '*',
   callback = function()
@@ -30,40 +27,23 @@ autocmd('TextYankPost', {
   end,
 })
 
-autocmd('BufWritePre', {
+vim.api.nvim_create_autocmd('BufWritePre', {
   callback = function ()
     local line = vim.fn.line('.')
     local col = vim.fn.col('.')
 
     vim.cmd('%s/\\s\\+$//e') -- trailing whitespace
-
-    -- blank lines at end of file
-    --
-    -- G: bottom of file
-    -- o: new line in case there is no empty line at end of file
-    -- V: enter visual line mode
-    -- ?.: search backwards for the first non-newline character
-    -- j: go down one line
-    -- d: delete all selected lines
-    -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('Go<Esc>V?.<CR>jd', true, false, true), 'nx', false)
-
     vim.fn.cursor({line, col})
-    -- vim.cmd[[ normal! zz ]]
   end
 })
 
 -- save folds
-local fold_group = augroup('SaveFolds', {})
-autocmd('BufWinLeave', {
+local fold_group = vim.api.nvim_create_augroup('SaveFolds', {})
+vim.api.nvim_create_autocmd('BufWinLeave', {
   group=fold_group,
   command='silent! mkview'
 })
-autocmd('BufWinEnter', {
+vim.api.nvim_create_autocmd('BufWinEnter', {
   group=fold_group,
   command='silent! loadview'
 })
-
-vim.g.gitblame_display_virtual_text = 0
-vim.g.gitblame_message_template = '<author> • <date> • <summary>'
-vim.g.gitblame_message_when_not_committed = 'Not Committed Yet'
-vim.g.gitblame_date_format = '%r'

@@ -1,73 +1,37 @@
 require('mason').setup()
-
--- lua lsp
-require('neodev').setup({
-  override = function(root_dir, library)
-    library.enabled = true
-    library.plugins = true
-  end,
-})
 local lspconfig = require('lspconfig')
 
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local mapopts = { noremap = true, silent = true }
-vim.keymap.set('n', '<A-[>', vim.diagnostic.goto_prev, mapopts)
-vim.keymap.set('n', '<A-]>', vim.diagnostic.goto_next, mapopts)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, mapopts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-
--- Mappings.
--- See `:help vim.lsp.*` for documentation on any of the below functions
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
     local bufopts = { noremap = true, silent = true }
+    vim.keymap.set('n', '<A-[>', vim.diagnostic.goto_prev, bufopts)
+    vim.keymap.set('n', '<A-]>', vim.diagnostic.goto_next, bufopts)
+    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
 
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<leader>fm', function() vim.lsp.buf.format { async = true } end, bufopts)
     vim.keymap.set('n', 'L', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set({ 'i', 'n' }, '<C-k>', vim.lsp.buf.signature_help)
 
-    local diagnostic_float_opts = {
-      focusable = false,
-      border = 'single',
-      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-      source = 'always',
-      prefix = ' ',
-      scope = 'cursor',
-    }
 
-    vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, diagnostic_float_opts) end, bufopts)
-
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    client.server_capabilities.semanticTokensProvider = nil
+    vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, { border = 'single' }) end, bufopts)
   end
 })
 
 
-vim.keymap.set({ 'i', 'n' }, '<C-k>', vim.lsp.buf.signature_help)
-
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
   vim.lsp.handlers.hover,
   {
-    -- Use a sharp border with `FloatBorder` highlights
     border = 'single',
   }
 )
 vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
   local bufnr, winnr = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    max_height = 20,
-    max_width = 120,
-    wrap_at = 120,
-    anchor_bias = 'above'
+      border = 'single'
   })(...)
 
   if require('cmp').visible() and require('cmp').core then
@@ -77,52 +41,55 @@ vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
   return bufnr, winnr
 end
 
-require('mason-lspconfig').setup()
-require('mason-lspconfig').setup_handlers({
-  function(server_name)
-    lspconfig[server_name].setup({})
-  end,
 
-  ['lua_ls'] = function ()
-    lspconfig['lua_ls'].setup({
-      settings = {
+lspconfig['lua_ls'].setup({
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
         Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using
+            -- (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT'
+          },
+          -- Make the server aware of Neovim runtime files
           workspace = {
             checkThirdParty = false,
+            library = vim.api.nvim_list_runtime_paths()
           }
         }
-      }
-    })
-  end,
-  ['pyright'] = function()
-    lspconfig['pyright'].setup({
-      settings = {
-        python = {
-          analysis = {
-            autoSearchPaths = true,
-            diagnosticMode = "onlyOpenFiles",
-            useLibraryCodeForTypes = true,
-            diagnosticSeverityOverrides = {
-              reportArgumentType = "warning",
-              reportOptionalMemberAccess =  "information",
-              reportOptionalSubscript = "information",
-            }
-          },
-          venvPath = "/Users/GPetryk/.pyenv/versions",
-        }
-      }
-    })
-  end,
+      })
 
-  ['emmet_ls'] = function()
-    lspconfig['emmet_ls'].setup({
-      filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
-    })
-  end,
-
-  ['html'] = function()
-    lspconfig['html'].setup({
-      filetypes = { 'html', 'htmldjango' }
-    })
-  end,
+      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+    end
+    return true
+  end
 })
+
+lspconfig['pyright'].setup({
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = "onlyOpenFiles",
+        useLibraryCodeForTypes = true,
+        diagnosticSeverityOverrides = {
+          reportArgumentType = "warning",
+          reportOptionalMemberAccess =  "information",
+          reportOptionalSubscript = "information",
+        }
+      },
+      venvPath = "/Users/GPetryk/.pyenv/versions",
+    }
+  }
+})
+
+lspconfig['emmet_ls'].setup({
+  filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
+})
+
+lspconfig['html'].setup({
+  filetypes = { 'html', 'htmldjango' }
+})
+

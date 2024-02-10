@@ -22,8 +22,7 @@ vim.keymap.set('n', '<leader>fg', function()
     }
   })
 end)
-vim.keymap.set('n', '<leader>FG', function() builtin.live_grep({ additional_args = { "--hidden", "--no-ignore" } }) end,
-  {})
+vim.keymap.set('n', '<leader>FG', function() builtin.live_grep({ additional_args = { "--hidden", "--no-ignore" } }) end, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fr', builtin.pickers, {})
