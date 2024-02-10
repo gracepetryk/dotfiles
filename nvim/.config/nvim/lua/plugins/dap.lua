@@ -1,8 +1,6 @@
 local dap = require("dap")
 local map = require("gpetryk.map").map
 
--- debugger mappings
-
 local function find_tab(label)
   for _, tab_no in pairs(vim.api.nvim_list_tabpages()) do
     local _, tab_label = pcall(vim.api.nvim_tabpage_get_var, tab_no, 'label')

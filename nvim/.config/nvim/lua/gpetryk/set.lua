@@ -36,17 +36,7 @@ vim.opt.formatoptions = 'cqjl'
 
 vim.opt.guicursor = ''
 
-vim.opt.spelllang = 'en_us'
-
 -- pop up menu height
 vim.opt.pumheight = 15
 
 vim.g.omni_sql_no_default_maps = 1
-
-vim.g.AutoPairsMapBS = 1
-vim.g.AutoPairsBSAfter = 0
-vim.g.AutopairsShortcutToggle = ''
-vim.g.AutopairsShortcutJump = ''
-vim.g.AutoPairsShortcutBackInsert = ''
-vim.g.AutoPairsMoveExpression = ''
-vim.g.AutoPairsPrefix = '<C-A-p>'
