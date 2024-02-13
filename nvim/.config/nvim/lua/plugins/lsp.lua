@@ -19,7 +19,28 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 
     vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, { border = 'single' }) end, bufopts)
+
+    vim.diagnostic.config({
+      signs = false,
+      severity_sort = true,
+      virtual_text = false,
+      float = {
+        format = function (diagnostic)
+          return string.format('%s [%s]', diagnostic.message, diagnostic.code)
+        end
+      }
+    })
   end
+})
+vim.diagnostic.config({
+  signs = false,
+  severity_sort = true,
+  virtual_text = false,
+  float = {
+    format = function (diagnostic)
+      return string.format('%s [%s]', diagnostic.message, diagnostic.code)
+    end
+  }
 })
 
 
@@ -31,7 +52,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
 )
 vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
   local bufnr, winnr = vim.lsp.with(vim.lsp.handlers.signature_help, {
-      border = 'single'
+    border = 'single'
   })(...)
 
   if require('cmp').visible() and require('cmp').core then
@@ -93,3 +114,4 @@ lspconfig['html'].setup({
   filetypes = { 'html', 'htmldjango' }
 })
 
+vim.cmd('LspStart')
