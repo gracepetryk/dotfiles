@@ -37,7 +37,6 @@ require('rose-pine').setup({
     ['@variable.builtin'] = { fg='love', bold = false },
     ['@variable.member'] = { fg = 'foam', italic=false },
     ['@variable.parameter'] = { link = '@parameter' },
-    ['@spell'] = { link = '@text' },
     ['@lsp.type.comment'] = { link = '@comment' }
   }
 })

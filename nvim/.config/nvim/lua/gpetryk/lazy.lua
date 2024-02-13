@@ -1,28 +1,24 @@
 return {
-  { 'tpope/vim-sleuth' },
-  { 'tpope/vim-fugitive' }, -- git integration
-  { 'tpope/vim-rhubarb' }, -- github integration
+  { 'gracepetryk/rose-pine', priority = 2000, dev=true, config = function() require 'plugins.colors' end, lazy=false},
+
+  { 'tpope/vim-sleuth', event='VeryLazy' },
+
   {
-    'lewis6991/gitsigns.nvim',
-    config = function() require 'plugins.gitsigns' end,
-    event = "VeryLazy"
+    'tpope/vim-fugitive', -- git integration
+    dependencies = {
+      { 'tpope/vim-rhubarb' }, -- github integration
+    },
+    cmd = {'G', 'Gbrowse'}
   },
 
-  --themes
-  {
-    'gracepetryk/rose-pine',
-    priority = 2000,
-    dev=true
-  },
-
-  { 'm4xshen/autoclose.nvim', config = function() require('autoclose').setup() end },
+  { 'lewis6991/gitsigns.nvim', config = function() require 'plugins.gitsigns' end, event = 'VeryLazy' },
+  { 'm4xshen/autoclose.nvim', config = function() require('autoclose').setup() end, event = 'VeryLazy' },
 
   {
-    'nvim-telescope/telescope.nvim', branch = '0.1.x',
+    'nvim-telescope/telescope.nvim', branch = '0.1.x', config = function() require 'plugins.telescope' end,
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
     },
-    config = function() require 'plugins.telescope' end,
     keys = {
       '<leader>ff',
       '<leader>FF',
@@ -33,19 +29,14 @@ return {
     },
   },
 
-  {
-    'Shatur/neovim-session-manager',
-    config = function() require 'plugins.sessions' end,
-    event = 'BufWritePost',
-    cmd = 'SessionManager'
-  },
+  { 'Shatur/neovim-session-manager', config = function() require 'plugins.sessions' end, event = 'VeryLazy'},
 
 
-  { 'williamboman/mason.nvim' }, -- install LSPs/DAP/etc
+  { 'williamboman/mason.nvim', lazy=true, cmd='Mason' }, -- install LSPs/DAP/etc
   {
     'neovim/nvim-lspconfig',
     config= function() require 'plugins.lsp' end,
-    event='VeryLazy'
+    event = 'VeryLazy',
   },
 
   {
@@ -54,11 +45,11 @@ return {
     dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' },
+      { 'L3MON4D3/LuaSnip', build = 'make install_jsregexp' },
+      { 'saadparwaiz1/cmp_luasnip' },
     },
+    event = 'VeryLazy'
   },
-
-  { 'L3MON4D3/LuaSnip', build = 'make install_jsregexp' },
-  { 'saadparwaiz1/cmp_luasnip' },
 
   {
     'mfussenegger/nvim-dap',
@@ -90,6 +81,6 @@ return {
     dev=true
   },
 
-  { 'rodjek/vim-puppet' },
-  { 'lepture/vim-jinja' },
+  { 'rodjek/vim-puppet', ft = {'pp', 'erb'} },
+  { 'lepture/vim-jinja', ft = {'html'}},
 }

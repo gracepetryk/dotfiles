@@ -1,5 +1,4 @@
 local map = require("gpetryk.map").map
-require('cmp')
 
 map('i', '<C-c>', '<Esc>')
 map('i', '<Esc>', '<C-c>') -- in case something goes wrong
@@ -84,8 +83,12 @@ map('n', '<C-p>', ':cp<CR>')
 map({ 'n' }, '<leader>ls', ':SessionManager load_current_dir_session<CR>')
 
 -- LuaSnip
-local ls = require('luasnip')
+local ls = nil
 map({ 'i', 's' }, '<Tab>', function()
+  if ls == nil then
+    ls = require('luasnip')
+  end
+
   if ls.choice_active() then
     require('luasnip.extras.select_choice')()
   elseif ls.expand_or_locally_jumpable() then

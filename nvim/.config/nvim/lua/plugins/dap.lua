@@ -1,6 +1,12 @@
 local dap = require("dap")
 local map = require("gpetryk.map").map
 
+local res, local_config = pcall(function() return require('local') end)
+
+if not res then
+  local_config = {}
+end
+
 local function find_tab(label)
   for _, tab_no in pairs(vim.api.nvim_list_tabpages()) do
     local _, tab_label = pcall(vim.api.nvim_tabpage_get_var, tab_no, 'label')
@@ -79,7 +85,7 @@ dap.adapters.python = function(cb, config)
   end
 end
 
-dap.configurations.python = {
+dap.configurations.python = vim.list_extend({
   {
     name = "Python: Local Attach (port 7890)",
     type = "python",
@@ -99,4 +105,4 @@ dap.configurations.python = {
     cwd = "${workspaceFolder}",
     justMyCode = false
   }
-}
+}, local_config.dap_configurations.python)

@@ -40,3 +40,7 @@ vim.opt.guicursor = ''
 vim.opt.pumheight = 15
 
 vim.g.omni_sql_no_default_maps = 1
+
+vim.g.loaded_matchparen = 1
+vim.g.loaded_matchit = 1
+vim.g.loaded_tar = 0
