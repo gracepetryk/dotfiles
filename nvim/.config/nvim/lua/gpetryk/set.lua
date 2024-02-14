@@ -17,7 +17,7 @@ vim.opt.laststatus = 2
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-vim.opt.signcolumn = 'yes:2'
+vim.opt.signcolumn = 'auto:1-3'
 vim.opt.colorcolumn = '91'
 
 vim.opt.tabstop = 4

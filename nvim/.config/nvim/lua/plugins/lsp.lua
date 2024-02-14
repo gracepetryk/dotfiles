@@ -99,6 +99,7 @@ lspconfig['pyright'].setup({
           reportArgumentType = "warning",
           reportOptionalMemberAccess =  "information",
           reportOptionalSubscript = "information",
+          reportAttributeAccessIssue = "warning",
         }
       },
       venvPath = "/Users/GPetryk/.pyenv/versions",
@@ -112,6 +113,17 @@ lspconfig['emmet_ls'].setup({
 
 lspconfig['html'].setup({
   filetypes = { 'html', 'htmldjango' }
+})
+
+lspconfig['efm'].setup({
+  settings = {
+    rootMarkers={".git/"},
+    languages = {
+      python = {
+        require('efmls-configs.linters.flake8')
+      }
+    }
+  }
 })
 
 vim.cmd('LspStart')

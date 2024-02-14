@@ -33,11 +33,13 @@ return {
 
 
   { 'williamboman/mason.nvim', lazy=true, cmd='Mason' }, -- install LSPs/DAP/etc
+  { 'creativenull/efmls-configs-nvim', lazy=true },
   {
     'neovim/nvim-lspconfig',
     config= function() require 'plugins.lsp' end,
     event = 'VeryLazy',
   },
+
 
   {
     'hrsh7th/nvim-cmp',
