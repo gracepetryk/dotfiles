@@ -17,7 +17,7 @@ vim.opt.laststatus = 2
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-vim.opt.signcolumn = 'auto:1-3'
+vim.opt.signcolumn = 'yes:1'
 vim.opt.colorcolumn = '91'
 
 vim.opt.tabstop = 4
@@ -36,11 +36,16 @@ vim.opt.formatoptions = 'cqjl'
 
 vim.opt.guicursor = ''
 
+vim.opt.spelllang = 'en_us'
+vim.opt.spellsuggest = '10'
+
 -- pop up menu height
 vim.opt.pumheight = 15
+vim.opt.previewheight = 20
 
 vim.g.omni_sql_no_default_maps = 1
 
 vim.g.loaded_matchparen = 1
 vim.g.loaded_matchit = 1
 vim.g.loaded_tar = 0
+

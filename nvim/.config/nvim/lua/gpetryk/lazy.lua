@@ -1,7 +1,7 @@
 return {
   { 'gracepetryk/rose-pine', priority = 2000, dev=true, config = function() require 'plugins.colors' end, lazy=false},
 
-  { 'tpope/vim-sleuth', event='VeryLazy' },
+  { 'tpope/vim-sleuth' },
 
   {
     'tpope/vim-fugitive', -- git integration
@@ -12,7 +12,14 @@ return {
   },
 
   { 'lewis6991/gitsigns.nvim', config = function() require 'plugins.gitsigns' end, event = 'VeryLazy' },
-  { 'm4xshen/autoclose.nvim', config = function() require('autoclose').setup() end, event = 'VeryLazy' },
+
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+    -- use opts = {} for passing setup options
+    -- this is equalent to setup({}) function
+  },
 
   {
     'nvim-telescope/telescope.nvim', branch = '0.1.x', config = function() require 'plugins.telescope' end,
@@ -63,7 +70,10 @@ return {
     dependencies = {
       {
         'rcarriga/nvim-dap-ui',
-        config = function() require 'plugins.dapui' end
+        config = function() require 'plugins.dapui' end,
+        dependencies = {
+          'nvim-neotest/nvim-nio'
+        }
       },
       { 'rcarriga/cmp-dap' },
     }

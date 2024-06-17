@@ -12,6 +12,10 @@ cmp.setup({
     end,
   },
   enabled = function()
+    if vim.g.disable_cmp then
+      return false
+    end
+
     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
         or require("cmp_dap").is_dap_buffer()
   end,
@@ -52,4 +56,7 @@ cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
   },
 })
 
-vim.keymap.set('i', '<C-Space>', cmp.complete)
+vim.keymap.set('i', '<C-Space>', function ()
+  vim.g.disable_cmp = false
+  cmp.complete()
+end)
