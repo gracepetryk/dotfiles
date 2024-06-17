@@ -1,6 +1,12 @@
 require('mason').setup()
 local lspconfig = require('lspconfig')
 
+local res, local_config = pcall(require, 'local')
+
+if not res then
+  local_config = {node_modules_path = ''}
+end
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
@@ -21,7 +27,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, { border = 'single' }) end, bufopts)
 
     vim.diagnostic.config({
-      signs = false,
+      signs = {
+        text = {
+          [vim.diagnostic.severity.INFO] = '',
+          [vim.diagnostic.severity.HINT] = '',
+        },
+      },
       severity_sort = true,
       virtual_text = false,
       float = {
@@ -31,16 +42,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       }
     })
   end
-})
-vim.diagnostic.config({
-  signs = false,
-  severity_sort = true,
-  virtual_text = false,
-  float = {
-    format = function (diagnostic)
-      return string.format('%s [%s]', diagnostic.message, diagnostic.code)
-    end
-  }
 })
 
 
@@ -64,6 +65,13 @@ end
 
 
 lspconfig['lua_ls'].setup({
+  settings = {
+    Lua = {
+      diagnostics = {
+        missing_parameters = false
+      }
+    }
+  },
   on_init = function(client)
     local path = client.workspace_folders[1].name
     if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
@@ -88,6 +96,35 @@ lspconfig['lua_ls'].setup({
   end
 })
 
+-- If you are using mason.nvim, you can get the ts_plugin_path like this
+local mason_registry = require('mason-registry')
+local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+local ts_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/typescript/lib'
+
+lspconfig.tsserver.setup {
+  init_options = {
+    plugins = {
+      {
+        name = '@vue/typescript-plugin',
+        location = vue_language_server_path,
+        languages = { 'vue' },
+      },
+    },
+  },
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+}
+
+-- No need to set `hybridMode` to `true` as it's the default value
+lspconfig.volar.setup {
+  init_options = {
+    typescript = {
+      tsdk = ts_path
+    }
+  }
+}
+
+lspconfig.eslint.setup({})
+
 lspconfig['pyright'].setup({
   settings = {
     python = {
@@ -99,7 +136,8 @@ lspconfig['pyright'].setup({
           reportArgumentType = "warning",
           reportOptionalMemberAccess =  "information",
           reportOptionalSubscript = "information",
-          reportAttributeAccessIssue = "warning",
+          reportAttributeAccessIssue = "information",
+          reportUnnecessaryTypeIgnoreComment = "warning"
         }
       },
       venvPath = "/Users/GPetryk/.pyenv/versions",

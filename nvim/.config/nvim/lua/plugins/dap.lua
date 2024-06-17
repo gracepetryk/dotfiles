@@ -4,7 +4,7 @@ local map = require("gpetryk.map").map
 local res, local_config = pcall(function() return require('local') end)
 
 if not res then
-  local_config = {}
+  local_config = {dap_configurations = { python = {}}}
 end
 
 local function find_tab(label)
