@@ -23,7 +23,7 @@ function print_ts() {
   printf "%-16s\tdiff: %.3f\ttotal: %.3f\n" $1 $t_diff $total
 }
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$PATH
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 if [ -f /etc/zshrc ]; then
@@ -32,6 +32,12 @@ fi
 
 if which nvim &>/dev/null; then
   alias vim=nvim
+fi
+
+FD="fd"
+if ! which fd &>/dev/null; then
+  alias fd=fdfind
+  FD=fdfind
 fi
 
 if [ "$IS_DOCKER_SANDBOX" = "" ]; then
@@ -108,8 +114,11 @@ alias flake_branch='flake8 $(git diff develop.. --name-only)'
 
 # set up fzf
 
+export PATH=$PATH:$HOME/.fzf/bin
+source <(fzf --zsh)
+
 export FZF_COMPLETION_TRIGGER='!!'
-export FZF_DEFAULT_COMMAND="fd --hidden --no-ignore \
+export FZF_DEFAULT_COMMAND="$FD --hidden --no-ignore \
   -E '**/Library/*' \
   -E '**/node_modules/*' \
   -E '**/.docker/*' \
@@ -149,3 +158,7 @@ _fzf_compgen_dir() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 print_ts 'done'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

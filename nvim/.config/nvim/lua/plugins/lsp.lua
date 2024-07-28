@@ -67,33 +67,28 @@ end
 lspconfig['lua_ls'].setup({
   settings = {
     Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using
+        -- (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
       diagnostics = {
-        missing_parameters = false
-      }
-    }
+        -- Get the language server to recognize the `vim` global
+        globals = {
+          'vim',
+          'require'
+        },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
   },
-  on_init = function(client)
-    local path = client.workspace_folders[1].name
-    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
-      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using
-            -- (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT'
-          },
-          -- Make the server aware of Neovim runtime files
-          workspace = {
-            checkThirdParty = false,
-            library = vim.api.nvim_list_runtime_paths()
-          }
-        }
-      })
-
-      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-    end
-    return true
-  end
 })
 
 -- If you are using mason.nvim, you can get the ts_plugin_path like this
