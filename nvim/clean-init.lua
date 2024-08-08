@@ -1,5 +1,5 @@
 for name, url in pairs {
-   ts_context = "https://github.com/nvim-treesitter/nvim-treesitter-context"
+   vim_sleuth = "https://github.com/tpope/vim-sleuth"
 } do
   local install_path = vim.fn.fnamemodify('nvim_issue/' .. name, ':p')
   if vim.fn.isdirectory(install_path) == 0 then
@@ -9,7 +9,3 @@ for name, url in pairs {
 end
 
 vim.opt.scrolloff = 10
-require('treesitter-context').setup({
-  enable=true,
-  mode='topline'
-})

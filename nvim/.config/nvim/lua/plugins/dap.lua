@@ -94,7 +94,7 @@ dap.configurations.python = vim.list_extend({
       host = "0.0.0.0",
       port = 7890,
     },
-    justMyCode = true,
+    justMyCode = false,
     logToFile = true
   },
   {
