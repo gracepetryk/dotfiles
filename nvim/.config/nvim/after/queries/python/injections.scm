@@ -28,6 +28,11 @@
 
 ((string
    (string_content) @injection.content)
+ (#lua-match? @injection.content "^%s*CREATE TEMP TABLE%s")
+ (#set! injection.language "sql"))
+
+((string
+   (string_content) @injection.content)
  (#lua-match? @injection.content "^%s*DROP TABLE%s")
  (#set! injection.language "sql"))
 

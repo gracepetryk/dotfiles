@@ -1,3 +1,5 @@
+# vim:ft=bash
+
 if ! which gdate >/dev/null; then
   alias gdate=date
 fi
@@ -9,9 +11,15 @@ if [ -f "$HOME"/.env ]; then
   source "$HOME"/.env
 fi
 
+log_zsh_start_perf=0
 function print_ts() {
   if [[ ! ($log_zsh_start_perf -eq 1) ]] ; then
     return 0
+  fi
+
+  if [[ $2 ]]; then
+    total=0
+    start=$(gdate +%s.%N)
   fi
 
   local t=$(gdate +%s.%N)
@@ -22,6 +30,8 @@ function print_ts() {
 
   printf "%-16s\tdiff: %.3f\ttotal: %.3f\n" $1 $t_diff $total
 }
+
+print_ts start
 
 export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$PATH
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
@@ -56,6 +66,25 @@ plugins=(evalcache git-prompt)
 source "$ZSH"/oh-my-zsh.sh
 
 print_ts oh-my-zsh
+
+
+# speed up cd when not in a git directory
+add-zsh-hook -D chpwd chpwd_update_git_vars
+
+local git_dir
+gpetryk_chpwd_udpate_git_vars() {
+  print_ts git_vars
+
+  new_git_dir="$(git rev-parse --show-toplevel 2>/dev/null)"
+  if [[ "$git_dir" != "$new_git_dir" ]]; then
+    git_dir=$new_git_dir
+    chpwd_update_git_vars
+  fi
+
+  print_ts git_vars_done
+}
+
+add-zsh-hook precmd gpetryk_chpwd_udpate_git_vars
 
 if [ -d "$HOME/profile.d" ]; then
   for RC_FILE in "$HOME"/profile.d/*.rc; do

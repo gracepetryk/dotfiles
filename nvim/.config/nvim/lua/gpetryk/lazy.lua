@@ -96,4 +96,5 @@ return {
 
   { 'rodjek/vim-puppet', ft = {'pp', 'erb'} },
   { 'lepture/vim-jinja', ft = {'html'}},
+  { 'norcalli/nvim-colorizer.lua', setup = true },
 }
