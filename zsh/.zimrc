@@ -57,4 +57,4 @@ zmodule zsh-users/zsh-history-substring-search
 
 zmodule mroth/evalcache
 # zmodule asciiship
-zmodule /Users/GPetryk/dotfiles/zsh/theme -n gpetryk
+zmodule $HOME/dotfiles/zsh/theme -n gpetryk
