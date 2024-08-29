@@ -10,3 +10,5 @@ apps/.nvmrc
 .luarc.json
 
 **/.repro/
+.env
+.envrc

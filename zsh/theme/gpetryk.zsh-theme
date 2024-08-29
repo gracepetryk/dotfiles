@@ -1,20 +1,12 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 #
-function preexec-git-info() {
-  # refresh cache for common commands that change files
-  case "$2" in
-    git*|hub*|gh*|stg*|rm*|vim*|nvim*|touch*|*\>*|*tee*|*sed*|*gsed*|mv*|cp*)
-      __EXECUTED_GIT_COMMAND=1
-      ;;
-  esac
-}
-
 function precmd-git-info() {
   # refresh cache for common commands that change files
-  if [[ $__EXECUTED_GIT_COMMAND = 1 ]]; then
-    __EXECUTED_GIT_COMMAND=0
-    git-info
-  fi
+  case "$(fc -ln -1)" in
+    git*|hub*|gh*|stg*|rm*|vim*|nvim*|touch*|*\>*|*tee*|*sed*|*gsed*|mv*|cp*)
+      git-info
+      ;;
+  esac
 }
 
 autoload -Uz add-zsh-hook
@@ -46,13 +38,12 @@ if (( ${+functions[git-info]} )); then
       'status' '%C%S%i%I%u' \
       'prompt' ' on %{$fg[magenta]%} %c%b%{${reset_color}%}%A%B%{${reset_color}%}|${(e)git_info[status]}%s%f'
   add-zsh-hook chpwd git-info
-  add-zsh-hook preexec preexec-git-info
   add-zsh-hook precmd precmd-git-info
 fi
 
 git-info
 
-function pyenv_prefix() {
+function venv_prefix() {
   if [[ -n $VIRTUAL_ENV ]]; then
     echo "($(basename $VIRTUAL_ENV)) "
   fi
@@ -60,6 +51,6 @@ function pyenv_prefix() {
 
 PROMPT='
 %{$fg_bold[green]%}%~%{$reset_color%}${(e)git_info[prompt]} ${duration_info}
-%{$reset_color%}$(pyenv_prefix)%{$fg_bold[blue]%}%n%{$reset_color%}@%F{166%}%m%{${reset_color}%} %(?::%{$fg[red]%}[%?] )%{$reset_color%}$ '
+%{$reset_color%}$(venv_prefix)%{$fg_bold[blue]%}%n%{$reset_color%}@%F{166%}%m%{${reset_color}%} %(?::%{$fg[red]%}[%?] )%{$reset_color%}$ '
 
 RPROMPT=''
