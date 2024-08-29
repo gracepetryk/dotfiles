@@ -2,7 +2,3 @@
 	path = nvim/plugins/rose-pine
 	url = git@github.com:gracepetryk/rose-pine.git
 	branch = main
-[submodule "nvim/plugins/nvim-treesitter"]
-	path = nvim/plugins/nvim-treesitter
-	url = git@github.com:gracepetryk/nvim-treesitter.git
-	branch = python-indents
