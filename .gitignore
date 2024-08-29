@@ -3,3 +3,4 @@ nvim/plugin/*
 nvim/.repro
 *.swp
 minimal_kitty.conf
+*.zwc
