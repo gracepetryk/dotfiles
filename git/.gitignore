@@ -12,3 +12,5 @@ apps/.nvmrc
 **/.repro/
 .env
 .envrc
+.autoenv.zsh
+.autoenv_leave.zsh

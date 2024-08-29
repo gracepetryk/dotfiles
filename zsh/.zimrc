@@ -58,3 +58,5 @@ zmodule zsh-users/zsh-history-substring-search
 zmodule mroth/evalcache
 # zmodule asciiship
 zmodule $HOME/dotfiles/zsh/theme -n gpetryk
+zmodule Tarrasch/zsh-autoenv
+zmodule direnv

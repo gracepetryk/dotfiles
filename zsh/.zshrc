@@ -170,6 +170,7 @@ unset key
 export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$PATH
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+alias ls='ls $LS_FLAGS '
 if which nvim &>/dev/null; then
   alias vim=nvim
 fi
