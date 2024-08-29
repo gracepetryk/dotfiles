@@ -23,7 +23,7 @@ autoload colors && colors
 if (( ${+functions[duration-info-preexec]} && \
     ${+functions[duration-info-precmd]} )); then
     zstyle ':zim:duration-info' show-milliseconds yes
-    zstyle ':zim:duration-info' format 'took %B%F{yellow}%d'
+    zstyle ':zim:duration-info' format 'took %B%F{yellow}%d%b%f'
   add-zsh-hook preexec duration-info-preexec
   add-zsh-hook precmd duration-info-precmd
 fi
