@@ -183,13 +183,6 @@ fi
 
 print_ts oh-my-zsh
 
-if [ -d "$HOME/profile.d" ]; then
-  for RC_FILE in "$HOME"/profile.d/*.rc; do
-    source "$RC_FILE"
-    print_ts $(basename $RC_FILE)
-  done
-fi
-
 print_ts profile
 
 bindkey "\e[1;3D" backward-word # ⌥←
@@ -256,21 +249,17 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d \
   -E 'pyright/*' \
   -E 'neovim/*' \
   -E 'typeshed/*' \
-  -E 'mysterysci/*' \
-  -E 'de-sandbox/apps/*/*'
-"
+  -E 'mysterysci/*' "
 
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
 _fzf_compgen_path() {
-  eval $FZF_DEFAULT_COMMAND . "$1"
+  eval $FZF_CTRL_T_COMMAND . $1
 }
 
 _fzf_compgen_dir() {
-  eval $FZF_DEFAULT_COMMAND --type "d" . "$1"
+  eval $FZF_ALT_C_COMMAND . $1
 }
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 print_ts 'done'
 
@@ -278,4 +267,13 @@ if [[ -d "$HOME/.nvm" ]]; then
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
+zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+
+if [ -d "$HOME/profile.d" ]; then
+  for RC_FILE in "$HOME"/profile.d/*.rc; do
+    source "$RC_FILE"
+    print_ts $(basename $RC_FILE)
+  done
 fi

@@ -1,1 +1,1 @@
-unsetopt globdots
+_comp_options[(R)globdots]=()

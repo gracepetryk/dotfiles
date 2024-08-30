@@ -1,1 +1,1 @@
-setopt globdots
+_comp_options+=(globdots)

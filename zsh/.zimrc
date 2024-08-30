@@ -60,3 +60,4 @@ zmodule mroth/evalcache
 zmodule $HOME/dotfiles/zsh/theme -n gpetryk
 zmodule Tarrasch/zsh-autoenv
 zmodule direnv
+zmodule jeffreytse/zsh-vi-mode

@@ -10,10 +10,10 @@ pyenv_path=$(which pyenv)
 init_pyenv() {
   if [[ ! $STARTED_PYENV ]]; then
     export STARTED_PYENV=1
-    deactivate
+    deactivate nondestructive
   fi
 
-  _evalcache $pyenv_path init --no-rehash -
+  _evalcache $pyenv_path init -
   _evalcache $pyenv_path virtualenv-init - | sed 's/precmd/chpwd/'
 
   activate_current_python
@@ -61,10 +61,9 @@ activate_current_python() {
   if [[ $STARTED_PYENV && $PYENV_VERSION != $python_version ]]; then
     pyenv activate $(find_python_version)
     return 0
-  else
+  elif [[ $(basename $VIRTUAL_ENV 2>/dev/null) != $python_version ]]; then
     source "$HOME/.pyenv/versions/${python_version}/bin/activate"
   fi
-
 }
 
 if [[ -d $HOME/.pyenv ]]; then
