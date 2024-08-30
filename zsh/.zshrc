@@ -147,6 +147,8 @@ fi
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
+
+export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$PATH
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
@@ -167,7 +169,6 @@ for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 # }}} End configuration added by Zim install
 
-export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$PATH
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 alias ls='ls $LS_FLAGS '
