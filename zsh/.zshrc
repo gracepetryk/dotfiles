@@ -171,7 +171,7 @@ unset key
 
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-alias ls='ls --color $LS_FLAGS '
+alias ls="$(alias ls | cut -d= -f2- | tr -d "'") \$LS_FLAGS "
 if which nvim &>/dev/null; then
   alias vim=nvim
 fi

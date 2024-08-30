@@ -51,6 +51,6 @@ function venv_prefix() {
 
 PROMPT='
 %{$fg_bold[green]%}%~%{$reset_color%}${(e)git_info[prompt]} ${duration_info}
-%{$reset_color%}$(venv_prefix)%{$fg_bold[blue]%}%n%{$reset_color%}@%F{166%}%m%{${reset_color}%} %(?::%{$fg[red]%}[%?] )%{$reset_color%}$ '
+%{$reset_color%}$(venv_prefix)%{$fg_bold[blue]%}%n%{$reset_color%}@%F{166%}%m%{${reset_color}%} %(?::%{$fg[red]%}[%?] )%{$reset_color%}$%f%b '
 
 RPROMPT=''
