@@ -47,3 +47,6 @@ vim.g.omni_sql_no_default_maps = 1
 
 vim.g.loaded_tar = 0
 
+if not pcall(function () vim.g.python3_host_prog = vim.env.VIRTUAL_ENV .. '/bin/python' end) then
+  vim.g.loaded_python3_provider = 0
+end

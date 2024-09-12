@@ -121,6 +121,9 @@ lspconfig.volar.setup {
 lspconfig.eslint.setup({})
 
 lspconfig['pyright'].setup({
+  root_dir = function (filename, bufnr)
+    return vim.fn.getcwd()
+  end,
   settings = {
     python = {
       analysis = {

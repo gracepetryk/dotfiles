@@ -67,7 +67,7 @@ activate_current_python() {
 }
 
 if [[ -d $HOME/.pyenv ]]; then
-  source $HOME/.pyenv/versions/${DEFAULT_PYENV}/bin/activate
+  activate_current_python
   autoload -Uz add-zsh-hook
   add-zsh-hook chpwd activate_current_python
 fi

@@ -10,6 +10,6 @@ require 'nvim-treesitter.configs'.setup({
   },
   indent = {
     enable = true,
-    disable = { "sql" }
+    disable = { "sql", "lua" }
   },
 })

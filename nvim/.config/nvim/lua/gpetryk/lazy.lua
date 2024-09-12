@@ -1,8 +1,8 @@
 return {
   { 'gracepetryk/rose-pine', priority = 2000, dev=true, config = function() require 'plugins.colors' end, lazy=false},
 
+  { 'tpope/vim-vinegar' },
   { 'tpope/vim-sleuth' },
-
   {
     'tpope/vim-fugitive', -- git integration
     dependencies = {
