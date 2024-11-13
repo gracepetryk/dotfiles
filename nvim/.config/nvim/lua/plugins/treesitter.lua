@@ -6,10 +6,11 @@ require 'nvim-treesitter.configs'.setup({
 
   highlight = {
     enable = true,
+    disable = { 'csv' },
     additional_vim_regex_highlighting = false,
   },
   indent = {
     enable = true,
-    disable = { "sql", "lua" }
+    disable = { "sql", "lua", "yaml" }
   },
 })

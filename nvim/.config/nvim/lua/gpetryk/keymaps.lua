@@ -3,6 +3,8 @@ local map = require("gpetryk.map").map
 map('i', '<C-c>', '<Esc>')
 map('i', '<Esc>', '<C-c>') -- in case something goes wrong
 
+map('n', 's', '&&')
+
 -- swap line/character mark navigation
 map({'n', 'x'}, "'", "m")
 map({'n', 'x'}, "m", "'")
@@ -78,6 +80,9 @@ map('n', 'N', 'Nzz')
 --qflist/loclist
 map('n', '<C-n>', ':cn<CR>')
 map('n', '<C-p>', ':cp<CR>')
+
+map('n', '<A-n>', ':lnext<CR>')
+map('n', '<A-p>', ':lprev<CR>')
 
 -- load current dir session
 map({ 'n' }, '<leader>ls', ':SessionManager load_current_dir_session<CR>')

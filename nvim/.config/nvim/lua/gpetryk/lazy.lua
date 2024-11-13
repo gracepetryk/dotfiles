@@ -1,14 +1,13 @@
 return {
   { 'gracepetryk/rose-pine', priority = 2000, dev=true, config = function() require 'plugins.colors' end, lazy=false},
 
-  { 'tpope/vim-vinegar' },
   { 'tpope/vim-sleuth' },
+  { 'tpope/vim-abolish' },
   {
     'tpope/vim-fugitive', -- git integration
     dependencies = {
       { 'tpope/vim-rhubarb' }, -- github integration
     },
-    cmd = {'G', 'Gbrowse'}
   },
 
   { 'lewis6991/gitsigns.nvim', config = function() require 'plugins.gitsigns' end, event = 'VeryLazy' },

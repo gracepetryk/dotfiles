@@ -11,8 +11,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
     local bufopts = { noremap = true, silent = true }
-    vim.keymap.set('n', '<A-[>', vim.diagnostic.goto_prev, bufopts)
-    vim.keymap.set('n', '<A-]>', vim.diagnostic.goto_next, bufopts)
+
+    vim.keymap.set('n', '<A-[>', function ()
+      vim.diagnostic.jump({count=1, float=true})
+    end, bufopts)
+
+    vim.keymap.set('n', '<A-]>', function ()
+      vim.diagnostic.jump({count=-1, float=true})
+    end, bufopts)
+
     vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
 
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
@@ -96,7 +103,7 @@ local mason_registry = require('mason-registry')
 local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
 local ts_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/typescript/lib'
 
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   init_options = {
     plugins = {
       {
@@ -121,6 +128,7 @@ lspconfig.volar.setup {
 lspconfig.eslint.setup({})
 
 lspconfig['pyright'].setup({
+  cmd={"node", "/Users/GPetryk/pyright/packages/pyright/langserver.index.js", "--stdio"},
   root_dir = function (filename, bufnr)
     return vim.fn.getcwd()
   end,
@@ -138,7 +146,7 @@ lspconfig['pyright'].setup({
           reportUnnecessaryTypeIgnoreComment = "warning"
         }
       },
-      venvPath = "/Users/GPetryk/.pyenv/versions",
+      pythonPath = vim.system({"which", "python"}):wait().stdout:gsub('%s+', ''),
     }
   }
 })
@@ -151,15 +159,18 @@ lspconfig['html'].setup({
   filetypes = { 'html', 'htmldjango' }
 })
 
-lspconfig['efm'].setup({
-  settings = {
-    rootMarkers={".git/"},
-    languages = {
-      python = {
-        require('efmls-configs.linters.flake8')
+if vim.fn.executable('flake8') == 1 then
+  lspconfig['efm'].setup({
+    filetypes = { 'python' },
+    settings = {
+      rootMarkers={".git/"},
+      languages = {
+        python = {
+          require('efmls-configs.linters.flake8')
+        }
       }
     }
-  }
-})
+  })
+end
 
 vim.cmd('LspStart')

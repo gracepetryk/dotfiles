@@ -3,40 +3,5 @@
 
 ((string
    (string_content) @injection.content)
- (#lua-match? @injection.content "^%s*SELECT%s")
- (#set! injection.language "sql"))
-
-((string
-   (string_content) @injection.content)
- (#lua-match? @injection.content "^%s*INSERT%s")
- (#set! injection.language "sql"))
-
-((string
-   (string_content) @injection.content)
- (#lua-match? @injection.content "^%s*UPDATE%s")
- (#set! injection.language "sql"))
-
-((string
-   (string_content) @injection.content)
- (#lua-match? @injection.content "^%s*DELETE%s")
- (#set! injection.language "sql"))
-
-((string
-   (string_content) @injection.content)
- (#lua-match? @injection.content "^%s*CREATE TABLE%s")
- (#set! injection.language "sql"))
-
-((string
-   (string_content) @injection.content)
- (#lua-match? @injection.content "^%s*CREATE TEMP TABLE%s")
- (#set! injection.language "sql"))
-
-((string
-   (string_content) @injection.content)
- (#lua-match? @injection.content "^%s*DROP TABLE%s")
- (#set! injection.language "sql"))
-
-((string
-   (string_content) @injection.content)
- (#lua-match? @injection.content "^%s*%-%-%s")
+ (#match? @injection.content "\\v\\c^(\\s|\n)*(BEGIN TRANSACTION;|SELECT|INSERT|UPDATE|DELETE|CREATE TABLE|CREATE TEMP TABLE|DROP TABLE|--)(\\s|\n)")
  (#set! injection.language "sql"))

@@ -3,72 +3,10 @@
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-export DEFAULT_PYENV=development
 
 pyenv_path=$(which pyenv)
 
-init_pyenv() {
-  if [[ ! $STARTED_PYENV ]]; then
-    export STARTED_PYENV=1
-    deactivate nondestructive
-  fi
-
-  _evalcache $pyenv_path init -
-  _evalcache $pyenv_path virtualenv-init - | sed 's/precmd/chpwd/'
-
-  activate_current_python
+function pyenv() {
+    _evalcache $pyenv_path init -
+    pyenv $@
 }
-
-pyenv() {
-  init_pyenv
-  pyenv $@
-}
-
-find_in_parents() {
-  local current_dir=$PWD
-
-  while true; do
-    if [[ -e $current_dir/$1 ]]; then
-      echo $current_dir/$1
-      return 0
-    fi
-
-    if [[ $current_dir == '/' ]]; then
-      break
-    fi
-
-    current_dir=$(dirname $current_dir)
-  done
-
-  return 1
-}
-
-find_python_version() {
-  version_file=$(find_in_parents .python-version);
-
-  if [ $? -eq 0 ]; then
-    echo $(cat $version_file)
-    return 0
-  fi
-
-  echo $DEFAULT_PYENV
-  return 0
-}
-
-activate_current_python() {
-  python_version=$(find_python_version)
-
-  if [[ $STARTED_PYENV && $PYENV_VERSION != $python_version ]]; then
-    pyenv activate $(find_python_version)
-    return 0
-  elif [[ $(basename $VIRTUAL_ENV 2>/dev/null) != $python_version ]]; then
-    source "$HOME/.pyenv/versions/${python_version}/bin/activate"
-  fi
-}
-
-if [[ -d $HOME/.pyenv ]]; then
-  activate_current_python
-  autoload -Uz add-zsh-hook
-  add-zsh-hook chpwd activate_current_python
-fi
-

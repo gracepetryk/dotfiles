@@ -1,37 +1,10 @@
+# zmodload zsh/zprof
 # vim:ft=bash
 
-if ! which gdate >/dev/null; then
-  alias gdate=date
-fi
-
-local total=0
-local start=$(gdate +%s.%N)
 
 if [ -f "$HOME"/.env ]; then
   source "$HOME"/.env
 fi
-
-log_zsh_start_perf=0
-function print_ts() {
-  if [[ ! ($log_zsh_start_perf -eq 1) ]] ; then
-    return 0
-  fi
-
-  if [[ $2 ]]; then
-    total=0
-    start=$(gdate +%s.%N)
-  fi
-
-  local t=$(gdate +%s.%N)
-  local t_diff=$(( $t - $start ))
-
-  start=$t
-  total=$(( $total + $t_diff ))
-
-  printf "%-16s\tdiff: %.3f\ttotal: %.3f\n" $1 $t_diff $total
-}
-
-print_ts start
 
 if [ -f /etc/zshrc ]; then
   source /etc/zshrc
@@ -187,10 +160,6 @@ if ! which fd &>/dev/null; then
   FD=fdfind
 fi
 
-print_ts oh-my-zsh
-
-print_ts profile
-
 bindkey "\e[1;3D" backward-word # ⌥←
 bindkey "\e[1;3C" forward-word # ⌥→
 
@@ -219,17 +188,10 @@ if which bat > /dev/null; then
 fi
 
 
-timezsh() {
-  shell=${1-$SHELL}
-  for i in $(seq 1 10); do time $shell -i -c exit; done
-}
-
 alias flake_branch='flake8 $(git diff develop.. --name-only)'
 
 # set up fzf
 
-export PATH=$PATH:$HOME/.fzf/bin
-source <(fzf --zsh)
 
 export FZF_COMPLETION_TRIGGER='!!'
 export FZF_DEFAULT_COMMAND="$FD --hidden --no-ignore \
@@ -255,31 +217,13 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d \
   -E 'pyright/*' \
   -E 'neovim/*' \
   -E 'typeshed/*' \
-  -E 'mysterysci/*' "
+  -E 'mysterysci/*' \
+  -E '**/apps/edde/*' "
 
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-
-_fzf_compgen_path() {
-  eval $FZF_CTRL_T_COMMAND . $1
-}
-
-_fzf_compgen_dir() {
-  eval $FZF_ALT_C_COMMAND . $1
-}
-
-print_ts 'done'
-
-if [[ -d "$HOME/.nvm" ]]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 
 if [ -d "$HOME/profile.d" ]; then
   for RC_FILE in "$HOME"/profile.d/*.rc; do
     source "$RC_FILE"
-    print_ts $(basename $RC_FILE)
   done
 fi

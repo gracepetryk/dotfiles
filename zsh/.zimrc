@@ -27,8 +27,8 @@ zmodule utility
 zmodule duration-info
 # Exposes git repository status information to prompts, used by asciiship.
 zmodule git-info
-# A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
-#zmodule asciiship
+
+zmodule $HOME/dotfiles/zsh/theme -n gpetryk
 
 #
 # Completion
@@ -54,9 +54,6 @@ zmodule zsh-users/zsh-history-substring-search
 # zmodule zsh-users/zsh-autosuggestions
 # }}} End configuration added by Zim install
 
-
-zmodule mroth/evalcache
 # zmodule asciiship
-zmodule $HOME/dotfiles/zsh/theme -n gpetryk
-zmodule Tarrasch/zsh-autoenv
 zmodule direnv
+zmodule fzf
