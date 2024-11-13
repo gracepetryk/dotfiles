@@ -19,16 +19,18 @@ zmodule termtitle
 # Utility aliases and functions. Adds colour to ls, grep and less.
 zmodule utility
 
+zmodule romkatv/powerlevel10k --use degit
+
 #
 # Prompt
 #
 
 # Exposes to prompts how long the last command took to execute, used by asciiship.
-zmodule duration-info
-# Exposes git repository status information to prompts, used by asciiship.
-zmodule git-info
-
-zmodule $HOME/dotfiles/zsh/theme -n gpetryk
+# zmodule duration-info
+# # Exposes git repository status information to prompts, used by asciiship.
+# zmodule git-info
+# 
+# zmodule $HOME/dotfiles/zsh/theme -n gpetryk
 
 #
 # Completion
