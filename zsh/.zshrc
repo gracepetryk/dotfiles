@@ -3,15 +3,24 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-#
-# (( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
 
-export DIRENV_LOG_FORMAT=''
+export DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Add brew sbin to path
+export PATH="$PATH:/usr/local/sbin"
+
+# add firefox to path
+export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
+export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
+export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46"
+
+(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# (( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
+(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
 
 
 # zmodload zsh/zprof
@@ -137,7 +146,6 @@ if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
 
-export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$PATH
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
@@ -158,7 +166,6 @@ for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 # }}} End configuration added by Zim install
 
-export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 existing_ls='ls'
 if [[ ! -z "$(alias ls)" ]]; then
@@ -179,13 +186,6 @@ fi
 bindkey "\e[1;3D" backward-word # ⌥←
 bindkey "\e[1;3C" forward-word # ⌥→
 
-# Add brew sbin to path
-export PATH="$PATH:/usr/local/sbin"
-
-# add firefox to path
-export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
-export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
-export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46"
 
 bat="bat"
 if which batcat > /dev/null; then
@@ -246,3 +246,4 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+zmodload zsh/zprof

@@ -29,8 +29,7 @@ zmodule romkatv/powerlevel10k --use degit
 # zmodule duration-info
 # # Exposes git repository status information to prompts, used by asciiship.
 # zmodule git-info
-# 
-# zmodule $HOME/dotfiles/zsh/theme -n gpetryk
+#
 
 #
 # Completion
@@ -59,3 +58,4 @@ zmodule zsh-users/zsh-history-substring-search
 # zmodule asciiship
 zmodule direnv
 zmodule fzf
+zmodule mroth/evalcache

@@ -3,10 +3,3 @@
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-
-pyenv_path=$(which pyenv)
-
-function pyenv() {
-    _evalcache $pyenv_path init -
-    pyenv $@
-}
