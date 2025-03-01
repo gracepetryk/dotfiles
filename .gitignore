@@ -4,3 +4,5 @@ nvim/.repro
 *.swp
 minimal_kitty.conf
 *.zwc
+
+.DS_Store
