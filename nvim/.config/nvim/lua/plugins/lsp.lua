@@ -34,14 +34,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, { border = 'single' }) end, bufopts)
 
     vim.diagnostic.config({
-      signs = {
-        text = {
-          [vim.diagnostic.severity.INFO] = '',
-          [vim.diagnostic.severity.HINT] = '',
-        },
+      underline = {
+        severity = {
+          min = vim.diagnostic.severity.WARN
+        }
       },
       severity_sort = true,
-      virtual_text = false,
       float = {
         format = function (diagnostic)
           return string.format('%s [%s]', diagnostic.message, diagnostic.code)
@@ -127,16 +125,12 @@ lspconfig.volar.setup {
 
 lspconfig.eslint.setup({})
 
-lspconfig['pyright'].setup({
-  cmd={"node", "/Users/GPetryk/pyright/packages/pyright/langserver.index.js", "--stdio"},
-  root_dir = function (filename, bufnr)
-    return vim.fn.getcwd()
-  end,
+lspconfig['basedpyright'].setup({
   settings = {
-    python = {
+    basedpyright = {
       analysis = {
         autoSearchPaths = true,
-        diagnosticMode = "onlyOpenFiles",
+        diagnosticMode = "openFilesOnly",
         useLibraryCodeForTypes = true,
         diagnosticSeverityOverrides = {
           reportArgumentType = "warning",

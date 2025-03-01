@@ -48,6 +48,24 @@ return {
     event = 'VeryLazy',
   },
 
+  {
+    'gracepetryk/diagflow.nvim',
+    dev=true,
+    event = 'LspAttach',
+    opts = {
+      severity_colors = {  -- The highlight groups to use for each diagnostic severity level
+        error = "DiagnosticFloatingError",
+        warn = "DiagnosticFloatingWarn",
+        info = "DiagnosticFloatingInfo",
+        hint = "DiagnosticFloatingHint",
+      },
+      enable = true,
+      scope = 'line',
+      text_align = 'right',
+      placement = 'bottom',
+      show_borders = true,
+    }
+  },
 
   {
     'hrsh7th/nvim-cmp',

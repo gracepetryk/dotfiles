@@ -2,6 +2,7 @@
 solargraph_comments.rb
 schema.rb
 pyrightconfig.json
+.basedpyright/
 .ripgrep
 .vimspector.json
 neovim_build

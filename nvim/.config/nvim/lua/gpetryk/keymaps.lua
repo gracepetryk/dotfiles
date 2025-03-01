@@ -18,8 +18,8 @@ map('n', 'go', '`>')
 map('n', 'gO', '`<')
 
 -- don't fat finger macros
-map('n', 'q', '')
-map('n', 'Q', 'q')
+-- map('n', 'q', '')
+-- map('n', 'Q', 'q')
 
 map({'n', 'x'}, 'p', "p`[mP`]mp")
 map({'n', 'x'}, 'P', "P`]mp`[mP")
@@ -80,6 +80,7 @@ map('n', 'N', 'Nzz')
 --qflist/loclist
 map('n', '<C-n>', ':cn<CR>')
 map('n', '<C-p>', ':cp<CR>')
+map('n', '<C-CR>', ':cc<CR>')
 
 map('n', '<A-n>', ':lnext<CR>')
 map('n', '<A-p>', ':lprev<CR>')

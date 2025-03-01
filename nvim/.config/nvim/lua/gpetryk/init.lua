@@ -47,3 +47,31 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
   group=fold_group,
   command='silent! loadview'
 })
+
+
+vim.api.nvim_create_autocmd('QuickFixCmdPost', {
+  pattern={"[^l]*"},
+  callback=function ()
+    vim.cmd.cwindow()
+  end,
+  nested=true
+})
+
+vim.api.nvim_create_autocmd('QuickFixCmdPost', {
+  pattern={"l*"},
+  callback=function ()
+    vim.cmd.lwindow()
+  end,
+  nested=true
+})
+
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  callback=function ()
+    if (vim.opt_local.buftype:get() == 'quickfix' and vim.w.qflist_created == nil) then
+      vim.w.qflist_created = 1
+      vim.defer_fn(function ()
+        vim.cmd.wincmd('p')
+      end, 20)
+    end
+  end
+})

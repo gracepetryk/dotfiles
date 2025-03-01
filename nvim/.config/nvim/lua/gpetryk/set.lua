@@ -20,10 +20,10 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes:1'
 vim.opt.colorcolumn = '91'
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+-- vim.opt.tabstop = 4
+-- vim.opt.softtabstop = 4
+-- vim.opt.shiftwidth = 4
+-- vim.opt.expandtab = true
 
 vim.opt.termguicolors = true
 
