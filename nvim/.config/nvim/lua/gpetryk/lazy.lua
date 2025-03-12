@@ -59,8 +59,9 @@ return {
         info = "DiagnosticFloatingInfo",
         hint = "DiagnosticFloatingHint",
       },
+      max_height = 1,
       enable = true,
-      scope = 'line',
+      scope = 'cursor',
       text_align = 'right',
       placement = 'bottom',
       show_borders = true,
@@ -68,15 +69,19 @@ return {
   },
 
   {
-    'hrsh7th/nvim-cmp',
-    config = function() require 'plugins.completions' end,
-    dependencies = {
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'L3MON4D3/LuaSnip', build = 'make install_jsregexp' },
-      { 'saadparwaiz1/cmp_luasnip' },
-    },
-    event = 'VeryLazy'
+    'saghen/blink.cmp',
+    -- optional: provides snippets for the snippet source
+    dependencies = 'rafamadriz/friendly-snippets',
+
+    -- use a release tag to download pre-built binaries
+    version = '*',
+    -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+    -- build = 'cargo build --release',
+    -- If you use nix, you can build from source using latest nightly rust with:
+    -- build = 'nix run .#build-plugin',
+
+    opts = require('plugins.cmp'),
+    opts_extend = { "sources.default" }
   },
 
   {

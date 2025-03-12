@@ -28,7 +28,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', 'L', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set({ 'i', 'n' }, '<C-k>', vim.lsp.buf.signature_help)
 
 
     vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, { border = 'single' }) end, bufopts)
@@ -56,17 +55,24 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     border = 'single',
   }
 )
-vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
-  local bufnr, winnr = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = 'single'
-  })(...)
 
-  if require('cmp').visible() and require('cmp').core then
-    require('cmp').close()
-  end
-
-  return bufnr, winnr
-end
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  {
+    border = 'single',
+  }
+)
+-- vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
+--   local bufnr, winnr = vim.lsp.with(vim.lsp.handlers.signature_help, {
+--     border = 'single'
+--   })(...)
+--
+--   if require('cmp').visible() and require('cmp').core then
+--     require('cmp').close()
+--   end
+--
+--   return bufnr, winnr
+-- end
 
 
 lspconfig['lua_ls'].setup({
@@ -125,9 +131,9 @@ lspconfig.volar.setup {
 
 lspconfig.eslint.setup({})
 
-lspconfig['basedpyright'].setup({
+lspconfig['pyright'].setup({
   settings = {
-    basedpyright = {
+    pyright = {
       analysis = {
         autoSearchPaths = true,
         diagnosticMode = "openFilesOnly",

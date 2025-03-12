@@ -88,39 +88,16 @@ map('n', '<A-p>', ':lprev<CR>')
 -- load current dir session
 map({ 'n' }, '<leader>ls', ':SessionManager load_current_dir_session<CR>')
 
-map('i', '<C-y>', function ()
-  vim.g.disable_cmp = true
-  vim.api.nvim_feedkeys('', 'n', false)
-
-  vim.api.nvim_create_autocmd({ 'InsertLeave' } , {
-    callback = function ()
-      vim.g.disable_cmp = false
-    end
-  })
-end)
-
--- LuaSnip
-local ls = nil
-map({ 'i', 's' }, '<Tab>', function()
-  if ls == nil then
-    ls = require('luasnip')
-  end
-
-  if ls.choice_active() then
-    require('luasnip.extras.select_choice')()
-  elseif ls.expand_or_locally_jumpable() then
-    ls.expand_or_jump()
-  else
-    vim.api.nvim_feedkeys(
-      vim.api.nvim_replace_termcodes('<Tab>', true, false, true),
-      'nt',
-      true
-    )
-  end
-end)
-
-map({ 'i', 's' }, '<S-Tab>', function()
-  ls.jump(-1)
-end)
+-- map('i', '<C-y>', function ()
+--   vim.g.disable_cmp = true
+--   vim.api.nvim_feedkeys('', 'n', false)
+-- 
+--   vim.api.nvim_create_autocmd({ 'InsertLeave' } , {
+--     callback = function ()
+--       vim.g.disable_cmp = false
+--     end
+--   })
+-- end)
 
 map('n', '<C-s>', ':set spell!<CR>')
+map('n', '<C-k>', vim.lsp.buf.signature_help)
