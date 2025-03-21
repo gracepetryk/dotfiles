@@ -2,7 +2,6 @@ return {
   { 'gracepetryk/rose-pine', priority = 2000, dev=true, config = function() require 'plugins.colors' end, lazy=false},
 
   { 'tpope/vim-sleuth' },
-  { 'tpope/vim-abolish' },
   {
     'tpope/vim-fugitive', -- git integration
     dependencies = {
@@ -37,7 +36,21 @@ return {
     },
   },
 
-  { 'Shatur/neovim-session-manager', config = function() require 'plugins.sessions' end, event = 'VeryLazy'},
+  {
+    'rmagatti/auto-session',
+    lazy = false,
+
+    ---enables autocomplete for opts
+    ---@module "auto-session"
+    ---@type AutoSession.Config
+    opts = {
+      suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+      cwd_change_handling=true,
+      session_lens = {
+        load_on_setup = false
+      }
+    }
+  },
 
 
   { 'williamboman/mason.nvim', lazy=true, cmd='Mason' }, -- install LSPs/DAP/etc
@@ -81,7 +94,8 @@ return {
     -- build = 'nix run .#build-plugin',
 
     opts = require('plugins.cmp'),
-    opts_extend = { "sources.default" }
+    opts_extend = { "sources.default" },
+    event = 'InsertEnter'
   },
 
   {
@@ -98,8 +112,7 @@ return {
         dependencies = {
           'nvim-neotest/nvim-nio'
         }
-      },
-      { 'rcarriga/cmp-dap' },
+      }
     }
   },
 
@@ -116,7 +129,6 @@ return {
     build = ':TSUpdate'
   },
 
-  { 'rodjek/vim-puppet', ft = {'pp', 'erb'} },
-  { 'lepture/vim-jinja', ft = {'html'}},
-  { 'norcalli/nvim-colorizer.lua', setup = true },
+  { 'rodjek/vim-puppet' },
+  { 'lepture/vim-jinja' },
 }

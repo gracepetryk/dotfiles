@@ -85,13 +85,10 @@ map('n', '<C-CR>', ':cc<CR>')
 map('n', '<A-n>', ':lnext<CR>')
 map('n', '<A-p>', ':lprev<CR>')
 
--- load current dir session
-map({ 'n' }, '<leader>ls', ':SessionManager load_current_dir_session<CR>')
-
 -- map('i', '<C-y>', function ()
 --   vim.g.disable_cmp = true
 --   vim.api.nvim_feedkeys('', 'n', false)
--- 
+--
 --   vim.api.nvim_create_autocmd({ 'InsertLeave' } , {
 --     callback = function ()
 --       vim.g.disable_cmp = false
