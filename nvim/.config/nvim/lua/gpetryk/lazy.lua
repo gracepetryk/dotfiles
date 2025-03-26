@@ -130,5 +130,5 @@ return {
   },
 
   { 'rodjek/vim-puppet' },
-  { 'lepture/vim-jinja' },
+  { 'Glench/Vim-Jinja2-Syntax' },
 }

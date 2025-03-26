@@ -1,4 +1,5 @@
 require 'nvim-treesitter.configs'.setup({
+  modules = {},
   ignore_install = {},
   ensure_installed ={},
   sync_install = false,
@@ -7,7 +8,7 @@ require 'nvim-treesitter.configs'.setup({
   highlight = {
     enable = true,
     disable = { 'csv' },
-    additional_vim_regex_highlighting = false,
+    additional_vim_regex_highlighting = { "jinja" },
   },
   indent = {
     enable = true,

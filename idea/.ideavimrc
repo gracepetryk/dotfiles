@@ -1,10 +1,7 @@
 set number relativenumber
 
 set scrolloff=10
+set incsearch
 
 nnoremap x "_x
-imap jj <Esc>
-imap ;; <Right>
-imap hh <Left>
-nnoremap DD "_dd
-nnoremap y m'y
+imap <C-c> <Esc>
