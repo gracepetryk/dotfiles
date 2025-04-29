@@ -17,3 +17,5 @@ apps/.nvmrc
 .direnv/
 .autoenv.zsh
 .autoenv_leave.zsh
+
+.gpetryk/

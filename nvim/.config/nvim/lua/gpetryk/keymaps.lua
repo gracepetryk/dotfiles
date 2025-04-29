@@ -97,4 +97,3 @@ map('n', '<A-p>', ':lprev<CR>')
 -- end)
 
 map('n', '<C-s>', ':set spell!<CR>')
-map('n', '<C-k>', vim.lsp.buf.signature_help)

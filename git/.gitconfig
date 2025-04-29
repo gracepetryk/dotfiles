@@ -32,4 +32,8 @@
 [difftool "kitty.gui"]
     cmd = kitty kitty +kitten diff $LOCAL $REMOTE
 [rerere]
-    enabled = true
+
+[url "ssh://git@bitbucket.org/"]
+    insteadOf = https://bitbucket.org/
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/   enabled = true

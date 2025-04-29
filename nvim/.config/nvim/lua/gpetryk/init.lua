@@ -1,4 +1,5 @@
 require("gpetryk.set")
+require("gpetryk.abbrev")
 
 require("lazy").setup("gpetryk.lazy", {
   dev = {
