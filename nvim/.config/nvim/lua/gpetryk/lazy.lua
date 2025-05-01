@@ -4,6 +4,7 @@ return {
   { 'tpope/vim-sleuth' },
   {
     'tpope/vim-fugitive', -- git integration
+    event = 'VeryLazy',
     dependencies = {
       { 'tpope/vim-rhubarb' }, -- github integration
     },
@@ -36,21 +37,20 @@ return {
     },
   },
 
-  -- {
-  --   'rmagatti/auto-session',
-  --   lazy = false,
+  {
+    'rmagatti/auto-session',
 
-  --   ---enables autocomplete for opts
-  --   ---@module "auto-session"
-  --   ---@type AutoSession.Config
-  --   opts = {
-  --     suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
-  --     cwd_change_handling=true,
-  --     session_lens = {
-  --       load_on_setup = false
-  --     }
-  --   }
-  -- },
+    ---enables autocomplete for opts
+    ---@module "auto-session"
+    ---@type AutoSession.Config
+    opts = {
+      suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+      cwd_change_handling=true,
+      session_lens = {
+        load_on_setup = false
+      }
+    }
+  },
 
 
   { 'williamboman/mason.nvim', lazy=true, cmd='Mason' }, -- install LSPs/DAP/etc
@@ -134,35 +134,20 @@ return {
     dependencies = {
       'nvim-tree/nvim-web-devicons'
     },
-    event = 'UIEnter', -- needs to load after autosession
+    lazy=false,
     config = function ()
-      require('nvim-tree').setup({
-        update_focused_file = {
-          enable = true
-        },
-      })
-
-      local nt = require('nvim-tree.api')
-
-      vim.keymap.set('n', '<leader>nt', function ()
-        nt.tree.toggle({focus_file = true, focus = false})
-      end)
-
-      -- create a blank window to avoid the file jumping to the right when nvim-tree
-      -- finishes loading
-      new_buf = vim.api.nvim_create_buf(false, false)
-      new_win = vim.api.nvim_open_win(new_buf, false, {
-        width = require('nvim-tree').get_config().view.width,
-        split = 'left',
-      })
-
-      vim.defer_fn(function()
-        nt.tree.toggle({winid = new_win, find_file = true, focus = false})
-      end, 300)
+      require('plugins.tree')
     end
-
   },
 
-  { 'rodjek/vim-puppet' },
-  { 'Glench/Vim-Jinja2-Syntax' },
+  { 'rodjek/vim-puppet', event = 'VeryLazy' },
+  { 'Glench/Vim-Jinja2-Syntax', event = 'VeryLazy' },
+  {
+    'norcalli/nvim-colorizer.lua',
+    enabled = false,
+    event = 'VeryLazy',
+    main = 'colorizer',
+    opts = { lua = {mode = 'foreground'} },
+    opts_extend = { mode = 'foreground' }
+  },
 }

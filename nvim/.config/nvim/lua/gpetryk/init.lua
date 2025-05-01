@@ -1,6 +1,7 @@
 require("gpetryk.set")
 require("gpetryk.abbrev")
 
+
 require("lazy").setup("gpetryk.lazy", {
   dev = {
     path = "~/dotfiles/nvim/plugins"
@@ -11,6 +12,7 @@ require("lazy").setup("gpetryk.lazy", {
   },
   lockfile = vim.fn.stdpath('config') .. "/.lazy-lock.json"
 })
+
 
 require("gpetryk.keymaps")
 require("gpetryk.autosave")
@@ -77,3 +79,31 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     end
   end
 })
+
+local nvim_tree = require('lazy.core.config').plugins['nvim-tree.lua']
+if nvim_tree ~= nil then
+  vim.api.nvim_create_autocmd('UIEnter', {
+    once = true,
+    callback = function ()
+      -- create a blank window to avoid the file jumping to the right when nvim-tree
+      -- finishes loading
+      local new_buf = vim.api.nvim_create_buf(false, false)
+      local current_win = vim.api.nvim_get_current_win()
+      local new_win = vim.api.nvim_open_win(new_buf, true, {
+        split = 'left',
+      })
+
+      vim.cmd.wincmd('H') -- move to far left
+      vim.cmd('vert resize 30') -- set size
+      vim.api.nvim_set_current_win(current_win)
+
+      vim.defer_fn(function ()
+        local nt = require('nvim-tree.api')
+
+        vim.keymap.set('n', '<leader>nt', nt.tree.open)
+
+        nt.tree.toggle({winid = new_win, find_file = true, focus = false})
+      end, 300)
+    end
+  })
+end

@@ -46,6 +46,8 @@ vim.opt.spellsuggest = '10'
 vim.opt.pumheight = 15
 vim.opt.previewheight = 20
 
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 vim.g.omni_sql_no_default_maps = 1
 
 vim.g.loaded_tar = 0
