@@ -8,3 +8,6 @@
 	branch = develop
 [submodule "nvim/plugins/rose-pine"]
 	branch = custom
+[submodule "nvim/plugins/nvim-tree.lua"]
+	path = nvim/plugins/nvim-tree.lua
+	url = git@github.com:gracepetryk/nvim-tree.lua.git

@@ -46,6 +46,7 @@ return {
     opts = {
       suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
       cwd_change_handling=true,
+      auto_restore_last_session=false,
       session_lens = {
         load_on_setup = false
       }
@@ -61,25 +62,25 @@ return {
     event = 'VeryLazy',
   },
 
-  {
-    'gracepetryk/diagflow.nvim',
-    dev=true,
-    event = 'LspAttach',
-    opts = {
-      severity_colors = {  -- The highlight groups to use for each diagnostic severity level
-        error = "DiagnosticFloatingError",
-        warn = "DiagnosticFloatingWarn",
-        info = "DiagnosticFloatingInfo",
-        hint = "DiagnosticFloatingHint",
-      },
-      max_height = 1,
-      enable = true,
-      scope = 'cursor',
-      text_align = 'right',
-      placement = 'bottom',
-      show_borders = true,
-    }
-  },
+  -- {
+  --   'gracepetryk/diagflow.nvim',
+  --   dev=true,
+  --   event = 'LspAttach',
+  --   opts = {
+  --     severity_colors = {  -- The highlight groups to use for each diagnostic severity level
+  --       error = "DiagnosticFloatingError",
+  --       warn = "DiagnosticFloatingWarn",
+  --       info = "DiagnosticFloatingInfo",
+  --       hint = "DiagnosticFloatingHint",
+  --     },
+  --     max_height = 1,
+  --     enable = true,
+  --     scope = 'cursor',
+  --     text_align = 'right',
+  --     placement = 'bottom',
+  --     show_borders = true,
+  --   }
+  -- },
 
   {
     'saghen/blink.cmp',
@@ -131,10 +132,10 @@ return {
 
   {
     'nvim-tree/nvim-tree.lua',
+    dev=true,
     dependencies = {
-      'nvim-tree/nvim-web-devicons'
+      'nvim-tree/nvim-web-devicons',
     },
-    lazy=false,
     config = function ()
       require('plugins.tree')
     end
@@ -150,4 +151,6 @@ return {
     opts = { lua = {mode = 'foreground'} },
     opts_extend = { mode = 'foreground' }
   },
+
+  { 'wavded/vim-stylus' }
 }

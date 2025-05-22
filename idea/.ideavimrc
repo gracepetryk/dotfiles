@@ -7,6 +7,9 @@ set incsearch
 nnoremap x "_x
 imap <C-c> <Esc>
 
+map <A-h> <C-w>h
+map <A-l> <C-w>l
+
 nmap L <Action>(ShowHoverInfo)
 
 " Indentation
@@ -16,3 +19,6 @@ set cindent                                " Recommended seting for automatic C-
 set autoindent                             " Automatic indentation in non-C files
 set foldmethod=indent                      " Fold based on source indentation
 set foldlevelstart=99                      " Expand all folds by default
+
+set visualbell
+set noerrorbells

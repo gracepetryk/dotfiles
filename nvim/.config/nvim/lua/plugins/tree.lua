@@ -1,32 +1,57 @@
-local filters = require('nvim-tree.explorer.filters')
-local enum = require('nvim-tree.enum')
-local should_filter = filters.should_filter
-
-local should_filter_as_reason = filters.should_filter_as_reason
-
-filters.should_filter = function (self, path, fs_stat, status)
-  if self.state.no_buffer and not self:buf(path, status.bufinfo) then
-    return false
-  end
-
-  if self.state.git_clean and not self:git(path, status.project) then
-    return false
-  end
-
-  return should_filter(self, path, fs_stat, status)
-end
-
-filters.should_filter_as_reason = function (self, path, fs_stat, status)
-  if not should_filter(self, path, fs_stat, status) then
-    return enum.FILTER_REASON.none
-  end
-
-  return should_filter_as_reason(self, path, fs_stat, status)
-end
+-- local filters = require('nvim-tree.explorer.filters')
+-- local enum = require('nvim-tree.enum')
+--
+-- local should_filter = filters.should_filter
+-- local should_filter_as_reason = filters.should_filter_as_reason
+--
+-- filters.should_filter = function (self, path, fs_stat, status)
+--   if self.state.no_buffer and not self:buf(path, status.bufinfo) then
+--     return false
+--   end
+--
+--   if self.state.git_clean and not self:git(path, status.project) then
+--     return false
+--   end
+--
+--   return should_filter(self, path, fs_stat, status)
+-- end
+--
+-- filters.should_filter_as_reason = function (self, path, fs_stat, status)
+--   if not should_filter(self, path, fs_stat, status) then
+--     return enum.FILTER_REASON.none
+--   end
+--
+--   return should_filter_as_reason(self, path, fs_stat, status)
+-- end
 
 require('nvim-tree').setup({
+  on_attach = function (bufnr)
+      local nt = require('nvim-tree.api')
+      vim.keymap.set('n', '<leader>nt', nt.tree.open)
+
+      local function opts(desc)
+        return {
+          desc = "nvim-tree: " .. desc,
+          buffer = bufnr,
+          noremap = true,
+          silent = true,
+          nowait = true,
+        }
+      end
+
+      vim.keymap.set('n', 'bc', function ()
+        nt.node.buffer.delete()
+        nt.tree.reload()
+      end, opts("Close Buffer"))
+
+      require('nvim-tree.keymap').default_on_attach(bufnr)
+  end,
   update_focused_file = {
     enable = true
+  },
+  hijack_directories = {
+    enable = false,
+    auto_open = false
   },
   renderer = {
     full_name=true,
@@ -42,7 +67,12 @@ require('nvim-tree').setup({
     }
   },
   filters = {
-    no_buffer = true,
-    git_clean = true,
+    git_ignored = true,
+    custom = function (path)
+      local filter_api = require('nvim-tree.api').filters
+
+      return filter_api.git_clean(path) and filter_api.no_buffer(path)
+    end
   }
 })
+

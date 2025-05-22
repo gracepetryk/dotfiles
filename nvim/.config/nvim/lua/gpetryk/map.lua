@@ -1,5 +1,6 @@
 local module = {}
 
+
 function module.map(mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }
   if opts then

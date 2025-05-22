@@ -165,6 +165,16 @@ lspconfig['html'].setup({
   filetypes = { 'html', 'htmldjango' }
 })
 
+require'lspconfig'.rust_analyzer.setup{
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = false;
+      }
+    }
+  }
+}
+
 if vim.fn.executable('flake8') == 1 then
   lspconfig['efm'].setup({
     filetypes = { 'python' },
