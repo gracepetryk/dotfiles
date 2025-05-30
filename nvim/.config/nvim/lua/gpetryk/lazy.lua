@@ -26,15 +26,9 @@ return {
     'nvim-telescope/telescope.nvim', branch = '0.1.x', config = function() require 'plugins.telescope' end,
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope-ui-select.nvim' }
     },
-    keys = {
-      '<leader>ff',
-      '<leader>FF',
-      '<leader>fg',
-      '<leader>fb',
-      '<leader>fh',
-      '<leader>fr'
-    },
+    event = 'VeryLazy'
   },
 
   {
@@ -45,7 +39,7 @@ return {
     ---@type AutoSession.Config
     opts = {
       suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
-      cwd_change_handling=true,
+      cwd_change_handling=false,
       auto_restore_last_session=false,
       session_lens = {
         load_on_setup = false
@@ -133,6 +127,7 @@ return {
   {
     'nvim-tree/nvim-tree.lua',
     dev=true,
+    event='VeryLazy',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
@@ -152,5 +147,6 @@ return {
     opts_extend = { mode = 'foreground' }
   },
 
-  { 'wavded/vim-stylus' }
+  { 'wavded/vim-stylus' },
+  { 'mfussenegger/nvim-jdtls', lazy=true, config=false }
 }

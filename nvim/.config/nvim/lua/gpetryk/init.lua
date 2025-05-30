@@ -92,7 +92,7 @@ vim.api.nvim_create_autocmd('UIEnter', {
     })
 
     vim.cmd.wincmd('H') -- move to far left
-    vim.cmd('vert resize 30') -- set size
+    vim.cmd('vert resize 40') -- set size
     vim.api.nvim_set_current_win(current_win)
 
     vim.defer_fn(function ()

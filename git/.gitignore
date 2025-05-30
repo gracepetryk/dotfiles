@@ -19,3 +19,9 @@ apps/.nvmrc
 .autoenv_leave.zsh
 
 .gpetryk/
+
+# jdtls
+.project
+.classpath
+.factorypath
+.settings/

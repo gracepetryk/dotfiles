@@ -10,6 +10,7 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
+    local telescope = require('telescope.builtin')
     local bufopts = { noremap = true, silent = true }
 
     vim.keymap.set('n', '<A-[>', function ()
@@ -22,11 +23,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
 
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+
+
     vim.keymap.set('n', 'L', function ()
       vim.lsp.buf.hover({ border = 'single' })
     end, bufopts)
@@ -110,8 +111,8 @@ lspconfig['lua_ls'].setup({
 
 -- If you are using mason.nvim, you can get the ts_plugin_path like this
 local mason_registry = require('mason-registry')
-local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
-local ts_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/typescript/lib'
+local vue_language_server_path = vim.fn.expand('$MASON/packages/vue-language-server') .. '/node_modules/@vue/language-server'
+local ts_path = vim.fn.expand('$MASON/packages/vue-language-server') .. '/node_modules/typescript/lib'
 
 lspconfig.ts_ls.setup {
   init_options = {

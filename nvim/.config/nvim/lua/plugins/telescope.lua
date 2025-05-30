@@ -43,7 +43,26 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fr', builtin.pickers, {})
 vim.keymap.set('n', '<leader>fid', ':Telescope live_grep glob_pattern=')
 
-vim.keymap.set('n', 'gf', function() builtin.find_files({ default_text = vim.fn.expand('<cfile>') }) end)
+vim.keymap.set('n', 'gr', function ()
+  builtin.lsp_references({initial_mode='normal'})
+end, {})
+
+vim.keymap.set('n', 'gd', function ()
+  builtin.lsp_definitions({initial_mode='normal'})
+end, {})
+
+vim.keymap.set('n', '<leader>gw', function ()
+  builtin.grep_string({initial_mode='normal'})
+end, {})
+
+
+vim.keymap.set('x', '<leader>gw', function ()
+  vim.api.nvim_feedkeys('"9y', 'nx', true)
+  local search = vim.fn.getreg('9')
+  builtin.grep_string({search=search, initial_mode='normal'})
+end)
+
+vim.keymap.set('n', '<leader>gf', function() builtin.find_files({ default_text = vim.fn.expand('<cfile>') }) end)
 
 require('telescope').setup({
   defaults = {
@@ -57,8 +76,10 @@ require('telescope').setup({
       "--with-filename",
       "--line-number",
       "--column",
-      "--smart-case",
+      "--ignore-case",
       "--trim"
     }
   }
 })
+
+require('telescope').load_extension('ui-select')

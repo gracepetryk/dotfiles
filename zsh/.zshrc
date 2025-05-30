@@ -14,11 +14,18 @@ export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
 export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46"
 
+if [ -d "$HOME/profile.d" ]; then
+  for RC_FILE in "$HOME"/profile.d/*.rc; do
+    source "$RC_FILE"
+  done
+fi
+
 (( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
 
 (( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
 
@@ -237,12 +244,6 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d \
   -E '**/apps/edde/*' "
 
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-
-if [ -d "$HOME/profile.d" ]; then
-  for RC_FILE in "$HOME"/profile.d/*.rc; do
-    source "$RC_FILE"
-  done
-fi
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 

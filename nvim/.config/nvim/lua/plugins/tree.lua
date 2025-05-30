@@ -26,6 +26,8 @@
 
 require('nvim-tree').setup({
   on_attach = function (bufnr)
+      require('nvim-tree.keymap').default_on_attach(bufnr)
+
       local nt = require('nvim-tree.api')
       vim.keymap.set('n', '<leader>nt', nt.tree.open)
 
@@ -39,13 +41,33 @@ require('nvim-tree').setup({
         }
       end
 
+      vim.keymap.set('n', 'U', function ()
+        nt.tree.toggle_custom_filter()
+        vim.cmd('normal! w')
+        nt.tree.reload()
+        nt.tree.open({find_file=true})
+      end, opts('Toggle Custom Filter'))
+
       vim.keymap.set('n', 'bc', function ()
         nt.node.buffer.delete()
         nt.tree.reload()
       end, opts("Close Buffer"))
 
-      require('nvim-tree.keymap').default_on_attach(bufnr)
   end,
+  reload_on_bufenter = true,
+
+  view = {
+    width = {
+      min = 40,
+      max = 60,
+      padding = 1
+    }
+  },
+  actions = {
+    change_dir = {
+      enable = false
+    }
+  },
   update_focused_file = {
     enable = true
   },
@@ -56,6 +78,8 @@ require('nvim-tree').setup({
   renderer = {
     full_name=true,
     highlight_git = 'name',
+    group_empty=true,
+    hidden_display='none',
     indent_markers = {
       enable = true
     },
