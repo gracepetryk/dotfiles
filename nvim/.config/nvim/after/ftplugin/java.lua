@@ -8,13 +8,6 @@ local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 local data_dir = env['HOME'] .. '/.jdtls/' .. project_name
 
 local config = {
-    -- cmd = {
-    --     jdtls_path..'/jdtls',
-    --     '--java-executable', env['JAVA_21_HOME'] .. '/bin/java',
-    --     '-data', data_dir,
-    --     '--jvm_arg="-javaagent:' .. jdtls_path .. '/lombok.jar"'
-
-    -- },
     cmd = {
 
         -- 💀
@@ -49,6 +42,9 @@ local config = {
     root_dir = root_dir,
     settings = {
         java = {
+            format = {
+                url=env.HOME .. '/.java_style.xml',
+            },
             configuration = {
                 runtimes = {
                     {
