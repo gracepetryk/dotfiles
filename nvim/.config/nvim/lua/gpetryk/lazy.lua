@@ -23,7 +23,7 @@ return {
   },
 
   {
-    'nvim-telescope/telescope.nvim', branch = '0.1.x', config = function() require 'plugins.telescope' end,
+    'nvim-telescope/telescope.nvim', config = function() require 'plugins.telescope' end,
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-ui-select.nvim' }

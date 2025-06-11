@@ -18,7 +18,7 @@ apps/.nvmrc
 .autoenv.zsh
 .autoenv_leave.zsh
 
-.gpetryk/
+.grace/
 
 # jdtls
 .project

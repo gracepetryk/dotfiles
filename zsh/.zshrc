@@ -247,6 +247,10 @@ export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+jwt-decode() {
+  jq -R 'split(".") |.[0:2] | map(gsub("-"; "+") | gsub("_"; "/") | gsub("%3D"; "=") | @base64d) | map(fromjson)' <<< $1
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 zmodload zsh/zprof
