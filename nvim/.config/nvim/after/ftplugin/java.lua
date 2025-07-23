@@ -42,9 +42,6 @@ local config = {
     root_dir = root_dir,
     settings = {
         java = {
-            format = {
-                url=env.HOME .. '/.java_style.xml',
-            },
             configuration = {
                 runtimes = {
                     {

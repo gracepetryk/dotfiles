@@ -11,33 +11,42 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
     local telescope = require('telescope.builtin')
-    local bufopts = { noremap = true, silent = true }
-
-    vim.keymap.set('n', '<A-[>', function ()
-      vim.diagnostic.jump({count=1, float=true})
-    end, bufopts)
+    local mapopts = { noremap = true, silent = true }
 
     vim.keymap.set('n', '<A-]>', function ()
-      vim.diagnostic.jump({count=-1, float=true})
-    end, bufopts)
+      vim.diagnostic.jump({count=1})
+    end, mapopts)
 
-    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
+    vim.keymap.set('n', '<A-[>', function ()
+      vim.diagnostic.jump({count=-1})
+    end, mapopts)
 
-    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, mapopts)
 
+    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, mapopts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, mapopts)
+    vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, mapopts)
+    vim.keymap.set('n', 'L', vim.lsp.buf.hover, mapopts)
+    vim.keymap.set({'n', 'i'}, '<C-k>', function()
+      -- toggle signature help
+      local focus_id = 'textDocument/signatureHelp'
+      local bufnr = vim.api.nvim_get_current_buf()
 
-    vim.keymap.set('n', 'L', function ()
-      vim.lsp.buf.hover({ border = 'single' })
-    end, bufopts)
+      local open_winnr = nil
 
-    vim.keymap.set('n', '<C-k>', function ()
-      vim.lsp.buf.signature_help({ border = 'single' })
-    end)
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.w[win][focus_id] == bufnr then
+          open_winnr = win
+        end
+      end
 
+      if open_winnr then
+        vim.api.nvim_win_close(open_winnr, false)
+      else
+        vim.lsp.buf.signature_help({border = 'rounded'})
+      end
+    end, mapopts)
 
-    vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float(nil, { border = 'single' }) end, bufopts)
 
     vim.diagnostic.config({
       underline = {
@@ -55,77 +64,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {
-    border = 'single',
-  }
-)
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {
-    border = 'single',
-  }
-)
--- vim.lsp.handlers['textDocument/signatureHelp'] = function(...)
---   local bufnr, winnr = vim.lsp.with(vim.lsp.handlers.signature_help, {
---     border = 'single'
---   })(...)
---
---   if require('cmp').visible() and require('cmp').core then
---     require('cmp').close()
---   end
---
---   return bufnr, winnr
--- end
-
-
-lspconfig['lua_ls'].setup({
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using
-        -- (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {
-          'vim',
-          'require'
-        },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-})
-
 -- If you are using mason.nvim, you can get the ts_plugin_path like this
 local mason_registry = require('mason-registry')
 local vue_language_server_path = vim.fn.expand('$MASON/packages/vue-language-server') .. '/node_modules/@vue/language-server'
 local ts_path = vim.fn.expand('$MASON/packages/vue-language-server') .. '/node_modules/typescript/lib'
 
-lspconfig.ts_ls.setup {
-  init_options = {
-    plugins = {
-      {
-        name = '@vue/typescript-plugin',
-        location = vue_language_server_path,
-        languages = { 'vue' },
-      },
-    },
-  },
-  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-}
 
 -- No need to set `hybridMode` to `true` as it's the default value
 lspconfig.volar.setup {
@@ -138,56 +81,12 @@ lspconfig.volar.setup {
 
 lspconfig.eslint.setup({})
 
-lspconfig['pyright'].setup({
-  settings = {
-    pyright = {
-      analysis = {
-        autoSearchPaths = true,
-        diagnosticMode = "openFilesOnly",
-        useLibraryCodeForTypes = true,
-        diagnosticSeverityOverrides = {
-          reportArgumentType = "warning",
-          reportOptionalMemberAccess =  "information",
-          reportOptionalSubscript = "information",
-          reportAttributeAccessIssue = "information",
-          reportUnnecessaryTypeIgnoreComment = "warning"
-        }
-      },
-      pythonPath = vim.system({"which", "python"}):wait().stdout:gsub('%s+', ''),
-    }
-  }
-})
-
 lspconfig['emmet_ls'].setup({
-  filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
+  filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby", "xml" }
 })
 
 lspconfig['html'].setup({
   filetypes = { 'html', 'htmldjango' }
 })
 
-require'lspconfig'.rust_analyzer.setup{
-  settings = {
-    ['rust-analyzer'] = {
-      diagnostics = {
-        enable = false;
-      }
-    }
-  }
-}
-
-if vim.fn.executable('flake8') == 1 then
-  lspconfig['efm'].setup({
-    filetypes = { 'python' },
-    settings = {
-      rootMarkers={".git/"},
-      languages = {
-        python = {
-          require('efmls-configs.linters.flake8')
-        }
-      }
-    }
-  })
-end
-
-vim.cmd('LspStart')
+vim.lsp.enable('jsonls')

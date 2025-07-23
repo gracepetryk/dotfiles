@@ -24,12 +24,13 @@
 --   return should_filter_as_reason(self, path, fs_stat, status)
 -- end
 
+local nt = require('nvim-tree.api')
+vim.keymap.set('n', '<leader>nt', nt.tree.open)
+
 require('nvim-tree').setup({
   on_attach = function (bufnr)
       require('nvim-tree.keymap').default_on_attach(bufnr)
 
-      local nt = require('nvim-tree.api')
-      vim.keymap.set('n', '<leader>nt', nt.tree.open)
 
       local function opts(desc)
         return {
@@ -53,6 +54,7 @@ require('nvim-tree').setup({
         nt.tree.reload()
       end, opts("Close Buffer"))
 
+      nt.tree.toggle_custom_filter()  -- start with filter off
   end,
   reload_on_bufenter = true,
 
@@ -99,4 +101,3 @@ require('nvim-tree').setup({
     end
   }
 })
-

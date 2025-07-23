@@ -1,6 +1,7 @@
 nvim/lua/.luarc.json
 nvim/plugin/*
 nvim/.repro
+nvim_issue
 *.swp
 minimal_kitty.conf
 *.zwc

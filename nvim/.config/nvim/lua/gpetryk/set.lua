@@ -34,10 +34,10 @@ vim.opt.swapfile = false
 vim.opt.textwidth = 90
 vim.opt.formatoptions = 'cqjl'
 
-vim.opt.guicursor = ''
-
 vim.opt.spelllang = 'en_us'
 vim.opt.spellsuggest = '10'
+
+vim.opt.winborder = 'rounded'
 
 -- pop up menu height
 vim.opt.pumheight = 15

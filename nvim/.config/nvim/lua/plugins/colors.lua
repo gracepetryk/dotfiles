@@ -26,6 +26,7 @@ require('rose-pine').setup({
     ['@function.method'] = { link = '@function' },
     ['@function.method.call'] = { link = '@function.call' },
     ['@keyword.return'] = { fg = 'love' },
+    ['@keyword.throw'] = { fg = 'love' },
     ['@lsp.mod.declaration'] = { underline = true },
     ['@lsp.type.formatSpecifier'] = { link = '@punctuation' },
     ['@lsp.type.keyword'] = { link = '@keyword' },

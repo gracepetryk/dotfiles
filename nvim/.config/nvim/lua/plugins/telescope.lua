@@ -40,27 +40,23 @@ vim.keymap.set('n', '<leader>FG', function() builtin.live_grep({
 }) end, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>fr', builtin.pickers, {})
+vim.keymap.set('n', '<leader>fr', builtin.resume, {})
+vim.keymap.set('n', '<leader>FR', builtin.pickers, {})
 vim.keymap.set('n', '<leader>fid', ':Telescope live_grep glob_pattern=')
+vim.keymap.set('n', '<leader>/',  builtin.current_buffer_fuzzy_find)
+vim.keymap.set('n', '<leader>t', builtin.builtin)
 
-vim.keymap.set('n', 'gr', function ()
-  builtin.lsp_references({initial_mode='normal'})
-end, {})
-
-vim.keymap.set('n', 'gd', function ()
-  builtin.lsp_definitions({initial_mode='normal'})
-end, {})
-
-vim.keymap.set('n', '<leader>gw', function ()
-  builtin.grep_string({initial_mode='normal'})
-end, {})
-
-
-vim.keymap.set('x', '<leader>gw', function ()
+vim.keymap.set('n', '<leader>fw', builtin.grep_string, {})
+vim.keymap.set('x', '<leader>fw', function ()
   vim.api.nvim_feedkeys('"9y', 'nx', true)
   local search = vim.fn.getreg('9')
-  builtin.grep_string({search=search, initial_mode='normal'})
+  builtin.grep_string({search=search})
 end)
+
+vim.keymap.set('n', 'gr', builtin.lsp_references, {})
+vim.keymap.set('n', 'gd', builtin.lsp_definitions, {})
+vim.keymap.set('n', 'gt', builtin.lsp_type_definitions, {})
+
 
 vim.keymap.set('n', '<leader>gf', function() builtin.find_files({ default_text = vim.fn.expand('<cfile>') }) end)
 
@@ -82,4 +78,18 @@ require('telescope').setup({
   }
 })
 
-require('telescope').load_extension('ui-select')
+require('telescope').load_extension('ui-select')  -- make telescope default picker
+
+vim.api.nvim_create_autocmd('User', {
+  pattern='TelescopeFindPre',
+  callback=function ()
+    local old_winborder = vim.o.winborder
+    vim.o.winborder = 'none'
+
+    vim.api.nvim_create_autocmd('WinLeave', {
+      once=true,
+      callback = function ()
+        vim.opt.winborder = old_winborder
+      end})
+  end
+})

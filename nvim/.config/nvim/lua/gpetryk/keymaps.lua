@@ -1,5 +1,16 @@
 local map = require("gpetryk.map").map
 
+-- make a normal mode remap that is dot-repeatable using vim-repeat plugin
+local function normalRepeatableMap(binding, func)
+  -- map unique Plug mapping using tostring of function
+  local mapName = "<Plug>" .. tostring(func):gsub("function: ", "")
+  -- mapping including vim-repeat magic
+  local repeatMap = mapName .. [[:silent! call repeat#set("\]] .. mapName .. [[", v:count)<CR>]]
+
+  map('n', mapName, func)
+  map('n', binding, repeatMap)
+end
+
 map('i', '<C-c>', '<Esc>')
 map('i', '<Esc>', '<C-c>') -- in case something goes wrong
 
@@ -56,6 +67,10 @@ map('n', '<C-h>', ':tabprev<CR>')
 
 map('n', '<leader>vs', vim.cmd.vsplit)
 
+map('n', 'gJ', 'Jx')
+
+map('x', '<leader>j', 'J:s/ \\./\\./g<CR>')
+
 map('x', 'J', ":m '>+1<CR>gv=gv")
 map('x', 'K', ":m '<-2<CR>gv=gv")
 
@@ -97,3 +112,4 @@ map('n', '<A-p>', ':lprev<CR>')
 -- end)
 
 map('n', '<C-s>', ':set spell!<CR>')
+map('n', '<leader>e', function() vim.diagnostic.open_float(nil, { border = 'rounded' }) end)

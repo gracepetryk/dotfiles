@@ -2,25 +2,34 @@ return {
   { 'gracepetryk/rose-pine', priority = 2000, dev=true, config = function() require 'plugins.colors' end, lazy=false},
 
   { 'tpope/vim-sleuth' },
+  { 'tpope/vim-repeat' },
   {
     'tpope/vim-fugitive', -- git integration
     event = 'VeryLazy',
     dependencies = {
-      { 'tpope/vim-rhubarb' }, -- github integration
+      { 'tpope/vim-rhubarb' }, -- github
+      { 'tommcdo/vim-fubitive' }, -- bitbucket
     },
   },
 
   { 'lewis6991/gitsigns.nvim', config = function() require 'plugins.gitsigns' end, event = 'VeryLazy' },
 
   {
+    'windwp/nvim-ts-autotag',
+    lazy=false,
+    opts = {
+      opts = {
+        enable_rename = true
+      }
+    }
+  },
+
+  {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
-    config = function ()
-      require('nvim-autopairs').setup()
-    end
-    -- use opts = {} for passing setup options
-    -- this is equalent to setup({}) function
+    config = true
   },
+
 
   {
     'nvim-telescope/telescope.nvim', config = function() require 'plugins.telescope' end,
@@ -43,7 +52,9 @@ return {
       auto_restore_last_session=false,
       session_lens = {
         load_on_setup = false
-      }
+      },
+      priority=500,
+      lazy=false
     }
   },
 
@@ -53,28 +64,8 @@ return {
   {
     'neovim/nvim-lspconfig',
     config= function() require 'plugins.lsp' end,
-    event = 'VeryLazy',
+    lazy=false
   },
-
-  -- {
-  --   'gracepetryk/diagflow.nvim',
-  --   dev=true,
-  --   event = 'LspAttach',
-  --   opts = {
-  --     severity_colors = {  -- The highlight groups to use for each diagnostic severity level
-  --       error = "DiagnosticFloatingError",
-  --       warn = "DiagnosticFloatingWarn",
-  --       info = "DiagnosticFloatingInfo",
-  --       hint = "DiagnosticFloatingHint",
-  --     },
-  --     max_height = 1,
-  --     enable = true,
-  --     scope = 'cursor',
-  --     text_align = 'right',
-  --     placement = 'bottom',
-  --     show_borders = true,
-  --   }
-  -- },
 
   {
     'saghen/blink.cmp',
@@ -113,21 +104,31 @@ return {
 
   {
     'nvim-treesitter/nvim-treesitter',
-    config = function() require 'plugins.treesitter' end,
-    event = 'VeryLazy',
-    dependencies = {
-      {
-        'nvim-treesitter/nvim-treesitter-context',
-        config = function() require 'plugins.context' end,
-      },
-    },
-    build = ':TSUpdate'
+    lazy = false,
+    branch = 'main',
+    build = ':TSUpdate',
+    config = function() require 'plugins.treesitter' end
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    event='VeryLazy',
+    opts = {
+      enabled = true,
+      multiwindow = true,
+      max_lines=5,
+      mode='topline',
+      trim_scope='inner',
+
+    }
   },
 
   {
     'nvim-tree/nvim-tree.lua',
     dev=true,
-    event='VeryLazy',
+    keys = {
+      '<leader>nt'
+    },
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
@@ -137,7 +138,7 @@ return {
   },
 
   { 'rodjek/vim-puppet', event = 'VeryLazy' },
-  { 'Glench/Vim-Jinja2-Syntax', event = 'VeryLazy' },
+  { 'lepture/vim-jinja' },
   {
     'norcalli/nvim-colorizer.lua',
     enabled = false,
