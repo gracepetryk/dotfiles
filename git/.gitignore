@@ -10,6 +10,7 @@ apps/.nvmrc
 .python-version
 
 .luarc.json
+./de-sandbox/apps/core.discoveryeducation.com/core/wwroot/static/eslintrc
 
 **/.repro/
 .env

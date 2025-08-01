@@ -17,6 +17,15 @@ require('rose-pine').setup({
     NvimTreeFolderName = { fg = 'pine'},
     NvimTreeFolderIcon = { fg = 'muted'},
     NvimTreeExecFile = { fg = 'love' },
+    String = { fg = 'fall' },
+    LineNr = { fg = 'muted', bg = 'base'},
+    SignColumn = { fg = 'text', bg = 'base'},
+    TreeSitterContext = { fg = 'rose', bg = 'overlay', nocombine = true },
+    TreeSitterContextLineNumber = { fg = 'rose', bg = 'overlay', nocombine = true },
+    DiagnosticVirtualLinesError = { link = 'DiagnosticVirtualTextError', },
+    DiagnosticVirtualLinesWarn = { link = 'DiagnosticVirtualTextWarn', },
+    DiagnosticVirtualLinesHint = { link = 'DiagnosticVirtualTextHint', },
+    DiagnosticVirtualLinesInfo = { link = 'DiagnosticVirtualTextInfo', },
     ['@boolean'] = { fg = 'gold' },
     ['@constructor'] = { fg = 'moss' },
     ['@comment'] = { fg = 'muted' },
@@ -34,7 +43,7 @@ require('rose-pine').setup({
     ['@lsp.type.method.lua'] = { link = '@function.method', italic = true },
     ['@lsp.type.variable'] = { link = '@variable' },
     ['@parameter'] = { fg = 'rose', italic=true },
-    ['@string'] = { fg = 'fall' },
+    ['@string'] = { link = 'String' },
     ['@string.special.url'] = { link = '@string' },
     ['@string.special.url.comment'] = { link = '@comment' },
     ['@type'] = { fg = 'moss' },
@@ -43,7 +52,8 @@ require('rose-pine').setup({
     ['@variable.builtin'] = { fg='love', bold = false },
     ['@variable.member'] = { fg = 'foam', italic=false },
     ['@variable.parameter'] = { link = '@parameter' },
-    ['@lsp.type.comment'] = { link = '@comment' }
+    ['@lsp.type.comment'] = { link = '@comment' },
+    ['@markup.link.label.markdown_inline'] = { underline = true }
   }
 })
 

@@ -112,4 +112,3 @@ map('n', '<A-p>', ':lprev<CR>')
 -- end)
 
 map('n', '<C-s>', ':set spell!<CR>')
-map('n', '<leader>e', function() vim.diagnostic.open_float(nil, { border = 'rounded' }) end)

@@ -1,5 +1,5 @@
 return {
-  { 'gracepetryk/rose-pine', priority = 2000, dev=true, config = function() require 'plugins.colors' end, lazy=false},
+  { 'gracepetryk/rose-pine', priority = 2000, dev=true, lazy=false, config = function() require('plugins.colors') end},
 
   { 'tpope/vim-sleuth' },
   { 'tpope/vim-repeat' },
@@ -12,11 +12,13 @@ return {
     },
   },
 
-  { 'lewis6991/gitsigns.nvim', config = function() require 'plugins.gitsigns' end, event = 'VeryLazy' },
+  { 'lewis6991/gitsigns.nvim', opts = require 'plugins.gitsigns', event = 'VeryLazy' },
+
+  { "luukvbaal/statuscol.nvim", config = function() require('plugins.statuscolumn') end },
 
   {
     'windwp/nvim-ts-autotag',
-    lazy=false,
+    lazy='VeryLazy',
     opts = {
       opts = {
         enable_rename = true
@@ -32,10 +34,11 @@ return {
 
 
   {
-    'nvim-telescope/telescope.nvim', config = function() require 'plugins.telescope' end,
+    'nvim-telescope/telescope.nvim', config = function() require('plugins.telescope') end,
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-ui-select.nvim' }
+      { 'nvim-telescope/telescope-ui-select.nvim' },
+      { 'nvim-telescope/telescope-fzf-native.nvim' }
     },
     event = 'VeryLazy'
   },
@@ -60,10 +63,10 @@ return {
 
 
   { 'williamboman/mason.nvim', lazy=true, cmd='Mason' }, -- install LSPs/DAP/etc
-  { 'creativenull/efmls-configs-nvim', lazy=true },
+  { 'creativenull/efmls-configs-nvim' },
   {
     'neovim/nvim-lspconfig',
-    config= function() require 'plugins.lsp' end,
+    config=function() require('plugins.lsp') end,
     lazy=false
   },
 
@@ -87,6 +90,7 @@ return {
   {
     'mfussenegger/nvim-dap',
     config = function() require 'plugins.dap' end,
+    lazy = false,
     keys = {
       '<C-b>',
       '<leader>d'
@@ -94,7 +98,7 @@ return {
     dependencies = {
       {
         'rcarriga/nvim-dap-ui',
-        config = function() require 'plugins.dapui' end,
+        opts=require('plugins.dapui'),
         dependencies = {
           'nvim-neotest/nvim-nio'
         }
@@ -127,14 +131,18 @@ return {
     'nvim-tree/nvim-tree.lua',
     dev=true,
     keys = {
-      '<leader>nt'
+      {
+        '<leader>nt',
+        function()
+          require('nvim-tree.api').tree.open()
+        end,
+        desc="nvim-tree"
+      }
     },
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
-    config = function ()
-      require('plugins.tree')
-    end
+    opts=require('plugins.tree')
   },
 
   { 'rodjek/vim-puppet', event = 'VeryLazy' },

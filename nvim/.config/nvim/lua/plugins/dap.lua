@@ -56,7 +56,7 @@ end
 
 map('n', '<C-b>', function() require('dap').toggle_breakpoint() end)
 map('n', '<C-S-B>', function() require('dap').toggle_breakpoint(vim.fn.input('condition: ')) end)
-map('n', '<Leader>tc', function() require('dap').run_to_cursor() end)
+map('n', '<Leader>rc', function() require('dap').run_to_cursor() end)
 map('n', '<Leader>d', open_debugger)
 map('n', '<Leader>c', close_debugger)
 
@@ -107,3 +107,5 @@ dap.configurations.python = vim.list_extend({
     justMyCode = false
   }
 }, local_config.dap_configurations.python)
+
+return {}

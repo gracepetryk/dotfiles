@@ -11,6 +11,7 @@
   (array_initializer)                 ; [1, 2]
   (annotation_argument_list)          ; @Annotation(...)
   (element_value_array_initializer)   ; { a, b } inside @Annotation()
+  (lambda_expression)
 ] @indent.begin
 
 (((_ !object

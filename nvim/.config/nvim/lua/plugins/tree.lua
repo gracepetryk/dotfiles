@@ -24,11 +24,9 @@
 --   return should_filter_as_reason(self, path, fs_stat, status)
 -- end
 
-local nt = require('nvim-tree.api')
-vim.keymap.set('n', '<leader>nt', nt.tree.open)
-
-require('nvim-tree').setup({
+return {
   on_attach = function (bufnr)
+    local nt = require('nvim-tree.api')
       require('nvim-tree.keymap').default_on_attach(bufnr)
 
 
@@ -100,4 +98,4 @@ require('nvim-tree').setup({
       return filter_api.git_clean(path) and filter_api.no_buffer(path)
     end
   }
-})
+}

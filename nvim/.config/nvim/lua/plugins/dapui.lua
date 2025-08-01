@@ -1,4 +1,4 @@
-require("dapui").setup({
+return {
   expand_lines = false,
   layouts = {
     {
@@ -20,4 +20,4 @@ require("dapui").setup({
       position = "bottom",
     },
   },
-})
+}

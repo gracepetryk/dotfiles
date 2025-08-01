@@ -1,30 +1,17 @@
+local lazydev = require('lazydev')
 vim.opt.formatoptions = 'cqjl'
 
 vim.lsp.config('lua_ls', {
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using
-        -- (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {
-          'vim',
-          'require'
-        },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
+    root_dir = function(bufnr, on_dir)
+        -- attach to existing workspace if possible
+        local ws = lazydev.find_workspace(bufnr)
+        if ws ~= nil then
+            return on_dir(ws)
+        end
+
+        -- fallback to default (luarc, git, …)
+        return on_dir(nil)
+    end
 })
 
 vim.lsp.enable('lua_ls')

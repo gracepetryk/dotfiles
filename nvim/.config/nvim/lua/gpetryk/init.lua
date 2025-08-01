@@ -2,7 +2,11 @@ require("gpetryk.set")
 require("gpetryk.abbrev")
 
 
-require("lazy").setup("gpetryk.lazy", {
+require("lazy").setup({
+  spec = {
+    {import = "gpetryk.lazy" },
+    {import = "specs" }
+  },
   dev = {
     path = "~/dotfiles/nvim/plugins"
   },
@@ -12,7 +16,6 @@ require("lazy").setup("gpetryk.lazy", {
   },
   lockfile = vim.fn.stdpath('config') .. "/.lazy-lock.json"
 })
-
 
 require("gpetryk.keymaps")
 require("gpetryk.autosave")

@@ -24,3 +24,19 @@ vim.lsp.config('pyright', {
 })
 
 vim.lsp.enable('pyright')
+
+if vim.fn.executable('flake8') == 1 then
+  vim.lsp.config('efm', {
+    filetypes = { 'python' },
+    settings = {
+      rootMarkers={".git/"},
+      languages = {
+        python = {
+          require('efmls-configs.linters.flake8')
+        }
+      }
+    }
+  })
+
+  vim.lsp.enable('efm')
+end

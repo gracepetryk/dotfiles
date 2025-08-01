@@ -17,7 +17,6 @@ vim.opt.laststatus = 2
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-vim.opt.signcolumn = 'yes:1'
 vim.opt.colorcolumn = '91'
 
 -- vim.opt.tabstop = 4
@@ -39,6 +38,9 @@ vim.opt.spellsuggest = '10'
 
 vim.opt.winborder = 'rounded'
 
+-- enable .nvim.lua files
+vim.opt.exrc=true
+
 -- pop up menu height
 vim.opt.pumheight = 15
 vim.opt.previewheight = 20
@@ -48,6 +50,7 @@ vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,te
 vim.g.omni_sql_no_default_maps = 1
 
 vim.g.loaded_tar = 0
+
 
 if not pcall(function () vim.g.python3_host_prog = vim.env.VIRTUAL_ENV .. '/bin/python' end) then
   vim.g.loaded_python3_provider = 0
