@@ -1,0 +1,16 @@
+name: Wait 5 minutes then pass
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: wait
+      run: |
+        sleep 300
+    - name: Analysing the code with flake8
+      run: |
+        flake8 .
