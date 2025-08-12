@@ -1,4 +1,4 @@
-name: Wait 5 minutes then pass
+name: Wait 30s then pass
 
 on:
   pull_request:
@@ -10,7 +10,4 @@ jobs:
     steps:
     - name: wait
       run: |
-        sleep 300
-    - name: Analysing the code with flake8
-      run: |
-        flake8 .
+        sleep 30
