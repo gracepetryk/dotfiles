@@ -1,6 +1,6 @@
 name: Wait 30s then pass
 
-on: commit
+on: push
     
 jobs:
   lint:
