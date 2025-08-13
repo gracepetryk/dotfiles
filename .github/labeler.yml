@@ -1,5 +1,5 @@
 # the labeler action will remove this label whenever the action runs, since a non-existent
 # file will never be changed
 approved-in-meeting:
-  changed-files:
-  - any-glob-to-any-file: ['this-file-does-not-exist']
+- changed-files:
+    any-glob-to-any-file: ['this-file-does-not-exist']
