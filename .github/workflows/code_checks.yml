@@ -29,6 +29,8 @@ jobs:
                 issue_number: context.issue.number
             });
 
+            console.log(labels)
+
             if (labels && labels.data.find((label) => label.name === "approved-in-meeting")) {
                 process.exit(0);
             } else {
