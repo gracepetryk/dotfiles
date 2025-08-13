@@ -2,4 +2,4 @@
 # file will never be changed
 approved-in-meeting:
   changed-files:
-    any-glob-to-any-file: ['this-file-does-not-exist']
+  - any-glob-to-any-file: ['this-file-does-not-exist']
