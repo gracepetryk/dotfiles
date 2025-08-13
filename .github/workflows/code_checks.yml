@@ -49,7 +49,7 @@ jobs:
               name: "Meets review requirements",
               head_sha: context.sha,
               conclusion: "action_required",
-              actions: {label: "add label", description: "add label", identifier: "add-label"}
+              actions: [{label: "add label", description: "add label", identifier: "add-label"}]
             }
 
             if (has_two_reviews || has_label) {
