@@ -52,7 +52,6 @@ jobs:
                 name: "Meets review requirements",
                 head_sha: context.sha,
                 conclusion: "success",
-                actions: [{label: "add label", description: "add label", identifier: "add-label"}]
               })
             }
 
