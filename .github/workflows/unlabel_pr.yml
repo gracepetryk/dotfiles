@@ -2,7 +2,7 @@ name: Remove cr meeting label from pull requests
 
 on:
   pull_request:
-    types: [closed, synchronized]
+    types: [closed, synchronize]
   pull_request_review:
     types: [dismissed]
 
