@@ -1,4 +1,4 @@
-name: Require 2 reviews or override label
+name: Review Enforcement
 
 on:
   pull_request:
