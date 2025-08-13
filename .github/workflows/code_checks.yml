@@ -43,18 +43,17 @@ jobs:
             let has_two_reviews = reviews && reviews.data.filter((r) => r.status === "APPROVED").length >= 2
             let has_label = labels && labels.data.find((label) => label.name === "approved-in-meeting")
 
-            let status = "pending";
-            let conclusion = null;
-            if (has_two_reviews || has_label) {
-              status = "completed"
-              conclusion = "success"
-            }
-
-            await github.rest.checks.create({
+            let args = {
               owner: context.repo.owner,
               repo: context.repo.repo,
               name: "Meets review requirements",
               head_sha: context.sha,
-              status: status,
-              conclusion: conclusion,
-            })
+              status: "queued",
+            }
+
+            if (has_two_reviews || has_label) {
+              args.status = "completed"
+              args.conclusion = "success"
+            }
+
+            await github.rest.checks.create(args)
