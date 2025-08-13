@@ -8,7 +8,7 @@ on:
 
 jobs:
   remove-label:
-    if: github.event_name == pull_request && github.event.action == 'synchronize'
+    if: github.event_name == 'pull_request' && github.event.action == 'synchronize'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -43,8 +43,6 @@ jobs:
                 repo: context.repo.repo,
                 issue_number: context.issue.number
             });
-
-            console.log(labels)
 
             if (labels && labels.data.find((label) => label.name === "approved-in-meeting")) {
                 process.exit(0);
