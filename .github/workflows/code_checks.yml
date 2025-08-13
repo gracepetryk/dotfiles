@@ -43,8 +43,6 @@ jobs:
             let has_two_reviews = reviews && reviews.data.filter((r) => r.status === "APPROVED").length >= 2
             let has_label = labels && labels.data.find((label) => label.name === "approved-in-meeting")
 
-            let args =
-
             if (has_two_reviews || has_label) {
               await github.rest.checks.create({
                 owner: context.repo.owner,
