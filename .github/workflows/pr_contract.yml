@@ -9,7 +9,7 @@ jobs:
     env:
       MESSAGE: >
         Two pull request approvals are required to merge outside of review meetings. To bypass this
-        requirement and merge with only one review, add the `approved-in-meeting` label to this PR.
+        requirement and merge with only one approval, add the `approved-in-meeting` label to this PR.
         The label will be automatically removed if new commits are added to this PR.
     runs-on: ubuntu-latest
     steps:
