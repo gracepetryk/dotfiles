@@ -20,7 +20,7 @@ jobs:
             });
 
             if (reviews.filter((r) => r.status === "APPROVED").length >= 2) {
-                process.exit(0)
+                process.exit(0);
             }
 
             let labels = await github.rest.issue.listLabelsOnIssue({
@@ -30,7 +30,7 @@ jobs:
             });
 
             if (labels.find((label) => label.name === "approved-in-meeting")) {
-                process.exit(0)
+                process.exit(0);
             } else {
-                process.exit(1)
+                process.exit(1);
             }
