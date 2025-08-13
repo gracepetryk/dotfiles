@@ -1,11 +1,36 @@
-name: Wait 30s then pass
+name: Require
 
-on: push
-    
+on:
+  pull_request:
+    types: [labeled, unlabeled]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+
 jobs:
-  lint:
+  has-two-reviews-or-approved-in-meeting-label:
     runs-on: ubuntu-latest
     steps:
-    - name: wait
-      run: |
-        sleep 30
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            let reviews = await github.rest.pulls.listReviews({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number
+            });
+
+            if (reviews.filter((r) => r.status === "APPROVED").length >= 2) {
+                process.exit(0)
+            }
+
+            let labels = await github.rest.issue.listLabelsOnIssue({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number
+            });
+
+            if (labels.find((label) => label.name === "approved-in-meeting")) {
+                process.exit(0)
+            } else {
+                process.exit(1)
+            }
