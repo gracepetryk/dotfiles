@@ -69,7 +69,7 @@ jobs:
               args.conclusion = "success"
               await check_method(args)
             } else {
-              args.status = "queued"
+              args.conclusion = "failed"
               let msg =  "Waiting for review requirements to be met."
               args.output = {
                 title: msg,
