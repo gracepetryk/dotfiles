@@ -1,9 +1,15 @@
 name: PR Contract Comment
+
 on:
-  pull-request:
+  pull_request_target:
     types: [opened]
 
 jobs:
+  env:
+    MESSAGE: |
+      Two pull request approvals are required to merge outside of review meetings. If in a
+      review meeting, add the `approved-in-meeting` label to this PR to merge with only
+      one review. The label will be automatically removed if new commits are added to this PR.'
   comment:
     runs-on: ubuntu-latest
     steps:
@@ -14,5 +20,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
-            })
+              body: process.env.MESSAGE
+            });

@@ -1,0 +1,19 @@
+name: Remove cr meeting label from pull requests
+
+on:
+  pull_request:
+    [closed, synchronized]
+  pull_request_review:
+    [dismissed]
+
+jobs:
+  runs-on: ubuntu-latest
+  permissions:
+    contents: read
+    pull-requests: write
+  steps:
+    - id: approved-in-meeting
+      uses: actions/labeler@v5
+      with:
+        sync-labels: true
+
