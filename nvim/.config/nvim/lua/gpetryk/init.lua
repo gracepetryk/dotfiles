@@ -34,15 +34,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-vim.api.nvim_create_autocmd('BufWritePre', {
-  callback = function ()
-    local line = vim.fn.line('.')
-    local col = vim.fn.col('.')
-
-    vim.cmd('%s/\\s\\+$//e') -- trailing whitespace
-    vim.fn.cursor({line, col})
-  end
-})
 
 -- save folds
 local fold_group = vim.api.nvim_create_augroup('SaveFolds', {})
