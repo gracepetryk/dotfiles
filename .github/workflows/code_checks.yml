@@ -19,7 +19,9 @@ jobs:
                 pull_number: context.issue.number
             });
 
-            if (reviews.filter((r) => r.status === "APPROVED").length >= 2) {
+            console.log(reviews);
+
+            if (reviews && reviews.filter((r) => r.status === "APPROVED").length >= 2) {
                 process.exit(0);
             }
 
@@ -29,7 +31,9 @@ jobs:
                 issue_number: context.issue.number
             });
 
-            if (labels.find((label) => label.name === "approved-in-meeting")) {
+            console.log(labels)
+
+            if (lables && labels.find((label) => label.name === "approved-in-meeting")) {
                 process.exit(0);
             } else {
                 process.exit(1);
