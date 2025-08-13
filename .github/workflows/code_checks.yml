@@ -23,7 +23,7 @@ jobs:
                 process.exit(0);
             }
 
-            let labels = await github.rest.issue.listLabelsOnIssue({
+            let labels = await github.rest.issues.listLabelsOnIssue({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number
