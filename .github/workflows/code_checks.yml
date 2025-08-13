@@ -59,16 +59,14 @@ jobs:
             };
 
             let check_method = null;
-            if (existing_check.data) {
-              let check_run_id = existing_check.data[0].check_run_id;
-
+            if (existing_check.data.length > 0) {
               check_method = github.rest.checks.update;
-              args.check_run_id = check_run_id;
+              args.check_run_id = existing_check.data[0].check_run_id;
 
               await github.rest.checks.rerequestRun({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                check_run_id: check_run_id
+                check_run_id: existing_check.data[0].check_run_id
               });
             } else {
               check_method = github.rest.checks.create;
