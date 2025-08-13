@@ -53,7 +53,8 @@ require('rose-pine').setup({
     ['@variable.member'] = { fg = 'foam', italic=false },
     ['@variable.parameter'] = { link = '@parameter' },
     ['@lsp.type.comment'] = { link = '@comment' },
-    ['@markup.link.label.markdown_inline'] = { underline = true }
+    ['@markup.link.label.markdown_inline'] = { underline = true },
+    ['@lsp.type.variable.python'] = {}
   }
 })
 

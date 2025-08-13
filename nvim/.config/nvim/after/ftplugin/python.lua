@@ -3,40 +3,15 @@ vim.opt_local.formatoptions = 'cqjlr2'
 vim.opt_local.makeprg="flake8"
 vim.opt_local.errorformat="%f:%l:%c: %t%n %m"
 
-vim.lsp.config('pyright', {
+vim.lsp.config('ty', {
   settings = {
-    pyright = {
-      analysis = {
-        autoSearchPaths = true,
-        diagnosticMode = "openFilesOnly",
-        useLibraryCodeForTypes = true,
-        diagnosticSeverityOverrides = {
-          reportArgumentType = "warning",
-          reportOptionalMemberAccess =  "information",
-          reportOptionalSubscript = "information",
-          reportAttributeAccessIssue = "information",
-          reportUnnecessaryTypeIgnoreComment = "warning"
-        }
+    ty = {
+      experimental = {
+        rename = true,
       },
-      pythonPath = vim.system({"which", "python"}):wait().stdout:gsub('%s+', ''),
-    }
-  }
+    },
+  },
 })
 
-vim.lsp.enable('pyright')
-
-if vim.fn.executable('flake8') == 1 then
-  vim.lsp.config('efm', {
-    filetypes = { 'python' },
-    settings = {
-      rootMarkers={".git/"},
-      languages = {
-        python = {
-          require('efmls-configs.linters.flake8')
-        }
-      }
-    }
-  })
-
-  vim.lsp.enable('efm')
-end
+vim.lsp.enable('ty')
+vim.lsp.enable('ruff')

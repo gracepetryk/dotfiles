@@ -40,12 +40,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end
     end, mapopts)
 
-    ---@type integer?
-    local winid
-    vim.keymap.set('n', '<C-e>', function ()
-      vim.api.nvim_exec_autocmds("CursorMoved", {pattern = '*'})
-      _, winid = vim.diagnostic.open_float()
-    end)
 
     ---@param diagnostic vim.Diagnostic
     local function fmt_vtext(diagnostic)
@@ -56,6 +50,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
       )
     end
 
+    ---@type integer?
+    local winid
+
+    vim.keymap.set('n', '<C-e>', function ()
+      vim.api.nvim_exec_autocmds("CursorMoved", {pattern = '*'})
+      _, winid = vim.diagnostic.open_float()
+    end)
+
+    --- weird state machine thing to manage diagnostic floating text hiding + the
+    --- diagnostic floating window
     local current_line_cycle = require('gpetryk.map').cycle('n', '<leader>e', {
       function ()
         vim.diagnostic.config({virtual_lines = false})
@@ -104,7 +108,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       },
       underline = {
         severity = {
-          min = vim.diagnostic.severity.WARN
+          min = vim.diagnostic.severity.HINT
         }
       },
       virtual_lines = false,
