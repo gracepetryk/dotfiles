@@ -48,7 +48,7 @@ jobs:
               repo: context.repo.repo,
               name: "Meets review requirements",
               head_sha: context.sha,
-              status: "action_required",
+              conclusion: "action_required",
               actions: {label: "add label", description: "add label", identifier: "add-label"}
             }
 
