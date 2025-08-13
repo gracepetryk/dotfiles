@@ -40,19 +40,43 @@ jobs:
               issue_number: context.issue.number
             });
 
-            let has_two_reviews = reviews && reviews.data.filter((r) => r.status === "APPROVED").length >= 2
-            let has_label = labels && labels.data.find((label) => label.name === "approved-in-meeting")
+            let has_two_reviews = reviews && reviews.data.filter((r) => r.status === "APPROVED").length >= 2;
+            let has_label = labels && labels.data.find((label) => label.name === "approved-in-meeting");
+            const check_name = "Meets review requirements";
 
-            args = {
+            let existing_check = await octokit.rest.checks.listForRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              name: "Meets review requirements",
-              head_sha: context.sha,
-            }
-            if (has_two_reviews || has_label) {
-              args.conclusion = "sucess"
+              ref: context.sha,
+              check_name: check_name
+            });
+
+            let args = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: check_name,
+              conclusion: "success"
+            };
+
+            let check_method = null;
+            if (existing_check.data) {
+              let check_run_id = existing_check.data[0].check_run_id;
+
+              check_method = github.rest.checks.update;
+              args.check_run_id = check_run_id;
+
+              await github.rest.checks.rerequestRun({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                check_run_id: check_run_id
+              });
             } else {
-              args.status = "queued"
+              check_method = github.rest.checks.create;
+              args.head_sha = context.sha;
             }
 
-            await github.rest.checks.create(args)
+            if (has_two_reviews || has_label) {
+              await check_method(args);
+            }
+
+
