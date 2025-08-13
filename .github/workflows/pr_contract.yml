@@ -5,12 +5,12 @@ on:
     types: [opened]
 
 jobs:
-  env:
-    MESSAGE: |
-      Two pull request approvals are required to merge outside of review meetings. If in a
-      review meeting, add the `approved-in-meeting` label to this PR to merge with only
-      one review. The label will be automatically removed if new commits are added to this PR.'
   comment:
+    env:
+      MESSAGE: |
+        Two pull request approvals are required to merge outside of review meetings. If in a
+        review meeting, add the `approved-in-meeting` label to this PR to merge with only
+        one review. The label will be automatically removed if new commits are added to this PR.'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v7
