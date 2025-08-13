@@ -20,6 +20,7 @@ local installed = nvim_treesitter.get_installed()
 local start_ts = function (opts)
   vim.treesitter.start()
 
+  opts = opts or {}
   local indent = opts.indent
 
   if indent and not vim.tbl_isempty(vim.api.nvim_get_runtime_file('queries/' .. vim.bo.filetype .. '/indents.scm', true)) then

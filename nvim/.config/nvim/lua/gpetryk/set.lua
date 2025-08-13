@@ -18,6 +18,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.colorcolumn = '91'
+vim.opt.cursorline = true
 
 -- vim.opt.tabstop = 4
 -- vim.opt.softtabstop = 4

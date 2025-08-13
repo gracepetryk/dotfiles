@@ -11,14 +11,26 @@ vim.keymap.set('n', '<leader>/',  builtin.current_buffer_fuzzy_find)
 vim.keymap.set('n', '<leader>t', builtin.builtin)
 
 vim.keymap.set('n', 'gr', builtin.lsp_references, {})
+
 vim.keymap.set('n', 'gd', builtin.lsp_definitions, {})
 vim.keymap.set('n', '<leader>gd', function ()
   vim.cmd.only()
   vim.cmd.vsplit()
-  vim.cmd.wincmd('l')
-  builtin.lsp_definitions()
+  vim.schedule(function ()
+    vim.cmd.wincmd('l')
+    builtin.lsp_definitions({reuse_win=false})
+  end)
 end, {})
+
 vim.keymap.set('n', 'gt', builtin.lsp_type_definitions, {})
+vim.keymap.set('n', '<leader>gt', function ()
+  vim.cmd.only()
+  vim.cmd.vsplit()
+  vim.schedule(function ()
+    vim.cmd.wincmd('l')
+    builtin.lsp_type_definitions({reuse_win=false})
+  end)
+end, {})
 
 vim.keymap.set('n', '<leader>fw', builtin.grep_string, {})
 vim.keymap.set('x', '<leader>fw', function ()
@@ -121,12 +133,6 @@ require('telescope').setup({
           ["<C-a>"] = open_picker_with_current_search(builtin.find_files),
         }
       }
-    },
-    lsp_definitions = {
-      reuse_win = true
-    },
-    lsp_type_definitions = {
-      reuse_win = true
     },
   }
 })
