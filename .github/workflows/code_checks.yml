@@ -29,23 +29,30 @@ jobs:
         with:
           script: |
             let reviews = await github.rest.pulls.listReviews({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: context.issue.number
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
             });
-
-            if (reviews && reviews.data.filter((r) => r.status === "APPROVED").length >= 2) {
-                process.exit(0);
-            }
 
             let labels = await github.rest.issues.listLabelsOnIssue({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
             });
 
-            if (labels && labels.data.find((label) => label.name === "approved-in-meeting")) {
-                process.exit(0);
-            } else {
-                process.exit(1);
+            let has_two_reviews = reviews && reviews.data.filter((r) => r.status === "APPROVED").length >= 2
+            let has_label = labels && labels.data.find((label) => label.name === "approved-in-meeting")
+
+            let conclusion = "action_required";
+            if (has_two_reviews || has_label) {
+              conclusion = "success"
             }
+
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: "Has two reviews or approved in meeting label",
+              head_sha: context.sha,
+              status: "completed",
+              conclusion: conclusion
+            })
