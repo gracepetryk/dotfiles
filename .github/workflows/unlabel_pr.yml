@@ -7,13 +7,14 @@ on:
     types: [dismissed]
 
 jobs:
-  runs-on: ubuntu-latest
-  permissions:
-    contents: read
-    pull-requests: write
-  steps:
-    - id: approved-in-meeting
-      uses: actions/labeler@v5
-      with:
-        sync-labels: true
+  remove-label:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - id: approved-in-meeting
+        uses: actions/labeler@v5
+        with:
+          sync-labels: true
 
