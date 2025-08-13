@@ -48,7 +48,8 @@ jobs:
               repo: context.repo.repo,
               name: "Meets review requirements",
               head_sha: context.sha,
-              status: "queued",
+              status: "action_required",
+              actions: {label: "add label", description: "add label", identifier: "add-label"}
             }
 
             if (has_two_reviews || has_label) {
