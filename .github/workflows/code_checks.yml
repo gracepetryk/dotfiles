@@ -44,7 +44,7 @@ jobs:
             let has_label = labels && labels.data.find((label) => label.name === "approved-in-meeting");
             const check_name = "Meets review requirements";
 
-            let existing_check = await octokit.rest.checks.listForRef({
+            let existing_check = await github.rest.checks.listForRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: context.sha,
