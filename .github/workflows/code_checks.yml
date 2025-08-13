@@ -22,7 +22,7 @@ jobs:
   has-two-reviews-or-approved-in-meeting-label:
     if: ${{ always() }}
     needs: remove-label
-
+    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v7
