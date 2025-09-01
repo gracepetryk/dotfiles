@@ -1,5 +1,8 @@
 local builtin = require('telescope.builtin')
 
+require('telescope').load_extension('ui-select')  -- make telescope default picker
+require('telescope').load_extension('fzf')
+
 
 vim.keymap.set('n', '<leader>fa', builtin.find_files)
 vim.keymap.set('n', '<leader>ff', builtin.buffers, {})
@@ -136,9 +139,6 @@ require('telescope').setup({
     },
   }
 })
-
-require('telescope').load_extension('ui-select')  -- make telescope default picker
-require('telescope').load_extension('fzf')
 
 -- telescope doesn't play niceley with 'winborder' yet
 vim.api.nvim_create_autocmd('User', {

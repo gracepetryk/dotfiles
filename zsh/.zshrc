@@ -169,45 +169,6 @@ unset key
 # }}} End configuration added by Zim install
 
 
-existing_ls='ls'
-if [[ ! -z "$(alias ls)" ]]; then
-  existing_ls="$(alias ls | cut -d= -f2- | tr -d "'")"
-fi
-
-alias ls="$existing_ls \$LS_FLAGS "
-if which nvim &>/dev/null; then
-  alias vim=nvim
-fi
-
-FD="fd"
-if ! which fd &>/dev/null; then
-  alias fd=fdfind
-  FD=fdfind
-fi
-
-bindkey "\e[1;3D" backward-word # ⌥←
-bindkey "\e[1;3C" forward-word # ⌥→
-
-
-bat="bat"
-if which batcat > /dev/null; then
-  alias bat=batcat
-  bat="batcat"
-fi
-
-if which bat > /dev/null; then
-  alias cat=bat
-  export BAT_THEME="TwoDark"
-  export MANPAGER="sh -c 'col -bx | $bat -plman'"
-
-  help() {
-    "$@" --help 2>&1 | bat -plhelp
-  }
-fi
-
-
-alias flake_branch='flake8 $(git diff develop.. --name-only)'
-
 # set up fzf
 
 
@@ -254,3 +215,43 @@ if [ -d "$HOME/profile.d" ]; then
     source "$RC_FILE"
   done
 fi
+
+existing_ls='ls'
+if [[ ! -z "$(alias ls)" ]]; then
+  existing_ls="$(alias ls | cut -d= -f2- | tr -d "'")"
+fi
+
+alias ls="$existing_ls \$LS_FLAGS "
+if which nvim &>/dev/null; then
+  alias vim=nvim
+fi
+
+FD="fd"
+if ! which fd &>/dev/null; then
+  alias fd=fdfind
+  FD=fdfind
+fi
+
+bindkey "\e[1;3D" backward-word # ⌥←
+bindkey "\e[1;3C" forward-word # ⌥→
+
+
+bat="bat"
+if which batcat > /dev/null; then
+  alias bat=batcat
+  bat="batcat"
+fi
+
+if which bat > /dev/null; then
+  alias cat=bat
+  export BAT_THEME="TwoDark"
+  export MANPAGER="sh -c 'col -bx | $bat -plman'"
+
+  help() {
+    "$@" --help 2>&1 | bat -plhelp
+  }
+fi
+
+
+alias flake_branch='flake8 $(git diff develop.. --name-only)'
+
