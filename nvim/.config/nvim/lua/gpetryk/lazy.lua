@@ -62,7 +62,9 @@ return {
   },
 
 
-  { 'williamboman/mason.nvim', lazy=true, cmd='Mason' }, -- install LSPs/DAP/etc
+  { 'nvim-java/nvim-java' },
+  { 'williamboman/mason.nvim' }, -- install LSPs/DAP/etc
+  { 'williamboman/mason-lspconfig.nvim' }, -- install LSPs/DAP/etc
   { 'creativenull/efmls-configs-nvim' },
   {
     'neovim/nvim-lspconfig',
@@ -97,11 +99,20 @@ return {
     },
     dependencies = {
       {
-        'rcarriga/nvim-dap-ui',
-        opts=require('plugins.dapui'),
-        dependencies = {
-          'nvim-neotest/nvim-nio'
-        }
+        'igorlfs/nvim-dap-view',
+        opts={
+          winbar = {
+            controls = {
+              enabled = true
+            }
+          },
+          windows = {
+            terminal = {
+              position = "right",
+              start_hidden = false
+            }
+          }
+        },
       }
     }
   },
@@ -157,5 +168,4 @@ return {
   },
 
   { 'wavded/vim-stylus' },
-  { 'mfussenegger/nvim-jdtls', lazy=true, config=false }
 }

@@ -1,4 +1,6 @@
 require('mason').setup()
+require('java').setup({spring_boot_tools = { enable = false }})
+require('lspconfig').jdtls.setup({})
 local lspconfig = require('lspconfig')
 
 vim.api.nvim_create_autocmd('LspAttach', {
