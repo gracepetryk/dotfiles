@@ -20,6 +20,9 @@ zmodule termtitle
 zmodule utility
 
 zmodule romkatv/powerlevel10k --use degit
+zmodule direnv
+zmodule fzf
+zmodule mroth/evalcache
 
 #
 # Prompt
@@ -36,10 +39,8 @@ zmodule romkatv/powerlevel10k --use degit
 #
 
 # Additional completion definitions for Zsh.
-zmodule zsh-users/zsh-completions --fpath src
+zmodule zsh-users/zsh-completions
 # Enables and configures smart and extensive tab completion.
-# completion must be sourced after all modules that add completion definitions.
-zmodule completion
 
 #
 # Modules that must be initialized last
@@ -54,8 +55,6 @@ zmodule zsh-users/zsh-history-substring-search
 # Fish-like autosuggestions for Zsh.
 # zmodule zsh-users/zsh-autosuggestions
 # }}} End configuration added by Zim install
-
-# zmodule asciiship
-zmodule direnv
-zmodule fzf
-zmodule mroth/evalcache
+# 
+# completion must be sourced after all modules that add completion definitions.
+zmodule completion

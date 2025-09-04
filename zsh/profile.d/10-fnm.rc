@@ -1,6 +1,6 @@
-export PATH="$PATH:$HOME/.local/share/fnm/node-versions/v23.2.0/installation/bin"
+export PATH="$PATH:$HOME/.local/share/fnm"
 
-fnm_path=$(which fnm)
+fnm_path="$(which fnm)"
 
 function init_fnm() {
     eval "$($fnm_path env --use-on-cd --version-file-strategy recursive --shell zsh)"

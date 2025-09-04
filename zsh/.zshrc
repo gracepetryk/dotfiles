@@ -255,3 +255,4 @@ fi
 
 alias flake_branch='flake8 $(git diff develop.. --name-only)'
 
+[[ -d ~/.cargo ]] && export PATH="$PATH:$HOME/.cargo/bin"

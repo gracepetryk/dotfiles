@@ -50,7 +50,7 @@ return {
     ---@module "auto-session"
     ---@type AutoSession.Config
     opts = {
-      suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+      suppressed_dirs = { '~/Projects', '~/Downloads', '/' },
       cwd_change_handling=false,
       auto_restore_last_session=false,
       session_lens = {
