@@ -30,6 +30,6 @@ return {
     -- Text object
     map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end,
-  sign_priority = 20,
-  preview_config = {col = 1, row = 0, relative = "cursor"}
+  preview_config = {col = 1, row = 0, relative = "cursor"},
+  culhl = false,
 }

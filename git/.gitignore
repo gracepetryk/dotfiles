@@ -13,6 +13,8 @@ apps/.nvmrc
 .nvim.lua
 ./de-sandbox/apps/core.discoveryeducation.com/core/wwroot/static/eslintrc
 
+uv_fabfile.py
+
 **/.repro/
 .env
 .envrc

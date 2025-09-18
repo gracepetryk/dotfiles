@@ -171,6 +171,11 @@ unset key
 
 # set up fzf
 
+FD="fd"
+if ! which fd &>/dev/null; then
+  alias fd=fdfind
+  FD=fdfind
+fi
 
 export FZF_COMPLETION_TRIGGER='!!'
 export FZF_DEFAULT_COMMAND="$FD --hidden --no-ignore \
@@ -226,12 +231,6 @@ if which nvim &>/dev/null; then
   alias vim=nvim
 fi
 
-FD="fd"
-if ! which fd &>/dev/null; then
-  alias fd=fdfind
-  FD=fdfind
-fi
-
 bindkey "\e[1;3D" backward-word # ⌥←
 bindkey "\e[1;3C" forward-word # ⌥→
 
@@ -255,4 +254,11 @@ fi
 
 alias flake_branch='flake8 $(git diff develop.. --name-only)'
 
+eval "$(fnm env)"
+
 [[ -d ~/.cargo ]] && export PATH="$PATH:$HOME/.cargo/bin"
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/GPetryk/.docker/completions $fpath)
+autoload -Uz compinit
+# End of Docker CLI completions

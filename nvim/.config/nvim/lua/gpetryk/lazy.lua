@@ -56,20 +56,31 @@ return {
       session_lens = {
         load_on_setup = false
       },
-      priority=500,
+      close_filetypes_on_save={
+        "checkhealth",
+        "help",
+        "terminal",
+        "dap-view",
+        "dap-repl",
+        "dap-view-term"
+      },
       lazy=false
     }
   },
 
 
-  { 'nvim-java/nvim-java' },
+  {
+    'nvim-java/nvim-java',
+    ft = 'java',
+    config = function() require('plugins.nvim_java') end,
+    dependencies = { 'gracepetryk/nvim-java-test', branch = 'fork' }
+  },
   { 'williamboman/mason.nvim' }, -- install LSPs/DAP/etc
-  { 'williamboman/mason-lspconfig.nvim' }, -- install LSPs/DAP/etc
   { 'creativenull/efmls-configs-nvim' },
   {
     'neovim/nvim-lspconfig',
     config=function() require('plugins.lsp') end,
-    lazy=false
+    event = 'VeryLazy'
   },
 
   {
@@ -92,7 +103,6 @@ return {
   {
     'mfussenegger/nvim-dap',
     config = function() require 'plugins.dap' end,
-    lazy = false,
     keys = {
       '<C-b>',
       '<leader>d'
@@ -103,12 +113,14 @@ return {
         opts={
           winbar = {
             controls = {
-              enabled = true
+              enabled = true,
+              position = "left"
             }
           },
           windows = {
             terminal = {
               position = "right",
+              hide = {},
               start_hidden = false
             }
           }

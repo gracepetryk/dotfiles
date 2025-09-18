@@ -8,14 +8,12 @@ local langs = vim.tbl_extend(
   nvim_treesitter.get_available(UNSTABLE)
 )
 
-local exclude_langs = {'jinja', 'jinja_inline'}
+local exclude_langs = {'jinja', 'jinja_inline', 'TelescopePrompt', 'dap-view', 'dap-repl'}
 local exclude_indent = {'javascript'}
 
 langs = vim.tbl_filter(function (entry)
   return not vim.tbl_contains(exclude_langs, entry)
 end, langs)
-
-local installed = nvim_treesitter.get_installed()
 
 local start_ts = function (opts)
   vim.treesitter.start()
@@ -32,6 +30,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = langs,
   callback = function()
     local ft = vim.bo.filetype
+    local installed = nvim_treesitter.get_installed()
 
     if not vim.tbl_contains(installed, ft) then
       nvim_treesitter.install(ft):await(start_ts);

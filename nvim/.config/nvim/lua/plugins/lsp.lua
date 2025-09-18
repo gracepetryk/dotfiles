@@ -1,6 +1,4 @@
 require('mason').setup()
-require('java').setup({spring_boot_tools = { enable = false }})
-require('lspconfig').jdtls.setup({})
 local lspconfig = require('lspconfig')
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -21,6 +19,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, mapopts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, mapopts)
     vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, mapopts)
+    vim.keymap.set('n', '<leader>i', function ()
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end)
     vim.keymap.set('n', 'L', vim.lsp.buf.hover, mapopts)
     vim.keymap.set({'n', 'i'}, '<C-k>', function()
       -- toggle signature help
@@ -55,43 +56,48 @@ vim.api.nvim_create_autocmd('LspAttach', {
     ---@type integer?
     local winid
 
-    vim.keymap.set('n', '<C-e>', function ()
+    local function open_diag_float()
       vim.api.nvim_exec_autocmds("CursorMoved", {pattern = '*'})
       _, winid = vim.diagnostic.open_float()
-    end)
+      vim.api.nvim_set_option_value('linebreak', true, {scope='local', win=winid})
+    end
 
-    --- weird state machine thing to manage diagnostic floating text hiding + the
-    --- diagnostic floating window
-    local current_line_cycle = require('gpetryk.map').cycle('n', '<leader>e', {
-      function ()
+
+    local function close_diagnostics()
         vim.diagnostic.config({virtual_lines = false})
-      end,
-      function ()
+        if winid and vim.api.nvim_win_is_valid(winid) then
+          vim.api.nvim_win_close(winid, false)
+        end
+    end
+
+    local function open_current_line_vtext()
         if winid and vim.api.nvim_win_is_valid(winid) then
           vim.api.nvim_win_close(winid, false)
         end
         vim.diagnostic.config({virtual_lines = {format = fmt_vtext, current_line = true}})
-      end,
-    })
+    end
 
-    local last_current_line_state = current_line_cycle.get_state()
-    local _ = require('gpetryk.map').cycle('n', '<leader>E', {
-      function ()
-        current_line_cycle.set_state(last_current_line_state)
-      end,
-      function ()
+    local function open_all_vtext()
         if winid and vim.api.nvim_win_is_valid(winid) then
           vim.api.nvim_win_close(winid, false)
         end
         vim.diagnostic.config({virtual_lines = {format = fmt_vtext, current_line = false}})
-      end
+    end
+
+    vim.keymap.set('n', '<C-e>', open_diag_float)
+
+    --- weird state machine thing to manage diagnostic floating text hiding + the
+    --- diagnostic floating window
+    require('gpetryk.map').cycle('n', '<leader>e', {
+      close_diagnostics,
+      open_current_line_vtext,
+      open_diag_float
     })
 
-    current_line_cycle.add_hook_fn(function (state)
-      last_current_line_state = state
-    end)
-
-
+    require('gpetryk.map').cycle('n', '<leader>E', {
+      close_diagnostics,
+      open_all_vtext,
+    })
 
     vim.diagnostic.config({
       signs = {
@@ -113,6 +119,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
           min = vim.diagnostic.severity.HINT
         }
       },
+      -- virtual_text = true,
       virtual_lines = false,
       severity_sort = true,
       float = {
@@ -162,5 +169,3 @@ lspconfig['emmet_ls'].setup({
 lspconfig['html'].setup({
   filetypes = { 'html', 'htmldjango' }
 })
-
-vim.lsp.enable('jsonls')

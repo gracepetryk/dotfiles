@@ -37,3 +37,5 @@
     insteadOf = https://bitbucket.org/
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/   enabled = true
+[pull]
+    rebase = true

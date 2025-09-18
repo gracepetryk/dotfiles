@@ -5,6 +5,7 @@ require('rose-pine').setup({
   groups = {
     git_add = 'moss',
     git_stage = 'moss',
+    ok = 'moss'
   },
   highlight_groups = {
     TelescopeNormal = { fg = 'subtle', bg = 'surface' },
@@ -26,6 +27,7 @@ require('rose-pine').setup({
     DiagnosticVirtualLinesWarn = { link = 'DiagnosticVirtualTextWarn', },
     DiagnosticVirtualLinesHint = { link = 'DiagnosticVirtualTextHint', },
     DiagnosticVirtualLinesInfo = { link = 'DiagnosticVirtualTextInfo', },
+    NvimDapViewWatchExpr = { link = '@property' },
     ['@boolean'] = { fg = 'gold' },
     ['@constructor'] = { fg = 'moss' },
     ['@comment'] = { fg = 'muted' },
