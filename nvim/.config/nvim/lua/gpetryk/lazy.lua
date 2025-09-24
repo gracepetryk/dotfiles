@@ -1,6 +1,6 @@
 return {
   { 'gracepetryk/rose-pine', priority = 2000, dev=true, lazy=false, config = function() require('plugins.colors') end},
-  
+
   -- general
   { 'nvim-telescope/telescope.nvim',
     config = function() require('plugins.telescope') end,
@@ -17,6 +17,7 @@ return {
     ---@module "auto-session"
     ---@type AutoSession.Config
     opts = {
+      log_level='info',
       auto_restore=true,
       suppressed_dirs = { '~/Projects', '~/Downloads', '/' },
       cwd_change_handling=false,
@@ -24,6 +25,17 @@ return {
       session_lens = {
         load_on_setup = false
       },
+      restore_extra_data=function (_, json)
+        local data = vim.fn.json_decode(json)
+        for _, winid in ipairs(vim.api.nvim_list_wins()) do
+          local buf = vim.api.nvim_win_get_buf(winid)
+          local name = vim.api.nvim_buf_get_name(buf)
+          if data.foldlevels[name] then
+            -- vim.notify('info:\nbufnr:' .. buf .. ' level:' .. data.foldlevels[name], vim.log.levels.WARN)
+            vim.b[buf].ufo_foldlevel = data.foldlevels[name]
+          end
+        end
+      end,
       close_filetypes_on_save={
         "checkhealth",
         "help",
@@ -54,7 +66,7 @@ return {
 
     }
   },
-  
+
   -- signs/folds
   { "luukvbaal/statuscol.nvim",
     lazy=false,
@@ -81,6 +93,7 @@ return {
     opts = require 'plugins.gitsigns', event = 'VeryLazy' },
 
   -- lsp
+  { 'neovim/nvim-lspconfig' },
   { 'williamboman/mason.nvim' },
   { 'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
@@ -136,10 +149,10 @@ return {
   { 'nvim-java/nvim-java', ft = 'java',
     config = function() require('plugins.nvim_java') end,
     dependencies = { 
-      {'gracepetryk/nvim-java-test'},
+      {'gracepetryk/nvim-java-test', branch = 'fork'},
     }
   },
   { 'rodjek/vim-puppet', ft = 'puppet' },
   { 'lepture/vim-jinja', ft = 'htmldjango' },
-  { 'wavded/vim-stylus' ft = 'stylus'},
+  { 'wavded/vim-stylus', ft = 'stylus'},
 }

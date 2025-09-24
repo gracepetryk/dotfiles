@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       local bufs = vim.fn.getbufinfo()
 
       for _, buf in ipairs(bufs) do
-        vim.api.nvim_exec_autocmds('BufWinEnter', {buffer=buf.bufnr})
+        vim.api.nvim_exec_autocmds('TextChanged', {buffer=buf.bufnr})
       end
     end, 2000)
   end
