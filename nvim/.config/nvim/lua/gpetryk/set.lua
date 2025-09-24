@@ -46,12 +46,19 @@ vim.opt.exrc=true
 vim.opt.pumheight = 15
 vim.opt.previewheight = 20
 
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions=""
 
 vim.g.omni_sql_no_default_maps = 1
 
 vim.g.loaded_tar = 0
 
+vim.o.foldtext=""
+
+vim.o.foldcolumn='auto'
+vim.o.fillchars='fold: ,foldclose:,foldopen:,foldsep: '
+vim.o.foldopen='block,hor,mark,percent,quickfix,search,tag,undo,jump'
+vim.o.foldenable=true
+vim.o.foldlevel=99
 
 if not pcall(function () vim.g.python3_host_prog = vim.env.VIRTUAL_ENV .. '/bin/python' end) then
   vim.g.loaded_python3_provider = 0

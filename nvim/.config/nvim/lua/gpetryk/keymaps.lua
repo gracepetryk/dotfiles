@@ -89,8 +89,12 @@ map({ 'n', 'x' }, '<C-u>', function () big_jump('k') end)
 map({ 'n', 'x' }, '<C-d>', function () big_jump('j') end)
 
 -- center search
-map('n', 'n', 'nzz')
-map('n', 'N', 'Nzz')
+map('n', 'n', function ()
+  vim.api.nvim_feedkeys('nzz', 'ntx', false)
+end)
+map('n', 'N', function ()
+  vim.api.nvim_feedkeys('Nzz', 'ntx', false)
+end)
 
 --qflist/loclist
 map('n', '<C-n>', ':cn<CR>')
@@ -112,3 +116,5 @@ map('n', '<A-p>', ':lprev<CR>')
 -- end)
 
 map('n', '<C-s>', ':set spell!<CR>')
+map('n', 'zO', ':keepjumps normal! zozczO<CR>')
+map('n', 'zi', ':set fen!<CR>zz')

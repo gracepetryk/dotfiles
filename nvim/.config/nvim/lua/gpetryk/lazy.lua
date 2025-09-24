@@ -1,40 +1,9 @@
 return {
   { 'gracepetryk/rose-pine', priority = 2000, dev=true, lazy=false, config = function() require('plugins.colors') end},
-
-  { 'tpope/vim-sleuth' },
-  { 'tpope/vim-repeat' },
-  {
-    'tpope/vim-fugitive', -- git integration
-    event = 'VeryLazy',
-    dependencies = {
-      { 'tpope/vim-rhubarb' }, -- github
-      { 'tommcdo/vim-fubitive' }, -- bitbucket
-    },
-  },
-
-  { 'lewis6991/gitsigns.nvim', opts = require 'plugins.gitsigns', event = 'VeryLazy' },
-
-  { "luukvbaal/statuscol.nvim", config = function() require('plugins.statuscolumn') end },
-
-  {
-    'windwp/nvim-ts-autotag',
-    lazy='VeryLazy',
-    opts = {
-      opts = {
-        enable_rename = true
-      }
-    }
-  },
-
-  {
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    config = true
-  },
-
-
-  {
-    'nvim-telescope/telescope.nvim', config = function() require('plugins.telescope') end,
+  
+  -- general
+  { 'nvim-telescope/telescope.nvim',
+    config = function() require('plugins.telescope') end,
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-ui-select.nvim' },
@@ -42,14 +11,13 @@ return {
     },
     event = 'VeryLazy'
   },
-
-  {
-    'rmagatti/auto-session',
+  { 'rmagatti/auto-session',
 
     ---enables autocomplete for opts
     ---@module "auto-session"
     ---@type AutoSession.Config
     opts = {
+      auto_restore=true,
       suppressed_dirs = { '~/Projects', '~/Downloads', '/' },
       cwd_change_handling=false,
       auto_restore_last_session=false,
@@ -68,23 +36,53 @@ return {
     }
   },
 
-
-  {
-    'nvim-java/nvim-java',
-    ft = 'java',
-    config = function() require('plugins.nvim_java') end,
-    dependencies = { 'gracepetryk/nvim-java-test', branch = 'fork' }
+  -- treesitter
+  { 'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    branch = 'main',
+    build = ':TSUpdate',
+    config = function() require 'plugins.treesitter' end
   },
-  { 'williamboman/mason.nvim' }, -- install LSPs/DAP/etc
-  { 'creativenull/efmls-configs-nvim' },
-  {
-    'neovim/nvim-lspconfig',
-    config=function() require('plugins.lsp') end,
-    event = 'VeryLazy'
+  { 'nvim-treesitter/nvim-treesitter-context',
+    event='VeryLazy',
+    opts = {
+      enabled = true,
+      multiwindow = true,
+      max_lines=5,
+      mode='topline',
+      trim_scope='inner',
+
+    }
+  },
+  
+  -- signs/folds
+  { "luukvbaal/statuscol.nvim",
+    lazy=false,
+    config = function() require('plugins.statuscolumn') end,
+  },
+  { 'kevinhwang91/nvim-ufo',
+    event='VeryLazy',
+    dependencies = {
+      'kevinhwang91/promise-async'
+    },
+    config = function () require('plugins.folds') end
+
   },
 
-  {
-    'saghen/blink.cmp',
+  -- git
+  { 'tpope/vim-fugitive',
+    event = 'VeryLazy',
+    dependencies = {
+      { 'tpope/vim-rhubarb' }, -- github
+      { 'tommcdo/vim-fubitive' }, -- bitbucket
+    },
+  },
+  { 'lewis6991/gitsigns.nvim',
+    opts = require 'plugins.gitsigns', event = 'VeryLazy' },
+
+  -- lsp
+  { 'williamboman/mason.nvim' },
+  { 'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     dependencies = 'rafamadriz/friendly-snippets',
 
@@ -99,9 +97,7 @@ return {
     opts_extend = { "sources.default" },
     event = 'InsertEnter'
   },
-
-  {
-    'mfussenegger/nvim-dap',
+  { 'mfussenegger/nvim-dap',
     config = function() require 'plugins.dap' end,
     keys = {
       '<C-b>',
@@ -129,55 +125,21 @@ return {
     }
   },
 
-  {
-    'nvim-treesitter/nvim-treesitter',
-    lazy = false,
-    branch = 'main',
-    build = ':TSUpdate',
-    config = function() require 'plugins.treesitter' end
+  -- editing
+  { 'tpope/vim-sleuth' },
+  { 'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
   },
 
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    event='VeryLazy',
-    opts = {
-      enabled = true,
-      multiwindow = true,
-      max_lines=5,
-      mode='topline',
-      trim_scope='inner',
-
+  -- language-specific
+  { 'nvim-java/nvim-java', ft = 'java',
+    config = function() require('plugins.nvim_java') end,
+    dependencies = { 
+      {'gracepetryk/nvim-java-test'},
     }
   },
-
-  {
-    'nvim-tree/nvim-tree.lua',
-    dev=true,
-    keys = {
-      {
-        '<leader>nt',
-        function()
-          require('nvim-tree.api').tree.open()
-        end,
-        desc="nvim-tree"
-      }
-    },
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    opts=require('plugins.tree')
-  },
-
-  { 'rodjek/vim-puppet', event = 'VeryLazy' },
-  { 'lepture/vim-jinja' },
-  {
-    'norcalli/nvim-colorizer.lua',
-    enabled = false,
-    event = 'VeryLazy',
-    main = 'colorizer',
-    opts = { lua = {mode = 'foreground'} },
-    opts_extend = { mode = 'foreground' }
-  },
-
-  { 'wavded/vim-stylus' },
+  { 'rodjek/vim-puppet', ft = 'puppet' },
+  { 'lepture/vim-jinja', ft = 'htmldjango' },
+  { 'wavded/vim-stylus' ft = 'stylus'},
 }

@@ -4,6 +4,8 @@ vim.g.maplocalleader = '~'
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+require("gpetryk.set")
+
 -- bootstrap lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

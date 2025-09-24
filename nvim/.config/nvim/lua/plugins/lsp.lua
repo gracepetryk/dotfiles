@@ -1,5 +1,4 @@
 require('mason').setup()
-local lspconfig = require('lspconfig')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -110,7 +109,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         numhl = {
           [vim.diagnostic.severity.ERROR] = 'DiagnosticVirtualTextError',
           [vim.diagnostic.severity.WARN] = 'DiagnosticVirtualTextWarn',
-          [vim.diagnostic.severity.HINT] = 'DiagnosticVirtualTextHint',
           [vim.diagnostic.severity.INFO] = 'DiagnosticVirtualTextInfo',
         }
       },
@@ -135,37 +133,37 @@ local ts_path = vim.fn.expand('$MASON/packages/vue-language-server') .. '/node_m
 
 
 -- No need to set `hybridMode` to `true` as it's the default value
-lspconfig.volar.setup {
+vim.lsp.config('volar', {
   init_options = {
     typescript = {
       tsdk = ts_path
     }
   }
-}
+})
 
-if vim.fn.executable('eslint') == 1 then
-  vim.lsp.config('efm', {
-    filetypes = { 'javascript', 'typescript' },
-    root_markers = { 'package.json' },
-    settings = {
-      rootMarkers={"package.json"},
-      languages = {
-        javascript = {
-          vim.tbl_extend('keep', {
-            lintCommand='eslint --no-color --format stylish --stdin-filename "${INPUT}" --stdin',
-          }, require('efmls-configs.linters.eslint'))
-        }
-      }
-    }
-  })
+-- if vim.fn.executable('eslint') == 1 then
+--   vim.lsp.config('efm', {
+--     filetypes = { 'javascript', 'typescript' },
+--     root_markers = { 'package.json' },
+--     settings = {
+--       rootMarkers={"package.json"},
+--       languages = {
+--         javascript = {
+--           vim.tbl_extend('keep', {
+--             lintCommand='eslint --no-color --format stylish --stdin-filename "${INPUT}" --stdin',
+--           }, require('efmls-configs.linters.eslint'))
+--         }
+--       }
+--     }
+--   })
+-- 
+--   vim.lsp.enable('efm')
+-- end
 
-  vim.lsp.enable('efm')
-end
-
-lspconfig['emmet_ls'].setup({
+vim.lsp.config('emmet_ls', {
   filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby", "xml" }
 })
 
-lspconfig['html'].setup({
+vim.lsp.config('html', {
   filetypes = { 'html', 'htmldjango' }
 })

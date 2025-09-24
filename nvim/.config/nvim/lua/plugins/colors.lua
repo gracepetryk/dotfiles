@@ -9,7 +9,6 @@ require('rose-pine').setup({
   },
   highlight_groups = {
     TelescopeNormal = { fg = 'subtle', bg = 'surface' },
-    Folded = { bg = 'surface', fg = 'muted' },
     StatusLine = { bg = 'overlay' },
     BlinkCmpDocBorder = { link = 'FloatBorder' },
     BlinkCmpSignatureHelpBorder = { link = 'FloatBorder' },

@@ -2,12 +2,14 @@
 solargraph_comments.rb
 schema.rb
 pyrightconfig.json
+ty.toml
 .basedpyright/
 .ripgrep
 .vimspector.json
 neovim_build
 apps/.nvmrc
 .python-version
+*.pyi
 
 .luarc.json
 .nvim.lua

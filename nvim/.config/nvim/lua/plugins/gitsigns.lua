@@ -32,4 +32,20 @@ return {
   end,
   preview_config = {col = 1, row = 0, relative = "cursor"},
   culhl = false,
+  signs = {
+    add          = { text = '┃' },
+    change       = { text = '┃' },
+    delete       = { text = '┃' },
+    topdelete    = { text = '┃' },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
+  },
+  signs_staged = {
+    add          = { text = '┃' },
+    change       = { text = '┃' },
+    delete       = { text = '┃' },
+    topdelete    = { text = '┃' },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
+  },
 }
