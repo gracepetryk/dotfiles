@@ -1,18 +1,3 @@
-local get_callback = function (bufid)
-  return function ()
-    local level = 1
-    if level then
-      vim.api.nvim_buf_call(bufid, function ()
-        vim.b[bufid].ufo_foldlevel = level
-        require('ufo').closeFoldsWith(level)
-        vim.cmd[[silent! foldopen!]]
-        vim.cmd[[normal! zz]]
-      end)
-    end
-  end
-end
-
-
 local name = 'UfoJavaStart_' .. vim.api.nvim_get_current_buf()
 local lsp_augroup = vim.api.nvim_create_augroup(name, {})
 vim.api.nvim_create_autocmd('LspRequest', {
@@ -27,7 +12,13 @@ vim.api.nvim_create_autocmd('LspRequest', {
       return
     end
 
-    vim.defer_fn(get_callback(event.buf), 300)
+    vim.defer_fn(require('plugins.folds').get_callback(event.buf), 300)
+    if not vim.b[event.buf].closed_folds then
+      vim.defer_fn(function() 
+        require('ufo').closeFoldsWith(1)
+        vim.cmd[[silent! normal! zOzz]]
+      end, 300)
+    end
     vim.api.nvim_del_augroup_by_id(lsp_augroup)
   end
 })

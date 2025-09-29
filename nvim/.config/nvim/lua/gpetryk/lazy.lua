@@ -12,40 +12,16 @@ return {
     event = 'VeryLazy'
   },
   { 'rmagatti/auto-session',
+    config = function() require('auto-session').setup(require('plugins.session')) end,
+    lazy=false,
+  },
 
-    ---enables autocomplete for opts
-    ---@module "auto-session"
-    ---@type AutoSession.Config
-    opts = {
-      log_level='info',
-      auto_restore=true,
-      suppressed_dirs = { '~/Projects', '~/Downloads', '/' },
-      cwd_change_handling=false,
-      auto_restore_last_session=false,
-      session_lens = {
-        load_on_setup = false
-      },
-      restore_extra_data=function (_, json)
-        local data = vim.fn.json_decode(json)
-        for _, winid in ipairs(vim.api.nvim_list_wins()) do
-          local buf = vim.api.nvim_win_get_buf(winid)
-          local name = vim.api.nvim_buf_get_name(buf)
-          if data.foldlevels[name] then
-            -- vim.notify('info:\nbufnr:' .. buf .. ' level:' .. data.foldlevels[name], vim.log.levels.WARN)
-            vim.b[buf].ufo_foldlevel = data.foldlevels[name]
-          end
-        end
-      end,
-      close_filetypes_on_save={
-        "checkhealth",
-        "help",
-        "terminal",
-        "dap-view",
-        "dap-repl",
-        "dap-view-term"
-      },
-      lazy=false
-    }
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = {
+      'kevinhwang91/promise-async'
+    },
+    event = 'VeryLazy'
   },
 
   -- treesitter
@@ -71,14 +47,6 @@ return {
   { "luukvbaal/statuscol.nvim",
     lazy=false,
     config = function() require('plugins.statuscolumn') end,
-  },
-  { 'kevinhwang91/nvim-ufo',
-    event='VeryLazy',
-    dependencies = {
-      'kevinhwang91/promise-async'
-    },
-    config = function () require('plugins.folds') end
-
   },
 
   -- git
@@ -146,11 +114,12 @@ return {
   },
 
   -- language-specific
-  { 'nvim-java/nvim-java', ft = 'java',
+  { 'nvim-java/nvim-java',
+    ft = 'java',
     config = function() require('plugins.nvim_java') end,
-    dependencies = { 
+    dependencies = {
       {'gracepetryk/nvim-java-test', branch = 'fork'},
-    }
+    },
   },
   { 'rodjek/vim-puppet', ft = 'puppet' },
   { 'lepture/vim-jinja', ft = 'htmldjango' },

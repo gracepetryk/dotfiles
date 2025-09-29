@@ -16,13 +16,6 @@ map('i', '<Esc>', '<C-c>') -- in case something goes wrong
 
 map('n', 's', '&&')
 
--- swap line/character mark navigation
-map({'n', 'x'}, "'", "m")
-map({'n', 'x'}, "m", "'")
-
-map('n', 'm,', "'<")
-map('n', 'm.', "'>")
-
 map('n', 'gp', '`Pv`p') -- visual on the last pasted area
 map('n', 'gP', '`PV`p') -- visual line on the last pasted area
 map('n', 'go', '`>')
@@ -115,6 +108,4 @@ map('n', '<A-p>', ':lprev<CR>')
 --   })
 -- end)
 
-map('n', '<C-s>', ':set spell!<CR>')
-map('n', 'zO', ':keepjumps normal! zozczO<CR>')
-map('n', 'zi', ':set fen!<CR>zz')
+vim.keymap.set('n', '<C-s>', ':set spell!<CR>')

@@ -1,3 +1,4 @@
+local M = {}
 local handler = function(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
   local suffix = (' 󰁂 %d lines'):format(endLnum - lnum)
@@ -54,7 +55,63 @@ local function set_foldlevel(level)
   require('ufo').closeFoldsWith(level)
 end
 
-vim.keymap.set('n', 'zM', function () set_foldlevel(0) end)
+local function normal(cmd)
+  -- print(cmd)
+  vim.cmd('keepjumps silent! normal! ' .. cmd)
+end
+
+local function children_open(check_type)
+  normal('zc')
+  local top_of_closed_fold = vim.fn.foldclosed('.')
+  local fold_end = vim.fn.foldclosedend('.')
+  local parent_level = vim.fn.foldlevel('.')
+  normal('zo')
+
+  local no_early_return
+  if check_type == 'all' then
+    no_early_return = true
+  elseif check_type == 'any' then
+    no_early_return = false
+  else
+    check_type = 'any'
+    no_early_return = false
+  end
+
+  for line = top_of_closed_fold, fold_end do
+    local is_open = vim.fn.foldclosed(line) == -1
+    if check_type == 'all' and not is_open then
+      return false
+    end
+
+    local level = vim.fn.foldlevel(line)
+
+    if check_type == 'any' and is_open and level > parent_level  then
+      return true
+    end
+
+  end
+
+  return no_early_return
+end
+
+M.children_open = children_open
+
+local function get_parent_level_with_closed_childeren()
+  normal('zcvovzo')
+  local parent_level = vim.fn.foldlevel('.')
+  while parent_level >= 0 do
+    local any_closed = not children_open('all')
+    if not children_open('all') then
+      return parent_level
+    end
+    normal('[z')
+    parent_level = parent_level - 1
+  end
+  return 0
+end
+M.get_parent_level_with_closed_childeren = get_parent_level_with_closed_childeren
+
+vim.keymap.set('n', 'zM', function () set_foldlevel(math.max(vim.v.count, 1)) end)
 vim.keymap.set('n', 'zR', function () set_foldlevel(get_max_foldlevel(false)) end)
 vim.keymap.set('n', 'zr', function ()
   local max = vim.b.ufo_max or get_max_foldlevel(true)
@@ -78,12 +135,12 @@ vim.keymap.set('n', 'zm', function ()
 end)
 vim.keymap.set('n', 'zx', function ()
   local max = vim.b.ufo_max or get_max_foldlevel()
-  local level = vim.b.ufo_foldlevel or max
+  local level = vim.b.ufo_foldlevel or (max)
   local line_level = vim.fn.foldlevel('.')
 
   set_foldlevel(level)
   if line_level > level then
-    vim.cmd[[silent! normal zO]]
+    vim.cmd[[silent! normal! zOzz]]
   end
 end)
 vim.keymap.set('n', 'zX', function ()
@@ -92,11 +149,95 @@ vim.keymap.set('n', 'zX', function ()
 
   set_foldlevel(level)
 end)
+vim.keymap.set('n', 'zO', ':silent! normal! zozczO<CR>')
+vim.keymap.set('n', 'zo', function ()
+  local top_of_closed_fold = vim.fn.foldclosed('.')
+  local is_closed = top_of_closed_fold ~= -1
+
+  if is_closed then
+    vim.cmd('silent! normal! zo')
+    return
+  end
+
+  normal('mf')
+  local next_parent = math.max(vim.b.ufo_foldlevel or 0, get_parent_level_with_closed_childeren())
+  local distance = vim.fn.foldlevel('.') - next_parent
+  local map = 'zc'
+
+  for i = 1, distance do
+    map = map .. 'zc'
+  end
+
+  normal(map .. 'zO`fzz')
+end)
+vim.keymap.set('n', 'zC', function ()
+  -- close siblings and open node one level
+  normal('mf')
+
+  local top_of_closed_fold = vim.fn.foldclosed('.')
+  local is_closed = top_of_closed_fold ~= -1
+  local is_open = not is_closed
+
+  if is_open then
+    normal("zc")
+  end
+
+  local top_of_fold = vim.fn.foldclosed('.')
+  local end_of_fold = vim.fn.foldclosedend('.')
+
+  normal('[zzc')
+  local parent_level = vim.fn.foldlevel('.')
+  local top_of_parent = vim.fn.foldclosed('.')
+  local end_of_parent = vim.fn.foldclosedend('.')
+  normal('zo')
+
+  vim.print({top_of_parent, top_of_fold, end_of_fold, end_of_parent, parent_level})
+
+  normal('`fzo')
+
+  normal(top_of_parent .. 'Gzj')
+  vim.print({vim.fn.getpos('.')[2],vim.fn.foldlevel('.'), top_of_fold})
+  while vim.fn.getpos('.')[2] < top_of_fold do
+    vim.print({vim.fn.getpos('.')[2],vim.fn.foldclosed('.')})
+    if vim.fn.foldclosed('.') == -1 then
+      vim.print('closed')
+      normal('zc')
+    end
+
+    normal('zj')
+    vim.print({vim.fn.getpos('.')[2],vim.fn.foldlevel('.')})
+  end
+  normal('`f]zj')
+
+  while vim.fn.getpos('.')[2] < end_of_parent do
+    normal('j')
+    if vim.fn.foldclosed('.') == -1 and vim.fn.foldlevel('.') > parent_level then
+      normal('zc')
+    end
+  end
+  normal('`fzvzz')
+end)
+vim.keymap.set('n', '<leader>zc', function()
+  local top_of_closed_fold = vim.fn.foldclosed('.')
+  local is_closed = top_of_closed_fold ~= -1
+
+  normal('mf')
+  if not is_closed then
+    normal('zc')
+  end
+
+  normal('zcvov')
+  local parent_level = vim.fn.foldlevel('.')
+  normal('VzC`fzvzz')
+
+  if vim.fn.foldlevel('.') > parent_level and vim.fn.foldclosed('.') == -1 then
+    normal('zc')
+  end
+end)
+vim.keymap.set('n', 'zi', ':set fen!<CR>zz')
 
 local ft_map = {
-  python = 'treesitter',
-  markdown = '',
-  java = {'lsp'},
+  java = 'lsp',
   default = 'treesitter'
 }
 
@@ -109,15 +250,32 @@ require('ufo').setup({
 })
 
 
-require('auto-session').setup(vim.tbl_extend('force', require('auto-session.config').options, {
-  save_extra_data = function (_)
-    local data = {foldlevels={}}
-    for _, winid in ipairs(vim.api.nvim_list_wins()) do
-      local buf = vim.api.nvim_win_get_buf(winid)
-      local name = vim.api.nvim_buf_get_name(buf)
-      data.foldlevels[name] = vim.b[buf].ufo_foldlevel or 99
-    end
 
-    return vim.fn.json_encode(data)
-  end,
-}))
+M.get_callback = function (bufid)
+  return function ()
+    vim.treesitter.get_parser()
+      if not vim.b[bufid].closed_folds then
+        return
+      end
+
+    vim.api.nvim_buf_call(bufid, function ()
+      vim.cmd.mark("c")
+      for line, _ in pairs(vim.b.closed_folds) do
+        local cmd = 'silent! keepjumps ' .. line .. ';foldclose'
+        vim.cmd(cmd)
+      end
+      vim.wait(1000, function ()
+        if vim.api.nvim_buf_get_mark(bufid, 'c')[1] == 0 then
+          return false
+        end
+
+        vim.cmd[[normal! `czz]]
+
+        return true
+      end, 50)
+    end)
+
+  end
+end
+
+return M

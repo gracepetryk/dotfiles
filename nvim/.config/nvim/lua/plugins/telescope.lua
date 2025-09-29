@@ -1,4 +1,12 @@
 local builtin = require('telescope.builtin')
+local actions_mt = require('telescope.actions.mt')
+
+M = {}
+M.post_select = function(prompt_bufnr)
+  vim.print('post!')
+  vim.cmd('silent! normal zOzz')
+end
+M = actions_mt.transform_mod(M)
 
 require('telescope').load_extension('ui-select')  -- make telescope default picker
 require('telescope').load_extension('fzf')
@@ -91,7 +99,8 @@ require('telescope').setup({
   defaults = {
     mappings = {
       i = {
-        ["<C-a>"] = require('telescope.actions').nop
+        ["<C-a>"] = require('telescope.actions').nop,
+        ["<CR>"] = require('telescope.actions').select_default + M.post_select,
       }
     },
     cache_picker = {
