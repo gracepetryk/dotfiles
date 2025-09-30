@@ -1,4 +1,4 @@
-require('plugins.folds')
+-- require('plugins.folds')
 local function get_session_prefix(legacy, use_cwd)
   local Lib = require("auto-session.lib")
   local Config = require("auto-session.config")

@@ -1,8 +1,8 @@
-local rtp = vim.opt.rtp:get()
-local path = vim.fn.expand('%')
-local path_root = path:gsub('/doc/[^/]*%.md$', '')
-
-if type(rtp) == "table" and vim.list_contains(rtp, path_root) then
-    vim.cmd.wincmd('L')
-    vim.cmd('vert resize 90')
+if not vim.o.modifiable then
+  -- lsp floating windows
+  vim.fn.matchadd('Conceal', '\\')
+  vim.api.nvim_set_hl(0, '@string.escape', {})
+  vim.o.linebreak = true
+  vim.o.breakat=' '
 end
+

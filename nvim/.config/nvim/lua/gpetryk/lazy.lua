@@ -1,9 +1,14 @@
+local function load_config(module)
+  return function ()
+    require(module)
+  end
+end
 return {
-  { 'gracepetryk/rose-pine', priority = 2000, dev=true, lazy=false, config = function() require('plugins.colors') end},
+  { 'gracepetryk/rose-pine', dev=true, lazy=false, config = load_config('plugins.colors')},
 
-  -- general
+  -- -- general
   { 'nvim-telescope/telescope.nvim',
-    config = function() require('plugins.telescope') end,
+    config = load_config('plugins.telescope'),
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-ui-select.nvim' },
@@ -16,12 +21,12 @@ return {
     lazy=false,
   },
 
-  {
-    'kevinhwang91/nvim-ufo',
+  { 'kevinhwang91/nvim-ufo',
     dependencies = {
       'kevinhwang91/promise-async'
     },
-    event = 'VeryLazy'
+    event = 'VeryLazy',
+    config = load_config('plugins.folds')
   },
 
   -- treesitter
@@ -29,7 +34,7 @@ return {
     lazy = false,
     branch = 'main',
     build = ':TSUpdate',
-    config = function() require 'plugins.treesitter' end
+    config = load_config('plugins.treesitter')
   },
   { 'nvim-treesitter/nvim-treesitter-context',
     event='VeryLazy',
@@ -46,7 +51,7 @@ return {
   -- signs/folds
   { "luukvbaal/statuscol.nvim",
     lazy=false,
-    config = function() require('plugins.statuscolumn') end,
+    config = load_config('plugins.statuscolumn'),
   },
 
   -- git
@@ -61,7 +66,7 @@ return {
     opts = require 'plugins.gitsigns', event = 'VeryLazy' },
 
   -- lsp
-  { 'neovim/nvim-lspconfig' },
+  { 'neovim/nvim-lspconfig', config = load_config('plugins.lsp') },
   { 'williamboman/mason.nvim' },
   { 'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
@@ -79,7 +84,7 @@ return {
     event = 'InsertEnter'
   },
   { 'mfussenegger/nvim-dap',
-    config = function() require 'plugins.dap' end,
+    config = load_config('plugins.dap'),
     keys = {
       '<C-b>',
       '<leader>d'
@@ -116,7 +121,7 @@ return {
   -- language-specific
   { 'nvim-java/nvim-java',
     ft = 'java',
-    config = function() require('plugins.nvim_java') end,
+    config = load_config('plugins.nvim_java'),
     dependencies = {
       {'gracepetryk/nvim-java-test', branch = 'fork'},
     },

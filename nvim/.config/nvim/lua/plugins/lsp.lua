@@ -131,6 +131,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local ts_path = vim.fn.expand('$MASON/packages/vue-language-server') .. '/node_modules/typescript/lib'
 
+local hover = vim.lsp.buf.hover
+---@diagnostic disable-next-line duplicate-set-field
+vim.lsp.buf.hover = function ()
+  hover({
+    max_width=100,
+  })
+end
+
 
 -- No need to set `hybridMode` to `true` as it's the default value
 vim.lsp.config('volar', {
@@ -167,3 +175,6 @@ vim.lsp.config('emmet_ls', {
 vim.lsp.config('html', {
   filetypes = { 'html', 'htmldjango' }
 })
+
+
+vim.lsp.enable('terraformls')

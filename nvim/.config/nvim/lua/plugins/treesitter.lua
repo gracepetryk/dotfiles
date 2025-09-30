@@ -16,7 +16,7 @@ langs = vim.tbl_filter(function (entry)
 end, langs)
 
 local start_ts = function (opts)
-  vim.treesitter.start()
+  vim.schedule(vim.treesitter.start)
 
   opts = opts or {}
   local indent = opts.indent
