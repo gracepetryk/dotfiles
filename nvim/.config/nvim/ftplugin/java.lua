@@ -13,12 +13,12 @@ vim.api.nvim_create_autocmd('LspRequest', {
     end
 
     vim.defer_fn(require('plugins.folds').get_callback(event.buf), 300)
-    if not vim.b[event.buf].closed_folds then
-      vim.defer_fn(function() 
-        require('ufo').closeFoldsWith(1)
-        vim.cmd[[silent! normal! zOzz]]
-      end, 300)
-    end
+    -- if not vim.b[event.buf].closed_folds then
+    --   vim.defer_fn(function()
+    --     require('ufo').closeFoldsWith(1)
+    --     vim.cmd[[silent! normal! zOzz]]
+    --   end, 300)
+    -- end
     vim.api.nvim_del_augroup_by_id(lsp_augroup)
   end
 })

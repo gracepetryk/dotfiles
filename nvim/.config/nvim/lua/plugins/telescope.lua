@@ -3,7 +3,6 @@ local actions_mt = require('telescope.actions.mt')
 
 M = {}
 M.post_select = function(prompt_bufnr)
-  vim.print('post!')
   vim.cmd('silent! normal zOzz')
 end
 M = actions_mt.transform_mod(M)

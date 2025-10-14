@@ -19,6 +19,7 @@ return {
   { 'rmagatti/auto-session',
     config = function() require('auto-session').setup(require('plugins.session')) end,
     lazy=false,
+    priority = 110
   },
 
   { 'kevinhwang91/nvim-ufo',
@@ -32,9 +33,10 @@ return {
   -- treesitter
   { 'nvim-treesitter/nvim-treesitter',
     lazy = false,
+    priority=100,
     branch = 'main',
     build = ':TSUpdate',
-    config = load_config('plugins.treesitter')
+    config = load_config("plugins.treesitter")
   },
   { 'nvim-treesitter/nvim-treesitter-context',
     event='VeryLazy',

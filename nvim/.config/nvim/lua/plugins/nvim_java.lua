@@ -9,6 +9,7 @@ vim.lsp.config('jdtls', {
   -- on_attach = function(client, bufnr)
   --   require('ufo').enableFold(bufnr)
   -- end,
+  root_markers={'pom.xml', '.git'},
   settings = {
     java = {
       inlayHints = {
@@ -20,7 +21,10 @@ vim.lsp.config('jdtls', {
   }
 })
 
+vim.print('enabling java')
 vim.lsp.enable('jdtls')
+
+-- vim.lsp.start(vim.lsp.config.jdtls)
 
 local function setup_listener()
   dap.listeners.after['event_terminated']['gpetryk'] = function(session, body)

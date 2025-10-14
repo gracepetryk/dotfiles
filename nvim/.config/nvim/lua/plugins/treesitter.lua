@@ -16,26 +16,33 @@ langs = vim.tbl_filter(function (entry)
 end, langs)
 
 local start_ts = function (opts)
-  vim.schedule(vim.treesitter.start)
-
   opts = opts or {}
-  local indent = opts.indent
 
-  if indent and not vim.tbl_isempty(vim.api.nvim_get_runtime_file('queries/' .. vim.bo.filetype .. '/indents.scm', true)) then
+  local indent_query_path = 'queries/' .. vim.bo.filetype .. '/indents.scm'
+  local indent_details = vim.api.nvim_get_runtime_file(indent_query_path, true)
+  local has_indent_query = #indent_details > 0
+
+  if opts.indent and not has_indent_query then
     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
   end
+
+  vim.schedule(function () vim.treesitter.start(opts.buf) end)
 end
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = langs,
-  callback = function()
+  callback = function(opts)
     local ft = vim.bo.filetype
     local installed = nvim_treesitter.get_installed()
 
+    local wrapped_start_ts = function ()
+      start_ts({buf=opts.buf, indent=not vim.tbl_contains(exclude_indent, ft)})
+    end
+
     if not vim.tbl_contains(installed, ft) then
-      nvim_treesitter.install(ft):await(start_ts);
+      nvim_treesitter.install(ft):await(wrapped_start_ts);
     else
-      start_ts({indent=not vim.tbl_contains(exclude_indent, ft)})
+      wrapped_start_ts()
     end
   end,
 })

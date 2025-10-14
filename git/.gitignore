@@ -10,6 +10,7 @@ neovim_build
 apps/.nvmrc
 .python-version
 *.pyi
+.claude/
 
 .luarc.json
 .nvim.lua

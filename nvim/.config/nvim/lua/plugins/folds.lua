@@ -134,14 +134,25 @@ vim.keymap.set('n', 'zm', function ()
   set_foldlevel(level)
 end)
 vim.keymap.set('n', 'zx', function ()
+  vim.o.lazyredraw = true
   local max = vim.b.ufo_max or get_max_foldlevel()
   local level = vim.b.ufo_foldlevel or (max)
   local line_level = vim.fn.foldlevel('.')
 
-  set_foldlevel(level)
-  if line_level > level then
-    vim.cmd[[silent! normal! zOzz]]
-  end
+  vim.o.foldmethod='expr'
+  vim.o.foldmethod='manual'
+
+  vim.api.nvim_exec_autocmds('TextChanged', {})
+
+  vim.defer_fn(function ()
+    set_foldlevel(level)
+    if line_level > level then
+      vim.cmd[[silent! normal! zOzz]]
+    end
+    vim.o.lazyredraw = false
+    vim.cmd.redraw()
+  end, 50)
+
 end)
 vim.keymap.set('n', 'zX', function ()
   local max = vim.b.ufo_max or get_max_foldlevel()
@@ -238,7 +249,8 @@ vim.keymap.set('n', 'zi', ':set fen!<CR>zz')
 
 local ft_map = {
   java = 'lsp',
-  default = 'treesitter'
+  python = 'treesitter',
+  default = 'indent'
 }
 
 require('ufo').setup({
@@ -254,9 +266,9 @@ require('ufo').setup({
 M.get_callback = function (bufid)
   return function ()
     vim.treesitter.get_parser()
-      if not vim.b[bufid].closed_folds then
-        return
-      end
+    if not vim.b[bufid].closed_folds then
+      return
+    end
 
     vim.api.nvim_buf_call(bufid, function ()
       vim.cmd.mark("c")
@@ -277,5 +289,6 @@ M.get_callback = function (bufid)
 
   end
 end
+
 
 return M

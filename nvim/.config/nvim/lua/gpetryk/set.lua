@@ -1,50 +1,50 @@
 vim.g.mapleader = " "
 
-vim.opt_global.errorbells = false
+vim.o.errorbells = false
 
 vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.opt.updatetime = 100
 
-vim.opt_global.scrolloff = 10
+vim.o.scrolloff = 10
 
-vim.opt_global.hlsearch = false
-vim.opt_global.incsearch = true
+vim.o.hlsearch = false
+vim.o.incsearch = true
 
-vim.opt_global.laststatus = 2
+vim.o.laststatus = 2
 
-vim.opt_global.ignorecase = true
-vim.opt_global.smartcase = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
-vim.opt_global.colorcolumn = '92'
-vim.opt_global.cursorline = true
+vim.o.colorcolumn = '92'
+vim.o.cursorline = true
 
-vim.opt_global.tabstop = 4
-vim.opt_global.softtabstop = 4
-vim.opt_global.shiftwidth = 4
-vim.opt_global.expandtab = true
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
 
-vim.opt_global.termguicolors = true
+vim.o.termguicolors = true
 
-vim.opt_global.wrap = false
+vim.o.wrap = false
 
-vim.opt_global.swapfile = false
+vim.o.swapfile = false
 
-vim.opt_global.textwidth = 90
-vim.opt_global.formatoptions = 'cqjl'
+vim.o.textwidth = 90
+vim.o.formatoptions = 'cqjl'
 
-vim.opt_global.spelllang = 'en_us'
-vim.opt_global.spellsuggest = '10'
+vim.o.spelllang = 'en_us'
+vim.o.spellsuggest = '10'
 
-vim.opt_global.winborder = 'rounded'
+vim.o.winborder = 'rounded'
 
 -- enable .nvim.lua files
-vim.opt_global.exrc=true
+vim.o.exrc=true
 
 -- pop up menu height
-vim.opt_global.pumheight = 15
-vim.opt_global.previewheight = 20
+vim.o.pumheight = 15
+vim.o.previewheight = 20
 
 vim.opt.sessionoptions="blank,buffers,curdir,tabpages,winsize,winpos,terminal,localoptions,folds"
 vim.opt.viewoptions="cursor,curdir"

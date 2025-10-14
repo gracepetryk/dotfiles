@@ -4,6 +4,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev) --- @diagnostic disable-line
     local mapopts = { noremap = true, silent = true }
+    local underline_config = {
+        severity = {
+          min = vim.diagnostic.severity.WARN
+        }
+    }
 
     vim.keymap.set('n', '<A-]>', function ()
       vim.diagnostic.jump({count=1})
@@ -42,14 +47,79 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end
     end, mapopts)
 
+    vim.keymap.set('n', '<leader>u', function ()
+      if not vim.diagnostic.config().underline then
+        vim.diagnostic.config({underline = underline_config})
+      else
+        vim.diagnostic.config({underline = false})
+      end
+    end)
+
+
+    -- ---@param diagnostic vim.Diagnostic
+    -- local function fmt_vtext(diagnostic)
+    -- end
+
+    -- Split a string into multiple lines, each no longer than max_width
+    -- The split will only occur on spaces to preserve readability
+    -- @param str string
+    -- @param max_width integer
+    local function split_line(str, max_width)
+      if #str <= max_width then
+        return { str }
+      end
+
+      local lines = {}
+      local current_line = ''
+
+      for word in string.gmatch(str, '%S+') do
+        -- If adding this word would exceed max_width
+        if #current_line + #word + 1 > max_width then
+          -- Add the current line to our results
+          table.insert(lines, current_line)
+          current_line = word
+        else
+          -- Add word to the current line with a space if needed
+          if current_line ~= '' then
+            current_line = current_line .. ' ' .. word
+          else
+            current_line = word
+          end
+        end
+      end
+
+      -- Don't forget the last line
+      if current_line ~= '' then
+        table.insert(lines, current_line)
+      end
+
+      return lines
+    end
 
     ---@param diagnostic vim.Diagnostic
-    local function fmt_vtext(diagnostic)
-      local second_newline, _ = diagnostic.message:find('\n.*\n', 1, false)
-      return string.format('%s: %s',
-        diagnostic.code,
-        diagnostic.message:sub(1, second_newline or -1)
-      )
+    local function virtual_lines_format(diagnostic)
+      -- Only render hints on the current line
+      -- Note this MUST be paired with an autocmd that hides/shows diagnostics to force a re-render
+      if diagnostic.severity == vim.diagnostic.severity.HINT and diagnostic.lnum + 1 ~= vim.fn.line '.' then
+        return nil
+      end
+
+      local win = vim.api.nvim_get_current_win()
+      local sign_column_width = vim.fn.getwininfo(win)[1].textoff
+      local text_area_width = vim.api.nvim_win_get_width(win) - sign_column_width
+      local center_width = 5
+      local left_width = 1
+
+      local message = string.format('%s: %s', diagnostic.code, diagnostic.message)
+
+      ---@type string[]
+      local lines = {}
+      for msg_line in message:gmatch '([^\n]+)' do
+        local max_width = text_area_width - diagnostic.col - center_width - left_width
+        vim.list_extend(lines, split_line(msg_line, max_width))
+      end
+
+      return table.concat(lines, '\n')
     end
 
     ---@type integer?
@@ -73,7 +143,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         if winid and vim.api.nvim_win_is_valid(winid) then
           vim.api.nvim_win_close(winid, false)
         end
-        vim.diagnostic.config({virtual_lines = {format = fmt_vtext, current_line = true}})
+        vim.diagnostic.config({virtual_lines = {format=virtual_lines_format, current_line = true}})
     end
 
     local function open_all_vtext()
@@ -112,11 +182,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
           [vim.diagnostic.severity.INFO] = 'DiagnosticVirtualTextInfo',
         }
       },
-      underline = {
-        severity = {
-          min = vim.diagnostic.severity.HINT
-        }
-      },
+      underline = underline_config,
       -- virtual_text = true,
       virtual_lines = false,
       severity_sort = true,
