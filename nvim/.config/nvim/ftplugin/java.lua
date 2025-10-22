@@ -1,5 +1,6 @@
 local name = 'UfoJavaStart_' .. vim.api.nvim_get_current_buf()
 local lsp_augroup = vim.api.nvim_create_augroup(name, {})
+vim.keymap.set('n', '<leader>gi', vim.lsp.buf.declaration, {})
 vim.api.nvim_create_autocmd('LspRequest', {
   group=lsp_augroup,
   buffer=vim.api.nvim_get_current_buf(),

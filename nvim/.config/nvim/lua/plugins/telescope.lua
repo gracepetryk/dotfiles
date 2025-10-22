@@ -20,6 +20,7 @@ vim.keymap.set('n', '<leader>fid', ':Telescope live_grep glob_pattern=')
 vim.keymap.set('n', '<leader>/',  builtin.current_buffer_fuzzy_find)
 vim.keymap.set('n', '<leader>t', builtin.builtin)
 
+vim.keymap.set('n', 'gi', builtin.lsp_implementations, {})
 vim.keymap.set('n', 'gr', builtin.lsp_references, {})
 
 vim.keymap.set('n', 'gd', builtin.lsp_definitions, {})

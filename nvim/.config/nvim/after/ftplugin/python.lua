@@ -13,17 +13,6 @@ vim.lsp.config('ty', {
   },
 })
 
--- vim.lsp.config('ty', {
---   cmd = {'ty', 'server'},
---   root_markers = {'.venv'},
---   settings = {
---     ty = {
---       experimental = {
---         rename = true,
---       },
---     },
---   },
--- })
 
 vim.lsp.enable('basedpyright')
 vim.lsp.enable('ruff')

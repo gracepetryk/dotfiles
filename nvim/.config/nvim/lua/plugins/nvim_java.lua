@@ -9,13 +9,16 @@ vim.lsp.config('jdtls', {
   -- on_attach = function(client, bufnr)
   --   require('ufo').enableFold(bufnr)
   -- end,
-  root_markers={'pom.xml', '.git'},
+  root_markers={'.git'},
   settings = {
     java = {
       inlayHints = {
         parameterNames = {
           enabled = "all"
         }
+      },
+      format = {
+        insertSpaces = true
       }
     }
   }
