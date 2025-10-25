@@ -12,7 +12,11 @@
     defaultBranch = main
 [alias]
     adog = log --all --decorate --oneline --graph
-    d = difftool --no-symlinks --dir-diff
+
+    # Difftastic aliases, so `git dlog` is `git log` with difftastic and so on.
+    d = -c diff.external=difft diff
+    dlog = -c diff.external=difft log --ext-diff
+    dshow = -c diff.external=difft show --ext-diff
 
     stash-working = "!f() { \
 	git commit --quiet --no-verify -m \"temp for stash-working\" && \
@@ -24,13 +28,6 @@
 [diff]
     tool = kitty
     guitool = kitty.gui
-[difftool]
-    prompt = false
-    trustExitCode = true
-[difftool "kitty"]
-    cmd = kitty +kitten diff $LOCAL $REMOTE
-[difftool "kitty.gui"]
-    cmd = kitty kitty +kitten diff $LOCAL $REMOTE
 [rerere]
 
 [url "ssh://git@bitbucket.org/"]

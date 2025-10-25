@@ -49,5 +49,27 @@
 # resize-overlay-duration = 4s 200ms
 
 theme = GitHub Dark Dimmed
+background = #191724
+cursor-color = #e0def4
+cursor-text = #191724
+split-divider-color = #9999aa
 
 macos-icon = custom
+
+confirm-close-surface = false
+
+keybind = super+shift+w=close_tab
+
+keybind = super+f=toggle_split_zoom
+keybind = super+o=goto_split:next
+keybind = super+shift+o=goto_split:previous
+
+keybind = super+j=goto_split:down
+keybind = super+k=goto_split:up
+keybind = super+h=goto_split:left
+keybind = super+l=goto_split:right
+
+keybind = super+shift+j=resize_split:down,30
+keybind = super+shift+k=resize_split:up,30
+keybind = super+shift+h=resize_split:left,30
+keybind = super+shift+l=resize_split:right,30
