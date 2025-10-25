@@ -4,7 +4,7 @@ local function load_config(module)
   end
 end
 return {
-  { 'gracepetryk/rose-pine', dev=true, lazy=false, config = load_config('plugins.colors')},
+  { 'gracepetryk/rose-pine', branch='custom', lazy=false, config = load_config('plugins.colors')},
 
   -- -- general
   { 'nvim-telescope/telescope.nvim',
