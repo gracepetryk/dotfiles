@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local mapopts = { noremap = true, silent = true }
     local underline_config = {
         severity = {
-          min = vim.diagnostic.severity.WARN
+          min = vim.diagnostic.severity.HINT
         }
     }
 
@@ -180,6 +180,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
           [vim.diagnostic.severity.ERROR] = 'DiagnosticVirtualTextError',
           [vim.diagnostic.severity.WARN] = 'DiagnosticVirtualTextWarn',
           [vim.diagnostic.severity.INFO] = 'DiagnosticVirtualTextInfo',
+          [vim.diagnostic.severity.HINT] = 'DiagnosticVirtualTextHint',
         }
       },
       underline = underline_config,
@@ -243,4 +244,4 @@ vim.lsp.config('html', {
 })
 
 
-vim.lsp.enable('terraformls')
+-- vim.lsp.enable('terraformls')

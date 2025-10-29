@@ -69,6 +69,12 @@ bindkey -e
 # Remove path separator from WORDCHARS.
 WORDCHARS=${WORDCHARS//[\/]}
 
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath+=/Users/GPetryk/.docker/completions
+fpath+=/Users/GPetryk/.zfunc
+autoload -Uz compinit
+# End of Docker CLI completions
+
 # -----------------
 # Zim configuration
 # -----------------
@@ -258,7 +264,9 @@ eval "$(fnm env)"
 
 [[ -d ~/.cargo ]] && export PATH="$PATH:$HOME/.cargo/bin"
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/GPetryk/.docker/completions $fpath)
-autoload -Uz compinit
-# End of Docker CLI completions
+if which uv > /dev/null; then
+  eval "$(uv generate-shell-completion zsh)"
+fi
+
+
+return 0

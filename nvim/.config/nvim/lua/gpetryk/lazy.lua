@@ -72,7 +72,11 @@ return {
   { 'williamboman/mason.nvim' },
   { 'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
-    dependencies = 'rafamadriz/friendly-snippets',
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+      { 'onsails/lspkind.nvim', lazy=true },
+      { 'nvim-mini/mini.icons', lazy=true },
+    },
 
     -- use a release tag to download pre-built binaries
     version = '*',
@@ -83,7 +87,7 @@ return {
 
     opts = require('plugins.cmp'),
     opts_extend = { "sources.default" },
-    event = 'InsertEnter'
+    event = {'InsertEnter', 'CmdlineEnter'}
   },
   { 'mfussenegger/nvim-dap',
     config = load_config('plugins.dap'),
@@ -131,4 +135,20 @@ return {
   { 'rodjek/vim-puppet', ft = 'puppet' },
   { 'lepture/vim-jinja', ft = 'htmldjango' },
   { 'wavded/vim-stylus', ft = 'stylus'},
+  { 'kristijanhusak/vim-dadbod-ui', ft = 'sql',
+    dependencies = {
+      { 'tpope/vim-dadbod', lazy = true },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
+    },
+    cmd = {
+      'DBUI',
+      'DBUIToggle',
+      'DBUIAddConnection',
+      'DBUIFindBuffer',
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
+  },
 }

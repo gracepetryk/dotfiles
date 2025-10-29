@@ -27,6 +27,7 @@ require('rose-pine').setup({
     DiagnosticVirtualLinesHint = { link = 'DiagnosticVirtualTextHint', },
     DiagnosticVirtualLinesInfo = { link = 'DiagnosticVirtualTextInfo', },
     NvimDapViewWatchExpr = { link = '@property' },
+    PMenuSel = { bg = 'overlay' },
     ['@boolean'] = { fg = 'gold' },
     ['@constructor'] = { fg = 'moss' },
     ['@comment'] = { fg = 'muted' },

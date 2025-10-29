@@ -61,7 +61,3 @@ vim.o.foldopen='block,hor,mark,percent,quickfix,search,tag,undo,jump'
 vim.o.foldenable=true
 vim.o.foldlevel=99
 vim.o.foldlevelstart=99
-
-if not pcall(function () vim.g.python3_host_prog = vim.env.VIRTUAL_ENV .. '/bin/python' end) then
-  vim.g.loaded_python3_provider = 0
-end
