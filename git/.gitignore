@@ -32,3 +32,4 @@ uv_fabfile.py
 .classpath
 .factorypath
 .settings/
+**/node_modules

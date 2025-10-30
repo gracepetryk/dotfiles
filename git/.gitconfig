@@ -15,6 +15,7 @@
 
     # Difftastic aliases, so `git dlog` is `git log` with difftastic and so on.
     d = -c diff.external=difft diff
+    dt = -c diff.external='difft --override=*:text' diff
     dlog = -c diff.external=difft log --ext-diff
     dshow = -c diff.external=difft show --ext-diff
 
