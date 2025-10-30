@@ -260,7 +260,7 @@ fi
 
 alias flake_branch='flake8 $(git diff develop.. --name-only)'
 
-eval "$(fnm env)"
+eval "$(fnm env --use-on-cd)"
 
 [[ -d ~/.cargo ]] && export PATH="$PATH:$HOME/.cargo/bin"
 

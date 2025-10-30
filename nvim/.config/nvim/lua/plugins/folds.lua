@@ -265,7 +265,6 @@ require('ufo').setup({
 
 M.get_callback = function (bufid)
   return function ()
-    vim.treesitter.get_parser()
     if not vim.b[bufid].closed_folds then
       return
     end
