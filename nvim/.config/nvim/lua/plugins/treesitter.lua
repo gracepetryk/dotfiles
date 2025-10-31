@@ -22,7 +22,7 @@ local start_ts = function (opts)
   local indent_details = vim.api.nvim_get_runtime_file(indent_query_path, true)
   local has_indent_query = #indent_details > 0
 
-  if opts.indent and not has_indent_query then
+  if opts.indent and has_indent_query then
     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
   end
 

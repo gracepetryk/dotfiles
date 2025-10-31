@@ -14,7 +14,7 @@ vim.lsp.config('ty', {
 })
 
 
-vim.lsp.enable('basedpyright')
+--vim.lsp.enable('basedpyright')
 vim.lsp.enable('ruff')
 
 -- local function reset_folds()
