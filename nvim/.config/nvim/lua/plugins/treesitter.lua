@@ -8,7 +8,16 @@ local langs = vim.tbl_extend(
   nvim_treesitter.get_available(UNSTABLE)
 )
 
-local exclude_langs = {'jinja', 'jinja_inline', 'TelescopePrompt', 'dap-view', 'dap-repl', 'csv'}
+local exclude_langs = {
+  'jinja',
+  'jinja_inline',
+  'TelescopePrompt',
+  'dap-view',
+  'dap-repl',
+  'csv',
+  'Dockerfile'
+}
+
 local exclude_indent = {'javascript'}
 
 langs = vim.tbl_filter(function (entry)

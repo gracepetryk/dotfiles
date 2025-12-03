@@ -54,6 +54,12 @@ vim.g.omni_sql_no_default_maps = 1
 vim.g.loaded_tar = 0
 
 vim.opt.foldtext=""
+vim.opt.list = true
+vim.opt.listchars = 'tab:▸ ,trail:·,extends:❯,precedes:❮,nbsp:␣'
+
+vim.opt.foldmethod="expr"
+vim.opt.foldexpr="v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel=99
 
 vim.o.foldcolumn='auto'
 vim.o.fillchars='fold: ,foldclose:,foldopen:,foldsep: '

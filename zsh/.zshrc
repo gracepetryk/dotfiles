@@ -178,10 +178,7 @@ unset key
 # set up fzf
 
 FD="fd"
-if ! which fd &>/dev/null; then
-  alias fd=fdfind
-  FD=fdfind
-fi
+source <(fzf --zsh)
 
 export FZF_COMPLETION_TRIGGER='!!'
 export FZF_DEFAULT_COMMAND="$FD --hidden --no-ignore \
@@ -236,6 +233,7 @@ alias ls="$existing_ls \$LS_FLAGS "
 if which nvim &>/dev/null; then
   alias vim=nvim
 fi
+
 
 bindkey "\e[1;3D" backward-word # ⌥←
 bindkey "\e[1;3C" forward-word # ⌥→
