@@ -36,6 +36,14 @@ fi
 if [ -f /etc/zshrc ]; then
   source /etc/zshrc
 fi
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+if [ -d "$HOME/profile.d" ]; then
+  for RC_FILE in "$HOME"/profile.d/*.rc; do
+    source "$RC_FILE"
+  done
+fi
 
 # Start configuration added by Zim install {{{
 #
@@ -215,14 +223,6 @@ jwt-decode() {
   jq -R 'split(".") |.[0:2] | map(gsub("-"; "+") | gsub("_"; "/") | gsub("%3D"; "=") | @base64d) | map(fromjson)' <<< $1
 }
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-if [ -d "$HOME/profile.d" ]; then
-  for RC_FILE in "$HOME"/profile.d/*.rc; do
-    source "$RC_FILE"
-  done
-fi
 
 existing_ls='ls'
 if [[ ! -z "$(alias ls)" ]]; then
