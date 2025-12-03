@@ -1,12 +1,9 @@
 # This is Git's per-user configuration file.
-[user]
-    name = Grace Petryk
-    email = gpetryk@discoveryed.com
-# Please adapt and uncomment the following lines:
-#	name = Grace Petryk
-#	email = 5047809+pridtzl@users.noreply.github.com
+[include]
+    # set name + email and any other per-machine config
+    path = ~/.gitconfig.local
 [core]
-    excludesfile = /Users/GPetryk/.gitignore
+    excludesfile = ~/.gitignore
     editor = /usr/local/bin/nvim
 [init]
     defaultBranch = main
