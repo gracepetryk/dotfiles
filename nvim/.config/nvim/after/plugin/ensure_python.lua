@@ -31,9 +31,10 @@ if vim.fn.executable(vim.g.python3_host_prog) == 0 then
     local success, result_or_error = pcall(function ()
       warn("python is not available... trying to install with uv")
 
-      vim.system({"cd", vim.fn.stdpath("config")})
+      vim.cmd("cd " .. vim.fn.stdpath("config"))
       vim.system({"uv", "python", "install", "3.14"}, {stderr=handle_stderr}, handle_error):wait()
       vim.system({"uv", "sync"}, {stderr=handle_stderr}, handle_error):wait()
+      vim.cmd("cd -")
     end)
 
     if not success then

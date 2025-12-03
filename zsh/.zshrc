@@ -260,9 +260,10 @@ fi
 
 alias flake_branch='flake8 $(git diff develop.. --name-only)'
 
+[[ -d ~/.cargo ]] && export PATH="$PATH:$HOME/.cargo/bin"
+
 eval "$(fnm env --use-on-cd)"
 
-[[ -d ~/.cargo ]] && export PATH="$PATH:$HOME/.cargo/bin"
 
 if which uv > /dev/null; then
   eval "$(uv generate-shell-completion zsh)"
