@@ -3,6 +3,7 @@ local function load_config(module)
     require(module)
   end
 end
+
 return {
   { 'gracepetryk/rose-pine', branch='custom', lazy=false, config = load_config('plugins.colors')},
 
@@ -126,27 +127,44 @@ return {
 
   -- llm
   { "coder/claudecode.nvim",
-    config = true,
+    ---@type PartialClaudeCodeConfig
+    opts = {
+      ---@class _: ClaudeCodeTerminalConfig
+      terminal = {
+        ---@module "snacks"
+        ---@type snacks.win.Config
+        snacks_win_opts = {
+          position = "right",
+          width=0.3,
+          backdrop = false,
+          style = "terminal",
+          wo = {
+            winhighlight = "NormalFloat:Normal",
+          }
+        }
+      }
+    },
     keys = {
-      { "<leader>a", nil, desc = "AI/Claude Code" },
-      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
-      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
-      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
-      { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
-      { "<leader>as", "<cmd>ClaudeCodeSend<cr><cmd>sleep 100ms<cr><cmd>ClaudeCodeFocus<cr>", mode = "v", desc = "Send to Claude" },
-      { "<leader>as", "V<cmd>ClaudeCodeSend<cr><cmd>sleep 100ms<cr><cmd>ClaudeCodeFocus<cr>", mode = "n", desc = "Send to Claude" },
+      { "<leader>cc", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+      { "<C-w>c",     "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      { "<leader>cf", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      { "<leader>cr", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+      { "<leader>cC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+      { "<leader>cm", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+      { "<leader>cb", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+      { "<leader>cs", "<cmd>ClaudeCodeSend<cr><cmd>sleep 10ms<cr><cmd>ClaudeCodeOpen<cr>", mode = "v", desc = "Send to Claude" },
+      { "<leader>cs", "V<cmd>ClaudeCodeSend<cr><cmd>sleep 10ms<cr><cmd>ClaudeCodeOpen<cr>", mode = "n", desc = "Send to Claude" },
       {
-        "<leader>as",
+        "<leader>cs",
         "<cmd>ClaudeCodeTreeAdd<cr>",
         desc = "Add file",
         ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
       },
       -- Diff management
-      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
-      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+      { "<leader>ca", "<cmd>ClaudeCodeDiffAccept<cr><cmd>ClaudeCodeFocus<cr>", desc = "Accept diff" },
+      { "<leader>cd", "<cmd>ClaudeCodeDiffDeny<cr><cmd>ClaudeCodeFocus<cr>", desc = "Deny diff" },
     },
+    dependencies = { "folke/snacks.nvim" }
   },
 
   -- language-specific

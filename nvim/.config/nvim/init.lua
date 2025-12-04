@@ -20,5 +20,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("gpetryk")
-
-pcall(require, "local")
+require("local")

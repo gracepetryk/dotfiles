@@ -44,6 +44,7 @@ return {
     "checkhealth",
     "help",
     "terminal",
+    "snacks_terminal",
     "dap-view",
     "dap-repl",
     "dap-view-term"

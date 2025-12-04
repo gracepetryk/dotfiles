@@ -1,7 +1,7 @@
 local dap = require("dap")
 local map = require("gpetryk.map").map
 
-local res, local_config = pcall(function() return require('local') end)
+local local_config = require('local')
 
 if not res then
   local_config = {dap_configurations = { python = {}}}
@@ -40,26 +40,28 @@ dap.adapters.python = function(cb, config)
   end
 end
 
-dap.configurations.python = vim.list_extend({
-  {
-    name = "Python: Local Attach (port 7890)",
-    type = "python",
-    request = "attach",
-    connect = {
-      host = "0.0.0.0",
-      port = 7890,
+dap.configurations = vim.tbl_deep_extend('force', dap.configurations, {
+  python = {
+    {
+      name = "Python: Local Attach (port 7890)",
+      type = "python",
+      request = "attach",
+      connect = {
+        host = "0.0.0.0",
+        port = 7890,
+      },
+      justMyCode = false,
+      logToFile = true
     },
-    justMyCode = false,
-    logToFile = true
-  },
-  {
-    name = "Python: Launch",
-    type = "python",
-    request = "launch",
-    program = "${file}",
-    cwd = "${workspaceFolder}",
-    justMyCode = false
+    {
+      name = "Python: Launch",
+      type = "python",
+      request = "launch",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+      justMyCode = false
+    }
   }
-}, local_config.dap_configurations.python)
+}, local_config.dap_configurations)
 
 return {}

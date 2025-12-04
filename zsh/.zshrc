@@ -6,12 +6,13 @@
 
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Add brew sbin to path
-export PATH="$PATH:/usr/local/sbin"
+p="$HOME/bin"
+p+=":$HOME/.local/bin"
+p+=":/usr/local/sbin"
+p+=":/Applications/Firefox.app/Contents/MacOS"
+[[ -d ~/.cargo ]] && p+=":$HOME/.cargo/bin"
+export PATH="$p:$PATH"
 
-# add firefox to path
-export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS"
-export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46"
 
 
@@ -26,7 +27,6 @@ fi
 
 
 # zmodload zsh/zprof
-# vim:ft=bash
 
 
 if [ -f "$HOME"/.env ]; then
@@ -38,12 +38,6 @@ if [ -f /etc/zshrc ]; then
 fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-if [ -d "$HOME/profile.d" ]; then
-  for RC_FILE in "$HOME"/profile.d/*.rc; do
-    source "$RC_FILE"
-  done
-fi
 
 # Start configuration added by Zim install {{{
 #
@@ -80,7 +74,6 @@ WORDCHARS=${WORDCHARS//[\/]}
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath+=/Users/GPetryk/.docker/completions
 fpath+=/Users/GPetryk/.zfunc
-autoload -Uz compinit
 # End of Docker CLI completions
 
 # -----------------
@@ -173,6 +166,7 @@ source ${ZIM_HOME}/init.zsh
 # zsh-history-substring-search
 #
 
+
 zmodload -F zsh/terminfo +p:terminfo
 # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
 for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
@@ -224,13 +218,8 @@ jwt-decode() {
 }
 
 
-existing_ls='ls'
-if [[ ! -z "$(alias ls)" ]]; then
-  existing_ls="$(alias ls | cut -d= -f2- | tr -d "'")"
-fi
-
-alias ls="$existing_ls \$LS_FLAGS "
-if which nvim &>/dev/null; then
+alias ls="${aliases[ls]:-ls} \$LS_FLAGS"
+if (( ${+commands[nvim]} )); then
   alias vim=nvim
 fi
 
@@ -240,12 +229,12 @@ bindkey "\e[1;3C" forward-word # ⌥→
 
 
 bat="bat"
-if which batcat > /dev/null; then
+if (( ${+commands[batcat]} )); then
   alias bat=batcat
   bat="batcat"
 fi
 
-if which bat > /dev/null; then
+if (( ${+commands[bat]} )); then
   alias cat=bat
   export BAT_THEME="TwoDark"
   export MANPAGER="sh -c 'col -bx | $bat -plman'"
@@ -256,16 +245,18 @@ if which bat > /dev/null; then
 fi
 
 
-alias flake_branch='flake8 $(git diff develop.. --name-only)'
-
-[[ -d ~/.cargo ]] && export PATH="$PATH:$HOME/.cargo/bin"
-
 eval "$(fnm env --use-on-cd)"
 
 
-if which uv > /dev/null; then
+if (( ${+commands[uv]} )); then
   eval "$(uv generate-shell-completion zsh)"
 fi
 
+
+if [ -d "$HOME/profile.d" ]; then
+  for RC_FILE in "$HOME"/profile.d/*.rc; do
+    source "$RC_FILE"
+  done
+fi
 
 return 0

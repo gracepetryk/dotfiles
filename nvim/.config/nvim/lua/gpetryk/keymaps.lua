@@ -110,20 +110,21 @@ map('n', '<A-p>', ':lprev<CR>')
 
 vim.keymap.set('n', '<C-s>', ':set spell!<CR>')
 
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
+-- vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n><Esc>')
 vim.keymap.set('t', '<S-CR>', '\\<cmd>sleep 10ms<CR><CR>')
 vim.keymap.set('t', '<C-w>h', function() vim.cmd.wincmd('h') end)
 vim.keymap.set('t', '<C-w>l', function() vim.cmd.wincmd('l') end)
 vim.keymap.set('t', '<C-w>j', function() vim.cmd.wincmd('j') end)
 vim.keymap.set('t', '<C-w>k', function() vim.cmd.wincmd('k') end)
-vim.keymap.set('t', '<C-w>o', function() vim.cmd.wincmd('o') end)
+vim.keymap.set('t', '<C-w>p', function() vim.cmd.wincmd('p') end)
+vim.keymap.set('t', '<C-w>c', function() vim.cmd.wincmd('c') end)
 
 vim.api.nvim_create_autocmd('WinEnter', {
   callback = function (args)
-    
+
     if vim.bo.buftype == 'terminal' then
       vim.cmd[[normal! i]]
     end
-    
+
   end
 })
