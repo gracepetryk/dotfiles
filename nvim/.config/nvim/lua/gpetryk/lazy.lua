@@ -11,9 +11,22 @@ return {
   {
     'folke/zen-mode.nvim',
     opts = {
+      window = {
+        backdrop = nil,
+        options = {
+          signcolumn = "no", -- disable signcolumn
+          number = true, -- disable number column
+          relativenumber = true, -- disable relative numbers
+          cursorline = false, -- disable cursorline
+          cursorcolumn = false, -- disable cursor column
+          foldcolumn = "0", -- disable fold column
+          list = false, -- disable whitespace characters
+        },
+      },
       plugins = {
         kitty = {
-          enabled = true
+          enabled = true,
+          font = "+2"
         }
       }
     }
