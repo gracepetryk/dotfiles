@@ -46,7 +46,7 @@ vim.o.exrc=true
 vim.o.pumheight = 15
 vim.o.previewheight = 20
 
-vim.opt.sessionoptions="blank,buffers,curdir,tabpages,winsize,winpos,terminal,localoptions,folds"
+vim.opt.sessionoptions="blank,buffers,curdir,tabpages,winsize,winpos,terminal,localoptions"
 vim.opt.viewoptions="cursor,curdir"
 
 vim.g.omni_sql_no_default_maps = 1

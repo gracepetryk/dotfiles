@@ -1,31 +1,4 @@
 local M = {}
-local handler = function(virtText, lnum, endLnum, width, truncate)
-  local newVirtText = {}
-  local suffix = (' 󰁂 %d lines'):format(endLnum - lnum)
-  local sufWidth = vim.fn.strdisplaywidth(suffix)
-  local targetWidth = width - sufWidth
-  local curWidth = 0
-  for _, chunk in ipairs(virtText) do
-    local chunkText = chunk[1]
-    local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-    if targetWidth > curWidth + chunkWidth then
-      table.insert(newVirtText, chunk)
-    else
-      chunkText = truncate(chunkText, targetWidth - curWidth)
-      local hlGroup = chunk[2]
-      table.insert(newVirtText, {chunkText, hlGroup})
-      chunkWidth = vim.fn.strdisplaywidth(chunkText)
-      -- str width returned from truncate() may less than 2nd argument, need padding
-      if curWidth + chunkWidth < targetWidth then
-        suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
-      end
-      break
-    end
-    curWidth = curWidth + chunkWidth
-  end
-  table.insert(newVirtText, {suffix, 'Folded'})
-  return newVirtText
-end
 
 ---@param exclude_closed? boolean
 local function get_max_foldlevel(exclude_closed)
@@ -253,11 +226,146 @@ local ft_map = {
   default = 'indent'
 }
 
+---@class (exact) PriorityHl
+---@field name string
+---@field priority integer
+---@field source string
+
+---@param details table table returned by vim.inspect_pos()
+---@return string[]
+local function get_hl(details)
+  local syntax_priority = 90
+  local treesitter_priority = 100
+
+  ---@type PriorityHl[]
+  local highlight_options = {}
+
+  if not vim.tbl_isempty(details.syntax) then
+    local group = details.syntax[#details.syntax].hl_group
+    table.insert(highlight_options, { name = group, priority = syntax_priority, source = 'syntax'})
+  end
+
+  if not vim.tbl_isempty(details.treesitter) then
+    local group = details.treesitter[#details.treesitter].hl_group
+    table.insert(highlight_options, { name = group, priority = treesitter_priority, source = 'treesitter'})
+  end
+
+  if not vim.tbl_isempty(details.extmarks) then
+    local priority = 0
+    local group
+    for _, mark in ipairs(details.extmarks) do
+      if mark.opts.priority >= priority then
+        group = mark.opts.hl_group
+      end
+    end
+
+    table.insert(highlight_options, { name = group, priority = priority, source = 'extmark'})
+  end
+
+  if not vim.tbl_isempty(details.semantic_tokens) then
+    local priority = 0
+    local group
+
+    for _, mark in ipairs(details.semantic_tokens) do
+      if mark.opts.priority >= priority then
+        group = mark.opts.hl_group
+        priority = mark.opts.priority
+      end
+    end
+
+    table.insert(highlight_options, { name = group, priority = priority, source = 'semantic' })
+  end
+
+  table.sort(highlight_options, function (a, b)
+    return a.priority < b.priority
+  end)
+
+  return vim.tbl_map(function (item) return item.name end, highlight_options)
+
+end
+
+---@class vtext_entry
+---@field [1] string
+---@field [2] string[]
+
+---@param lnum number
+---@return vtext_entry[]
+local function get_vtext_for_line_inner(lnum)
+  local line = vim.api.nvim_buf_get_lines(0, lnum, lnum + 1, false)[1]
+
+  ---@type vtext_entry[]
+  local vtext = {}
+
+  local last_hl = { 'Normal' }
+
+  for column = 0, #line - 1 do
+    local char = line:sub(column + 1, column + 1)
+    local char_details = vim.inspect_pos(0, lnum, column)
+    local hl = get_hl(char_details) or last_hl
+
+    if vim.deep_equal(hl, last_hl) then
+      vtext[#vtext][1] = vtext[#vtext][1] .. char
+    else
+      table.insert(vtext, {char, hl or last_hl})
+    end
+
+    last_hl = hl
+  end
+
+  return vtext
+end
+
+local function get_vtext_for_line(lnum)
+  local vtext = get_vtext_for_line_inner(lnum)
+
+  local line = vim.trim(vim.api.nvim_buf_get_lines(0, lnum, lnum + 1, false)[1])
+  if (
+    line == "("
+    or line == "["
+    or line == "{"
+    or line == "<"
+  ) then
+    table.insert(vtext, {string.rep(" ", vim.o.shiftwidth - 1)})
+    for _, item in ipairs(get_vtext_for_line(lnum+1)) do
+      if vim.trim(item[1]) ~= "" then
+        table.insert(vtext, item)
+      end
+    end
+  end
+
+  return vtext
+end
+
+local function virt_text_handler(_, lnum, endLnum, _, _)
+  -- in this house we zero index line and column numbers
+  lnum = lnum - 1
+  local line = vim.api.nvim_buf_get_lines(0, lnum, lnum + 1, false)[1]
+  local vtext = get_vtext_for_line(lnum)
+
+
+  -- collapse lines with only an opening brace until we get some real context
+  if (
+    line == "("
+    or line == "["
+    or line == "{"
+    or line == "<"
+  ) then
+    for _, item in ipairs(virt_text_handler(nil, lnum + 1, endLnum, _, _)) do
+      table.insert(vtext, item)
+    end
+  end
+
+  local suffix = (' 󰁂 %d lines'):format(endLnum - lnum)
+  table.insert(vtext, {suffix, { 'Folded'}})
+
+  return vtext
+end
+
 require('ufo').setup({
   provider_selector = function(bufnr, filetype, buftype)
     return ft_map[filetype] or ft_map['default']
   end,
-  fold_virt_text_handler=handler,
+  fold_virt_text_handler=virt_text_handler,
   open_fold_hl_timeout=0
 })
 

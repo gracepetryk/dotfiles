@@ -7,8 +7,19 @@ end
 return {
   { 'gracepetryk/rose-pine', branch='custom', lazy=false, config = load_config('plugins.colors')},
 
-  -- -- general
-  { 'nvim-telescope/telescope.nvim',
+  -- general
+  {
+    'folke/zen-mode.nvim',
+    opts = {
+      plugins = {
+        kitty = {
+          enabled = true
+        }
+      }
+    }
+  },
+  {
+    'nvim-telescope/telescope.nvim',
     config = load_config('plugins.telescope'),
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
@@ -17,7 +28,9 @@ return {
     },
     event = 'VeryLazy'
   },
-  { 'rmagatti/auto-session',
+  {
+    'rmagatti/auto-session',
+
     config = function() require('auto-session').setup(require('plugins.session')) end,
     lazy=false,
     priority = 110
