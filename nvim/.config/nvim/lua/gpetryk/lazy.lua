@@ -10,12 +10,24 @@ return {
   -- general
   {
     'folke/zen-mode.nvim',
+    keys = {
+      { "<leader>Z", "<cmd>ZenMode<cr>"}
+    },
+    init = function (...)
+      vim.api.nvim_create_autocmd('ExitPre', {
+        callback = function ()
+          vim.schedule(function ()
+            require('zen-mode').close()
+          end)
+        end
+      })
+    end,
     opts = {
       window = {
-        backdrop = nil,
+        backdrop = 1,
         options = {
           signcolumn = "no", -- disable signcolumn
-          number = true, -- disable number column
+          number = false, -- disable number column
           relativenumber = true, -- disable relative numbers
           cursorline = false, -- disable cursorline
           cursorcolumn = false, -- disable cursor column
