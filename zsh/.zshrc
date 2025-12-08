@@ -76,6 +76,12 @@ fpath+=/Users/GPetryk/.docker/completions
 fpath+=/Users/GPetryk/.zfunc
 # End of Docker CLI completions
 
+if [ -d "$HOME/profile.d" ]; then
+  for RC_FILE in "$HOME"/profile.d/*.rc; do
+    source "$RC_FILE"
+  done
+fi
+
 # -----------------
 # Zim configuration
 # -----------------
@@ -252,11 +258,5 @@ if (( ${+commands[uv]} )); then
   eval "$(uv generate-shell-completion zsh)"
 fi
 
-
-if [ -d "$HOME/profile.d" ]; then
-  for RC_FILE in "$HOME"/profile.d/*.rc; do
-    source "$RC_FILE"
-  done
-fi
 
 return 0
