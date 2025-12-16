@@ -258,5 +258,5 @@ if (( ${+commands[uv]} )); then
   eval "$(uv generate-shell-completion zsh)"
 fi
 
-
+export MANWIDTH=100
 return 0

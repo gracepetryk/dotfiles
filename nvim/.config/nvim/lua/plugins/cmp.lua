@@ -106,7 +106,8 @@ return {
           },
           source_name = {
             text = function(ctx)
-              return '[' .. ctx.source_name .. ']'
+              local source = ctx.item.client_name or ctx.source_name
+              return '[' .. source .. ']'
             end
           }
         },
@@ -139,31 +140,6 @@ return {
     },
     -- add vim-dadbod-completion to your completion providers
     providers = {
-      lsp = {
-        transform_items = function(ctx, items)
-          local lnum = ctx.get_cursor()[1] - 1
-          for idx, item in pairs(items) do
-            if item.client_name == 'postgres_lsp' then
-              if not vim.g.did_print then
-                vim.print(item)
-              end
-              local kind = vim.trim(item.labelDetails.detail or '')
-              item.labelDetails.detail = nil
-              item.kind_name = kind
-              if item.textEdit then
-                item.textEdit.range.start.line = lnum
-                item.textEdit.range["end"].line = lnum
-              end
-            end
-
-            if not vim.g.did_print then
-              vim.print(item)
-              vim.g.did_print = true
-            end
-          end
-          return items
-        end
-      },
       dadbod = {
         name = 'dadbod',
         module = 'vim_dadbod_completion.blink',

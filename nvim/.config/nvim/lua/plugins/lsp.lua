@@ -207,33 +207,14 @@ vim.lsp.buf.hover = function ()
 end
 
 
--- No need to set `hybridMode` to `true` as it's the default value
-vim.lsp.config('volar', {
-  init_options = {
-    typescript = {
-      tsdk = ts_path
-    }
-  }
-})
-
--- if vim.fn.executable('eslint') == 1 then
---   vim.lsp.config('efm', {
---     filetypes = { 'javascript', 'typescript' },
---     root_markers = { 'package.json' },
---     settings = {
---       rootMarkers={"package.json"},
---       languages = {
---         javascript = {
---           vim.tbl_extend('keep', {
---             lintCommand='eslint --no-color --format stylish --stdin-filename "${INPUT}" --stdin',
---           }, require('efmls-configs.linters.eslint'))
---         }
---       }
+-- -- No need to set `hybridMode` to `true` as it's the default value
+-- vim.lsp.config('volar', {
+--   init_options = {
+--     typescript = {
+--       tsdk = ts_path
 --     }
---   })
--- 
---   vim.lsp.enable('efm')
--- end
+--   }
+-- })
 
 vim.lsp.config('emmet_ls', {
   filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby", "xml" }
@@ -242,6 +223,21 @@ vim.lsp.config('emmet_ls', {
 vim.lsp.config('html', {
   filetypes = { 'html', 'htmldjango' }
 })
+
+vim.lsp.config('ty', {
+  settings = {
+    ty = {
+      experimental = {
+        rename = true,
+        autoImport = true,
+      },
+    },
+  },
+})
+
+
+vim.lsp.enable('ty')
+vim.lsp.enable('ruff')
 
 
 -- vim.lsp.enable('terraformls')
