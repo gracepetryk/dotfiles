@@ -1,4 +1,5 @@
 {
+  "Colorizer": { "branch": "master", "commit": "f5d69c0dea9f36e2eb025c7d86cc62b5a0d8af62" },
   "auto-session": { "branch": "main", "commit": "292492ab7af4bd8b9e37e28508bc8ce995722fd5" },
   "blink.cmp": { "branch": "main", "commit": "b19413d214068f316c78978b08264ed1c41830ec" },
   "claudecode.nvim": { "branch": "main", "commit": "6091df0e8edcdc92526cec23bbb42f63c0bb5ff2" },
