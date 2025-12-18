@@ -37,6 +37,20 @@ local start_ts = function (opts)
 
   vim.schedule(function () vim.treesitter.start(opts.buf) end)
 end
+vim.api.nvim_create_autocmd('User', { pattern = 'TSUpdate',
+  callback = function()
+    local parser_config = require "nvim-treesitter.parsers"
+    parser_config.markdown = {
+        install_info = {
+          url = 'https://github.com/gracepetryk/tree-sitter-markdown',
+          branch='no-indented-blocks',
+          -- optional entries
+          location = 'tree-sitter-markdown',
+          generate = false,
+          generate_from_json = false,
+        },}
+  end
+})
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = langs,

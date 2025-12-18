@@ -232,4 +232,20 @@ return {
     end,
   },
   { 'chrisbra/Colorizer' },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    ft = {'markdown', 'python'},
+    opts = {
+      sign = { enabled = false },
+      code = { language_icon = true },
+      completions = { lsp = {enabled = false}},
+      anti_conceal = { enabled = false },
+      win_options = {
+        conceallevel = { rendered = 1 },
+        concealcursor = { rendered = 'nc' }
+      }
+    }
+  },
+
 }
