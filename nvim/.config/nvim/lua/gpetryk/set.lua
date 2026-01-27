@@ -67,3 +67,5 @@ vim.o.foldopen='block,hor,mark,percent,quickfix,search,tag,undo,jump'
 vim.o.foldenable=true
 vim.o.foldlevel=99
 vim.o.foldlevelstart=99
+
+vim.hl.priorities.semantic_tokens = 99

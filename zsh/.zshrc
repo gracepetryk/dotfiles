@@ -76,11 +76,6 @@ fpath+="$HOME/.docker/completions"
 fpath+="$HOME/.zfunc"
 # End of Docker CLI completions
 
-if [ -d "$HOME/profile.d" ]; then
-  for RC_FILE in "$HOME"/profile.d/*.rc; do
-    source "$RC_FILE"
-  done
-fi
 
 # -----------------
 # Zim configuration
@@ -167,6 +162,12 @@ source ${ZIM_HOME}/init.zsh
 # ------------------------------
 # Post-init module configuration
 # ------------------------------
+
+if [ -d "$HOME/profile.d" ]; then
+  for RC_FILE in "$HOME"/profile.d/*.rc; do
+    source "$RC_FILE"
+  done
+fi
 
 #
 # zsh-history-substring-search

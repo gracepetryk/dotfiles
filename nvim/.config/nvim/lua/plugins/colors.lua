@@ -30,7 +30,7 @@ require('rose-pine').setup({
     PMenuSel = { bg = 'overlay' },
     ['@boolean'] = { fg = 'gold' },
     ['@constructor'] = { fg = 'moss' },
-    ['@comment'] = { fg = 'muted' },
+    -- ['@comment'] = { fg = 'muted' },
     ['@function'] = { fg = 'iris', nocombine = true },
     ['@function.builtin'] = { fg = 'iris', bold = true, nocombine = true },
     ['@function.call'] = { fg = 'iris', italic = true, nocombine = true },
@@ -55,7 +55,7 @@ require('rose-pine').setup({
     ['@variable.member'] = { fg = 'foam', italic=false },
     ['@variable.parameter'] = { link = '@parameter' },
     ['@lsp.type.comment'] = { link = '@comment' },
-    ['@markup.link.label.markdown_inline'] = { underline = true },
+    -- ['@markup.link.label.markdown_inline'] = { underline = true },
     ['@lsp.type.variable.python'] = {}
   }
 })

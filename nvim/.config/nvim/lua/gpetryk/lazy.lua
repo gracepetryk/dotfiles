@@ -5,7 +5,7 @@ local function load_config(module)
 end
 
 return {
-  { 'gracepetryk/rose-pine', branch='custom', lazy=false, config = load_config('plugins.colors')},
+  { 'gracepetryk/rose-pine', dev=true, branch='custom', lazy=false, config = load_config('plugins.colors')},
 
   -- general
   {
@@ -237,13 +237,31 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
     ft = {'markdown', 'python'},
     opts = {
-      sign = { enabled = false },
-      code = { language_icon = true },
+      patterns = {
+        -- Highlight patterns to disable for filetypes, i.e. lines concealed around code blocks
+
+        markdown = {
+          disable = true,
+          directives = {
+            { id = 17, name = 'conceal_lines' },
+            { id = 18, name = 'conceal_lines' },
+          },
+        },
+      },
+      sign = { enabled = true },
+      code = {
+        sign = false,
+        width = 'block',
+        right_pad = 4,
+      },
+      heading = {
+        width = 'block'
+      },
       completions = { lsp = {enabled = false}},
-      anti_conceal = { enabled = false },
+      anti_conceal = { enabled = true},
       win_options = {
+        concealcursor = { rendered = 'n' },
         conceallevel = { rendered = 1 },
-        concealcursor = { rendered = 'nc' }
       }
     }
   },

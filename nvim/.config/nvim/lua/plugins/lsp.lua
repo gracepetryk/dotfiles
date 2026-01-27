@@ -203,6 +203,7 @@ local hover = vim.lsp.buf.hover
 vim.lsp.buf.hover = function ()
   hover({
     max_width=100,
+    height=50
   })
 end
 
