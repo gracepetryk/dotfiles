@@ -20,6 +20,7 @@ require("lazy").setup({
 require("gpetryk.keymaps")
 require("gpetryk.autosave")
 require("gpetryk.commands")
+require("gpetryk.claude")
 
 local yank_group = vim.api.nvim_create_augroup('HighlightYank', {})
 

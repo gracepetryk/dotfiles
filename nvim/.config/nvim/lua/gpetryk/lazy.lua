@@ -148,7 +148,6 @@ return {
             terminal = {
               position = "right",
               hide = {},
-              start_hidden = false
             }
           }
         },
@@ -164,45 +163,45 @@ return {
   },
 
   -- llm
-  { "coder/claudecode.nvim",
-    ---@type PartialClaudeCodeConfig
-    opts = {
-      ---@class _: ClaudeCodeTerminalConfig
-      terminal = {
-        ---@module "snacks"
-        ---@type snacks.win.Config
-        snacks_win_opts = {
-          position = "right",
-          width=0.3,
-          backdrop = false,
-          style = "terminal",
-          wo = {
-            winhighlight = "NormalFloat:Normal",
-          }
-        }
-      }
-    },
-    keys = {
-      { "<leader>cc", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-      { "<leader>cf", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
-      { "<leader>cr", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
-      { "<leader>cC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
-      { "<leader>cm", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-      { "<leader>cb", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
-      { "<leader>cs", "<cmd>ClaudeCodeSend<cr><cmd>sleep 10ms<cr><cmd>ClaudeCodeOpen<cr>", mode = "v", desc = "Send to Claude" },
-      { "<leader>cs", "V<cmd>ClaudeCodeSend<cr><cmd>sleep 10ms<cr><cmd>ClaudeCodeOpen<cr>", mode = "n", desc = "Send to Claude" },
-      {
-        "<leader>cs",
-        "<cmd>ClaudeCodeTreeAdd<cr>",
-        desc = "Add file",
-        ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
-      },
-      -- Diff management
-      { "<leader>ca", "<cmd>ClaudeCodeDiffAccept<cr><cmd>ClaudeCodeFocus<cr>", desc = "Accept diff" },
-      { "<leader>cd", "<cmd>ClaudeCodeDiffDeny<cr><cmd>ClaudeCodeFocus<cr>", desc = "Deny diff" },
-    },
-    dependencies = { "folke/snacks.nvim" }
-  },
+  -- { "coder/claudecode.nvim",
+  --   ---@type PartialClaudeCodeConfig
+  --   opts = {
+  --     ---@class _: ClaudeCodeTerminalConfig
+  --     terminal = {
+  --       ---@module "snacks"
+  --       ---@type snacks.win.Config
+  --       snacks_win_opts = {
+  --         position = "right",
+  --         width=0.3,
+  --         backdrop = false,
+  --         style = "terminal",
+  --         wo = {
+  --           winhighlight = "NormalFloat:Normal",
+  --         }
+  --       }
+  --     }
+  --   },
+  --   keys = {
+  --     { "<leader>cc", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+  --     { "<leader>cf", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+  --     { "<leader>cr", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+  --     { "<leader>cC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+  --     { "<leader>cm", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+  --     { "<leader>cb", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+  --     { "<leader>cs", "<cmd>ClaudeCodeSend<cr><cmd>sleep 10ms<cr><cmd>ClaudeCodeOpen<cr>", mode = "v", desc = "Send to Claude" },
+  --     { "<leader>cs", "V<cmd>ClaudeCodeSend<cr><cmd>sleep 10ms<cr><cmd>ClaudeCodeOpen<cr>", mode = "n", desc = "Send to Claude" },
+  --     {
+  --       "<leader>cs",
+  --       "<cmd>ClaudeCodeTreeAdd<cr>",
+  --       desc = "Add file",
+  --       ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+  --     },
+  --     -- Diff management
+  --     { "<leader>ca", "<cmd>ClaudeCodeDiffAccept<cr><cmd>ClaudeCodeFocus<cr>", desc = "Accept diff" },
+  --     { "<leader>cd", "<cmd>ClaudeCodeDiffDeny<cr><cmd>ClaudeCodeFocus<cr>", desc = "Deny diff" },
+  --   },
+  --   dependencies = { "folke/snacks.nvim" }
+  -- },
 
   -- language-specific
   { 'nvim-java/nvim-java',

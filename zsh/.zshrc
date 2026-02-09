@@ -225,7 +225,7 @@ jwt-decode() {
 }
 
 
-alias ls="${aliases[ls]:-ls} \$LS_FLAGS"
+alias ls="${aliases[ls]:-ls} --color \$LS_FLAGS"
 if (( ${+commands[nvim]} )); then
   alias vim=nvim
 fi
