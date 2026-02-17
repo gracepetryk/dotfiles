@@ -5,7 +5,7 @@ local function load_config(module)
 end
 
 return {
-  { 'gracepetryk/rose-pine', dev=true, branch='custom', lazy=false, config = load_config('plugins.colors')},
+  { 'gracepetryk/rose-pine', branch='custom', lazy=false, config = load_config('plugins.colors')},
 
   -- general
   {
