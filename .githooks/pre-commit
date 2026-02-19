@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -e
+
+staged=$(git diff --cached --name-only --diff-filter=ACM | grep '\.lua$' || true)
+
+if [ -z "$staged" ]; then
+  exit 0
+fi
+
+if ! command -v stylua &>/dev/null; then
+  echo "pre-commit: stylua not found, skipping"
+  exit 0
+fi
+
+echo "$staged" | xargs stylua
+echo "$staged" | xargs git add
