@@ -1,1 +1,1 @@
-vim.lsp.enable('lemminx')
+vim.lsp.enable("lemminx")

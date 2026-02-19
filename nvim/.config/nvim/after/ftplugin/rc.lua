@@ -1,1 +1,1 @@
-vim.opt_local.filetype = 'sh'
+vim.opt_local.filetype = "sh"

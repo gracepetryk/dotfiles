@@ -1,8 +1,8 @@
-vim.api.nvim_create_user_command('Remove', function (opts)
+vim.api.nvim_create_user_command("Remove", function(opts)
   path = opts.args[1]
 
   if not path then
-    path = vim.fn.expand('%')
+    path = vim.fn.expand("%")
   end
 
   vim.fn.delete(path)

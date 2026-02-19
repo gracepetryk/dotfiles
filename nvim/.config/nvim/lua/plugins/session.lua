@@ -21,35 +21,35 @@ end
 
 local function no_restore_hook()
   local Lib = require("auto-session.lib")
-  local session_extra=Lib.escape_string_for_vim(get_session_prefix(false, true) .. 'x.vim')
-  local cmd = 'silent! source ' .. session_extra
+  local session_extra = Lib.escape_string_for_vim(get_session_prefix(false, true) .. "x.vim")
+  local cmd = "silent! source " .. session_extra
   vim.cmd(cmd)
 end
 
 ---@type AutoSession.Config
 return {
-  auto_restore=true,
-  suppressed_dirs = { '~/Projects', '~/Downloads', '/' },
-  cwd_change_handling=false,
-  auto_restore_last_session=false,
-  args_allow_files_auto_save=true,
-  args_allow_single_directory=true,
-  legacy_cmds=false,
+  auto_restore = true,
+  suppressed_dirs = { "~/Projects", "~/Downloads", "/" },
+  cwd_change_handling = false,
+  auto_restore_last_session = false,
+  args_allow_files_auto_save = true,
+  args_allow_single_directory = true,
+  legacy_cmds = false,
   session_lens = {
-    load_on_setup = true
+    load_on_setup = true,
   },
-  save_extra_data=require('gpetryk.session_folds').save_extra_data,
-  restore_extra_data=require('gpetryk.session_folds').restore_extra_data,
-  close_filetypes_on_save={
+  save_extra_data = require("gpetryk.session_folds").save_extra_data,
+  restore_extra_data = require("gpetryk.session_folds").restore_extra_data,
+  close_filetypes_on_save = {
     "checkhealth",
     "help",
     "terminal",
     "snacks_terminal",
     "dap-view",
     "dap-repl",
-    "dap-view-term"
+    "dap-view-term",
   },
   no_restore_cmds = {
-    no_restore_hook
-  }
+    no_restore_hook,
+  },
 }

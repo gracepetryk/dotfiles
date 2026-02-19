@@ -1,1 +1,1 @@
-vim.cmd.abbrev('flwyay', 'flyway')
+vim.cmd.abbrev("flwyay", "flyway")

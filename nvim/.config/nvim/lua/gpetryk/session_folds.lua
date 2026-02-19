@@ -1,10 +1,9 @@
 local M = {}
 
-
 M._get_closed_folds = function(bufnr)
   local folds = {}
 
-  vim.api.nvim_buf_call(bufnr, function ()
+  vim.api.nvim_buf_call(bufnr, function()
     for lnum = 1, vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()) do
       local is_closed = vim.fn.foldclosed(lnum) == lnum
       if is_closed then
@@ -16,8 +15,8 @@ M._get_closed_folds = function(bufnr)
   return folds
 end
 
-M.save_extra_data = function (_)
-  local data = {closed_folds={}, foldlevel={}}
+M.save_extra_data = function(_)
+  local data = { closed_folds = {}, foldlevel = {} }
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     local name = vim.api.nvim_buf_get_name(buf)
 
@@ -31,13 +30,12 @@ M.save_extra_data = function (_)
     if level then
       data.foldlevel[name] = level
     end
-
   end
 
   return vim.fn.json_encode(data)
 end
 
-M.restore_extra_data = function (_, json)
+M.restore_extra_data = function(_, json)
   local data = vim.fn.json_decode(json)
   local has_folds = data.closed_folds ~= nil
   local has_level = data.foldlevel ~= nil

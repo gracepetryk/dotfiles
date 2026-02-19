@@ -1,1 +1,1 @@
-vim.opt_local.ft = 'html'
+vim.opt_local.ft = "html"

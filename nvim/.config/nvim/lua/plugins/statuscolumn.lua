@@ -1,42 +1,41 @@
-local builtin = require('statuscol.builtin')
-local number_enabled = function ()
+local builtin = require("statuscol.builtin")
+local number_enabled = function()
   return vim.wo.number
 end
 
 local M = {}
 
 local function show_foldcol(args)
-  return vim.api.nvim_get_option_value('foldenable', {})
+  return vim.api.nvim_get_option_value("foldenable", {})
 end
 
-require('statuscol').setup({
+require("statuscol").setup({
   segments = {
     {
-      text = { builtin.foldfunc, ' ' },
+      text = { builtin.foldfunc, " " },
       click = "v:lua.ScFa",
       condition = { true, show_foldcol },
-      hl = 'FoldColumn'
+      hl = "FoldColumn",
     },
     {
       sign = {
-        namespace = {".*"},
+        namespace = { ".*" },
         name = { ".*" },
         maxwidth = 1,
         auto = true,
       },
-      condition = { number_enabled }
+      condition = { number_enabled },
     },
     { text = { builtin.lnumfunc } },
     {
       sign = {
-        namespace = {'gitsigns'},
-        colwidth=1,
-        auto=false,
-        fillchar='│',
-        fillcharhl='LineNr'
+        namespace = { "gitsigns" },
+        colwidth = 1,
+        auto = false,
+        fillchar = "│",
+        fillcharhl = "LineNr",
       },
-      condition = { number_enabled }
+      condition = { number_enabled },
     },
-  }
+  },
 })
-

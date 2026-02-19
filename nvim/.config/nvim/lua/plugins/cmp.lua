@@ -1,36 +1,34 @@
 --- @param cmp blink.cmp.API
 local function show_signature(cmp)
-  local config = require('blink.cmp.config')
+  local config = require("blink.cmp.config")
 
-  vim.api.nvim_create_autocmd('InsertLeave', {
+  vim.api.nvim_create_autocmd("InsertLeave", {
     once = true,
-    callback = function ()
+    callback = function()
       config.signature.trigger.enabled = false
-    end
+    end,
   })
 
   config.signature.trigger.enabled = true
-  require('blink.cmp.signature.trigger').show()
+  require("blink.cmp.signature.trigger").show()
   return true
 end
 
 --- @param cmp blink.cmp.API
 local function hide_signature(cmp)
-  local config = require('blink.cmp.config')
+  local config = require("blink.cmp.config")
 
-  vim.api.nvim_create_autocmd('InsertLeave', {
+  vim.api.nvim_create_autocmd("InsertLeave", {
     once = true,
-    callback = function ()
+    callback = function()
       config.signature.trigger.enabled = false
-    end
+    end,
   })
 
-
   config.signature.window.show_documentation = true
-  require('blink.cmp.signature.trigger').show()
+  require("blink.cmp.signature.trigger").show()
   return true
 end
-
 
 vim.g.did_print = true
 
@@ -43,19 +41,19 @@ vim.g.did_print = true
 --- @return MiniIcon
 function get_mini_icon(ctx)
   local icons = require("mini.icons")
-  local kinds = require('blink.cmp.types').CompletionItemKind
+  local kinds = require("blink.cmp.types").CompletionItemKind
   local source_id = ctx.source_id
   local kind_id = ctx.item.kind
   local found_icon, icon, hl, fallback = pcall(icons.get, ctx.source_id, kinds[kind_id])
 
   if not found_icon then
-    icon, hl, fallback = icons.get('lsp', ctx.kind)
+    icon, hl, fallback = icons.get("lsp", ctx.kind)
   end
 
   return {
     icon = icon,
     hl = hl,
-    fallback = fallback
+    fallback = fallback,
   }
 end
 
@@ -73,12 +71,11 @@ return {
   --
   -- See the full "keymap" documentation for information on defining your own keymap.
   keymap = {
-    preset = 'default',
+    preset = "default",
 
-
-    ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
-    ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
-    ['<C-y>'] = { 'select_and_accept' },
+    ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+    ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+    ["<C-y>"] = { "select_and_accept" },
   },
 
   signature = {
@@ -90,35 +87,45 @@ return {
       draw = {
         components = {
           kind_icon = {
-            text = function(ctx) return get_mini_icon(ctx).icon end,
-            highlight = function(ctx) return get_mini_icon(ctx).hl end,
+            text = function(ctx)
+              return get_mini_icon(ctx).icon
+            end,
+            highlight = function(ctx)
+              return get_mini_icon(ctx).hl
+            end,
           },
           kind = {
-            highlight = function(ctx) return get_mini_icon(ctx).hl end,
+            highlight = function(ctx)
+              return get_mini_icon(ctx).hl
+            end,
           },
           label_description = {
             --- @param ctx blink.cmp.DrawItemContext
-            text = function (ctx)
-              if ctx.source_id ~= 'dadbod' then
+            text = function(ctx)
+              if ctx.source_id ~= "dadbod" then
                 return ctx.label_description
               end
-            end
+            end,
           },
           source_name = {
             text = function(ctx)
               local source = ctx.item.client_name or ctx.source_name
-              return '[' .. source .. ']'
-            end
-          }
+              return "[" .. source .. "]"
+            end,
+          },
         },
-        columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind", gap = 1 }, { "source_name" } },
-      }
+        columns = {
+          { "kind_icon", "label", "label_description", gap = 1 },
+          { "kind", gap = 1 },
+          { "source_name" },
+        },
+      },
     },
     documentation = {
       window = {
-        border = 'rounded'
-      }
-    }
+        border = "rounded",
+      },
+    },
   },
 
   appearance = {
@@ -128,26 +135,26 @@ return {
     use_nvim_cmp_as_default = false,
     -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
     -- Adjusts spacing to ensure icons are aligned
-    nerd_font_variant = 'mono'
+    nerd_font_variant = "mono",
   },
 
   -- Default list of enabled providers defined so that you can extend it
   -- elsewhere in your config, without redefining it, due to `opts_extend`
   sources = {
-    default = { 'lsp', 'path', 'snippets', 'buffer' },
+    default = { "lsp", "path", "snippets", "buffer" },
     per_filetype = {
-      sql = { 'lsp', 'dadbod', 'snippets', 'buffer' },
+      sql = { "lsp", "dadbod", "snippets", "buffer" },
     },
     -- add vim-dadbod-completion to your completion providers
     providers = {
       dadbod = {
-        name = 'dadbod',
-        module = 'vim_dadbod_completion.blink',
-        transform_items = function (_, items)
-          local CompletionItemKind = require('blink.cmp.types').CompletionItemKind
+        name = "dadbod",
+        module = "vim_dadbod_completion.blink",
+        transform_items = function(_, items)
+          local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
           local deboost_kinds = {
             CompletionItemKind.Field,
-            CompletionItemKind.Class
+            CompletionItemKind.Class,
           }
 
           for idx, item in pairs(items) do
@@ -157,9 +164,8 @@ return {
           end
 
           return items
-        end
+        end,
       },
-
     },
   },
 
@@ -168,5 +174,5 @@ return {
   -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
   --
   -- See the fuzzy documentation for more information
-  fuzzy = { implementation = "prefer_rust_with_warning" }
-  }
+  fuzzy = { implementation = "prefer_rust_with_warning" },
+}

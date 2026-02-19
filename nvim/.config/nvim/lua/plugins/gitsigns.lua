@@ -8,44 +8,54 @@ return {
     end
 
     -- Navigation
-    map('n', '<leader>h]', function()
-      if vim.wo.diff then return ']c' end
-      vim.schedule(function() gs.next_hunk() end)
-      return '<Ignore>'
+    map("n", "<leader>h]", function()
+      if vim.wo.diff then
+        return "]c"
+      end
+      vim.schedule(function()
+        gs.next_hunk()
+      end)
+      return "<Ignore>"
     end, { expr = true })
 
-    map('n', '<leader>h[', function()
-      if vim.wo.diff then return '[c' end
-      vim.schedule(function() gs.prev_hunk() end)
-      return '<Ignore>'
+    map("n", "<leader>h[", function()
+      if vim.wo.diff then
+        return "[c"
+      end
+      vim.schedule(function()
+        gs.prev_hunk()
+      end)
+      return "<Ignore>"
     end, { expr = true })
 
     -- Actions
-    map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-    map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-    map('n', '<leader>hp', gs.preview_hunk)
-    map('n', '<leader>hb', function() gs.blame_line { full = true } end)
-    map('n', '<leader>hd', gs.diffthis)
+    map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>")
+    map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>")
+    map("n", "<leader>hp", gs.preview_hunk)
+    map("n", "<leader>hb", function()
+      gs.blame_line({ full = true })
+    end)
+    map("n", "<leader>hd", gs.diffthis)
 
     -- Text object
-    map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+    map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
   end,
-  preview_config = {col = 1, row = 0, relative = "cursor"},
+  preview_config = { col = 1, row = 0, relative = "cursor" },
   culhl = false,
   signs = {
-    add          = { text = '┃' },
-    change       = { text = '┃' },
-    delete       = { text = '┃' },
-    topdelete    = { text = '┃' },
-    changedelete = { text = '~' },
-    untracked    = { text = '┆' },
+    add = { text = "┃" },
+    change = { text = "┃" },
+    delete = { text = "┃" },
+    topdelete = { text = "┃" },
+    changedelete = { text = "~" },
+    untracked = { text = "┆" },
   },
   signs_staged = {
-    add          = { text = '┃' },
-    change       = { text = '┃' },
-    delete       = { text = '┃' },
-    topdelete    = { text = '┃' },
-    changedelete = { text = '~' },
-    untracked    = { text = '┆' },
+    add = { text = "┃" },
+    change = { text = "┃" },
+    delete = { text = "┃" },
+    topdelete = { text = "┃" },
+    changedelete = { text = "~" },
+    untracked = { text = "┆" },
   },
 }

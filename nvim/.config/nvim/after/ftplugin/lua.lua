@@ -1,2 +1,2 @@
- vim.opt.formatoptions = 'cqjl'
-vim.lsp.enable('lua_ls')
+vim.opt.formatoptions = "cqjl"
+vim.lsp.enable("lua_ls")

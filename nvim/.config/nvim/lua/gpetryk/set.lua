@@ -17,7 +17,7 @@ vim.o.laststatus = 2
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
-vim.o.colorcolumn = '92'
+vim.o.colorcolumn = "92"
 vim.o.cursorline = true
 
 vim.o.tabstop = 4
@@ -32,40 +32,40 @@ vim.o.wrap = false
 vim.o.swapfile = false
 
 vim.o.textwidth = 90
-vim.o.formatoptions = 'cqjl'
+vim.o.formatoptions = "cqjl"
 
-vim.o.spelllang = 'en_us'
-vim.o.spellsuggest = '10'
+vim.o.spelllang = "en_us"
+vim.o.spellsuggest = "10"
 
-vim.o.winborder = 'rounded'
+vim.o.winborder = "rounded"
 
 -- enable .nvim.lua files
-vim.o.exrc=true
+vim.o.exrc = true
 
 -- pop up menu height
 vim.o.pumheight = 15
 vim.o.previewheight = 20
 
-vim.opt.sessionoptions="blank,buffers,curdir,tabpages,winsize,winpos,terminal,localoptions"
-vim.opt.viewoptions="cursor,curdir"
+vim.opt.sessionoptions = "blank,buffers,curdir,tabpages,winsize,winpos,terminal,localoptions"
+vim.opt.viewoptions = "cursor,curdir"
 
 vim.g.omni_sql_no_default_maps = 1
 
 vim.g.loaded_tar = 0
 
-vim.opt.foldtext=""
+vim.opt.foldtext = ""
 vim.opt.list = true
-vim.opt.listchars = 'tab:▸ ,trail:·,extends:❯,precedes:❮,nbsp:␣'
+vim.opt.listchars = "tab:▸ ,trail:·,extends:❯,precedes:❮,nbsp:␣"
 
-vim.opt.foldmethod="expr"
-vim.opt.foldexpr="v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldlevel=99
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
 
-vim.o.foldcolumn='auto'
-vim.o.fillchars='fold: ,foldclose:,foldopen:,foldsep: '
-vim.o.foldopen='block,hor,mark,percent,quickfix,search,tag,undo,jump'
-vim.o.foldenable=true
-vim.o.foldlevel=99
-vim.o.foldlevelstart=99
+vim.o.foldcolumn = "auto"
+vim.o.fillchars = "fold: ,foldclose:,foldopen:,foldsep: "
+vim.o.foldopen = "block,hor,mark,percent,quickfix,search,tag,undo,jump"
+vim.o.foldenable = true
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
 
 vim.hl.priorities.semantic_tokens = 99

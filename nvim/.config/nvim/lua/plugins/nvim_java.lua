@@ -1,69 +1,67 @@
-local java = require('java')
-local dap = require('dap')
+local java = require("java")
+local dap = require("dap")
 
-java.setup({spring_boot_tools = { enable = false }})
+java.setup({ spring_boot_tools = { enable = false } })
 
-vim.lsp.config('jdtls', {
+vim.lsp.config("jdtls", {
   -- @param client vim.lsp.Client
   -- @param bufnr integer
   -- on_attach = function(client, bufnr)
   --   require('ufo').enableFold(bufnr)
   -- end,
-  root_markers={'.git'},
+  root_markers = { ".git" },
   settings = {
     java = {
       inlayHints = {
         parameterNames = {
-          enabled = "all"
-        }
+          enabled = "all",
+        },
       },
       format = {
-        insertSpaces = true
-      }
-    }
-  }
+        insertSpaces = true,
+      },
+    },
+  },
 })
 
-vim.print('enabling java')
-vim.lsp.enable('jdtls')
+vim.print("enabling java")
+vim.lsp.enable("jdtls")
 
 -- vim.lsp.start(vim.lsp.config.jdtls)
 
 local function setup_listener()
-  dap.listeners.after['event_terminated']['gpetryk'] = function(session, body)
-    vim.api.nvim_create_autocmd('BufWinEnter', {
-      once=true,
-      callback = function ()
-        vim.keymap.set('n', 'q', ':bw<CR>', {buffer = true})
-      end
+  dap.listeners.after["event_terminated"]["gpetryk"] = function(session, body)
+    vim.api.nvim_create_autocmd("BufWinEnter", {
+      once = true,
+      callback = function()
+        vim.keymap.set("n", "q", ":bw<CR>", { buffer = true })
+      end,
     })
     java.test.view_last_report()
-    dap.listeners.after['event_terminated']['gpetryk'] = nil
+    dap.listeners.after["event_terminated"]["gpetryk"] = nil
   end
 end
 
-
-vim.api.nvim_create_user_command('JavaTestRunCurrentMethod', function (_)
+vim.api.nvim_create_user_command("JavaTestRunCurrentMethod", function(_)
   setup_listener()
   java.test.run_current_method()
 end, {})
 
-vim.api.nvim_create_user_command('JavaTestRunCurrentClass', function (_)
+vim.api.nvim_create_user_command("JavaTestRunCurrentClass", function(_)
   setup_listener()
   java.test.run_current_class()
 end, {})
 
-
 -- poke ufo
-vim.api.nvim_create_autocmd('LspAttach', {
-  once=true,
-  callback= function ()
-    vim.defer_fn(function ()
+vim.api.nvim_create_autocmd("LspAttach", {
+  once = true,
+  callback = function()
+    vim.defer_fn(function()
       local bufs = vim.fn.getbufinfo()
 
       for _, buf in ipairs(bufs) do
-        vim.api.nvim_exec_autocmds('TextChanged', {buffer=buf.bufnr})
+        vim.api.nvim_exec_autocmds("TextChanged", { buffer = buf.bufnr })
       end
     end, 2000)
-  end
+  end,
 })
