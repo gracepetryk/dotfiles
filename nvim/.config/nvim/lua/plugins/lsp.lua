@@ -26,6 +26,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>i", function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end)
+    vim.keymap.set("n", "<leader>l", function()
+      require("conform").format()
+    end)
     vim.keymap.set("n", "L", vim.lsp.buf.hover, mapopts)
     vim.keymap.set({ "n", "i" }, "<C-k>", function()
       -- toggle signature help

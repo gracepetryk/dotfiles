@@ -82,6 +82,15 @@ return {
     config = load_config("plugins.treesitter"),
   },
   {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+      },
+    },
+  },
+  {
     "nvim-treesitter/nvim-treesitter-context",
     event = "VeryLazy",
     opts = {
