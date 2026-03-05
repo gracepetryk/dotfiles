@@ -72,9 +72,15 @@ bindkey -e
 WORDCHARS=${WORDCHARS//[\/]}
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath+="$HOME/.docker/completions"
-fpath+="$HOME/.zfunc"
+fpath=("$HOME/.docker/completions" $fpath)
+fpath=("$HOME/.zfunc" $fpath)
 # End of Docker CLI completions
+
+# Generate fd completions if missing
+if [[ ! -f ~/.zfunc/_fd ]]; then
+  mkdir -p ~/.zfunc
+  fd --gen-completions zsh > ~/.zfunc/_fd
+fi
 
 
 # -----------------
