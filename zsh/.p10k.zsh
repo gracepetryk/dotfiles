@@ -107,6 +107,7 @@
     # time                  # current time
     # status                  # exit code of the last command
     my_status                 # example user-defined segment (see prompt_example function below)
+    my_mail                   # unread mail count from /var/mail
     # =========================[ Line #2 ]=========================
     newline                 # \n
     # ip                    # ip address and bandwidth usage for a specified network interface
@@ -1662,6 +1663,16 @@
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_my_status() {
     p10k segment -f 1 -t '%(?::[%?] )'
+  }
+
+  # Show unread mail count from /var/mail/$USER.
+  function prompt_my_mail() {
+    local mailfile="/var/mail/$USER"
+    [[ -r $mailfile ]] || return
+    local unread
+    unread=$(awk '/^From /{msg++} /^Status:.*R/{read++} END{print msg+0-(read+0)}' "$mailfile" 2>/dev/null)
+    (( ${unread:-0} > 0 )) || return
+    p10k segment -f 4 -i ' ' -t "$unread"
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
