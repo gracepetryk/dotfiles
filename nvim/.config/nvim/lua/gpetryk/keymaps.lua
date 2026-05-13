@@ -134,11 +134,3 @@ end)
 vim.keymap.set("t", "<C-w>c", function()
   vim.cmd.wincmd("c")
 end)
-
-vim.api.nvim_create_autocmd("WinEnter", {
-  callback = function(args)
-    if vim.bo.buftype == "terminal" then
-      vim.cmd([[normal! i]])
-    end
-  end,
-})

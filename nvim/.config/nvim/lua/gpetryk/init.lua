@@ -33,14 +33,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     })
   end,
 })
-
--- save folds
-local fold_group = vim.api.nvim_create_augroup("SaveFolds", {})
-vim.api.nvim_create_autocmd("BufWinLeave", {
-  group = fold_group,
-  command = "silent! mkview",
-})
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = fold_group,
-  command = "silent! loadview",
-})

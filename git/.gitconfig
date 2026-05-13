@@ -9,6 +9,7 @@
     defaultBranch = main
 [alias]
     adog = log --all --decorate --oneline --graph
+    dog = log --decorate --oneline --graph
 
     # Difftastic aliases, so `git dlog` is `git log` with difftastic and so on.
     d = -c diff.external=difft diff

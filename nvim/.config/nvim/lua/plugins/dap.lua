@@ -3,7 +3,7 @@ local map = require("gpetryk.map").map
 
 local local_config = require("local")
 
-if not res then
+if not local_config then
   local_config = { dap_configurations = { python = {} } }
 end
 
@@ -16,8 +16,12 @@ end)
 map("n", "<Leader>rc", function()
   require("dap").run_to_cursor()
 end)
-map("n", "<Leader>d", require("dap-view").open)
-map("n", "<Leader>c", require("dap-view").close)
+map("n", "<Leader>d", function ()
+  require("dap-view").open()
+end)
+map("n", "<Leader>c", function ()
+  require("dap-view").close()
+end)
 
 dap.adapters.python = function(cb, config)
   if config.request == "attach" then

@@ -19,28 +19,29 @@ vim.keymap.set("n", "<leader>fid", ":Telescope live_grep glob_pattern=")
 vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find)
 vim.keymap.set("n", "<leader>t", builtin.builtin)
 
-vim.keymap.set("n", "gi", builtin.lsp_implementations, {})
-vim.keymap.set("n", "gr", builtin.lsp_references, {})
+-- unmap default gr* keymaps
+for _, m in ipairs(vim.api.nvim_get_keymap('n')) do
+  if m.lhs:match('^gr') then
+    pcall(vim.keymap.del, 'n', m.lhs)
+  end
+end
 
-vim.keymap.set("n", "gd", builtin.lsp_definitions, {})
-vim.keymap.set("n", "<leader>gd", function()
-  vim.cmd.only()
-  vim.cmd.vsplit()
-  vim.schedule(function()
-    vim.cmd.wincmd("l")
-    builtin.lsp_definitions({ reuse_win = false })
-  end)
-end, {})
+local function map_lsp(keymap, fn)
+  vim.keymap.set("n", keymap, fn, {})
+  vim.keymap.set("n", "<leader>" .. keymap, function()
+    vim.cmd.only()
+    vim.cmd.vsplit()
+    vim.schedule(function()
+      vim.cmd.wincmd("l")
+      fn({ reuse_win = false })
+    end)
+  end, {})
+end
 
-vim.keymap.set("n", "gt", builtin.lsp_type_definitions, {})
-vim.keymap.set("n", "<leader>gt", function()
-  vim.cmd.only()
-  vim.cmd.vsplit()
-  vim.schedule(function()
-    vim.cmd.wincmd("l")
-    builtin.lsp_type_definitions({ reuse_win = false })
-  end)
-end, {})
+map_lsp('gr', builtin.lsp_references)
+map_lsp('gi', builtin.lsp_implementations)
+map_lsp('gd', builtin.lsp_definitions)
+map_lsp("gt", builtin.lsp_type_definitions)
 
 vim.keymap.set("n", "<leader>fw", builtin.grep_string, {})
 vim.keymap.set("x", "<leader>fw", function()

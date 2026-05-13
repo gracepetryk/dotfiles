@@ -5,7 +5,13 @@ local function load_config(module)
 end
 
 return {
-  { "gracepetryk/rose-pine", branch = "custom", lazy = false, config = load_config("plugins.colors") },
+  { "gracepetryk/rose-pine",
+    dev=true,
+    branch = "custom",
+    lazy = false,
+    config = load_config("plugins.colors"),
+    priority=1000
+  },
 
   -- general
   {
@@ -27,10 +33,10 @@ return {
         backdrop = 1,
         options = {
           signcolumn = "no", -- disable signcolumn
-          number = false, -- disable number column
+          number = true, -- disable number column
           relativenumber = true, -- disable relative numbers
           cursorline = false, -- disable cursorline
-          cursorcolumn = false, -- disable cursor column
+          cursorcolumn = true, -- disable cursor column
           foldcolumn = "0", -- disable fold column
           list = false, -- disable whitespace characters
         },
@@ -147,22 +153,21 @@ return {
       "<C-b>",
       "<leader>d",
     },
-    dependencies = {
-      {
-        "igorlfs/nvim-dap-view",
-        opts = {
-          winbar = {
-            controls = {
-              enabled = true,
-              position = "left",
-            },
-          },
-          windows = {
-            terminal = {
-              position = "right",
-              hide = {},
-            },
-          },
+  },
+  {
+    "igorlfs/nvim-dap-view",
+    lazy=false,
+    opts = {
+      winbar = {
+        controls = {
+          enabled = true,
+          position = "left",
+        },
+      },
+      windows = {
+        terminal = {
+          position = "right",
+          hide = {},
         },
       },
     },
