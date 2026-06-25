@@ -63,6 +63,6 @@ fi
 pid=$(printf '%s' "$ls" | jq -r --argjson wid "$wid" '.[].tabs[].windows[] | select(.id==$wid) | .pid')
 [ -n "$pid" ] && dev="/dev/$(ps -o tty= -p "$pid" | tr -d ' ')" || dev=""
 if [ -n "$dev" ] && [ -w "$dev" ]; then
-  "$KITTEN" notify --only-print-escape-code --expire-after 5m --sound-name silent --icon-path "$ICON" "$title" "$msg" > "$dev" 2>/dev/null
+  "$KITTEN" notify --only-print-escape-code --identifier "claude-${sid:-session}" --expire-after 5m --sound-name silent --icon-path "$ICON" "$title" "$msg" > "$dev" 2>/dev/null
 fi
 exit 0
