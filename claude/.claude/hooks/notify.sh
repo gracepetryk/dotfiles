@@ -2,8 +2,9 @@
 # Claude Code "Notification" hook.
 #
 # Shows a macOS notification via `kitten notify` when a session needs attention
-# (permission prompts / idle nudges), but only when this session is NOT the
-# currently focused kitty window/tab. The OSC-99 escape is written directly to
+# (permission prompts, or when it comes to rest via the Stop event), but only
+# when this session is NOT the currently focused kitty window/tab. Wired to both
+# the Notification and Stop events. The OSC-99 escape is written directly to
 # this window's pts device, so kitty associates it with this window and clicking
 # the notification focuses this exact session. The title is the session name.
 #
@@ -17,15 +18,26 @@ ICON="$HOME/.claude/claude-icon.png"
 
 in=$(cat)
 
-# Only notify for attention-worthy types: permission prompts and idle nudges.
-# Ignore auth_success / elicitation_* and anything else.
-ntype=$(printf '%s' "$in" | jq -r '.notification_type // empty')
-case "$ntype" in
-  permission_prompt|idle_prompt) ;;
+# Decide whether to notify and with what message, based on the event:
+#   Notification + permission_prompt -> Claude needs approval
+#   Stop                             -> session came to rest (awaiting input)
+# Everything else (auth_success, elicitation_*, idle_prompt, ...) is ignored;
+# the Stop event is how we handle "session is idle", since it fires exactly when
+# the session comes to rest and we then check focus below — so a session you're
+# looking at when it finishes won't notify.
+event=$(printf '%s' "$in" | jq -r '.hook_event_name // empty')
+case "$event" in
+  Notification)
+    ntype=$(printf '%s' "$in" | jq -r '.notification_type // empty')
+    [ "$ntype" = "permission_prompt" ] || exit 0
+    msg=$(printf '%s' "$in" | jq -r '.message // "Claude Code needs your attention"')
+    ;;
+  Stop)
+    msg="Finished — awaiting your input"
+    ;;
   *) exit 0 ;;
 esac
 
-msg=$(printf '%s' "$in" | jq -r '.message // "Claude Code needs your attention"')
 tpath=$(printf '%s' "$in" | jq -r '.transcript_path // empty')
 sid=$(printf '%s' "$in" | jq -r '.session_id // empty')
 
