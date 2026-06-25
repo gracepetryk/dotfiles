@@ -15,15 +15,9 @@ export PATH="$p:$PATH"
 
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46"
 
-
-(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-
-(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
 
 
 # zmodload zsh/zprof
@@ -258,7 +252,8 @@ if (( ${+commands[bat]} )); then
 fi
 
 
-eval "$(fnm env --use-on-cd)"
+fnm use --log-level=quiet
+eval "$(fnm env --use-on-cd --shell zsh --log-level=quiet)"
 
 
 if (( ${+commands[uv]} )); then
@@ -266,4 +261,11 @@ if (( ${+commands[uv]} )); then
 fi
 
 export MANWIDTH=100
-return 0
+
+tmpfile=$(mktemp)
+trap 'rm -f "$tmpfile"' EXIT
+
+eval "$(direnv export zsh 2>!$tmpfile)"
+grep 'direnv: error' $tmpfile # catch disallowed .envrc files on startup
+
+eval "$(direnv hook zsh)"

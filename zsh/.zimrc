@@ -20,7 +20,7 @@ zmodule termtitle
 zmodule utility
 
 zmodule romkatv/powerlevel10k --use degit
-zmodule direnv
+zmodule direnv -d
 zmodule fzf
 zmodule mroth/evalcache
 
@@ -56,5 +56,7 @@ zmodule zsh-users/zsh-history-substring-search
 # zmodule zsh-users/zsh-autosuggestions
 # }}} End configuration added by Zim install
 # 
+#
+
 # completion must be sourced after all modules that add completion definitions.
 zmodule completion
