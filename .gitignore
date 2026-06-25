@@ -10,3 +10,6 @@ minimal_kitty.conf
 
 IosevkaCustom/
 CommitMono/
+
+# track the claude stow package (overrides global ~/.gitignore .claude/ rule)
+!claude/.claude/
