@@ -1,0 +1,24 @@
+{
+  "model": "opus",
+  "preferredNotifChannel": "notifications_disabled",
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true
+  },
+  "effortLevel": "low",
+  "theme": "auto",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/notify.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
