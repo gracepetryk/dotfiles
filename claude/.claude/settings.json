@@ -1,13 +1,8 @@
 {
-  "model": "opus",
-  "preferredNotifChannel": "notifications_disabled",
-  "enabledPlugins": {
-    "lua-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true
+  "env": {
+    "ENABLE_PROMPT_CACHING_1H": "1"
   },
-  "effortLevel": "low",
-  "theme": "auto",
+  "model": "sonnet",
   "hooks": {
     "Notification": [
       {
@@ -31,5 +26,18 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "python3 $HOME/.claude/statusline.py",
+    "refreshInterval": 10
+  },
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true
+  },
+  "effortLevel": "high",
+  "theme": "auto",
+  "preferredNotifChannel": "notifications_disabled"
 }

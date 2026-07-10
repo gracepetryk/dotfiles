@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local mapopts = { noremap = true, silent = true }
     local underline_config = {
       severity = {
-        min = vim.diagnostic.severity.HINT,
+        min = vim.diagnostic.severity.INFO,
       },
     }
 
