@@ -162,18 +162,25 @@ def billing_segment(rate_limits, cost):
     presence is what distinguishes the two billing modes.
     """
     five_hour = (rate_limits or {}).get("five_hour") or {}
+    seven_day = (rate_limits or {}).get("seven_day") or {}
     used_pct = five_hour.get("used_percentage")
     if used_pct is None:
         return cost_segment(cost)
 
-    reset_label = fmt_resets(five_hour.get("resets_at"))
-
-    if used_pct >= 100:
-        label = f"usg {used_pct:.0f}%"
+    # Either window can independently block further usage - the weekly cap
+    # can hit while the 5-hour window still has headroom, so check both.
+    exhausted = [
+        w for w in (five_hour, seven_day) if (w.get("used_percentage") or 0) >= 100
+    ]
+    if exhausted:
+        binding = max(exhausted, key=lambda w: w.get("resets_at") or 0)
+        reset_label = fmt_resets(binding.get("resets_at"))
+        label = "usg 100%"
         if reset_label:
             label += f" ({reset_label})"
         return f"{color(label, DIM)} {color(f'${cost:.2f}', BOLD + usage_color(100))}"
 
+    reset_label = fmt_resets(five_hour.get("resets_at"))
     label = color(f"usg {used_pct:.0f}%", usage_color(used_pct))
     if reset_label:
         label += " " + color(f"({reset_label})", DIM)
