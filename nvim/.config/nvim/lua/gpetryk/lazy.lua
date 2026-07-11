@@ -5,12 +5,13 @@ local function load_config(module)
 end
 
 return {
-  { "gracepetryk/rose-pine",
-    dev=true,
+  {
+    "gracepetryk/rose-pine",
+    dev = false,
     branch = "custom",
     lazy = false,
     config = load_config("plugins.colors"),
-    priority=1000
+    priority = 1000,
   },
 
   -- general
@@ -156,7 +157,7 @@ return {
   },
   {
     "igorlfs/nvim-dap-view",
-    lazy=false,
+    lazy = false,
     opts = {
       winbar = {
         controls = {

@@ -235,6 +235,8 @@ if (( ${+commands[nvim]} )); then
   alias vim=nvim
 fi
 
+unalias lr 2>/dev/null
+
 
 bindkey "\e[1;3D" backward-word # ⌥←
 bindkey "\e[1;3C" forward-word # ⌥→

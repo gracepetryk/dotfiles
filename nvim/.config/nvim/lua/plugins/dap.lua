@@ -16,10 +16,10 @@ end)
 map("n", "<Leader>rc", function()
   require("dap").run_to_cursor()
 end)
-map("n", "<Leader>d", function ()
+map("n", "<Leader>d", function()
   require("dap-view").open()
 end)
-map("n", "<Leader>c", function ()
+map("n", "<Leader>c", function()
   require("dap-view").close()
 end)
 
@@ -103,6 +103,6 @@ dap.configurations = vim.tbl_deep_extend("force", dap.configurations, {
       -- runInTerminal = false,
     },
   },
-}, local_config.dap_configurations)
+}, (local_config and local_config.dap_configurations) or {})
 
 return {}
