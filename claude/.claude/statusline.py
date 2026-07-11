@@ -1,33 +1,31 @@
 #!/usr/bin/env python3
 """Claude Code status line.
 
-Shows: model | cwd | context used (% + tokens) | cache TTL countdown | session cost
+Shows: model | context used (% + tokens) | billing
 
-Cache TTL is not provided by Claude Code directly. The prompt cache lifetime is
-1h (ENABLE_PROMPT_CACHING_1H) and its expiry refreshes on every API call, so we
-approximate expiry as (last transcript timestamp + 3600s). To avoid parsing the
-transcript on every render, the expiry epoch is cached per session and only
-recomputed every 10s; the countdown itself is computed cheaply each render from
-that cached value.
+The billing segment adapts to how the session is paying:
+- API-key billing: session cost in USD (as before).
+- Subscription (Pro/Max) with headroom left: % of the 5-hour session limit
+  remaining and when it resets. Detected via the `rate_limits` field, which
+  Claude Code only sends for claude.ai subscribers.
+- Subscription with the session limit exhausted: pinned at 100%, plus the
+  reset time and the session cost, now labeled as usage credits since that's
+  what's being drawn on past the plan's included usage.
 """
+import colorsys
 import json
 import os
+import re
 import sys
-import time
-from datetime import datetime, timezone
+from datetime import datetime
 
-CACHE_TTL_SECONDS = 3600
-REFRESH_INTERVAL = 10
+ANSI_RE = re.compile(r"\033\[[0-9;]*m")
 
 # ANSI colors
 RESET = "\033[0m"
 DIM = "\033[2m"
 BOLD = "\033[1m"
 CYAN = "\033[36m"
-BLUE = "\033[34m"
-GREEN = "\033[32m"
-YELLOW = "\033[33m"
-RED = "\033[31m"
 MAGENTA = "\033[35m"
 SEP = f"{DIM} | {RESET}"
 
@@ -36,15 +34,32 @@ def color(text, c):
     return f"{c}{text}{RESET}"
 
 
+# Anchored on kitty's theme green (color2, #23d18b - see
+# kitty/.config/kitty/current-theme.conf), which reads nicer than a flat
+# (0, 220, 0). Its hue/saturation/value carry through the whole gradient
+# down to red (hue 0) so the low end stays this same green. Interpolating
+# hue (through yellow) rather than mixing RGB directly keeps the midpoint
+# from dimming into a muddy brown. Value ramps up toward the red end since
+# the theme green's own brightness reads as a dim red at the same value.
+_GREEN_HUE, USAGE_SATURATION, USAGE_VALUE_GREEN = colorsys.rgb_to_hsv(
+    0x23 / 255, 0xD1 / 255, 0x8B / 255
+)
+USAGE_HUE_GREEN = _GREEN_HUE * 360
+USAGE_HUE_RED = 0
+USAGE_VALUE_RED = 245 / 255
+USAGE_BAND_COUNT = 10
+
+
 def usage_color(pct):
-    """Green when there's headroom, yellow getting full, red when nearly full."""
+    """Gradient from theme green to a brighter red, one shade per 10% band."""
     if pct is None:
         return DIM
-    if pct < 50:
-        return GREEN
-    if pct < 80:
-        return YELLOW
-    return RED
+    band = min(int(pct) // 10, USAGE_BAND_COUNT - 1)
+    t = band / (USAGE_BAND_COUNT - 1)
+    hue = USAGE_HUE_GREEN + t * (USAGE_HUE_RED - USAGE_HUE_GREEN)
+    value = USAGE_VALUE_GREEN + t * (USAGE_VALUE_RED - USAGE_VALUE_GREEN)
+    r, g, b = colorsys.hsv_to_rgb(hue / 360, USAGE_SATURATION, value)
+    return f"\033[38;2;{round(r * 255)};{round(g * 255)};{round(b * 255)}m"
 
 
 def main():
@@ -53,8 +68,6 @@ def main():
     except Exception:
         data = {}
 
-    now = time.time()
-
     model = (data.get("model") or {}).get("display_name") or "?"
     effort = data.get("effort")
     if isinstance(effort, dict):
@@ -62,37 +75,76 @@ def main():
     model_label = color(model, BOLD + CYAN)
     if effort:
         model_label += " " + color(effort, DIM)
-    ws = data.get("workspace") or {}
-    cwd = ws.get("current_dir") or data.get("cwd") or ""
-    dir_name = os.path.basename(cwd.rstrip("/")) if cwd else ""
     cost = (data.get("cost") or {}).get("total_cost_usd") or 0
     cw = data.get("context_window") or {}
     ctx_pct = cw.get("used_percentage")
     used_tokens = cw.get("total_input_tokens")
     window_size = cw.get("context_window_size")
-    session_id = data.get("session_id") or "default"
-    transcript = data.get("transcript_path")
+    rate_limits = data.get("rate_limits")
 
     parts = [
         model_label,
-        color(dir_name, BLUE),
         context_segment(ctx_pct, used_tokens, window_size),
-        cache_segment(session_id, transcript, now),
-        cost_segment(cost),
+        billing_segment(rate_limits, cost),
     ]
-    print(SEP.join(parts), end="")
+    columns = int(os.environ.get("COLUMNS") or 0)
+    print("\n".join(wrap_segments(parts, columns)), end="")
+
+
+def visible_len(s):
+    return len(ANSI_RE.sub("", s))
+
+
+def wrap_segments(parts, width):
+    """Pack whole segments onto lines that fit `width`, wrapping instead of
+    letting the terminal truncate. Falls back to one line when width is
+    unknown (COLUMNS is only set by Claude Code v2.1.153+)."""
+    if width <= 0:
+        return [SEP.join(parts)]
+
+    sep_width = visible_len(SEP)
+    lines = []
+    current = []
+    current_width = 0
+    for part in parts:
+        part_width = visible_len(part)
+        added_width = part_width + (sep_width if current else 0)
+        if current and current_width + added_width > width:
+            lines.append(SEP.join(current))
+            current = [part]
+            current_width = part_width
+        else:
+            current.append(part)
+            current_width += added_width
+    if current:
+        lines.append(SEP.join(current))
+    return lines
+
+
+# Models with extended (e.g. 1M) context windows shouldn't have to fill the
+# whole thing before the status line warns you - 200k is where things
+# typically start degrading, so that's the practical /compact or /clear
+# reminder point regardless of the nominal window size.
+CONTEXT_COMPACT_THRESHOLD = 200_000
+
+
+def context_color(used_tokens, window_size):
+    if used_tokens is None:
+        return DIM
+    cap = min(CONTEXT_COMPACT_THRESHOLD, window_size or CONTEXT_COMPACT_THRESHOLD)
+    return usage_color(100 * used_tokens / cap)
 
 
 def context_segment(ctx_pct, used_tokens, window_size):
-    """e.g. 'ctx 42% (84k/200k)' colored by fullness."""
+    """e.g. 'ctx 42% (84k/200k)' colored by fullness, parens dimmed."""
     if ctx_pct is None:
         return color("ctx --", DIM)
-    label = f"ctx {ctx_pct:.0f}%"
+    label = color(f"ctx {ctx_pct:.0f}%", context_color(used_tokens, window_size))
     if used_tokens and window_size:
-        label += f" ({fmt_k(used_tokens)}/{fmt_k(window_size)})"
+        label += " " + color(f"({fmt_k(used_tokens)}/{fmt_k(window_size)})", DIM)
     elif used_tokens:
-        label += f" ({fmt_k(used_tokens)})"
-    return color(label, usage_color(ctx_pct))
+        label += " " + color(f"({fmt_k(used_tokens)})", DIM)
+    return label
 
 
 def fmt_k(n):
@@ -103,72 +155,44 @@ def fmt_k(n):
     return str(n)
 
 
-def cache_segment(session_id, transcript, now):
-    """Live cache TTL countdown, minutes only, recomputed at most every 10s."""
-    cache_file = os.path.join(
-        os.environ.get("TMPDIR", "/tmp"), f"cc_cache_expiry_{session_id}"
-    )
-    expiry = read_cached_expiry(cache_file, now)
-    if expiry is None:
-        expiry = compute_expiry(transcript)
-        if expiry is not None:
-            try:
-                with open(cache_file, "w") as f:
-                    f.write(str(expiry))
-            except OSError:
-                pass
+def billing_segment(rate_limits, cost):
+    """Session limit % used on a subscription plan, or $ cost on API billing.
 
-    if expiry is None:
-        return color("cache --", DIM)
+    `rate_limits` is only present for claude.ai (Pro/Max) subscribers, so its
+    presence is what distinguishes the two billing modes.
+    """
+    five_hour = (rate_limits or {}).get("five_hour") or {}
+    used_pct = five_hour.get("used_percentage")
+    if used_pct is None:
+        return cost_segment(cost)
 
-    remaining = int(expiry - now)
-    if remaining <= 0:
-        return color("cache expired", RED)
-    minutes = max(1, round(remaining / 60))
-    c = GREEN if minutes > 20 else YELLOW if minutes > 5 else RED
-    return color(f"cache {minutes}m", c)
+    reset_label = fmt_resets(five_hour.get("resets_at"))
+
+    if used_pct >= 100:
+        label = f"usg {used_pct:.0f}%"
+        if reset_label:
+            label += f" ({reset_label})"
+        return f"{color(label, DIM)} {color(f'${cost:.2f}', BOLD + usage_color(100))}"
+
+    label = color(f"usg {used_pct:.0f}%", usage_color(used_pct))
+    if reset_label:
+        label += " " + color(f"({reset_label})", DIM)
+    return label
+
+
+def fmt_resets(epoch_seconds):
+    """e.g. '12:30AM', in local time. None if epoch_seconds is missing."""
+    if not epoch_seconds:
+        return None
+    try:
+        dt = datetime.fromtimestamp(epoch_seconds).astimezone()
+        return dt.strftime("%-I:%M%p")
+    except (OSError, OverflowError, ValueError):
+        return None
 
 
 def cost_segment(cost):
     return color(f"${cost:.2f}", MAGENTA)
-
-
-def read_cached_expiry(cache_file, now):
-    """Return the cached expiry epoch if the cache file is fresh (<10s), else None."""
-    try:
-        if now - os.path.getmtime(cache_file) < REFRESH_INTERVAL:
-            with open(cache_file) as f:
-                return float(f.read().strip())
-    except (OSError, ValueError):
-        pass
-    return None
-
-
-def compute_expiry(transcript):
-    """Derive cache expiry from the last timestamp in the transcript JSONL."""
-    if not transcript or not os.path.isfile(transcript):
-        return None
-    last_ts = None
-    try:
-        with open(transcript) as f:
-            for line in f:
-                try:
-                    ts = json.loads(line).get("timestamp")
-                except (ValueError, AttributeError):
-                    continue
-                if ts:
-                    last_ts = ts
-    except OSError:
-        return None
-    if not last_ts:
-        return None
-    try:
-        dt = datetime.fromisoformat(last_ts.replace("Z", "+00:00"))
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=timezone.utc)
-        return dt.timestamp() + CACHE_TTL_SECONDS
-    except ValueError:
-        return None
 
 
 if __name__ == "__main__":
