@@ -174,7 +174,8 @@ def billing_segment(rate_limits, cost):
     ]
     if exhausted:
         binding = max(exhausted, key=lambda w: w.get("resets_at") or 0)
-        reset_label = fmt_resets(binding.get("resets_at"))
+        fmt = fmt_reset_day if binding is seven_day else fmt_resets
+        reset_label = fmt(binding.get("resets_at"))
         label = "usg 100%"
         if reset_label:
             label += f" ({reset_label})"
@@ -194,6 +195,18 @@ def fmt_resets(epoch_seconds):
     try:
         dt = datetime.fromtimestamp(epoch_seconds).astimezone()
         return dt.strftime("%-I:%M%p")
+    except (OSError, OverflowError, ValueError):
+        return None
+
+
+def fmt_reset_day(epoch_seconds):
+    """e.g. 'Tue', in local time. A weekly reset is days out, so the day of
+    the week is more useful here than a time of day. None if missing."""
+    if not epoch_seconds:
+        return None
+    try:
+        dt = datetime.fromtimestamp(epoch_seconds).astimezone()
+        return dt.strftime("%a")
     except (OSError, OverflowError, ValueError):
         return None
 
