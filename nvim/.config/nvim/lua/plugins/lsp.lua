@@ -6,9 +6,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local mapopts = { noremap = true, silent = true }
     local underline_config = {
       severity = {
-        min = vim.diagnostic.severity.INFO,
+        min = vim.diagnostic.severity.HINT,
       },
     }
+
+    vim.cmd.highlight('DiagnosticUnderlineHint gui=NONE')
 
     vim.keymap.set("n", "<A-]>", function()
       vim.diagnostic.jump({ count = 1 })
@@ -112,7 +114,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       local center_width = 5
       local left_width = 1
 
-      local message = string.format("%s: %s", diagnostic.code, diagnostic.message)
+      local message = string.format("%s: %s [%s]", diagnostic.code, diagnostic.message, diagnostic.source)
 
       ---@type string[]
       local lines = {}
@@ -237,6 +239,7 @@ vim.lsp.config("html", {
 })
 
 vim.lsp.config("ty", {
+  capabilities = vim.lsp.protocol.make_client_capabilities(),
   settings = {
     ty = {
       experimental = {
@@ -245,6 +248,10 @@ vim.lsp.config("ty", {
       },
     },
   },
+})
+
+vim.lsp.config('ruff', {
+  root_markers = {'ruff.toml', unpack(vim.lsp.config.ruff.root_markers)}
 })
 
 vim.lsp.enable("ty")

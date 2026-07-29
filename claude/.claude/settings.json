@@ -2,7 +2,10 @@
   "env": {
     "ENABLE_PROMPT_CACHING_1H": "1"
   },
-  "model": "sonnet",
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "opus",
   "hooks": {
     "Notification": [
       {
@@ -37,7 +40,7 @@
     "pyright-lsp@claude-plugins-official": true,
     "ruby-lsp@claude-plugins-official": true
   },
-  "effortLevel": "high",
+  "effortLevel": "medium",
   "theme": "auto",
   "preferredNotifChannel": "notifications_disabled"
 }

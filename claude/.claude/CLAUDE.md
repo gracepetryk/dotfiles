@@ -40,6 +40,9 @@ This file provides generic guidance to Claude Code when working across all proje
 
 - **README files**: Update project README when adding major features or changing setup procedures
 - **Inline comments**: Document "why" not "what" - code should be self-documenting for the "what"
+- **Describe current behavior, scoped to the code's own job**: Docstrings/comments describe what the code does now - not development history, decisions made along the way, or what the code *doesn't* do
+- **No scope creep**: Don't document a caller's setup responsibilities or a neighboring function/fixture's mechanics inside this code's docstring. Cross-reference tersely (e.g. "See also: X") only when load-bearing; never restate the other thing's internals
+- **Write for readers who lack the author's context**: A PR is the unit of change; reviewers and future readers won't share the narrow context the author had while writing. Writing for that private context is more confusing, not less
 - **API documentation**: Document public APIs, expected inputs/outputs, and edge cases
 - **Update docs with code**: Documentation changes should accompany code changes in the same commit
 
