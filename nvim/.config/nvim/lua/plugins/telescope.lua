@@ -100,8 +100,8 @@ local function open_picker_with_current_search(picker)
 end
 
 -- File picker that ranks open buffers up by boosting their match score rather
--- than bucketing them ahead of everything. Only hidden/ignored files are held
--- back unconditionally.
+-- than bucketing them ahead of everything. Ignored files are kept out of the
+-- list until the tracked files stop matching well.
 local IGNORED_PASS = 2
 
 -- The second pass repeats the first with --no-ignore, so it contributes only
@@ -258,16 +258,33 @@ end
 -- on top: enough for a near-tie, not enough to drag a weak match to the front.
 local BUFFER_BOOST = 1.05
 
--- Ignored files stay behind everything else. fzf scores land in (0, 1] here, so
--- any constant above 1 separates the two groups without disturbing either.
-local IGNORED_PENALTY = 0.9
+-- An ignored file shows up once its match is at least this good relative to the
+-- best tracked match, so a near-tie is enough to bring it in. Judging it against
+-- the other results rather than against a fixed score keeps the cutoff
+-- meaningful whatever the prompt is: fzf's raw scores grow with the length of
+-- the match, so no constant means the same thing for a two-character prompt and
+-- a twenty-character one.
+local IGNORED_MIN_QUALITY = 0.95
 
 --- Wraps the configured file sorter: open buffers get a boost, ignored files
---- get held back. Having a file open beats it being ignored, so an ignored file
---- you already have open ranks with the rest rather than behind them.
+--- are dropped unless they clear IGNORED_MIN_QUALITY. Having a file open beats
+--- it being ignored, so an ignored file you already have open is shown and
+--- ranked like the rest.
 local function boosted_sorter(opts)
   local sorter = require("telescope.config").values.file_sorter(opts)
   local scoring_function = sorter.scoring_function
+  local start = sorter.start
+  local best_tracked
+
+  -- the finder emits every tracked file before the first ignored one, and
+  -- rescoring walks the results in that same order, so the best tracked score
+  -- is settled by the time an ignored entry is scored
+  sorter.start = function(self, prompt)
+    best_tracked = nil
+    if start then
+      start(self, prompt)
+    end
+  end
 
   sorter.scoring_function = function(self, prompt, line, entry, ...)
     local score = scoring_function(self, prompt, line, entry, ...)
@@ -275,13 +292,20 @@ local function boosted_sorter(opts)
       return score
     end
 
-    -- fzf hands back 1 / raw_score, so scaling the raw score means dividing
-    if entry.open_buffer then
-      score = score / BUFFER_BOOST
-    elseif entry.ignored then
-      score = score / IGNORED_PENALTY
+    -- fzf hands back 1 / raw_score, so a lower score is the better match and
+    -- scaling the raw score means dividing
+    if entry.ignored and not entry.open_buffer then
+      if best_tracked and score * IGNORED_MIN_QUALITY > best_tracked then
+        return -1
+      end
+      return score
     end
 
+    if entry.open_buffer then
+      score = score / BUFFER_BOOST
+    end
+
+    best_tracked = math.min(best_tracked or math.huge, score)
     return score
   end
 
