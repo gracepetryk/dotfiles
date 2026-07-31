@@ -256,5 +256,6 @@ vim.lsp.config('ruff', {
 
 vim.lsp.enable("ty")
 vim.lsp.enable("ruff")
+vim.lsp.enable("vue_ls")
 
 -- vim.lsp.enable('terraformls')

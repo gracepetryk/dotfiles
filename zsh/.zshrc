@@ -15,6 +15,7 @@ p="$HOME/bin"
 p+=":$HOME/.local/bin"
 p+=":/usr/local/sbin"
 p+=":/Applications/Firefox.app/Contents/MacOS"
+p+=":/opt/homebrew/bin"
 [[ -d ~/.cargo ]] && p+=":$HOME/.cargo/bin"
 export PATH="$p:$PATH"
 

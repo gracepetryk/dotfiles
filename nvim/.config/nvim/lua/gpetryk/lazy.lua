@@ -125,7 +125,8 @@ return {
 
   -- lsp
   { "neovim/nvim-lspconfig", config = load_config("plugins.lsp") },
-  { "williamboman/mason.nvim" },
+  { "mason-org/mason.nvim" },
+  { "mason-org/mason-lspconfig.nvim" },
   {
     "saghen/blink.cmp",
     -- optional: provides snippets for the snippet source
@@ -160,6 +161,7 @@ return {
     lazy = false,
     opts = {
       winbar = {
+        default_section = "scopes",
         controls = {
           enabled = true,
           position = "left",
@@ -188,7 +190,7 @@ return {
     },
   },
   { "rodjek/vim-puppet", ft = "puppet" },
-  { "lepture/vim-jinja", ft = "htmldjango" },
+  { "lepture/vim-jinja", ft = "html" },
   { "wavded/vim-stylus", ft = "stylus" },
   {
     "kristijanhusak/vim-dadbod-ui",
