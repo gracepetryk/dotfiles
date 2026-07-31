@@ -178,7 +178,6 @@ local function two_pass_finder(opts)
   local async = require("plenary.async")
   local async_job = require("telescope.async_job")
   local entry_maker = with_buffer_mark(require("telescope.make_entry").gen_from_file(opts))
-  local sorter = boosted_sorter()
 
   local open_buffers = listed_buffer_paths()
   local results, seen = {}, {}
