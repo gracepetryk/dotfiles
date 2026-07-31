@@ -100,12 +100,13 @@ local function open_picker_with_current_search(picker)
 end
 
 -- File picker that ranks open buffers up by boosting their match score rather
--- than bucketing them ahead of everything. Ignored files are kept out of the
--- list until the tracked files stop matching well.
+-- than bucketing them ahead of everything. Ignored files are neither searched
+-- nor listed until the tracked files run short of good matches.
 local IGNORED_PASS = 2
 
 -- The second pass repeats the first with --no-ignore, so it contributes only
--- the ignored files; paths already emitted by the first pass are dropped.
+-- the ignored files; paths already emitted by the first pass are dropped. It
+-- runs at most once per picker, and only if the prompt asks for it.
 local FIND_COMMANDS = {
   { "rg", "--files", "--hidden", "-g", "!.git", "-g", "!node_modules" },
   { "rg", "--files", "--hidden", "--no-ignore", "-g", "!.git", "-g", "!node_modules" },
@@ -172,9 +173,44 @@ local function with_buffer_mark(entry_maker)
   end
 end
 
+-- fzf awards 16 points for every matched character before bonuses and gap
+-- penalties, so raw_score / (16 * #prompt) reads as a fraction of a clean
+-- character-for-character match and stays comparable however long the prompt
+-- gets. Measured over a real file list, a match on the file the prompt is after
+-- scores 1.51 and up, while a prompt with nothing to land on falls well below:
+-- the best "venv" can do against tracked files is 1.03. Hence the cutoff.
+local FZF_SCORE_MATCH = 16
+local GOOD_MATCH_QUALITY = 1.5
+
+--- How good `score` (fzf's 1 / raw_score) is against a non-empty `prompt`,
+--- relative to a clean character-for-character match.
+local function match_quality(score, prompt)
+  return 1 / (score * FZF_SCORE_MATCH * #prompt)
+end
+
+-- A screenful of solid matches is an answer, so the ignored files are only
+-- worth the unfiltered walk of the tree once the tracked ones can't produce
+-- even this many.
+local MIN_GOOD_MATCHES = 10
+
+--- Written by the sorter as it scores, read by the finder: how the tracked
+--- files are matching the prompt currently being scored.
+local function new_match_quality()
+  return { best = nil, good = 0 }
+end
+
+--- Whether the tracked files answer `prompt` well enough that the ignored files
+--- aren't worth searching. An empty prompt says nothing about match quality, so
+--- it counts as good.
+local function tracked_matches_are_good(quality, prompt)
+  return prompt == "" or quality.good >= MIN_GOOD_MATCHES
+end
+
 --- Finder that runs FIND_COMMANDS in order, streaming results as they arrive
---- and tagging each entry as open-in-a-buffer and/or ignored.
-local function two_pass_finder(opts)
+--- and tagging each entry as open-in-a-buffer and/or ignored. The ignored pass
+--- is held back until `quality` says the tracked files have run short of good
+--- matches, since it costs a full unfiltered walk of the tree.
+local function two_pass_finder(opts, quality)
   local async = require("plenary.async")
   local async_job = require("telescope.async_job")
   local entry_maker = with_buffer_mark(require("telescope.make_entry").gen_from_file(opts))
@@ -182,7 +218,6 @@ local function two_pass_finder(opts)
   local open_buffers = listed_buffer_paths()
   local results, seen = {}, {}
   local pass, job, stdout = 1, nil, nil
-  local completed = false
 
   local function is_open_buffer(path)
     return open_buffers[vim.fs.normalize(opts.cwd .. "/" .. path)] == true
@@ -197,23 +232,23 @@ local function two_pass_finder(opts)
       end
     end,
   }, {
-    __call = function(_, _, process_result, process_complete)
-      if completed then
-        for index = 1, #results do
-          async.util.scheduler()
-          if process_result(results[index]) then
-            break
-          end
+    __call = function(_, prompt, process_result, process_complete)
+      -- the replay puts every entry back through the sorter, so the quality of
+      -- the tracked matches is known for this prompt once it finishes
+      local stopped = false
+      for index = 1, #results do
+        async.util.scheduler()
+        if process_result(results[index]) then
+          stopped = true
+          break
         end
-        process_complete()
-        return
       end
 
-      for _, entry in ipairs(results) do
-        process_result(entry)
-      end
+      while not stopped and pass <= #FIND_COMMANDS do
+        if pass == IGNORED_PASS and tracked_matches_are_good(quality, prompt) then
+          break
+        end
 
-      while pass <= #FIND_COMMANDS do
         if not job then
           local command = FIND_COMMANDS[pass]
           stdout = async_job.LinesPipe()
@@ -246,7 +281,6 @@ local function two_pass_finder(opts)
         pass = pass + 1
       end
 
-      completed = true
       process_complete()
     end,
   })
@@ -264,23 +298,22 @@ local BUFFER_BOOST = 1.05
 -- meaningful whatever the prompt is: fzf's raw scores grow with the length of
 -- the match, so no constant means the same thing for a two-character prompt and
 -- a twenty-character one.
-local IGNORED_MIN_QUALITY = 0.95
+local IGNORED_MIN_QUALITY = 0.9
 
 --- Wraps the configured file sorter: open buffers get a boost, ignored files
 --- are dropped unless they clear IGNORED_MIN_QUALITY. Having a file open beats
 --- it being ignored, so an ignored file you already have open is shown and
 --- ranked like the rest.
-local function boosted_sorter(opts)
+local function boosted_sorter(opts, quality)
   local sorter = require("telescope.config").values.file_sorter(opts)
   local scoring_function = sorter.scoring_function
   local start = sorter.start
-  local best_tracked
 
   -- the finder emits every tracked file before the first ignored one, and
   -- rescoring walks the results in that same order, so the best tracked score
   -- is settled by the time an ignored entry is scored
   sorter.start = function(self, prompt)
-    best_tracked = nil
+    quality.best, quality.good = nil, 0
     if start then
       start(self, prompt)
     end
@@ -295,17 +328,23 @@ local function boosted_sorter(opts)
     -- fzf hands back 1 / raw_score, so a lower score is the better match and
     -- scaling the raw score means dividing
     if entry.ignored and not entry.open_buffer then
-      if best_tracked and score * IGNORED_MIN_QUALITY > best_tracked then
+      if quality.best and score * IGNORED_MIN_QUALITY > quality.best then
         return -1
       end
       return score
+    end
+
+    -- recorded before the boost, which is a ranking preference rather than
+    -- anything to do with how well the file matched
+    quality.best = math.min(quality.best or math.huge, score)
+    if prompt ~= "" and match_quality(score, prompt) >= GOOD_MATCH_QUALITY then
+      quality.good = quality.good + 1
     end
 
     if entry.open_buffer then
       score = score / BUFFER_BOOST
     end
 
-    best_tracked = math.min(best_tracked or math.huge, score)
     return score
   end
 
@@ -316,11 +355,13 @@ local function find_files_boosted(opts)
   opts = opts or {}
   opts.cwd = vim.fs.normalize(opts.cwd or vim.uv.cwd())
 
+  local quality = new_match_quality()
+
   require("telescope.pickers")
     .new(opts, {
       prompt_title = "Find Files",
-      finder = two_pass_finder(opts),
-      sorter = boosted_sorter(opts),
+      finder = two_pass_finder(opts, quality),
+      sorter = boosted_sorter(opts, quality),
       previewer = require("telescope.config").values.file_previewer(opts),
       attach_mappings = function(_, map)
         map({ "i", "n" }, "<C-a>", open_picker_with_current_search(builtin.buffers))
