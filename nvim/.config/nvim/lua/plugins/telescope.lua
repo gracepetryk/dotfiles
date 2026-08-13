@@ -180,7 +180,7 @@ end
 -- scores 1.51 and up, while a prompt with nothing to land on falls well below:
 -- the best "venv" can do against tracked files is 1.03. Hence the cutoff.
 local FZF_SCORE_MATCH = 16
-local GOOD_MATCH_QUALITY = 1.5
+local GOOD_MATCH_QUALITY = 1.1
 
 --- How good `score` (fzf's 1 / raw_score) is against a non-empty `prompt`,
 --- relative to a clean character-for-character match.
@@ -191,7 +191,7 @@ end
 -- A screenful of solid matches is an answer, so the ignored files are only
 -- worth the unfiltered walk of the tree once the tracked ones can't produce
 -- even this many.
-local MIN_GOOD_MATCHES = 10
+local MIN_GOOD_MATCHES = 1
 
 --- Written by the sorter as it scores, read by the finder: how the tracked
 --- files are matching the prompt currently being scored.
