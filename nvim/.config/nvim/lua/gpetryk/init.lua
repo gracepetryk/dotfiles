@@ -7,7 +7,7 @@ require("lazy").setup({
     { import = "specs" },
   },
   dev = {
-    path = "~/dotfiles/nvim/plugins",
+    path = "~/repos/",
   },
   change_detection = {
     enabled = true,
