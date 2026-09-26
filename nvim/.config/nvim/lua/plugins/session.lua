@@ -35,9 +35,6 @@ return {
   args_allow_files_auto_save = true,
   args_allow_single_directory = true,
   legacy_cmds = false,
-  session_lens = {
-    load_on_setup = true,
-  },
   save_extra_data = require("gpetryk.session_folds").save_extra_data,
   restore_extra_data = require("gpetryk.session_folds").restore_extra_data,
   close_filetypes_on_save = {

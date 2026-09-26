@@ -5,7 +5,14 @@ local fzf = require("fzf-lua")
 
 local M = {}
 
-local EXCLUDES = { "-g", "!.git", "-g", "!node_modules" }
+-- directories left out of every search, wherever they sit in the tree
+M.EXCLUDED_DIRS = { ".git", "node_modules" }
+
+local EXCLUDES = {}
+for _, dir in ipairs(M.EXCLUDED_DIRS) do
+  vim.list_extend(EXCLUDES, { "-g", "!" .. dir })
+end
+
 local TRACKED_CMD = vim.list_extend({ "rg", "--files", "--hidden" }, EXCLUDES)
 local IGNORED_CMD = vim.list_extend({ "rg", "--files", "--hidden", "--no-ignore" }, EXCLUDES)
 
@@ -13,10 +20,12 @@ local function shell_join(args)
   return table.concat(vim.tbl_map(vim.fn.shellescape, args), " ")
 end
 
---- Whether rg's EXCLUDES would leave out `rel`, a path relative to cwd.
+--- Whether rg's EXCLUDES would leave out `rel`, a path relative to cwd: true
+--- when any of its components is one of EXCLUDED_DIRS.
 local function is_excluded(rel)
-  for _, dir in ipairs({ ".git", "node_modules" }) do
-    if rel:match("^" .. vim.pesc(dir) .. "/") or rel:match("/" .. vim.pesc(dir) .. "/") then
+  local padded = "/" .. rel .. "/"
+  for _, dir in ipairs(M.EXCLUDED_DIRS) do
+    if padded:find("/" .. dir .. "/", 1, true) then
       return true
     end
   end
@@ -90,23 +99,27 @@ end
 local TOGGLE_IGNORED_KEY = "alt-i"
 
 --- fzf binds that pull in the ignored files, by pressing TOGGLE_IGNORED_KEY on
---- the user's behalf, the first time a non-empty query matches nothing. That's
---- checked when the match count drops to zero, and again once the list has
---- loaded, since a query typed before then may already be at zero with no drop
---- left to see. `auto` records that it has happened, so hiding the ignored
---- files again with TOGGLE_IGNORED_KEY sticks.
-local function zero_match_binds(flag, auto)
+--- the user's behalf, when a non-empty query matches nothing. That's checked
+--- when the match count drops to zero, and again once the list has loaded,
+--- since a query typed before then may already be at zero with no drop left to
+--- see. Nothing happens while the ignored files are listed (`flag` exists) or
+--- once the user has hidden them (`hidden` exists), so a hide sticks.
+local function zero_match_binds(flag, hidden)
   local condition = ([[[ -n "$FZF_QUERY" ] && [ ! -e %s ] && [ ! -e %s ] ]]):format(
     vim.fn.shellescape(flag),
-    vim.fn.shellescape(auto)
+    vim.fn.shellescape(hidden)
   )
-  local fallback = ("then : > %s; echo 'trigger(%s)'; fi"):format(vim.fn.shellescape(auto), TOGGLE_IGNORED_KEY)
+  local fallback = ("then echo 'trigger(%s)'; fi"):format(TOGGLE_IGNORED_KEY)
   return {
     zero = ("transform:if %s; %s"):format(condition, fallback),
     -- zero stays unbound while loading, so a partly loaded list can't set it off
     start = "+unbind(zero)",
     load = ([[+rebind(zero)+transform:if %s && [ "$FZF_MATCH_COUNT" -eq 0 ]; %s]]):format(condition, fallback),
   }
+end
+
+local function touch(path)
+  assert(io.open(path, "w")):close()
 end
 
 --- Opens the picker. TOGGLE_IGNORED_KEY lists or hides the ignored files
@@ -117,7 +130,7 @@ function M.find_files(opts)
   -- its existence is what includes the ignored files, so toggling them is a
   -- reload of the same command rather than a new picker
   local flag = vim.fn.tempname()
-  local auto = vim.fn.tempname()
+  local hidden = vim.fn.tempname()
 
   fzf.files({
     cwd = cwd,
@@ -127,14 +140,15 @@ function M.find_files(opts)
     -- the command always mentions --no-ignore, so the flags would say ignored
     -- files are listed whether or not they are
     winopts = { title_flags = false },
-    keymap = { fzf = zero_match_binds(flag, auto) },
+    keymap = { fzf = zero_match_binds(flag, hidden) },
     actions = {
       [TOGGLE_IGNORED_KEY] = {
         fn = function()
           if vim.uv.fs_stat(flag) then
             os.remove(flag)
+            touch(hidden)
           else
-            assert(io.open(flag, "w")):close()
+            touch(flag)
           end
         end,
         reload = true,

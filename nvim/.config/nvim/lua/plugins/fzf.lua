@@ -1,8 +1,18 @@
 local fzf = require("fzf-lua")
-local find_files = require("plugins.fzf_files").find_files
+local fzf_files = require("plugins.fzf_files")
+local find_files = fzf_files.find_files
 
 -- --ignore-case rather than fzf-lua's --smart-case default
 local RG_OPTS = "--column --line-number --no-heading --color=always --ignore-case --max-columns=4096"
+
+local function exclude_globs(dirs)
+  return table.concat(
+    vim.tbl_map(function(dir)
+      return "-g " .. vim.fn.shellescape("!" .. dir)
+    end, dirs),
+    " "
+  )
+end
 
 fzf.setup({
   ui_select = {},
@@ -14,7 +24,7 @@ fzf.setup({
     },
   },
   grep = {
-    rg_opts = RG_OPTS .. " -g '!.git' -g '!node_modules' -e",
+    rg_opts = RG_OPTS .. " " .. exclude_globs(fzf_files.EXCLUDED_DIRS) .. " -e",
     hidden = true,
   },
   buffers = {
@@ -47,7 +57,7 @@ end)
 vim.keymap.set("n", "<leader>fg", fzf.live_grep)
 
 vim.keymap.set("n", "<leader>FG", function()
-  fzf.live_grep({ no_ignore = true, rg_opts = RG_OPTS .. " -g '!.git' -e" })
+  fzf.live_grep({ no_ignore = true, rg_opts = RG_OPTS .. " " .. exclude_globs({ ".git" }) .. " -e" })
 end)
 
 -- live_grep reads globs from the query after " -- ", so this seeds the query
