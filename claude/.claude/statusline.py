@@ -121,25 +121,11 @@ def wrap_segments(parts, width):
     return lines
 
 
-# Models with extended (e.g. 1M) context windows shouldn't have to fill the
-# whole thing before the status line warns you - 200k is where things
-# typically start degrading, so that's the practical /compact or /clear
-# reminder point regardless of the nominal window size.
-CONTEXT_COMPACT_THRESHOLD = 200_000
-
-
-def context_color(used_tokens, window_size):
-    if used_tokens is None:
-        return DIM
-    cap = min(CONTEXT_COMPACT_THRESHOLD, window_size or CONTEXT_COMPACT_THRESHOLD)
-    return usage_color(100 * used_tokens / cap)
-
-
 def context_segment(ctx_pct, used_tokens, window_size):
     """e.g. 'ctx 42% (84k/200k)' colored by fullness, parens dimmed."""
     if ctx_pct is None:
         return color("ctx --", DIM)
-    label = color(f"ctx {ctx_pct:.0f}%", context_color(used_tokens, window_size))
+    label = color(f"ctx {ctx_pct:.0f}%", usage_color(ctx_pct))
     if used_tokens and window_size:
         label += " " + color(f"({fmt_k(used_tokens)}/{fmt_k(window_size)})", DIM)
     elif used_tokens:
