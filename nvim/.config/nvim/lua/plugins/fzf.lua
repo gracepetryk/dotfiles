@@ -1,22 +1,16 @@
 local fzf = require("fzf-lua")
-local actions = fzf.actions
 local find_files = require("plugins.fzf_files").find_files
-
---- Opens the selection, then unfolds and centres the cursor line.
-local function edit_and_reveal(selected, opts)
-  actions.file_edit_or_qf(selected, opts)
-  vim.cmd("silent! normal zOzz")
-end
 
 -- --ignore-case rather than fzf-lua's --smart-case default
 local RG_OPTS = "--column --line-number --no-heading --color=always --ignore-case --max-columns=4096"
 
 fzf.setup({
   ui_select = {},
-  actions = {
-    files = {
-      true,
-      ["enter"] = edit_and_reveal,
+  files = {
+    actions = {
+      ["ctrl-a"] = function()
+        fzf.buffers({ query = fzf.get_last_query() })
+      end,
     },
   },
   grep = {

@@ -13,8 +13,18 @@ local function shell_join(args)
   return table.concat(vim.tbl_map(vim.fn.shellescape, args), " ")
 end
 
---- Paths of listed buffers that are files under `cwd`, relative to it, most
---- recently used first.
+--- Whether rg's EXCLUDES would leave out `rel`, a path relative to cwd.
+local function is_excluded(rel)
+  for _, dir in ipairs({ ".git", "node_modules" }) do
+    if rel:match("^" .. vim.pesc(dir) .. "/") or rel:match("/" .. vim.pesc(dir) .. "/") then
+      return true
+    end
+  end
+  return false
+end
+
+--- Paths of listed buffers that are files under `cwd` and not in EXCLUDES,
+--- relative to `cwd`, most recently used first.
 local function open_buffer_paths(cwd)
   local bufs = vim.fn.getbufinfo({ buflisted = 1 })
   table.sort(bufs, function(a, b)
@@ -26,7 +36,7 @@ local function open_buffer_paths(cwd)
     local name = buf.name
     local rel = name ~= "" and vim.fs.relpath(cwd, name)
     local stat = rel and vim.uv.fs_stat(name)
-    if stat and stat.type == "file" then
+    if stat and stat.type == "file" and not is_excluded(rel) then
       table.insert(paths, rel)
     end
   end
@@ -35,8 +45,9 @@ end
 
 --- Shell pipeline printing `<tag>\t<path>` lines: open buffers (`b`), then
 --- tracked files (`t`), then ignored files (`i`) while `flag` exists. A path is
---- printed once, under the first tag it shows up with, so listing buffers first
---- also wins them fzf's index tiebreak.
+--- printed once, under the first tag it shows up with. Listing buffers first
+--- puts them ahead of other files only when fzf can't otherwise separate them:
+--- equal score, filename position and length.
 local function build_cmd(cwd, flag)
   local parts = {}
 
@@ -71,7 +82,7 @@ local function transform(line, opts)
   if tag == "b" then
     return utils.ansi_codes.yellow("+") .. utils.nbsp .. entry
   elseif tag == "i" then
-    return " " .. utils.nbsp .. utils.ansi_codes.dark_grey(utils.strip_ansi_coloring(entry))
+    return " " .. utils.nbsp .. utils.ansi_codes.grey(utils.strip_ansi_coloring(entry))
   end
   return " " .. utils.nbsp .. entry
 end
@@ -79,18 +90,22 @@ end
 local TOGGLE_IGNORED_KEY = "alt-i"
 
 --- fzf binds that pull in the ignored files, by pressing TOGGLE_IGNORED_KEY on
---- the user's behalf, once a non-empty query stops matching anything. They're
---- held back until the list has finished loading, so a query typed while files
---- are still streaming in doesn't set them off early.
-local function zero_match_binds(flag)
-  local fallback = ([[if [ -n "$FZF_QUERY" ] && [ ! -e %s ]; then echo 'trigger(%s)'; fi]]):format(
+--- the user's behalf, the first time a non-empty query matches nothing. That's
+--- checked when the match count drops to zero, and again once the list has
+--- loaded, since a query typed before then may already be at zero with no drop
+--- left to see. `auto` records that it has happened, so hiding the ignored
+--- files again with TOGGLE_IGNORED_KEY sticks.
+local function zero_match_binds(flag, auto)
+  local condition = ([[[ -n "$FZF_QUERY" ] && [ ! -e %s ] && [ ! -e %s ] ]]):format(
     vim.fn.shellescape(flag),
-    TOGGLE_IGNORED_KEY
+    vim.fn.shellescape(auto)
   )
+  local fallback = ("then : > %s; echo 'trigger(%s)'; fi"):format(vim.fn.shellescape(auto), TOGGLE_IGNORED_KEY)
   return {
-    zero = "transform:" .. fallback,
+    zero = ("transform:if %s; %s"):format(condition, fallback),
+    -- zero stays unbound while loading, so a partly loaded list can't set it off
     start = "+unbind(zero)",
-    load = "+rebind(zero)",
+    load = ([[+rebind(zero)+transform:if %s && [ "$FZF_MATCH_COUNT" -eq 0 ]; %s]]):format(condition, fallback),
   }
 end
 
@@ -102,6 +117,7 @@ function M.find_files(opts)
   -- its existence is what includes the ignored files, so toggling them is a
   -- reload of the same command rather than a new picker
   local flag = vim.fn.tempname()
+  local auto = vim.fn.tempname()
 
   fzf.files({
     cwd = cwd,
@@ -111,7 +127,7 @@ function M.find_files(opts)
     -- the command always mentions --no-ignore, so the flags would say ignored
     -- files are listed whether or not they are
     winopts = { title_flags = false },
-    keymap = { fzf = zero_match_binds(flag) },
+    keymap = { fzf = zero_match_binds(flag, auto) },
     actions = {
       [TOGGLE_IGNORED_KEY] = {
         fn = function()
@@ -125,9 +141,6 @@ function M.find_files(opts)
       },
       ["alt-h"] = false,
       ["alt-f"] = false,
-      ["ctrl-a"] = function()
-        fzf.buffers({ query = fzf.get_last_query() })
-      end,
     },
   })
 end

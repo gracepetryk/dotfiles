@@ -7,7 +7,6 @@ local langs = vim.tbl_extend("keep", nvim_treesitter.get_available(STABLE), nvim
 local exclude_langs = {
   "jinja",
   "jinja_inline",
-  "TelescopePrompt",
   "dap-view",
   "dap-repl",
   "csv",
