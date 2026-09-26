@@ -7,7 +7,7 @@ end
 return {
   {
     "gracepetryk/rose-pine",
-    dev = true,
+    -- dev = true,
     branch = "custom",
     lazy = false,
     config = load_config("plugins.colors"),
