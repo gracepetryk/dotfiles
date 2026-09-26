@@ -39,6 +39,10 @@
     "pyright-lsp@claude-plugins-official": true,
     "ruby-lsp@claude-plugins-official": true
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "effortLevel": "medium",
   "theme": "auto",
   "preferredNotifChannel": "notifications_disabled",
