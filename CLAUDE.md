@@ -42,7 +42,7 @@ The nvim config uses lazy.nvim for plugin management and is organized as follows
   - `commands.lua`: Custom commands
   - `abbrev.lua`: Abbreviations
   - `autosave.lua`: Auto-save functionality
-- `lua/plugins/`: Plugin-specific configurations (colors, telescope, lsp, etc.)
+- `lua/plugins/`: Plugin-specific configurations (colors, fzf, lsp, etc.)
 - `lua/specs/`: Additional plugin specs
 - `after/`: Filetype-specific configurations
 - `ftplugin/`: Language-specific settings
