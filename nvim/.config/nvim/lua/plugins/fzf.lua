@@ -7,15 +7,13 @@ local function to_buffers()
   fzf.buffers({ query = fzf.get_last_query() })
 end
 
---- Recently used files, then tracked files, then everything including ignored
---- files. The history scheme scores without position bonuses, so matches tie
---- often, and a tie goes to whichever picker listed the file first.
+--- Files under cwd, frecently used ones first. Sorting stays on, with the
+--- history scheme: it scores without position bonuses, so matches tie often,
+--- and a tie goes to the more frecent file.
 local function find_files(opts)
-  fzf.combine(vim.tbl_extend("force", {
-    pickers = "history;git_files;files",
+  require("fzf-lua-frecency").frecency(vim.tbl_deep_extend("force", {
     cwd_only = true,
-    no_ignore = true,
-    fzf_opts = { ["--scheme"] = "history" },
+    fzf_opts = { ["--no-sort"] = false, ["--scheme"] = "history" },
     actions = { ["ctrl-a"] = to_buffers },
   }, opts or {}))
 end
@@ -37,6 +35,9 @@ fzf.setup({
     },
   },
 })
+
+-- tracks scores from BufEnter, so it has to run before the first picker does
+require("fzf-lua-frecency").setup()
 
 vim.keymap.set("n", "<leader>ff", fzf.buffers)
 vim.keymap.set("n", "<leader>fh", fzf.helptags)

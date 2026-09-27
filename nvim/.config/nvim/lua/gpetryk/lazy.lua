@@ -55,6 +55,7 @@ return {
     config = load_config("plugins.fzf"),
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
+      { "elanmed/fzf-lua-frecency.nvim" },
     },
     event = "VeryLazy",
   },
