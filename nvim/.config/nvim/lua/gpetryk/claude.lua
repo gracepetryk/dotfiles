@@ -35,46 +35,23 @@ local function list_claude_windows()
   return windows
 end
 
--- Opens a telescope picker to choose between multiple Claude windows.
+-- Prompts for which of several Claude windows to use.
 local function pick_claude_window(windows, on_choice)
-  local pickers = require("telescope.pickers")
-  local finders = require("telescope.finders")
-  local conf = require("telescope.config").values
-  local actions = require("telescope.actions")
-  local action_state = require("telescope.actions.state")
-
-  pickers
-    .new({}, {
-      prompt_title = "Claude Sessions",
-      finder = finders.new_table({
-        results = windows,
-        entry_maker = function(win)
-          local label = win.title or "Claude"
-          return {
-            value = win,
-            display = label,
-            ordinal = label,
-          }
-        end,
-      }),
-      sorter = conf.generic_sorter({}),
-      attach_mappings = function(prompt_bufnr)
-        actions.select_default:replace(function()
-          actions.close(prompt_bufnr)
-          local selection = action_state.get_selected_entry()
-          if selection then
-            on_choice(selection.value)
-          end
-        end)
-        return true
-      end,
-    })
-    :find()
+  vim.ui.select(windows, {
+    prompt = "Claude Sessions",
+    format_item = function(win)
+      return win.title or "Claude"
+    end,
+  }, function(win)
+    if win then
+      on_choice(win)
+    end
+  end)
 end
 
 -- Resolves which Claude window to target, then invokes callback with a kitty
 -- match string (e.g. "id:42"). Logs an error if no session is running, and
--- prompts with a telescope picker if multiple sessions exist.
+-- prompts for one if multiple sessions exist.
 local function resolve_claude(callback)
   local windows = list_claude_windows()
 

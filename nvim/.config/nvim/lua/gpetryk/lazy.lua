@@ -51,12 +51,11 @@ return {
     },
   },
   {
-    "nvim-telescope/telescope.nvim",
-    config = load_config("plugins.telescope"),
+    "ibhagwan/fzf-lua",
+    config = load_config("plugins.fzf"),
     dependencies = {
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope-ui-select.nvim" },
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "nvim-tree/nvim-web-devicons" },
+      { "elanmed/fzf-lua-frecency.nvim" },
     },
     event = "VeryLazy",
   },
