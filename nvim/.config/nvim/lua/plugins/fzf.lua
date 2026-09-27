@@ -7,13 +7,11 @@ local function to_buffers()
   fzf.buffers({ query = fzf.get_last_query() })
 end
 
---- Files under cwd, frecently used ones first. Sorting stays on, with the
---- history scheme: it scores without position bonuses, so matches tie often,
---- and a tie goes to the more frecent file.
+--- Files under cwd, frecently used ones first in score order, whatever else
+--- the query matches.
 local function find_files(opts)
   require("fzf-lua-frecency").frecency(vim.tbl_deep_extend("force", {
     cwd_only = true,
-    fzf_opts = { ["--no-sort"] = false, ["--scheme"] = "history" },
     actions = { ["ctrl-a"] = to_buffers },
   }, opts or {}))
 end
