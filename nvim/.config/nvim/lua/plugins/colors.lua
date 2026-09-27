@@ -6,4 +6,3 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.cmd.colorscheme("rose-pine")
   end,
 })
-

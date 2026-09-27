@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -e
+
+root=$(git rev-parse --show-toplevel)
+
+# Match the stylua version pinned in CI.
+version=$(sed -n 's/^ *version: *//p' "$root/.github/workflows/lint.yml")
+if [ -z "$version" ]; then
+  echo "pre-push: could not read stylua version from .github/workflows/lint.yml" >&2
+  exit 1
+fi
+
+if command -v stylua &>/dev/null && [ "$(stylua --version)" = "stylua $version" ]; then
+  stylua=(stylua)
+elif command -v npx &>/dev/null; then
+  stylua=(npx -y "@johnnymorganz/stylua-bin@$version")
+else
+  echo "pre-push: stylua $version not found and npx unavailable" >&2
+  echo "pre-push: install stylua $version or node, or push with --no-verify" >&2
+  exit 1
+fi
+
+if ! "${stylua[@]}" --check "$root/nvim/.config/nvim/"; then
+  echo "pre-push: stylua check failed, run: ${stylua[*]} nvim/.config/nvim/" >&2
+  exit 1
+fi
