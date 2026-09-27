@@ -7,14 +7,7 @@ local function to_buffers()
   fzf.buffers({ query = fzf.get_last_query() })
 end
 
---- Files under cwd, frecently used ones first in score order, whatever else
---- the query matches.
-local function find_files(opts)
-  require("fzf-lua-frecency").frecency(vim.tbl_deep_extend("force", {
-    cwd_only = true,
-    actions = { ["ctrl-a"] = to_buffers },
-  }, opts or {}))
-end
+local frecency = require("fzf-lua-frecency")
 
 fzf.setup({
   ui_select = {},
@@ -28,14 +21,18 @@ fzf.setup({
   buffers = {
     actions = {
       ["ctrl-a"] = function()
-        find_files({ query = fzf.get_last_query() })
+        frecency.frecency({ query = fzf.get_last_query() })
       end,
     },
   },
 })
 
--- tracks scores from BufEnter, so it has to run before the first picker does
-require("fzf-lua-frecency").setup()
+-- tracks scores from BufEnter, so it has to run before the first picker does;
+-- options given here are the defaults for every frecency picker
+frecency.setup({
+  cwd_only = true,
+  actions = { ["ctrl-a"] = to_buffers },
+})
 
 vim.keymap.set("n", "<leader>ff", fzf.buffers)
 vim.keymap.set("n", "<leader>fh", fzf.helptags)
@@ -43,9 +40,7 @@ vim.keymap.set("n", "<leader>fr", fzf.resume)
 vim.keymap.set("n", "<leader>/", fzf.blines)
 vim.keymap.set("n", "<leader>t", fzf.builtin)
 
-vim.keymap.set("n", "<leader>fa", function()
-  find_files()
-end)
+vim.keymap.set("n", "<leader>fa", frecency.frecency)
 
 vim.keymap.set("n", "<leader>FA", function()
   fzf.files({ hidden = true, no_ignore = true })
@@ -86,9 +81,9 @@ for _, m in ipairs(vim.api.nvim_get_keymap("n")) do
   end
 end
 
---- Maps `keymap` to the LSP picker `fn`, and `<leader>keymap` to the same
---- picker opened from a fresh vertical split.
-local function map_lsp(keymap, fn)
+--- Maps `keymap` to the picker `fn`, and `<leader>keymap` to the same picker
+--- opened from a fresh vertical split.
+local function map_with_vsplit(keymap, fn)
   vim.keymap.set("n", keymap, fn)
   vim.keymap.set("n", "<leader>" .. keymap, function()
     vim.cmd.only()
@@ -100,7 +95,7 @@ local function map_lsp(keymap, fn)
   end)
 end
 
-map_lsp("gr", fzf.lsp_references)
-map_lsp("gi", fzf.lsp_implementations)
-map_lsp("gd", fzf.lsp_definitions)
-map_lsp("gt", fzf.lsp_typedefs)
+map_with_vsplit("gr", fzf.lsp_references)
+map_with_vsplit("gi", fzf.lsp_implementations)
+map_with_vsplit("gd", fzf.lsp_definitions)
+map_with_vsplit("gt", fzf.lsp_typedefs)
