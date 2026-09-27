@@ -1,8 +1,5 @@
 local fzf = require("fzf-lua")
 
--- --ignore-case rather than fzf-lua's --smart-case default
-local RG_OPTS = "--column --line-number --no-heading --color=always --ignore-case --max-columns=4096"
-
 local function to_buffers()
   fzf.buffers({ query = fzf.get_last_query() })
 end
@@ -15,7 +12,8 @@ fzf.setup({
     actions = { ["ctrl-a"] = to_buffers },
   },
   grep = {
-    rg_opts = RG_OPTS .. " -g '!.git' -g '!node_modules' -e",
+    -- fzf-lua's default, plus skipping .git now that hidden files are searched
+    rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g '!.git' -e",
     hidden = true,
   },
   buffers = {
@@ -53,7 +51,7 @@ end)
 vim.keymap.set("n", "<leader>fg", fzf.live_grep)
 
 vim.keymap.set("n", "<leader>FG", function()
-  fzf.live_grep({ no_ignore = true, rg_opts = RG_OPTS .. " -g '!.git' -e" })
+  fzf.live_grep({ no_ignore = true })
 end)
 
 -- live_grep reads globs from the query after " -- ", so this seeds the query
