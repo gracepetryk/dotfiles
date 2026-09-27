@@ -1,30 +1,32 @@
 local fzf = require("fzf-lua")
-local fzf_files = require("plugins.fzf_files")
-local find_files = fzf_files.find_files
 
 -- --ignore-case rather than fzf-lua's --smart-case default
 local RG_OPTS = "--column --line-number --no-heading --color=always --ignore-case --max-columns=4096"
 
-local function exclude_globs(dirs)
-  return table.concat(
-    vim.tbl_map(function(dir)
-      return "-g " .. vim.fn.shellescape("!" .. dir)
-    end, dirs),
-    " "
-  )
+local function to_buffers()
+  fzf.buffers({ query = fzf.get_last_query() })
+end
+
+--- Recently used files, then tracked files, then everything including ignored
+--- files. The history scheme scores without position bonuses, so matches tie
+--- often, and a tie goes to whichever picker listed the file first.
+local function find_files(opts)
+  fzf.combine(vim.tbl_extend("force", {
+    pickers = "history;git_files;files",
+    cwd_only = true,
+    no_ignore = true,
+    fzf_opts = { ["--scheme"] = "history" },
+    actions = { ["ctrl-a"] = to_buffers },
+  }, opts or {}))
 end
 
 fzf.setup({
   ui_select = {},
   files = {
-    actions = {
-      ["ctrl-a"] = function()
-        fzf.buffers({ query = fzf.get_last_query() })
-      end,
-    },
+    actions = { ["ctrl-a"] = to_buffers },
   },
   grep = {
-    rg_opts = RG_OPTS .. " " .. exclude_globs(fzf_files.EXCLUDED_DIRS) .. " -e",
+    rg_opts = RG_OPTS .. " -g '!.git' -g '!node_modules' -e",
     hidden = true,
   },
   buffers = {
@@ -57,7 +59,7 @@ end)
 vim.keymap.set("n", "<leader>fg", fzf.live_grep)
 
 vim.keymap.set("n", "<leader>FG", function()
-  fzf.live_grep({ no_ignore = true, rg_opts = RG_OPTS .. " " .. exclude_globs({ ".git" }) .. " -e" })
+  fzf.live_grep({ no_ignore = true, rg_opts = RG_OPTS .. " -g '!.git' -e" })
 end)
 
 -- live_grep reads globs from the query after " -- ", so this seeds the query
