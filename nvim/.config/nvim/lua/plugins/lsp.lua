@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       },
     }
 
-    vim.cmd.highlight('DiagnosticUnderlineHint gui=NONE')
+    vim.cmd.highlight("DiagnosticUnderlineHint gui=NONE")
 
     vim.keymap.set("n", "<A-]>", function()
       vim.diagnostic.jump({ count = 1 })
@@ -250,22 +250,22 @@ vim.lsp.config("ty", {
   },
 })
 
-vim.lsp.config('ruff', {
-  root_markers = {'ruff.toml', unpack(vim.lsp.config.ruff.root_markers)}
+vim.lsp.config("ruff", {
+  root_markers = { "ruff.toml", unpack(vim.lsp.config.ruff.root_markers) },
 })
 
-local vue_language_server_path = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
-local tsserver_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
+local vue_language_server_path = vim.fn.stdpath("data")
+  .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+local tsserver_filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" }
 
 local vue_plugin = {
-  name = '@vue/typescript-plugin',
+  name = "@vue/typescript-plugin",
   location = vue_language_server_path,
-  languages = { 'vue' },
-  configNamespace = 'typescript',
+  languages = { "vue" },
+  configNamespace = "typescript",
 }
 
-
-vim.lsp.config('vtsls', {
+vim.lsp.config("vtsls", {
   settings = {
     vtsls = {
       tsserver = {
