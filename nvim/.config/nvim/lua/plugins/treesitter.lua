@@ -2,16 +2,12 @@ local nvim_treesitter = require("nvim-treesitter")
 
 local STABLE = 1
 local UNSTABLE = 2
-local langs = vim.tbl_extend("keep", nvim_treesitter.get_available(STABLE), nvim_treesitter.get_available(UNSTABLE))
+local langs = vim.list_extend(nvim_treesitter.get_available(STABLE), nvim_treesitter.get_available(UNSTABLE))
 
 local exclude_langs = {
   "jinja",
   "jinja_inline",
-  "TelescopePrompt",
-  "dap-view",
-  "dap-repl",
   "csv",
-  "Dockerfile",
 }
 
 local exclude_indent = { "javascript" }
