@@ -1,5 +1,15 @@
 local fzf = require("fzf-lua")
 
+-- git internals that are only noise in search results, in the repo's own .git
+-- and in submodules' under .git/modules; the rest (config, info/exclude, real
+-- hooks) stays searchable
+local GIT_NOISE_GLOBS = table.concat(
+  vim.tbl_map(function(path)
+    return "-g '!**/.git/**/" .. path .. "'"
+  end, { "objects", "logs", "refs", "packed-refs", "hooks/*.sample" }),
+  " "
+)
+
 local function to_buffers()
   fzf.buffers({ query = fzf.get_last_query() })
 end
@@ -12,8 +22,10 @@ fzf.setup({
     actions = { ["ctrl-a"] = to_buffers },
   },
   grep = {
-    -- fzf-lua's default, plus skipping .git now that hidden files are searched
-    rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g '!.git' -e",
+    -- fzf-lua's default, plus skipping git noise now that hidden files are searched
+    rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 "
+      .. GIT_NOISE_GLOBS
+      .. " -e",
     hidden = true,
   },
   buffers = {
