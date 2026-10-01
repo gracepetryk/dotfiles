@@ -5,6 +5,11 @@
   "permissions": {
     "defaultMode": "auto"
   },
+  "model": "opus[1m]",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "hooks": {
     "Notification": [
       {
@@ -45,6 +50,5 @@
   },
   "effortLevel": "medium",
   "theme": "auto",
-  "preferredNotifChannel": "notifications_disabled",
-  "model": "opus"
+  "preferredNotifChannel": "notifications_disabled"
 }

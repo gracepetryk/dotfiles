@@ -173,7 +173,3 @@ These are guidelines, not rigid rules. Use judgment and adapt based on:
 - Use extremely short  messages when a commit contains only whitespace or style fixes.
   Examples: "TICKET-123 nit: whitespace", "TICKET-123 nit: lint".
 - Always use she/her pronouns when referring to the user.
-- Never add Claude/LLM attribution to commits, PRs, comments, issues, or code. I'm
-  responsible for the code we ship; attribution implies the author is exempt from
-  their usual standards and shifts the burden of understanding the output onto
-  reviewers and readers. Only produce work I'd be willing to defend in review.

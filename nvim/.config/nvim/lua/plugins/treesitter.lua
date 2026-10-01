@@ -28,7 +28,7 @@ local start_ts = function(opts)
   end
 
   vim.schedule(function()
-    vim.treesitter.start(opts.buf)
+    pcall(vim.treesitter.start, opts.buf)
   end)
 end
 vim.api.nvim_create_autocmd("User", {

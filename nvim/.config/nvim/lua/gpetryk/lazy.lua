@@ -184,9 +184,6 @@ return {
     "nvim-java/nvim-java",
     ft = "java",
     config = load_config("plugins.nvim_java"),
-    dependencies = {
-      { "gracepetryk/nvim-java-test", branch = "fork" },
-    },
   },
   { "rodjek/vim-puppet", ft = "puppet" },
   { "lepture/vim-jinja", ft = "html" },
