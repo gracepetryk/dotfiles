@@ -1,16 +1,16 @@
 local java = require("java")
 local dap = require("dap")
-local log = require('java-core.utils.log2')
+local log = require("java-core.utils.log2")
 
 java.setup({
   spring_boot_tools = { enable = false },
   log = {
     use_console = false,
-    level = 'info'
-  }
+    level = "info",
+  },
 })
 
-vim.print('setup')
+vim.print("setup")
 
 vim.lsp.config("jdtls", {
   -- @param client vim.lsp.Client
@@ -24,11 +24,11 @@ vim.lsp.config("jdtls", {
       configuration = {
         runtimes = {
           {
-            name = 'JavaSE-17',
-            path = '/opt/homebrew/Cellar/openjdk@17/17.0.20.1/libexec/openjdk.jdk/Contents/Home',
-            default=true
-          }
-        }
+            name = "JavaSE-17",
+            path = "/opt/homebrew/Cellar/openjdk@17/17.0.20.1/libexec/openjdk.jdk/Contents/Home",
+            default = true,
+          },
+        },
       },
       inlayHints = {
         parameterNames = {
@@ -58,7 +58,7 @@ local function setup_listener()
     session.config.classPaths = #session.config.classPaths
     -- vim.schedule_wrap(vim.print)(vim.inspect(session.config))
     java.test.view_last_report()
-    log.info('would have shown report here')
+    log.info("would have shown report here")
     dap.listeners.after["event_terminated"]["gpetryk"] = nil
   end
 end

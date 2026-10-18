@@ -49,10 +49,8 @@ local function frecency_picker(opts)
   end
 
   -- fzf runs inside an nvim terminal, so $NVIM is this session's server
-  local on_result = (
-    [[%s -q '^ *[0-9]' '{*f}' >/dev/null; %s --server "$NVIM" --headless -u NONE --remote-expr "v:lua.FrecencyOnResult($?)"]]
-  ):format(
-    vim.fn.shellescape(vim.fn.exepath('rg') or vim.fn.exepath('grep')),
+  local on_result = ([[%s -q '^ *[0-9]' '{*f}' >/dev/null; %s --server "$NVIM" --headless -u NONE --remote-expr "v:lua.FrecencyOnResult($?)"]]):format(
+    vim.fn.shellescape(vim.fn.exepath("rg") or vim.fn.exepath("grep")),
     vim.fn.shellescape(vim.v.progpath)
   )
 
@@ -71,14 +69,14 @@ end
 
 fzf.setup({
   -- preview below the results so long paths get the full window width
-  winopts = { preview = { horizontal="right:45%" }, cursorline = true},
+  winopts = { preview = { horizontal = "right:45%" }, cursorline = true },
   defaults = { formatter = "path.filename_first" },
   -- `[1] = true` keeps fzf-lua's other default binds
   keymap = {
     -- builtin previewer
     builtin = { [1] = true, ["<M-p>"] = "toggle-preview" },
     -- fzf previewers (bat, git, etc.)
-    fzf = { true, ["alt-p"] = "toggle-preview" , ['change'] = 'first'},
+    fzf = { true, ["alt-p"] = "toggle-preview", ["change"] = "first" },
   },
   ui_select = {},
   files = {
@@ -86,9 +84,9 @@ fzf.setup({
   },
   grep = {
     -- fzf-lua's default, plus skipping git noise now that hidden files are searched
-    rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 "
-      .. git_noise_flags("-g '!%s'")
-      .. " -e",
+    rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 " .. git_noise_flags(
+      "-g '!%s'"
+    ) .. " -e",
     hidden = true,
   },
   buffers = {
