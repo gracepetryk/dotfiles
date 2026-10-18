@@ -24,9 +24,13 @@ end
 
 local frecency = require("fzf-lua-frecency")
 
+-- how many of the matched lines are checked for a scored file
+local FRECENT_SCAN_LIMIT = 50
+
 --- Opens the frecency picker, which lists scored files first and then the rest
---- unsorted. fzf keeps that order while the query matches a scored file (those
---- lines start with their score), and sorts by match quality once none do.
+--- unsorted. fzf keeps that order while one of the first `FRECENT_SCAN_LIMIT`
+--- matches is a scored file (those lines start with their score), and sorts by
+--- match quality once none are.
 ---@param opts? table options for `frecency.frecency`
 local function frecency_picker(opts)
   -- the picker starts unsorted, as if the query matched a scored file
@@ -34,14 +38,9 @@ local function frecency_picker(opts)
 
   -- called by the `result` bind below with the path of a file of all matched
   -- lines; the returned string is run as fzf actions
-  _G.FrecencyOnResult = function(path)
-    local now_has_frecent = false
-    for line in io.lines(path) do
-      if line:find("^ *%d") then
-        now_has_frecent = true
-        break
-      end
-    end
+  _G.FrecencyOnResult = function(frecent_search_exit_code)
+    local now_has_frecent = frecent_search_exit_code == 0
+
     if now_has_frecent == has_frecent_results then
       return ""
     end
@@ -50,11 +49,23 @@ local function frecency_picker(opts)
   end
 
   -- fzf runs inside an nvim terminal, so $NVIM is this session's server
-  local on_result = ([[%s --server "$NVIM" --headless -u NONE --remote-expr "v:lua.FrecencyOnResult('{*f}')"]]):format(
+  local on_result = (
+    [[%s -q '^ *[0-9]' '{*f}' >/dev/null; %s --server "$NVIM" --headless -u NONE --remote-expr "v:lua.FrecencyOnResult($?)"]]
+  ):format(
+    vim.fn.shellescape(vim.fn.exepath('rg') or vim.fn.exepath('grep')),
     vim.fn.shellescape(vim.v.progpath)
   )
+
   frecency.frecency(vim.tbl_deep_extend("force", opts or {}, {
-    keymap = { fzf = { result = "transform:" .. on_result } },
+    keymap = {
+      fzf = {
+        -- toggles like alt-i and `fzf.resume` restart fzf, which starts unsorted again
+        start = function()
+          has_frecent_results = true
+        end,
+        result = "transform:" .. on_result,
+      },
+    },
   }))
 end
 
@@ -62,6 +73,13 @@ fzf.setup({
   -- preview below the results so long paths get the full window width
   winopts = { preview = { horizontal="right:45%" }, cursorline = true},
   defaults = { formatter = "path.filename_first" },
+  -- `[1] = true` keeps fzf-lua's other default binds
+  keymap = {
+    -- builtin previewer
+    builtin = { [1] = true, ["<M-p>"] = "toggle-preview" },
+    -- fzf previewers (bat, git, etc.)
+    fzf = { true, ["alt-p"] = "toggle-preview" , ['change'] = 'first'},
+  },
   ui_select = {},
   files = {
     actions = { ["ctrl-a"] = to_buffers },
