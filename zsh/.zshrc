@@ -277,3 +277,4 @@ eval "$(direnv export zsh 2>!$tmpfile)"
 grep 'direnv: error' $tmpfile # catch disallowed .envrc files on startup
 
 eval "$(direnv hook zsh)"
+set +o noclobber

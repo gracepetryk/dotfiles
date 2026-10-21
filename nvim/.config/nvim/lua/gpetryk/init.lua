@@ -7,7 +7,7 @@ require("lazy").setup({
     { import = "specs" },
   },
   dev = {
-    path = "~/repos/",
+    path = "~/code/",
   },
   change_detection = {
     enabled = true,

@@ -16,6 +16,12 @@ langs = vim.tbl_filter(function(entry)
   return not vim.tbl_contains(exclude_langs, entry)
 end, langs)
 
+-- FileType autocmds match filetypes, which differ from parser names (e.g. typescriptreact -> tsx)
+local filetypes = {}
+for _, lang in ipairs(langs) do
+  vim.list_extend(filetypes, vim.treesitter.language.get_filetypes(lang))
+end
+
 local start_ts = function(opts)
   opts = opts or {}
 
@@ -49,17 +55,18 @@ vim.api.nvim_create_autocmd("User", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = langs,
+  pattern = filetypes,
   callback = function(opts)
     local ft = vim.bo.filetype
+    local lang = vim.treesitter.language.get_lang(ft) or ft
     local installed = nvim_treesitter.get_installed()
 
     local wrapped_start_ts = function()
       start_ts({ buf = opts.buf, indent = not vim.tbl_contains(exclude_indent, ft) })
     end
 
-    if not vim.tbl_contains(installed, ft) then
-      nvim_treesitter.install(ft):await(wrapped_start_ts)
+    if not vim.tbl_contains(installed, lang) then
+      nvim_treesitter.install(lang):await(wrapped_start_ts)
     else
       wrapped_start_ts()
     end
