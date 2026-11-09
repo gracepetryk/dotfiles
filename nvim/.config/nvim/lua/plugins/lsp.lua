@@ -60,10 +60,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end
     end)
 
-    -- ---@param diagnostic vim.Diagnostic
-    -- local function fmt_vtext(diagnostic)
-    -- end
-
     -- Split a string into multiple lines, each no longer than max_width
     -- The split will only occur on spaces to preserve readability
     -- @param str string
@@ -100,21 +96,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
       return lines
     end
 
+    -- Format a diagnostic as virtual lines wrapped to fit the window's text area
     ---@param diagnostic vim.Diagnostic
-    local function virtual_lines_format(diagnostic)
-      -- Only render hints on the current line
-      -- Note this MUST be paired with an autocmd that hides/shows diagnostics to force a re-render
-      if diagnostic.severity == vim.diagnostic.severity.HINT and diagnostic.lnum + 1 ~= vim.fn.line(".") then
-        return nil
-      end
-
+    local function wrap_diagnostic(diagnostic)
       local win = vim.api.nvim_get_current_win()
       local sign_column_width = vim.fn.getwininfo(win)[1].textoff
       local text_area_width = vim.api.nvim_win_get_width(win) - sign_column_width
       local center_width = 5
       local left_width = 1
 
-      local message = string.format("%s: %s [%s]", diagnostic.code, diagnostic.message, diagnostic.source)
+      local message = string.format("%s [%s]", diagnostic.message, diagnostic.source)
+      if diagnostic.code then
+        message = diagnostic.code .. ": " .. message
+      end
 
       ---@type string[]
       local lines = {}
@@ -124,6 +118,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end
 
       return table.concat(lines, "\n")
+    end
+
+    ---@param diagnostic vim.Diagnostic
+    local function virtual_lines_format(diagnostic)
+      -- Only render hints on the current line
+      -- Note this MUST be paired with an autocmd that hides/shows diagnostics to force a re-render
+      if diagnostic.severity == vim.diagnostic.severity.HINT and diagnostic.lnum + 1 ~= vim.fn.line(".") then
+        return nil
+      end
+
+      return wrap_diagnostic(diagnostic)
     end
 
     ---@type integer?
@@ -153,7 +158,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       if winid and vim.api.nvim_win_is_valid(winid) then
         vim.api.nvim_win_close(winid, false)
       end
-      vim.diagnostic.config({ virtual_lines = { format = fmt_vtext, current_line = false } })
+      vim.diagnostic.config({ virtual_lines = { format = wrap_diagnostic, current_line = false } })
     end
 
     vim.keymap.set("n", "<C-e>", open_diag_float)
@@ -282,5 +287,7 @@ vim.lsp.enable("ty")
 vim.lsp.enable("ruff")
 vim.lsp.enable("vtsls")
 vim.lsp.enable("vue_ls")
+vim.lsp.enable("eslint")
+vim.lsp.enable("oxlint")
 
 -- vim.lsp.enable('terraformls')

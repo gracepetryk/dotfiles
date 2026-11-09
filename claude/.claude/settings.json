@@ -2,14 +2,14 @@
   "env": {
     "ENABLE_PROMPT_CACHING_1H": "1"
   },
-  "permissions": {
-    "defaultMode": "auto"
-  },
-  "model": "opus[1m]",
   "attribution": {
     "commit": "",
     "pr": ""
   },
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -42,11 +42,8 @@
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true
-  },
-  "attribution": {
-    "commit": "",
-    "pr": ""
+    "ruby-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
   },
   "effortLevel": "medium",
   "theme": "auto",
