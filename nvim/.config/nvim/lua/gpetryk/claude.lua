@@ -16,8 +16,14 @@ local function kitten(args)
   return result
 end
 
--- Returns true if any of the window's foreground processes is running claude.
+-- Returns true if the window is running claude, either as a local foreground
+-- process or, over ssh, as the command the remote shell integration reported.
 local function is_claude_window(win)
+  local cmdline = win.last_reported_cmdline or ""
+  if not win.at_prompt and (cmdline == "claude" or cmdline:match("^claude%s")) then
+    return true
+  end
+
   for _, proc in ipairs(win.foreground_processes or {}) do
     local exe = proc.cmdline and proc.cmdline[1]
     if exe and exe:match("claude$") then
