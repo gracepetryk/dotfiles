@@ -1,3 +1,21 @@
+-- Selects kitty's remote control auth check for these commands (see
+-- remote_control_password in kitty.conf). Not a secret.
+local KITTY_RC_PASSWORD = "nvim-claude"
+
+-- Runs `kitten @ <args>` and echoes kitten's error if it fails (e.g. when the
+-- remote control auth check rejects the command).
+local function kitten(args)
+  local cmd = vim.list_extend({ "kitten", "@", "--password", KITTY_RC_PASSWORD }, args)
+  local result = vim.system(cmd):wait()
+  if result.code ~= 0 then
+    local msg = vim.trim(result.stderr or "")
+    vim.schedule(function()
+      vim.api.nvim_echo({ { "kitten @ " .. args[1] .. " failed: " .. msg, "ErrorMsg" } }, true, {})
+    end)
+  end
+  return result
+end
+
 -- Returns true if any of the window's foreground processes is running claude.
 local function is_claude_window(win)
   for _, proc in ipairs(win.foreground_processes or {}) do
@@ -11,7 +29,7 @@ end
 
 -- Returns a list of kitty window objects running a claude process.
 local function list_claude_windows()
-  local result = vim.system({ "kitten", "@", "ls", "--match-tab", "state:active" }):wait()
+  local result = kitten({ "ls", "--match-tab", "state:active" })
   if result.code ~= 0 then
     return {}
   end
@@ -71,7 +89,7 @@ end
 local function switch_to_claude()
   vim.schedule(function()
     resolve_claude(vim.schedule_wrap(function(match)
-      vim.system({ "kitten", "@", "focus-window", "--match", match }):wait()
+      kitten({ "focus-window", "--match", match })
     end))
   end)
 end
@@ -79,10 +97,10 @@ end
 local function send_to_claude(text, focus)
   vim.schedule(function()
     resolve_claude(function(match)
-      vim.system({ "kitten", "@", "send-text", "--match", match, text .. " " }):wait()
+      kitten({ "send-text", "--match", match, text .. " " })
 
       if focus then
-        vim.system({ "kitten", "@", "focus-window", "--match", match }):wait()
+        kitten({ "focus-window", "--match", match })
       end
     end)
   end)
