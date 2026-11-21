@@ -260,6 +260,14 @@ if (( ${+commands[bat]} )); then
 fi
 
 
+# Copy stdin to the local clipboard via OSC 52 (works over ssh)
+if (( ! ${+commands[pbcopy]} )); then
+  pbcopy() {
+    printf '\e]52;c;%s\a' "$(base64 | tr -d '\n')" > /dev/tty
+  }
+fi
+
+
 fnm use --log-level=quiet
 eval "$(fnm env --use-on-cd --shell zsh --log-level=quiet)"
 
