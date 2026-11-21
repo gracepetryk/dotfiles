@@ -1,6 +1,6 @@
 """Remote control auth for the nvim send-to-claude actions (nvim/lua/gpetryk/claude.lua).
 
-Referenced by `remote_control_password` in local.conf. Only allows the commands
+Referenced by `remote_control_password` in kitty.conf. Only allows the commands
 those actions use, and only lets send-text deliver a single file reference of the
 form `@path:123` or `@path:123-456`.
 
