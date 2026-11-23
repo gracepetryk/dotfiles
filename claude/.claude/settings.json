@@ -47,5 +47,6 @@
   },
   "effortLevel": "medium",
   "theme": "auto",
-  "preferredNotifChannel": "notifications_disabled"
+  "preferredNotifChannel": "notifications_disabled",
+  "autoMemoryEnabled": false
 }
